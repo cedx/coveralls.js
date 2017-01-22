@@ -1,0 +1,49 @@
+{
+  "description": "Send LCOV coverage reports to the Coveralls service.",
+  "homepage": "https://github.com/cedx/coveralls.js",
+  "name": "@cedx/coveralls",
+
+  "author": "Cédric Belin <cedric@belin.io>",
+  "bugs": "https://github.com/cedx/coveralls.js/issues",
+  "license": "Apache-2.0",
+  "repository": "cedx/coveralls.js",
+  "version": "0.1.0",
+
+  "jsnext:main": "./src/index",
+  "main": "./lib/index",
+
+  "dependencies": {
+    "@cedx/lcov": "^0.2.0"
+  },
+  "devDependencies": {
+    "@cedx/gulp-david": "^3.1.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "coveralls": "^2.11.15",
+    "del": "^2.2.2",
+    "esdoc": "^0.5.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-mocha": "^3.0.1",
+    "isparta": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "keywords": [
+    "client",
+    "code",
+    "coverage",
+    "coveralls",
+    "lcov",
+    "parser"
+  ],
+  "scripts": {
+    "coverage": "cat var/lcov.info | coveralls",
+    "prepublish": "gulp build",
+    "test": "gulp test"
+  }
+}
