@@ -38,8 +38,7 @@
     "code",
     "coverage",
     "coveralls",
-    "lcov",
-    "parser"
+    "lcov"
   ],
   "scripts": {
     "coverage": "cat var/lcov.info | coveralls",
