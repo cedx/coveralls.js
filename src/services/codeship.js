@@ -1,9 +1,11 @@
+import {Configuration} from '../configuration';
+
 /**
  * Gets the [Codeship](https://codeship.com) configuration parameters from the environment.
- * @return {object} The configuration parameters.
+ * @return {Configuration} The configuration parameters.
  */
 export function getConfiguration() {
-  return {
+  return new Configuration({
     git_branch: process.env.CI_BRANCH,
     git_commit: process.env.CI_COMMIT_ID,
     git_committer_email: process.env.CI_COMMITTER_EMAIL,
@@ -11,5 +13,5 @@ export function getConfiguration() {
     git_message: process.env.CI_COMMIT_MESSAGE,
     service_job_id: process.env.CI_BUILD_NUMBER,
     service_name: 'codeship'
-  };
+  });
 }
