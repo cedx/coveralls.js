@@ -17,6 +17,14 @@ export class Configuration {
   }
 
   /**
+   * Returns a new iterator that allows iterating the keys of this configuration.
+   * @return {Generator} An iterator for the keys of this configuration.
+   */
+  *[Symbol.iterator]() {
+    for (let key in this._params) yield key;
+  }
+
+  /**
    * Gets the value of the configuration parameter with the specified name.
    * @param {string} name The name of the configuration parameter.
    * @param {*} defaultValue The default parameter value if it does not exist.
