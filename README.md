@@ -24,6 +24,7 @@ TODO
 - [GitLab CI](https://gitlab.com)
 - [Jenkins](https://jenkins.io)
 - [Semaphore](https://semaphoreci.com)
+- [Solano CI](https://ci.solanolabs.com)
 - [Surf](https://github.com/surf-build/surf)
 - [Travis CI](https://travis-ci.com)
 - [Wercker](http://www.wercker.com)
