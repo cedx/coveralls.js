@@ -144,6 +144,14 @@ export class Configuration {
   }
 
   /**
+   * Converts this object to a map in JSON format.
+   * @return {object} The map in JSON format corresponding to this object.
+   */
+  toJSON() {
+    return this._params;
+  }
+
+  /**
    * Returns a string representation of this object.
    * @return {string} The string representation of this object.
    */
