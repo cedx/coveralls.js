@@ -7,10 +7,10 @@ export class SourceFile {
    * Initializes a new instance of the class.
    * @param {string} [name] The file path of this source file.
    * @param {string} [sourceDigest] The MD5 digest of the full source code of this file.
-   * @param {int[]} [coverage] The coverage data for this file's job.
    * @param {string} [source] The contents of this source file.
+   * @param {int[]} [coverage] The coverage data for this file's job.
    */
-  constructor(name = '', sourceDigest = '', coverage = [], source = '') {
+  constructor(name = '', sourceDigest = '', source = '', coverage = []) {
 
     /**
      * The coverage data for this file's job.
@@ -46,8 +46,8 @@ export class SourceFile {
     return !map || typeof map != 'object' ? null : new SourceFile(
       typeof map.name == 'string' ? map.name : '',
       typeof map.source_digest == 'string' ? map.source_digest : '',
-      Array.isArray(map.coverage) ? map.coverage : [],
-      typeof map.source == 'string' ? map.source : ''
+      typeof map.source == 'string' ? map.source : '',
+      Array.isArray(map.coverage) ? map.coverage : []
     );
   }
 

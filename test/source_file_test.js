@@ -59,7 +59,7 @@ describe('SourceFile', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', [null, 2, 0, null, 4, 15, null], 'function main() {}').toJSON();
+      let map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]).toJSON();
       assert.equal(Object.keys(map).length, 4);
 
       assert.ok(Array.isArray(map.coverage));
