@@ -84,22 +84,13 @@ export class Configuration {
   }
 
   /**
-   * Creates a new source file from the specified JSON map.
-   * @param {object} map A JSON map representing configuration parameters.
-   * @return {SourceFile} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
-   */
-  static fromJSON(map) {
-    return map && typeof map == 'object' ? new Configuration(map) : null;
-  }
-
-  /**
    * Creates a new source file from the specified YAML document.
    * @param {string} document A YAML document providing configuration parameters.
    * @return {SourceFile} The instance corresponding to the specified YAML document, or `null` if a parsing error occurred.
    */
   static fromYAML(document) {
     try {
-      return typeof document == 'string' && document.length ? Configuration.fromJSON(loadYAML(document)) : null;
+      return typeof document == 'string' && document.length ? new Configuration(loadYAML(document)) : null;
     }
 
     catch (err) {
