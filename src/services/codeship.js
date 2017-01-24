@@ -10,7 +10,6 @@ export function getConfiguration() {
     git_committer_email: process.env.CI_COMMITTER_EMAIL,
     git_committer_name: process.env.CI_COMMITTER_NAME,
     git_message: process.env.CI_COMMIT_MESSAGE,
-    service_branch: process.env.CI_BRANCH,
     service_job_id: process.env.CI_BUILD_NUMBER,
     service_name: 'codeship'
   });
