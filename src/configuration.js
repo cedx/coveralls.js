@@ -127,7 +127,7 @@ export class Configuration {
     let readYAML = file => new Promise((resolve, reject) => {
       fs.exists(file, (err, exists) => {
         if (err) reject(err);
-        else if (!exists) resolve();
+        else if (!exists) resolve(null);
         else fs.readFile(file, 'utf8', (err, doc) => {
           if (err) reject(err);
           else resolve(Configuration.fromYAML(doc));
