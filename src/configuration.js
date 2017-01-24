@@ -1,5 +1,6 @@
+import fs from 'fs';
 import {safeLoad as loadYAML, YAMLException} from 'js-yaml';
-import {SourceFile} from './source_file';
+
 import * as appveyor from './services/appveyor';
 import * as circleci from './services/circleci';
 import * as codeship from './services/codeship';
@@ -37,18 +38,19 @@ export class Configuration {
     let config = new Configuration();
 
     // Standard.
+    let serviceName = typeof process.env.CI_NAME == 'string' ? process.env.CI_NAME : '';
+    if (serviceName.length) config.set('service_name', serviceName);
+
     if ('CI_BRANCH' in process.env) config.set('service_branch', process.env.CI_BRANCH);
     if ('CI_BUILD_NUMBER' in process.env) config.set('service_number', process.env.CI_BUILD_NUMBER);
     if ('CI_BUILD_URL' in process.env) config.set('service_build_url', process.env.CI_BUILD_URL);
     if ('CI_COMMIT' in process.env) config.set('commit_sha', process.env.CI_COMMIT);
     if ('CI_JOB_ID' in process.env) config.set('service_job_id', process.env.CI_JOB_ID);
-    if ('CI_NAME' in process.env) config.set('service_name', process.env.CI_NAME);
 
-    /* TODO
     if ('CI_PULL_REQUEST' in process.env) {
-      preg_match_all('/(\d+)$/', process.env.CI_PULL_REQUEST, matches);
-      if (matches.length >= 2) config.set('service_pull_request', matches[1].toString());
-    }*/
+      let matches = /(\d+)$/.exec(process.env.CI_PULL_REQUEST);
+      if (matches && matches.length >= 2) config.set('service_pull_request', matches[1]);
+    }
 
     // Coveralls.
     if ('COVERALLS_COMMIT_SHA' in process.env) config.set('commit_sha', process.env.COVERALLS_COMMIT_SHA);
@@ -72,7 +74,7 @@ export class Configuration {
     if ('TRAVIS' in process.env) config.merge(travis_ci.getConfiguration());
     else if ('APPVEYOR' in process.env) config.merge(appveyor.getConfiguration());
     else if ('CIRCLECI' in process.env) config.merge(circleci.getConfiguration());
-    else if (process.env.CI_NAME == 'codeship') config.merge(codeship.getConfiguration());
+    else if (serviceName == 'codeship') config.merge(codeship.getConfiguration());
     else if ('GITLAB_CI' in process.env) config.merge(gitlab_ci.getConfiguration());
     else if ('JENKINS_URL' in process.env) config.merge(jenkins.getConfiguration());
     else if ('SEMAPHORE' in process.env) config.merge(semaphore.getConfiguration());
@@ -86,7 +88,7 @@ export class Configuration {
   /**
    * Creates a new source file from the specified YAML document.
    * @param {string} document A YAML document providing configuration parameters.
-   * @return {SourceFile} The instance corresponding to the specified YAML document, or `null` if a parsing error occurred.
+   * @return {Configuration} The instance corresponding to the specified YAML document, or `null` if a parsing error occurred.
    */
   static fromYAML(document) {
     try {
@@ -101,7 +103,6 @@ export class Configuration {
 
   /**
    * Returns a new iterator that allows iterating the keys of this configuration.
-   * @return {Generator} An iterator for the keys of this configuration.
    */
   *[Symbol.iterator]() {
     for (let key in this._params) yield key;
@@ -115,6 +116,31 @@ export class Configuration {
    */
   get(name, defaultValue = null) {
     return typeof this._params[name] != 'undefined' ? this._params[name] : defaultValue;
+  }
+
+  /**
+   * Loads the default configuration.
+   * The default values are read from the `.coveralls.yml` file and the environment variables.
+   * @return {Promise<Configuration>} The default configuration.
+   */
+  static loadDefaults() {
+    let readYAML = file => new Promise((resolve, reject) => {
+      fs.exists(file, (err, exists) => {
+        if (err) reject(err);
+        else if (!exists) resolve();
+        else fs.readFile(file, 'utf8', (err, doc) => {
+          if (err) reject(err);
+          else resolve(Configuration.fromYAML(doc));
+        });
+      });
+    });
+
+    return readYAML(`${process.cwd()}/.coveralls.yml`).then(config => {
+      let defaults = new Configuration();
+      if (config) defaults.merge(config);
+      defaults.merge(Configuration.fromEnvironment());
+      return defaults;
+    });
   }
 
   /**
