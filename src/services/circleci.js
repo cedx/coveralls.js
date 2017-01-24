@@ -6,10 +6,12 @@ import {Configuration} from '../configuration';
  */
 export function getConfiguration() {
   let config = new Configuration({
-    git_branch: process.env.CIRCLE_BRANCH,
-    git_commit: process.env.CIRCLE_SHA1,
-    service_job_id: process.env.CIRCLE_BUILD_NUM,
-    service_name: 'circleci'
+    commit_sha: process.env.CIRCLE_SHA1,
+    parallel: parseInt(process.env.CIRCLE_NODE_TOTAL, 10) > 1 ? 'true' : 'false',
+    service_branch: process.env.CIRCLE_BRANCH,
+    service_job_number: process.env.CIRCLE_NODE_INDEX,
+    service_name: 'circleci',
+    service_number: process.env.CIRCLE_BUILD_NUM
   });
 
   if ('CI_PULL_REQUEST' in process.env) {

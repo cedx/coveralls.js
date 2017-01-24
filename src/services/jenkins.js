@@ -6,10 +6,12 @@ import {Configuration} from '../configuration';
  */
 export function getConfiguration() {
   return new Configuration({
-    git_branch: process.env.GIT_BRANCH,
-    git_commit: process.env.GIT_COMMIT,
+    commit_sha: process.env.GIT_COMMIT,
+    service_branch: process.env.GIT_BRANCH,
+    service_build_url: process.env.BUILD_URL,
     service_job_id: process.env.BUILD_ID,
     service_name: 'jenkins',
+    service_number: process.env.BUILD_NUMBER,
     service_pull_request: process.env.ghprbPullId
   });
 }

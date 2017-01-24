@@ -5,10 +5,15 @@ import {Configuration} from '../configuration';
  * @return {Configuration} The configuration parameters.
  */
 export function getConfiguration() {
-  return new Configuration({
-    git_branch: process.env.TRAVIS_BRANCH,
-    git_commit: 'HEAD',
+  let config = new Configuration({
+    commit_sha: 'HEAD',
+    service_branch: process.env.TRAVIS_BRANCH,
     service_job_id: process.env.TRAVIS_JOB_ID,
     service_name: 'travis-ci'
   });
+
+  if('TRAVIS_PULL_REQUEST' in process.env && process.env.TRAVIS_PULL_REQUEST != 'false')
+    config.set('service_pull_request', process.env.TRAVIS_PULL_REQUEST);
+
+  return config;
 }

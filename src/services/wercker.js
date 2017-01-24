@@ -6,8 +6,8 @@ import {Configuration} from '../configuration';
  */
 export function getConfiguration() {
   return new Configuration({
-    git_branch: process.env.WERCKER_GIT_BRANCH,
-    git_commit: process.env.WERCKER_GIT_COMMIT,
+    commit_sha: process.env.WERCKER_GIT_COMMIT,
+    service_branch: process.env.WERCKER_GIT_BRANCH,
     service_job_id: process.env.WERCKER_BUILD_ID,
     service_name: 'wercker'
   });

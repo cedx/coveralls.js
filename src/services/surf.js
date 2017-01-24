@@ -6,8 +6,8 @@ import {Configuration} from '../configuration';
  */
 export function getConfiguration() {
   return new Configuration({
-    git_branch: process.env.SURF_REF,
-    git_commit: process.env.SURF_SHA1,
+    commit_sha: process.env.SURF_SHA1,
+    service_branch: process.env.SURF_REF,
     service_name: 'surf'
   });
 }

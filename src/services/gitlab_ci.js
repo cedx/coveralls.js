@@ -6,8 +6,8 @@ import {Configuration} from '../configuration';
  */
 export function getConfiguration() {
   return new Configuration({
-    git_branch: process.env.CI_BUILD_REF_NAME,
-    git_commit: process.env.CI_BUILD_REF,
+    commit_sha: process.env.CI_BUILD_REF,
+    service_branch: process.env.CI_BUILD_REF_NAME,
     service_job_id: process.env.CI_BUILD_ID,
     service_job_number: process.env.CI_BUILD_NAME,
     service_name: 'gitlab-ci'
