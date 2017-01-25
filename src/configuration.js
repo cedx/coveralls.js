@@ -108,18 +108,26 @@ export class Configuration {
   }
 
   /**
+   * The keys of this configuration.
+   * @type {string[]}
+   */
+  get keys() {
+    return Object.keys(this._params);
+  }
+
+  /**
    * The number of entries in this configuration.
    * @type {number}
    */
   get length() {
-    return Object.keys(this._params).length;
+    return this.keys.length;
   }
 
   /**
    * Returns a new iterator that allows iterating the entries of this configuration.
    */
   *[Symbol.iterator]() {
-    for (let key in this._params) yield [key, this.get(key)];
+    for (let key of this.keys) yield [key, this.get(key)];
   }
 
   /**
@@ -128,7 +136,7 @@ export class Configuration {
    * @return {boolean} `true` if this configuration contains the specified key, otherwise `false`.
    */
   containsKey(key) {
-    return Object.keys(this._params).includes(key);
+    return this.keys.includes(key);
   }
 
   /**
@@ -173,7 +181,7 @@ export class Configuration {
    * @param {Configuration} config The configuration to be merged.
    */
   merge(config) {
-    for (let key of config) this.set(key, config.get(key));
+    for (let item of config) this.set(item[0], item[1]);
   }
 
   /**
