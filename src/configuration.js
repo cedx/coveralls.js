@@ -31,56 +31,60 @@ export class Configuration {
   }
 
   /**
-   * Creates a new configuration from the environment variables.
+   * Creates a new configuration from the variables of the specified environment.
+   * @param {object} [environment] A map providing environment variables. Defaults to `process.env`.
    * @return {Configuration} The newly created configuration.
    */
-  static fromEnvironment() {
+  static fromEnvironment(environment = null) {
     let config = new Configuration();
+    if (!environment || typeof environment != 'object') environment = process.env;
 
     // Standard.
-    let serviceName = typeof process.env.CI_NAME == 'string' ? process.env.CI_NAME : '';
+    let serviceName = typeof environment.CI_NAME == 'string' ? environment.CI_NAME : '';
     if (serviceName.length) config.set('service_name', serviceName);
 
-    if ('CI_BRANCH' in process.env) config.set('service_branch', process.env.CI_BRANCH);
-    if ('CI_BUILD_NUMBER' in process.env) config.set('service_number', process.env.CI_BUILD_NUMBER);
-    if ('CI_BUILD_URL' in process.env) config.set('service_build_url', process.env.CI_BUILD_URL);
-    if ('CI_COMMIT' in process.env) config.set('commit_sha', process.env.CI_COMMIT);
-    if ('CI_JOB_ID' in process.env) config.set('service_job_id', process.env.CI_JOB_ID);
+    if ('CI_BRANCH' in environment) config.set('service_branch', environment.CI_BRANCH);
+    if ('CI_BUILD_NUMBER' in environment) config.set('service_number', environment.CI_BUILD_NUMBER);
+    if ('CI_BUILD_URL' in environment) config.set('service_build_url', environment.CI_BUILD_URL);
+    if ('CI_COMMIT' in environment) config.set('commit_sha', environment.CI_COMMIT);
+    if ('CI_JOB_ID' in environment) config.set('service_job_id', environment.CI_JOB_ID);
 
-    if ('CI_PULL_REQUEST' in process.env) {
-      let matches = /(\d+)$/.exec(process.env.CI_PULL_REQUEST);
+    if ('CI_PULL_REQUEST' in environment) {
+      let matches = /(\d+)$/.exec(environment.CI_PULL_REQUEST);
       if (matches && matches.length >= 2) config.set('service_pull_request', matches[1]);
     }
 
     // Coveralls.
-    if ('COVERALLS_COMMIT_SHA' in process.env) config.set('commit_sha', process.env.COVERALLS_COMMIT_SHA);
-    if ('COVERALLS_PARALLEL' in process.env) config.set('parallel', process.env.COVERALLS_PARALLEL);
-    if ('COVERALLS_REPO_TOKEN' in process.env) config.set('repo_token', process.env.COVERALLS_REPO_TOKEN);
-    if ('COVERALLS_RUN_AT' in process.env) config.set('run_at', process.env.COVERALLS_RUN_AT);
-    if ('COVERALLS_SERVICE_BRANCH' in process.env) config.set('service_branch', process.env.COVERALLS_SERVICE_BRANCH);
-    if ('COVERALLS_SERVICE_JOB_ID' in process.env) config.set('service_job_id', process.env.COVERALLS_SERVICE_JOB_ID);
-    if ('COVERALLS_SERVICE_NAME' in process.env) config.set('service_name', process.env.COVERALLS_SERVICE_NAME);
+    if ('COVERALLS_REPO_TOKEN' in environment || 'COVERALLS_TOKEN' in environment)
+      config.set('repo_token', environment.COVERALLS_REPO_TOKEN ? environment.COVERALLS_REPO_TOKEN : environment.COVERALLS_TOKEN);
+
+    if ('COVERALLS_COMMIT_SHA' in environment) config.set('commit_sha', environment.COVERALLS_COMMIT_SHA);
+    if ('COVERALLS_PARALLEL' in environment) config.set('parallel', environment.COVERALLS_PARALLEL);
+    if ('COVERALLS_RUN_AT' in environment) config.set('run_at', environment.COVERALLS_RUN_AT);
+    if ('COVERALLS_SERVICE_BRANCH' in environment) config.set('service_branch', environment.COVERALLS_SERVICE_BRANCH);
+    if ('COVERALLS_SERVICE_JOB_ID' in environment) config.set('service_job_id', environment.COVERALLS_SERVICE_JOB_ID);
+    if ('COVERALLS_SERVICE_NAME' in environment) config.set('service_name', environment.COVERALLS_SERVICE_NAME);
 
     // Git.
-    if ('GIT_AUTHOR_EMAIL' in process.env) config.set('git_author_email', process.env.GIT_AUTHOR_EMAIL);
-    if ('GIT_AUTHOR_NAME' in process.env) config.set('git_author_name', process.env.GIT_AUTHOR_NAME);
-    if ('GIT_BRANCH' in process.env) config.set('service_branch', process.env.GIT_BRANCH);
-    if ('GIT_COMMITTER_EMAIL' in process.env) config.set('git_committer_email', process.env.GIT_COMMITTER_EMAIL);
-    if ('GIT_COMMITTER_NAME' in process.env) config.set('git_committer_name', process.env.GIT_COMMITTER_NAME);
-    if ('GIT_ID' in process.env) config.set('commit_sha', process.env.GIT_ID);
-    if ('GIT_MESSAGE' in process.env) config.set('git_message', process.env.GIT_MESSAGE);
+    if ('GIT_AUTHOR_EMAIL' in environment) config.set('git_author_email', environment.GIT_AUTHOR_EMAIL);
+    if ('GIT_AUTHOR_NAME' in environment) config.set('git_author_name', environment.GIT_AUTHOR_NAME);
+    if ('GIT_BRANCH' in environment) config.set('service_branch', environment.GIT_BRANCH);
+    if ('GIT_COMMITTER_EMAIL' in environment) config.set('git_committer_email', environment.GIT_COMMITTER_EMAIL);
+    if ('GIT_COMMITTER_NAME' in environment) config.set('git_committer_name', environment.GIT_COMMITTER_NAME);
+    if ('GIT_ID' in environment) config.set('commit_sha', environment.GIT_ID);
+    if ('GIT_MESSAGE' in environment) config.set('git_message', environment.GIT_MESSAGE);
 
     // CI services.
-    if ('TRAVIS' in process.env) config.merge(travis_ci.getConfiguration());
-    else if ('APPVEYOR' in process.env) config.merge(appveyor.getConfiguration());
-    else if ('CIRCLECI' in process.env) config.merge(circleci.getConfiguration());
+    if ('TRAVIS' in environment) config.merge(travis_ci.getConfiguration());
+    else if ('APPVEYOR' in environment) config.merge(appveyor.getConfiguration());
+    else if ('CIRCLECI' in environment) config.merge(circleci.getConfiguration());
     else if (serviceName == 'codeship') config.merge(codeship.getConfiguration());
-    else if ('GITLAB_CI' in process.env) config.merge(gitlab_ci.getConfiguration());
-    else if ('JENKINS_URL' in process.env) config.merge(jenkins.getConfiguration());
-    else if ('SEMAPHORE' in process.env) config.merge(semaphore.getConfiguration());
-    else if ('SURF_SHA1' in process.env) config.merge(surf.getConfiguration());
-    else if ('TDDIUM' in process.env) config.merge(solano_ci.getConfiguration());
-    else if ('WERCKER' in process.env) config.merge(wercker.getConfiguration());
+    else if ('GITLAB_CI' in environment) config.merge(gitlab_ci.getConfiguration());
+    else if ('JENKINS_URL' in environment) config.merge(jenkins.getConfiguration());
+    else if ('SEMAPHORE' in environment) config.merge(semaphore.getConfiguration());
+    else if ('SURF_SHA1' in environment) config.merge(surf.getConfiguration());
+    else if ('TDDIUM' in environment) config.merge(solano_ci.getConfiguration());
+    else if ('WERCKER' in environment) config.merge(wercker.getConfiguration());
 
     return config;
   }
