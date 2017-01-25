@@ -108,10 +108,27 @@ export class Configuration {
   }
 
   /**
-   * Returns a new iterator that allows iterating the keys of this configuration.
+   * The number of entries in this configuration.
+   * @type {number}
+   */
+  get length() {
+    return Object.keys(this._params).length;
+  }
+
+  /**
+   * Returns a new iterator that allows iterating the entries of this configuration.
    */
   *[Symbol.iterator]() {
-    for (let key in this._params) yield key;
+    for (let key in this._params) yield [key, this.get(key)];
+  }
+
+  /**
+   * Gets a value indicating whether this configuration contains the specified key.
+   * @param {string} key The key to seek for.
+   * @return {boolean} `true` if this configuration contains the specified key, otherwise `false`.
+   */
+  containsKey(key) {
+    return Object.keys(this._params).includes(key);
   }
 
   /**
@@ -160,8 +177,15 @@ export class Configuration {
   }
 
   /**
-   * Sets the value of the configuration parameter with the specified name.
-   * @param {string} name The name of the configuration parameter.
+   * Removes the value associated to the specified key.
+   * @param {string} key The key to seek for.
+   * @return {string} The value associated with key before it was removed, or a `null` reference if the key was not found.
+   */
+  remove(key) {
+    let value = this.get(key);
+    delete this._params[key];
+    return value;
+  }
 
   /**
    * Associates a given value to the specified key.
