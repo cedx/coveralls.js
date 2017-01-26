@@ -186,7 +186,7 @@ describe('Configuration', () => {
    * @test {Configuration#toJSON}
    */
   describe('#toJSON()', () => {
-    it('should return a map with default values for a newly created instance', () => {
+    it('should return an empty map for a newly created instance', () => {
       let map = new Configuration().toJSON();
       assert.equal(Object.keys(map).length, 0);
     });
