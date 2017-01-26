@@ -74,16 +74,16 @@ export class Configuration {
     if ('GIT_MESSAGE' in env) config.set('git_message', env.GIT_MESSAGE);
 
     // CI services.
-    if ('TRAVIS' in env) config.merge(travis_ci.getConfiguration());
-    else if ('APPVEYOR' in env) config.merge(appveyor.getConfiguration());
-    else if ('CIRCLECI' in env) config.merge(circleci.getConfiguration());
-    else if (serviceName == 'codeship') config.merge(codeship.getConfiguration());
-    else if ('GITLAB_CI' in env) config.merge(gitlab_ci.getConfiguration());
-    else if ('JENKINS_URL' in env) config.merge(jenkins.getConfiguration());
-    else if ('SEMAPHORE' in env) config.merge(semaphore.getConfiguration());
-    else if ('SURF_SHA1' in env) config.merge(surf.getConfiguration());
-    else if ('TDDIUM' in env) config.merge(solano_ci.getConfiguration());
-    else if ('WERCKER' in env) config.merge(wercker.getConfiguration());
+    if ('TRAVIS' in env) config.merge(travis_ci.getConfiguration(env));
+    else if ('APPVEYOR' in env) config.merge(appveyor.getConfiguration(env));
+    else if ('CIRCLECI' in env) config.merge(circleci.getConfiguration(env));
+    else if (serviceName == 'codeship') config.merge(codeship.getConfiguration(env));
+    else if ('GITLAB_CI' in env) config.merge(gitlab_ci.getConfiguration(env));
+    else if ('JENKINS_URL' in env) config.merge(jenkins.getConfiguration(env));
+    else if ('SEMAPHORE' in env) config.merge(semaphore.getConfiguration(env));
+    else if ('SURF_SHA1' in env) config.merge(surf.getConfiguration(env));
+    else if ('TDDIUM' in env) config.merge(solano_ci.getConfiguration(env));
+    else if ('WERCKER' in env) config.merge(wercker.getConfiguration(env));
 
     return config;
   }
@@ -105,6 +105,29 @@ export class Configuration {
       if (err instanceof YAMLException) return null;
       throw err;
     }
+  }
+
+  /**
+   * Loads the default configuration.
+   * The default values are read from the `.coveralls.yml` file and the environment variables.
+   * @param {string} [coverallsFile] The path to an optional `.coveralls.yml` file. Defaults to the file found in the current directory.
+   * @return {Promise<Configuration>} The default configuration.
+   */
+  static loadDefaults(coverallsFile = '') {
+    let readYAML = file => new Promise((resolve, reject) => {
+      fs.readFile(file, 'utf8', (err, doc) => {
+        if (err) reject(err);
+        else resolve(Configuration.fromYAML(doc));
+      });
+    });
+
+    let path = coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`;
+    return readYAML(path).then(config => {
+      let defaults = new Configuration();
+      if (config) defaults.merge(config);
+      defaults.merge(Configuration.fromEnvironment());
+      return defaults;
+    });
   }
 
   /**
@@ -147,33 +170,6 @@ export class Configuration {
    */
   get(key, defaultValue = null) {
     return typeof this._params[key] != 'undefined' ? this._params[key] : defaultValue;
-  }
-
-  /**
-   * Loads the default configuration.
-   * The default values are read from the `.coveralls.yml` file and the environment variables.
-   * @param {string} [coverallsFile] The path to an optional `.coveralls.yml` file. Defaults to the file found in the current directory.
-   * @return {Promise<Configuration>} The default configuration.
-   */
-  static loadDefaults(coverallsFile = '') {
-    let readYAML = file => new Promise((resolve, reject) => {
-      fs.exists(file, (err, exists) => {
-        if (err) reject(err);
-        else if (!exists) resolve(null);
-        else fs.readFile(file, 'utf8', (err, doc) => {
-          if (err) reject(err);
-          else resolve(Configuration.fromYAML(doc));
-        });
-      });
-    });
-
-    let path = coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`;
-    return readYAML(path).then(config => {
-      let defaults = new Configuration();
-      if (config) defaults.merge(config);
-      defaults.merge(Configuration.fromEnvironment());
-      return defaults;
-    });
   }
 
   /**

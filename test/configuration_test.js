@@ -16,7 +16,22 @@ describe('Configuration', () => {
       assert.equal(Configuration.fromEnvironment({}).length, 0);
     });
 
-    it('TODO', () => {
+    it('should return an initialized instance for a non-empty environment', () => {
+      let config = Configuration.fromEnvironment({
+        CI_NAME: 'travis-ci',
+        CI_PULL_REQUEST: 'PR #123',
+        COVERALLS_REPO_TOKEN: '0123456789abcdef',
+        GIT_MESSAGE: 'Hello World!',
+        TRAVIS: 'true',
+        TRAVIS_BRANCH: 'develop'
+      });
+
+      assert.equal(config.get('commit_sha'), 'HEAD');
+      assert.equal(config.get('git_message'), 'Hello World!');
+      assert.equal(config.get('repo_token'), '0123456789abcdef');
+      assert.equal(config.get('service_branch'), 'develop');
+      assert.equal(config.get('service_name'), 'travis-ci');
+      assert.equal(config.get('service_pull_request'), '123');
     });
   });
 
@@ -28,7 +43,44 @@ describe('Configuration', () => {
       assert.strictEqual(Configuration.fromYAML('foo'), null);
     });
 
-    it('TODO', () => {
+    it('should return an initialized instance for a non-empty map', () => {
+      let config = Configuration.fromYAML('repo_token: 0123456789abcdef\nservice_name: travis-ci');
+      assert.ok(config instanceof Configuration);
+      assert.equal(config.length, 2);
+      assert.equal(config.get('repo_token'), '0123456789abcdef');
+      assert.equal(config.get('service_name'), 'travis-ci');
+    });
+  });
+
+  /**
+   * @test {Configuration.loadDefaults}
+   */
+  describe('.loadDefaults()', () => {
+    it('should properly initialize from a `.coveralls.yml` file', () =>
+      Configuration.loadDefaults(`${__dirname}/.coveralls.yml`).then(config => {
+        assert.ok(config.length >= 2);
+        assert.equal(config.get('foo'), 'bar');
+        assert.equal(config.get('bar'), 'baz');
+      })
+    );
+  });
+
+  /**
+   * @test {Configuration#keys}
+   */
+  describe('#keys', () => {
+    it('should return an empty array for an empty configuration', () => {
+      assert.equal(new Configuration().keys.length, 0);
+    });
+
+    it('should return the list of keys for a non-empty configuration', () => {
+      /* eslint-disable sort-keys */
+      let keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
+      /* eslint-enable sort-keys */
+
+      assert.equal(keys.length, 2);
+      assert.equal(keys[0], 'foo');
+      assert.equal(keys[1], 'bar');
     });
   });
 
@@ -79,11 +131,11 @@ describe('Configuration', () => {
    * @test {Configuration#containsKey}
    */
   describe('#containsKey()', () => {
-    it('should return false if the specified key is not contained', () => {
+    it('should return `false` if the specified key is not contained', () => {
       assert.ok(!new Configuration().containsKey('foo'));
     });
 
-    it('should return true if the specified key is not contained', () => {
+    it('should return `true` if the specified key is not contained', () => {
       assert.ok(new Configuration({foo: 'bar'}).containsKey('foo'));
     });
   });
