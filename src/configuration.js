@@ -114,12 +114,9 @@ export class Configuration {
    * @return {Promise<Configuration>} The default configuration.
    */
   static loadDefaults(coverallsFile = '') {
-    let readYAML = file => new Promise((resolve, reject) => {
-      fs.readFile(file, 'utf8', (err, doc) => {
-        if (err) reject(err);
-        else resolve(Configuration.fromYAML(doc));
-      });
-    });
+    let readYAML = file => new Promise(resolve =>
+      fs.readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
+    );
 
     let path = coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`;
     return readYAML(path).then(config => {
