@@ -18,7 +18,7 @@ describe('Configuration', () => {
 
     it('should return an initialized instance for a non-empty environment', () => {
       let config = Configuration.fromEnvironment({
-        CI_NAME: 'travis-ci',
+        CI_NAME: 'travis-pro',
         CI_PULL_REQUEST: 'PR #123',
         COVERALLS_REPO_TOKEN: '0123456789abcdef',
         GIT_MESSAGE: 'Hello World!',
@@ -30,7 +30,7 @@ describe('Configuration', () => {
       assert.equal(config.get('git_message'), 'Hello World!');
       assert.equal(config.get('repo_token'), '0123456789abcdef');
       assert.equal(config.get('service_branch'), 'develop');
-      assert.equal(config.get('service_name'), 'travis-ci');
+      assert.equal(config.get('service_name'), 'travis-pro');
       assert.equal(config.get('service_pull_request'), '123');
     });
   });

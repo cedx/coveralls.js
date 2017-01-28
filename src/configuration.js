@@ -74,7 +74,10 @@ export class Configuration {
     if ('GIT_MESSAGE' in env) config.set('git_message', env.GIT_MESSAGE);
 
     // CI services.
-    if ('TRAVIS' in env) config.merge(travis_ci.getConfiguration(env));
+    if ('TRAVIS' in env) {
+      config.merge(travis_ci.getConfiguration(env));
+      if (serviceName != 'travis-ci') config.set('service_name', serviceName);
+    }
     else if ('APPVEYOR' in env) config.merge(appveyor.getConfiguration(env));
     else if ('CIRCLECI' in env) config.merge(circleci.getConfiguration(env));
     else if (serviceName == 'codeship') config.merge(codeship.getConfiguration(env));
@@ -120,8 +123,7 @@ export class Configuration {
 
     let path = coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`;
     return readYAML(path).then(config => {
-      let defaults = new Configuration();
-      if (config) defaults.merge(config);
+      let defaults = config ? config : new Configuration();
       defaults.merge(Configuration.fromEnvironment());
       return defaults;
     });
