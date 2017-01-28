@@ -39,7 +39,7 @@ export class SourceFile {
 
   /**
    * Creates a new source file from the specified JSON map.
-   * @param {object} map A JSON map representing a branch data.
+   * @param {object} map A JSON map representing a source file.
    * @return {SourceFile} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   static fromJSON(map) {
@@ -56,11 +56,13 @@ export class SourceFile {
    * @return {object} The map in JSON format corresponding to this object.
    */
   toJSON() {
+    /* eslint-disable sort-keys */
     let map = {
       name: this.name,
       source_digest: this.sourceDigest,
       coverage: this.coverage
     };
+    /* eslint-enable sort-keys */
 
     if (this.source.length) map.source = this.source;
     return map;
