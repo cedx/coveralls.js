@@ -112,8 +112,8 @@ export class Configuration {
 
   /**
    * Loads the default configuration.
-   * The default values are read from the `.coveralls.yml` file and the environment variables.
-   * @param {string} [coverallsFile] The path to an optional `.coveralls.yml` file. Defaults to the file found in the current directory.
+   * The default values are read from the environment variables and an optional `.coveralls.yml` file.
+   * @param {string} [coverallsFile] The path to the `.coveralls.yml` file. Defaults to the file found in the current directory.
    * @return {Promise<Configuration>} The default configuration.
    */
   static loadDefaults(coverallsFile = '') {
@@ -123,8 +123,8 @@ export class Configuration {
 
     let path = coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`;
     return readYAML(path).then(config => {
-      let defaults = config ? config : new Configuration();
-      defaults.merge(Configuration.fromEnvironment());
+      let defaults = Configuration.fromEnvironment();
+      if (config) defaults.merge(config);
       return defaults;
     });
   }
