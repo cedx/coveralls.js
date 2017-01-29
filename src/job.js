@@ -102,10 +102,20 @@ export class Job {
    * @return {Job} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   static fromJSON(map) {
-    return !map || typeof map != 'object' ? null : new Job(
-      new Configuration(map),
-      Array.isArray(map.source_files) ? map.source_files.map(item => SourceFile.fromJSON(item)).filter(item => item) : []
-    );
+    if (!map || typeof map != 'object') return null;
+
+    let job = new Job();
+    job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
+    job.git = GitData.fromJSON(map.git);
+    job.isParallel = typeof map.parallel == 'boolean' ? map.parallel : false;
+    job.repoToken = typeof map.repo_token == 'string' ? map.repo_token : '';
+    job.runAt = typeof map.run_at == 'string' ? new Date(map.run_at) : null;
+    job.serviceJobId = typeof map.service_job_id == 'string' ? map.service_job_id : '';
+    job.serviceName = typeof map.service_name == 'string' ? map.service_name : '';
+    job.serviceNumber = typeof map.service_number == 'string' ? map.service_number : '';
+    job.servicePullRequest = typeof map.service_pull_request == 'string' ? map.service_pull_request : '';
+    job.sourceFiles = Array.isArray(map.source_files) ? map.source_files.map(item => SourceFile.fromJSON(item)).filter(item => item) : [];
+    return job;
   }
 
   /**
