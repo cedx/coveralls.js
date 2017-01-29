@@ -24,8 +24,8 @@ export class GitRemote {
   }
 
   /**
-   * Creates a new source file from the specified JSON map.
-   * @param {object} map A JSON map representing a branch data.
+   * Creates a new remote repository from the specified JSON map.
+   * @param {object} map A JSON map representing a remote repository.
    * @return {SourceFile} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   static fromJSON(map) {
