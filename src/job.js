@@ -79,20 +79,20 @@ export class Job {
     this.sourceFiles = sourceFiles;
 
     // Initialize the instance from the specified configuration.
-    let hasGitData = config.keys.filter(key => key == 'service_branch' || key.substr(0, 4) == 'git_').length > 0;
-    if (!hasGitData) {
-      if (config.containsKey('commit_sha')) this.commitSha = config.get('commit_sha');
-    }
+    let hasGitData = config.keys.some(key => key == 'service_branch' || key.substr(0, 4) == 'git_');
+    if (!hasGitData) this.commitSha = config.containsKey('commit_sha') ? config.get('commit_sha') : '';
     else {
-      let commit = new GitCommit(config.containsKey('commit_sha') ? config.get('commit_sha') : '');
-      if (config.containsKey('git_author_email')) commit.authorEmail = config.get('git_author_email');
-      if (config.containsKey('git_author_name')) commit.authorName = config.get('git_author_name');
-      if (config.containsKey('git_committer_email')) commit.committerEmail = config.get('git_committer_email');
-      if (config.containsKey('git_committer_email')) commit.committerName = config.get('git_committer_email');
-      if (config.containsKey('git_message')) commit.message = config.get('git_message');
+      let commit = new GitCommit(
+        config.containsKey('commit_sha') ? config.get('commit_sha') : '',
+        config.containsKey('git_message') ? config.get('git_message') : ''
+      );
 
-      this.git = new GitData(commit);
-      if (config.containsKey('service_branch')) this.git.branch = config.get('service_branch');
+      commit.authorEmail = config.containsKey('git_author_email') ? config.get('git_author_email') : '';
+      commit.authorName = config.containsKey('git_author_name') ? config.get('git_author_name') : '';
+      commit.committerEmail = config.containsKey('git_committer_email') ? config.get('git_committer_email') : '';
+      commit.committerName = config.containsKey('git_committer_email') ? config.get('git_committer_email') : '';
+
+      this.git = new GitData(commit, config.containsKey('service_branch') ? config.get('service_branch') : '');
     }
   }
 
