@@ -14,7 +14,9 @@
 
   "dependencies": {
     "@cedx/lcov": "^0.2.0",
-    "js-yaml": "^3.7.0"
+    "js-yaml": "^3.7.0",
+    "rxjs": "^5.0.3",
+    "superagent": "^3.4.1"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^3.1.0",
