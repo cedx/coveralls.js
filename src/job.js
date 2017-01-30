@@ -1,5 +1,3 @@
-import {Configuration} from './configuration';
-import {GitCommit} from './git_commit';
 import {GitData} from './git_data';
 import {SourceFile} from './source_file';
 
@@ -10,11 +8,9 @@ export class Job {
 
   /**
    * Initializes a new instance of the class.
-   * @param {Configuration} [config] The remote's name.
    * @param {SourceFile[]} [sourceFiles] The remote's URL.
    */
-  constructor(config = null, sourceFiles = []) {
-    if (!config) config = new Configuration();
+  constructor(sourceFiles = []) {
 
     /**
      * The current SHA of the commit being built to override the `git` parameter.
@@ -32,68 +28,49 @@ export class Job {
      * Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls.
      * @type {boolean}
      */
-    this.isParallel = config.containsKey('parallel') ? config.get('parallel') == 'true' : false;
+    this.isParallel = false;
 
     /**
      * The secret token for the repository.
      * @type {string}
      */
     this.repoToken = '';
-    if (config.containsKey('repo_token')) this.repoToken = config.get('repo_token');
-    else if (config.containsKey('repo_secret_token')) this.repoToken = config.get('repo_secret_token');
 
     /**
      * The timestamp of when the job ran.
      * @type {Date}
      */
-    this.runAt = config.containsKey('run_at') ? new Date(config.get('run_at')) : null;
+    this.runAt = null;
 
     /**
      * The unique identifier of the job on the CI service.
      * @type {string}
      */
-    this.serviceJobId = config.containsKey('service_job_id') ? config.get('service_job_id') : '';
+    this.serviceJobId = '';
 
     /**
      * The CI service or other environment in which the test suite was run.
      * @type {string}
      */
-    this.serviceName = config.containsKey('service_name') ? config.get('service_name') : '';
+    this.serviceName = '';
 
     /**
      * The build number.
      * @type {string}
      */
-    this.serviceNumber = config.containsKey('service_number') ? config.get('service_number') : '';
+    this.serviceNumber = '';
 
     /**
      * The associated pull request identifier of the build.
      * @type {string}
      */
-    this.servicePullRequest = config.containsKey('service_pull_request') ? config.get('service_pull_request') : '';
+    this.servicePullRequest = '';
 
     /**
      * The list of source files.
      * @type {SourceFile[]}
      */
     this.sourceFiles = sourceFiles;
-
-    // Initialize the instance from the specified configuration.
-    let hasGitData = config.keys.some(key => key == 'service_branch' || key.substr(0, 4) == 'git_');
-    if (!hasGitData) this.commitSha = config.containsKey('commit_sha') ? config.get('commit_sha') : '';
-    else {
-      let commit = new GitCommit(
-        config.containsKey('commit_sha') ? config.get('commit_sha') : '',
-        config.containsKey('git_message') ? config.get('git_message') : ''
-      );
-
-      commit.authorEmail = config.containsKey('git_author_email') ? config.get('git_author_email') : '';
-      commit.authorName = config.containsKey('git_author_name') ? config.get('git_author_name') : '';
-      commit.committerEmail = config.containsKey('git_committer_email') ? config.get('git_committer_email') : '';
-      commit.committerName = config.containsKey('git_committer_email') ? config.get('git_committer_email') : '';
-
-      this.git = new GitData(commit, config.containsKey('service_branch') ? config.get('service_branch') : '');
-    }
   }
 
   /**
