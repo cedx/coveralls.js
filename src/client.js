@@ -24,7 +24,7 @@ export class Client {
    * Initializes a new instance of the class.
    * @param {string} [endPoint] The URL of the API end point.
    */
-  constructor(endPoint = '') {
+  constructor(endPoint = Client.DEFAULT_ENDPOINT) {
 
     /**
      * The URL of the API end point.
