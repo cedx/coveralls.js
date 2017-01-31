@@ -68,8 +68,8 @@ export class Client {
    * @return {Promise} Completes when the operation is done.
    * @throws {Error} The specified coverage format is not supported.
    */
-  upload(coverage, config = null) {
-    let promise = config ? Promise.resolve(config) : Configuration.loadDefaults();
+  upload(coverage, configuration = null) {
+    let promise = configuration ? Promise.resolve(configuration) : Configuration.loadDefaults();
     return promise.then(config => {
       // Parse the coverage.
       let token = coverage.trim().substr(0, 3);
