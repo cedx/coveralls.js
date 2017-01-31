@@ -8,7 +8,7 @@ export class Job {
 
   /**
    * Initializes a new instance of the class.
-   * @param {SourceFile[]} [sourceFiles] The remote's URL.
+   * @param {SourceFile[]} [sourceFiles] The list of source files.
    */
   constructor(sourceFiles = []) {
 
