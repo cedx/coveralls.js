@@ -57,7 +57,7 @@ describe('Configuration', () => {
    */
   describe('.loadDefaults()', () => {
     it('should properly initialize from a `.coveralls.yml` file', () =>
-      Configuration.loadDefaults(`${__dirname}/.coveralls.yml`).then(config => {
+      Configuration.loadDefaults(`${__dirname}/fixtures/.coveralls.yml`).then(config => {
         assert.ok(config.length >= 2);
         assert.equal(config.get('repo_token'), 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
         assert.equal(config.get('service_name'), 'travis-pro');
