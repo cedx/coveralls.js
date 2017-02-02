@@ -48,4 +48,11 @@ describe('Client', () => {
     });
     */
   });
+
+  /**
+   * @test {Client#_updateJob}
+   */
+  describe('#_updateJob()', () => {
+
+  });
 });
