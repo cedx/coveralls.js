@@ -1,4 +1,7 @@
 import {Report, Token} from '@cedx/lcov';
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import {Observable, Subject} from 'rxjs';
 import superagent from 'superagent';
 
@@ -6,6 +9,7 @@ import {Configuration} from './configuration';
 import {GitCommit} from './git_commit';
 import {GitData} from './git_data';
 import {Job} from './job';
+import {SourceFile} from './source_file';
 
 /**
  * Uploads code coverage reports to the [Coveralls](https://coveralls.io) service.
@@ -92,6 +96,8 @@ export class Client {
    * @return {Promise} Completes when the operation is done.
    */
   uploadJob(job) {
+    if (!job.repoToken.length && !job.serviceName.length) return Promise.reject(new Error('The job does not meet the requirements.'));
+
     // TODO
     return new Promise((resolve, reject) => {
       let req = superagent.get(Client.END_POINT).query({
@@ -114,12 +120,25 @@ export class Client {
   /**
    * Parses the specified [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage report.
    * @param {string} coverage A coverage report in LCOV format.
-   * @return {Job} The job corresponding to the specified coverage report.
+   * @return {Promise<Job>} The job corresponding to the specified coverage report.
    */
   _parseReport(coverage) {
-    return new Job(Report.parse(coverage).records.map(record => {
-      // TODO
+    let promises = Report.parse(coverage).records.map(record => new Promise((resolve, reject) => {
+      fs.readFile(record.sourceFile, 'utf8', (err, source) => {
+        if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
+        else {
+          let lines = source.split(/\r?\n/);
+          let coverage = new Array(lines.length).fill(null);
+          for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
+
+          let filename = path.relative(process.cwd(), record.sourceFile);
+          let digest = crypto.createHash('md5').update(source).digest('hex');
+          resolve(new SourceFile(filename, digest, source, coverage));
+        }
+      });
     }));
+
+    return Promise.all(promises).then(sourceFiles => new Job(sourceFiles));
   }
 
   /**
