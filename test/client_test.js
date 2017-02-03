@@ -2,7 +2,8 @@
 
 import assert from 'assert';
 import fs from 'fs';
-import {Client, Configuration, Job, SourceFile} from '../src/index';
+import path from 'path';
+import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
 
 /**
  * @test {Client}
@@ -38,20 +39,20 @@ describe('Client', () => {
       assert.equal(job.sourceFiles.length, 3);
 
       assert.ok(job.sourceFiles[0] instanceof SourceFile);
-      assert.equal(job.sourceFiles[0].name, 'src/client.js');
+      assert.equal(job.sourceFiles[0].name, path.join('src', 'client.js'));
       assert.ok(job.sourceFiles[0].sourceDigest.length);
 
       let isSubset = (set, values) => set.every(value => values.includes(value));
       let subset = [null, 2, 2, 2, 2, null];
       assert.ok(isSubset(subset, job.sourceFiles[0].coverage));
 
-      assert.equal(job.sourceFiles[1].name, 'src/configuration.js');
+      assert.equal(job.sourceFiles[1].name, path.join('src', 'configuration.js'));
       assert.ok(job.sourceFiles[1].sourceDigest.length);
 
       subset = [null, 4, 4, 2, 2, 4, 2, 2, 4, 4, null];
       assert.ok(isSubset(subset, job.sourceFiles[1].coverage));
 
-      assert.equal(job.sourceFiles[2].name, 'src/git_commit.js');
+      assert.equal(job.sourceFiles[2].name, path.join('src', 'git_commit.js'));
       assert.ok(job.sourceFiles[2].sourceDigest.length);
 
       subset = [null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null];
@@ -64,33 +65,29 @@ describe('Client', () => {
    * @test {Client#_updateJob}
    */
   describe('#_updateJob()', () => {
-    /*
     let client = new Client();
     let job = new Job();
 
-    updateJob.call(client, job, new Configuration());
-    assert.Null(job.getGit());
-    assert.False(job.isParallel());
-    assert.Empty(job.getRepoToken());
-    assert.Null(job.getRunAt());
+    client._updateJob(job, new Configuration());
+    assert.strictEqual(job.git, null);
+    assert.ok(!job.isParallel);
+    assert.equal(job.repoToken, '');
+    assert.strictEqual(job.runAt, null);
 
-    updateJob.call(client, job, new Configuration([
-      'parallel' => 'true',
-      'repo_token' => 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt',
-      'run_at' => '2017-01-29T03:43:30+01:00',
-      'service_branch' => 'develop'
-    ]));
+    client._updateJob(job, new Configuration({
+      parallel: 'true',
+      repo_token: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt',
+      run_at: '2017-01-29T02:43:30.000Z',
+      service_branch: 'develop'
+    }));
 
-    assert.True(job.isParallel());
-    assert.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt', job.getRepoToken());
+    assert.ok(job.isParallel);
+    assert.equal(job.repoToken, 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
 
-    git = job.getGit();
-    assert.ok(GitData::class, git);
-    assert.equal('develop', git.getBranch());
+    assert.ok(job.git instanceof GitData);
+    assert.equal(job.git.branch, 'develop');
 
-    runAt = job.getRunAt();
-    assert.ok(\DateTime::class, runAt);
-    assert.equal('2017-01-29T03:43:30+01:00', runAt.format('c'));
-    */
+    assert.ok(job.runAt instanceof Date);
+    assert.equal(job.runAt.toISOString(), '2017-01-29T02:43:30.000Z');
   });
 });
