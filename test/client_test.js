@@ -15,7 +15,7 @@ describe('Client', () => {
    */
   describe('#upload()', () => {
     new Client().upload('').then(
-      () => assert.fail(true, false, 'An empty coverage should reject the promise.'),
+      () => assert.fail(Promise.resolve(), Promise.reject(), 'An empty coverage should reject the promise.'),
       err => assert.ok(err instanceof Error)
     );
   });
@@ -23,9 +23,9 @@ describe('Client', () => {
   /**
    * @test {Client#uploadJob}
    */
-  describe('#upload()', () => {
+  describe('#uploadJob()', () => {
     new Client().uploadJob(new Job()).then(
-      () => assert.fail(true, false, 'An empty job should reject the promise.'),
+      () => assert.fail(Promise.resolve(), Promise.reject(), 'An empty job should reject the promise.'),
       err => assert.ok(err instanceof Error)
     );
   });
