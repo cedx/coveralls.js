@@ -96,7 +96,8 @@ export class Client {
    * @return {Promise} Completes when the operation is done.
    */
   uploadJob(job) {
-    if (!job.repoToken.length && !job.serviceName.length) return Promise.reject(new Error('The job does not meet the requirements.'));
+    if (!job.repoToken.length && !job.serviceName.length)
+      return Promise.reject(new Error('The job does not meet the requirements.'));
 
     // TODO
     return new Promise((resolve, reject) => {
