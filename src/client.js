@@ -120,11 +120,11 @@ export class Client {
 
   /**
    * Parses the specified [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage report.
-   * @param {string} coverage A coverage report in LCOV format.
+   * @param {string} report A coverage report in LCOV format.
    * @return {Promise<Job>} The job corresponding to the specified coverage report.
    */
-  _parseReport(coverage) {
-    let promises = Report.parse(coverage).records.map(record => new Promise((resolve, reject) => {
+  _parseReport(report) {
+    let promises = Report.parse(report).records.map(record => new Promise((resolve, reject) => {
       fs.readFile(record.sourceFile, 'utf8', (err, source) => {
         if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
         else {
