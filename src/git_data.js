@@ -88,7 +88,7 @@ export class GitData {
 
       let remotes = commands.remotes.split(/\r?\n/g).map(remote => {
         let parts = remote.replace(/\s+/g, ' ').split(' ');
-        return new GitRemote(parts[0], parts[1]);
+        return new GitRemote(parts[0], parts.length > 1 ? parts[1] : '');
       });
 
       return new GitData(commit, commands.branch, remotes);
