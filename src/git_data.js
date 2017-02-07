@@ -16,19 +16,19 @@ export class GitData {
   constructor(commit = null, branch = '', remotes = []) {
 
     /**
-     * The remote's URL.
+     * The branch name.
      * @type {string}
      */
     this.branch = branch;
 
     /**
-     * The remote's name.
+     * The Git commit.
      * @type {GitCommit}
      */
     this.commit = commit;
 
     /**
-     * The remote's URL.
+     * The remote repositories.
      * @type {GitRemote[]}
      */
     this.remotes = remotes;
