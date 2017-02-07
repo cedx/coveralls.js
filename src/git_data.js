@@ -1,3 +1,4 @@
+import child_process from 'child_process';
 import {GitCommit} from './git_commit';
 import {GitRemote} from './git_remote';
 
@@ -47,6 +48,54 @@ export class GitData {
   }
 
   /**
+   * Creates a new Git data from a local repository.
+   * This method relies on the availability of the Git executable in the system path.
+   * @param {string} [path] The path to the repository folder. Defaults to the current working directory.
+   * @return {Promise<GitData>} The newly created data.
+   */
+  static fromRepository(path = '') {
+    if (!path.length) path = process.cwd();
+
+    let commands = {
+      /* eslint-disable quotes */
+      authorEmail: "git log -1 --pretty=format:'%ae'",
+      authorName: "git log -1 --pretty=format:'%aN'",
+      branch: 'git rev-parse --abbrev-ref HEAD',
+      committerEmail: "git log -1 --pretty=format:'%ce'",
+      committerName: "git log -1 --pretty=format:'%cN'",
+      id: "git log -1 --pretty=format:'%H'",
+      message: "git log -1 --pretty=format:'%s'",
+      remotes: 'git remote -v'
+      /* eslint-enable quotes */
+    };
+
+    let promises = Object.keys(commands).map(property => new Promise((resolve, reject) => {
+      child_process.exec(commands[property], {cwd: path}, (err, stdout) => {
+        if (err) reject(err);
+        else {
+          commands[property] = stdout.trim();
+          resolve();
+        }
+      });
+    }));
+
+    return Promise.all(promises).then(() => {
+      let commit = new GitCommit(commands.id, commands.message);
+      commit.authorEmail = commands.authorEmail;
+      commit.authorName = commands.authorName;
+      commit.committerEmail = commands.committerEmail;
+      commit.committerName = commands.committerName;
+
+      let remotes = commands.remotes.split(/\r?\n/g).map(remote => {
+        let parts = remote.replace(/\s+/g, ' ').split(' ');
+        return new GitRemote(parts[0], parts[1]);
+      });
+
+      return new GitData(commit, commands.branch, remotes);
+    });
+  }
+
+  /**
    * Converts this object to a map in JSON format.
    * @return {object} The map in JSON format corresponding to this object.
    */
@@ -63,6 +112,6 @@ export class GitData {
    * @return {string} The string representation of this object.
    */
   toString() {
-    return `${this.constructor.name} ${JSON.stringify(this)}`;
+    return `{this.constructor.name} {JSON.stringify(this)}`;
   }
 }

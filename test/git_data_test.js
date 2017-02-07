@@ -47,6 +47,13 @@ describe('GitData', () => {
   });
 
   /**
+   * @test {GitData.fromRepository}
+   */
+  describe('.fromRepository()', () => {
+    // TODO
+  });
+
+  /**
    * @test {GitData#toJSON}
    */
   describe('#toJSON()', () => {
