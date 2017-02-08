@@ -69,17 +69,20 @@ export class GitData {
       /* eslint-enable quotes */
     };
 
-    let promises = Object.keys(commands).map(property => new Promise((resolve, reject) => {
-      child_process.exec(commands[property], {cwd: path}, (err, stdout) => {
+    let promises = Object.keys(commands).map(key => new Promise((resolve, reject) => {
+      child_process.exec(commands[key], {cwd: path}, (err, stdout) => {
         if (err) reject(err);
-        else {
-          commands[property] = stdout.trim();
-          resolve();
-        }
+        else resolve(stdout.trim());
       });
     }));
 
-    return Promise.all(promises).then(() => {
+    return Promise.all(promises).then(results => {
+      let index = 0;
+      for (let key in commands) {
+        commands[key] = results[index];
+        index++;
+      }
+
       let commit = new GitCommit(commands.id, commands.message);
       commit.authorEmail = commands.authorEmail;
       commit.authorName = commands.authorName;

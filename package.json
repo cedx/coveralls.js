@@ -14,7 +14,7 @@
 
   "dependencies": {
     "@cedx/lcov": "^0.2.0",
-    "js-yaml": "^3.7.0",
+    "js-yaml": "^3.8.1",
     "rxjs": "^5.1.0",
     "superagent": "^3.4.2"
   },
