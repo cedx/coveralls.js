@@ -12,6 +12,9 @@
   "jsnext:main": "./src/index",
   "main": "./lib/index",
 
+  "bin": {
+    "coveralls": "./bin/cli.js"
+  },
   "dependencies": {
     "@cedx/lcov": "^0.2.0",
     "js-yaml": "^3.8.1",
