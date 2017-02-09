@@ -72,7 +72,7 @@ export class GitData {
     let promises = Object.keys(commands).map(key => new Promise((resolve, reject) => {
       child_process.exec(commands[key], {cwd: path}, (err, stdout) => {
         if (err) reject(err);
-        else resolve(stdout.trim());
+        else resolve(stdout.trim().replace(/^'+|'+$/g, ''));
       });
     }));
 
@@ -89,10 +89,15 @@ export class GitData {
       commit.committerEmail = commands.committerEmail;
       commit.committerName = commands.committerName;
 
-      let remotes = commands.remotes.split(/\r?\n/g).map(remote => {
+      let names = [];
+      let remotes = [];
+      for (let remote of commands.remotes.split(/\r?\n/g)) {
         let parts = remote.replace(/\s+/g, ' ').split(' ');
-        return new GitRemote(parts[0], parts.length > 1 ? parts[1] : '');
-      });
+        if (!names.includes(parts[0])) {
+          names.push(parts[0]);
+          remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : ''));
+        }
+      }
 
       return new GitData(commit, commands.branch, remotes);
     });

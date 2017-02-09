@@ -57,7 +57,7 @@ describe('GitData', () => {
         assert.ok(data.commit instanceof GitCommit);
         assert.ok(/^[a-f\d]{40}/.test(data.commit.id));
 
-        assert.ok(data.remotes.length > 1);
+        assert.ok(data.remotes.length >= 1);
         assert.ok(data.remotes[0] instanceof GitRemote);
 
         let origin = data.remotes.filter(remote => remote.name == 'origin');

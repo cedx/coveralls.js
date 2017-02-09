@@ -76,7 +76,7 @@ export class Configuration {
     // CI services.
     if ('TRAVIS' in env) {
       config.merge(travis_ci.getConfiguration(env));
-      if (serviceName != 'travis-ci') config.set('service_name', serviceName);
+      if (serviceName.length && serviceName != 'travis-ci') config.set('service_name', serviceName);
     }
     else if ('APPVEYOR' in env) config.merge(appveyor.getConfiguration(env));
     else if ('CIRCLECI' in env) config.merge(circleci.getConfiguration(env));
