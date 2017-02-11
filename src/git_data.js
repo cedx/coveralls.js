@@ -37,7 +37,7 @@ export class GitData {
   /**
    * Creates a new Git data from the specified JSON map.
    * @param {object} map A JSON map representing a Git data.
-   * @return {SourceFile} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return {GitData} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   static fromJSON(map) {
     return !map || typeof map != 'object' ? null : new GitData(
