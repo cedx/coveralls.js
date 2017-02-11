@@ -76,16 +76,27 @@ export class Client {
     coverage = coverage.trim();
     if (!coverage.length) return Promise.reject(new Error('The specified coverage report is empty.'));
 
-    let promise = configuration ? Promise.resolve(configuration) : Configuration.loadDefaults();
-    return promise.then(config => {
-      // Parse the coverage.
-      let token = coverage.trim().substr(0, 3);
-      if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
-        throw new Error('The specified coverage format is not supported.');
+    let token = coverage.substr(0, 3);
+    if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
+      return Promise.reject(new Error('The specified coverage format is not supported.'));
 
-      let job = this._parseReport(coverage);
+    let promises = [
+      this._parseReport(coverage),
+      configuration ? Promise.resolve(configuration) : Configuration.loadDefaults(),
+      new Promise(resolve => which('git', (err, gitPath) => resolve(err ? '' : gitPath)))
+    ];
 
-      // Apply the configuration settings.
+    return Promise.all(promises).then(results => {
+      let job = results[0];
+      this._updateJob(job, results[1]);
+      if (!job.runAt) job.runAt = new Date();
+
+      if (results[2].length) {
+        let branch = job.git ? job.git.branch : '';
+        let git = GitData.fromRepository();
+        if (git.branch == 'HEAD' && branch.length) git.branch = branch;
+        job.git = git;
+      }
 
       return this.uploadJob(job);
     });
@@ -100,22 +111,14 @@ export class Client {
     if (!job.repoToken.length && !job.serviceName.length)
       return Promise.reject(new Error('The job does not meet the requirements.'));
 
-    // TODO
-    return new Promise((resolve, reject) => {
-      let req = superagent.get(Client.END_POINT).query({
-        msg: message.substr(0, 160),
-        pass: this.password,
-        user: this.username
-      });
+    let req = superagent
+      .post(`${this.endPoint}/api/v1/jobs`)
+      .attach('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-      this._onRequest.next(req);
-      req.end((err, res) => {
-        if (err) reject(err);
-        else {
-          this._onResponse.next(res);
-          resolve(res.status == 200);
-        }
-      });
+    this._onRequest.next(req);
+    return req.then(res => {
+      this._onResponse.next(res);
+      if (res.status != 200) throw new Error(`Status code: ${res.status}`);
     });
   }
 
@@ -125,7 +128,7 @@ export class Client {
    * @return {Promise<Job>} The job corresponding to the specified coverage report.
    */
   _parseReport(report) {
-    let promises = Report.parse(report).records.map(record => new Promise((resolve, reject) => {
+    let promises = Report.parse(report).records.map(record => new Promise((resolve, reject) =>
       fs.readFile(record.sourceFile, 'utf8', (err, source) => {
         if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
         else {
@@ -137,8 +140,8 @@ export class Client {
           let digest = crypto.createHash('md5').update(source).digest('hex');
           resolve(new SourceFile(filename, digest, source, coverage));
         }
-      });
-    }));
+      })
+    ));
 
     return Promise.all(promises).then(sourceFiles => new Job(sourceFiles));
   }
@@ -149,6 +152,16 @@ export class Client {
    * @param {Configuration} config The parameters to define.
    */
   _updateJob(job, config) {
+    if (config.containsKey('repo_token')) job.repoToken = config.get('repo_token');
+    else if (config.containsKey('repo_secret_token')) job.repoToken = config.get('repo_secret_token');
+
+    if (config.containsKey('parallel')) job.isParallel = config.get('parallel') == 'true';
+    if (config.containsKey('run_at')) job.runAt = new Date(config.get('run_at'));
+    if (config.containsKey('service_job_id')) job.serviceJobId = config.get('service_job_id');
+    if (config.containsKey('service_name')) job.serviceName = config.get('service_name');
+    if (config.containsKey('service_number')) job.serviceNumber = config.get('service_number');
+    if (config.containsKey('service_pull_request')) job.servicePullRequest = config.get('service_pull_request');
+
     let hasGitData = config.keys.some(key => key == 'service_branch' || key.substr(0, 4) == 'git_');
     if (!hasGitData) job.commitSha = config.containsKey('commit_sha') ? config.get('commit_sha') : '';
     else {
@@ -164,15 +177,5 @@ export class Client {
 
       job.git = new GitData(commit, config.containsKey('service_branch') ? config.get('service_branch') : '');
     }
-
-    if (config.containsKey('repo_token')) job.repoToken = config.get('repo_token');
-    else if (config.containsKey('repo_secret_token')) job.repoToken = config.get('repo_secret_token');
-
-    job.isParallel = config.get('parallel') == 'true';
-    job.runAt = config.containsKey('run_at') ? new Date(config.get('run_at')) : null;
-    job.serviceJobId = config.containsKey('service_job_id') ? config.get('service_job_id') : '';
-    job.serviceName = config.containsKey('service_name') ? config.get('service_name') : '';
-    job.serviceNumber = config.containsKey('service_number') ? config.get('service_number') : '';
-    job.servicePullRequest = config.containsKey('service_pull_request') ? config.get('service_pull_request') : '';
   }
 }
