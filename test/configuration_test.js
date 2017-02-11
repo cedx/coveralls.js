@@ -98,7 +98,7 @@ describe('Configuration', () => {
   });
 
   /**
-   * @test {Configuration#[Symbol.iterator]}
+   * @test {Configuration#Symbol.iterator}
    */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if configuration is empty', () => {
