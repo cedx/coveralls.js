@@ -69,12 +69,12 @@ export class GitData {
       /* eslint-enable quotes */
     };
 
-    let promises = Object.keys(commands).map(key => new Promise((resolve, reject) => {
+    let promises = Object.keys(commands).map(key => new Promise((resolve, reject) =>
       child_process.exec(commands[key], {cwd: path}, (err, stdout) => {
         if (err) reject(err);
         else resolve(stdout.trim().replace(/^'+|'+$/g, ''));
-      });
-    }));
+      })
+    ));
 
     return Promise.all(promises).then(results => {
       let index = 0;

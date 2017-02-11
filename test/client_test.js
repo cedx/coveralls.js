@@ -13,27 +13,27 @@ describe('Client', () => {
   /**
    * @test {Client#upload}
    */
-  describe('#upload()', () => {
+  describe('#upload()', () =>
     new Client().upload('').then(
       () => assert.fail(Promise.resolve(), Promise.reject(), 'An empty coverage should reject the promise.'),
       err => assert.ok(err instanceof Error)
-    );
-  });
+    )
+  );
 
   /**
    * @test {Client#uploadJob}
    */
-  describe('#uploadJob()', () => {
+  describe('#uploadJob()', () =>
     new Client().uploadJob(new Job()).then(
       () => assert.fail(Promise.resolve(), Promise.reject(), 'An empty job should reject the promise.'),
       err => assert.ok(err instanceof Error)
-    );
-  });
+    )
+  );
 
   /**
    * @test {Client#_parseReport}
    */
-  describe('#_parseReport()', () => {
+  describe('#_parseReport()', () =>
     new Client()._parseReport(fs.readFileSync(`${__dirname}/fixtures/lcov.info`, 'utf8')).then(job => {
       assert.ok(Array.isArray(job.sourceFiles));
       assert.equal(job.sourceFiles.length, 3);
@@ -58,8 +58,8 @@ describe('Client', () => {
       subset = [null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null];
       assert.ok(isSubset(subset, job.sourceFiles[2].coverage));
     },
-    err => assert.ifError(err));
-  });
+    err => assert.ifError(err))
+  );
 
   /**
    * @test {Client#_updateJob}

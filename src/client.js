@@ -2,8 +2,9 @@ import {Report, Token} from '@cedx/lcov';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import superagent from 'superagent';
+import which from 'which';
 
 import {Configuration} from './configuration';
 import {GitCommit} from './git_commit';
