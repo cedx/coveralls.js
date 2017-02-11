@@ -47,11 +47,7 @@ gulp.task('clean', () => del('var/**/*'));
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => {
-  let command = process.platform == 'win32' ? 'type' : 'cat';
-  let executable = path.join('node_modules/.bin', process.platform == 'win32' ? 'coveralls.cmd' : 'coveralls');
-  return _exec(`${command} var/lcov.info | ${executable}`);
-});
+gulp.task('coverage', ['test'], () => _exec('node bin/cli.js --file=var/lcov.info'));
 
 /**
  * Builds the documentation.
@@ -96,6 +92,13 @@ gulp.task('test:setup', () => new Promise(resolve => {
   require('babel-register');
   resolve();
 }));
+
+/**
+ * Watches for file changes.
+ */
+gulp.task('watch', ['default'], () => {
+  gulp.watch('src/**/*.js', ['build']);
+});
 
 /**
  * Runs a command and returns its output.
