@@ -95,4 +95,21 @@ describe('GitData', () => {
       assert.equal(map.remotes[0].name, 'origin');
     });
   });
+
+  /**
+   * @test {GitData#toString}
+   */
+  describe('#toString()', () => {
+    let data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]));
+
+    it('should start with the constructor name', () => {
+      assert.equal(data.indexOf('GitData {'), 0);
+    });
+
+    it('should contain the instance properties', () => {
+      assert.ok(data.includes('"branch":"develop"'));
+      assert.ok(data.includes('"head":{'));
+      assert.ok(data.includes('"remotes":[{'));
+    });
+  });
 });

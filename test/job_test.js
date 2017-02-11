@@ -89,4 +89,29 @@ describe('Job', () => {
       assert.equal(map.source_files[0].name, '/home/cedx/coveralls.php');
     });
   });
+
+  /**
+   * @test {Job#toString}
+   */
+  describe('#toString()', () => {
+    let job = new Job();
+    job.git = new GitData(null, 'develop');
+    job.isParallel = true;
+    job.repoToken = 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt';
+    job.runAt = new Date('2017-01-29T02:43:30.000Z');
+    job.sourceFiles = [new SourceFile('/home/cedx/coveralls.php')];
+
+    let value = String(job);
+    it('should start with the constructor name', () => {
+      assert.equal(value.indexOf('Job {'), 0);
+    });
+
+    it('should contain the instance properties', () => {
+      assert.ok(value.includes('"git":{'));
+      assert.ok(value.includes('"parallel":true'));
+      assert.ok(value.includes('"repo_token":"yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt"'));
+      assert.ok(value.includes('"run_at":"2017-01-29T02:43:30.000Z"'));
+      assert.ok(value.includes('"source_files":[{'));
+    });
+  });
 });

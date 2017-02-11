@@ -72,4 +72,21 @@ describe('SourceFile', () => {
       assert.equal(map.source_digest, 'e23fb141da9a7b438479a48eac7b7249');
     });
   });
+
+  /**
+   * @test {SourceFile#toString}
+   */
+  describe('#toString()', () => {
+    let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]));
+
+    it('should start with the constructor name', () => {
+      assert.equal(file.indexOf('SourceFile {'), 0);
+    });
+
+    it('should contain the instance properties', () => {
+      assert.ok(file.includes('"name":"coveralls.js"'));
+      assert.ok(file.includes('"source":"function main() {}"'));
+      assert.ok(file.includes('"source_digest":"e23fb141da9a7b438479a48eac7b7249"'));
+    });
+  });
 });

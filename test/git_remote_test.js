@@ -49,4 +49,20 @@ describe('GitRemote', () => {
       assert.equal(map.url, 'https://github.com/cedx/coveralls.js.git');
     });
   });
+
+  /**
+   * @test {GitRemote#toString}
+   */
+  describe('#toString()', () => {
+    let remote = String(new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git'));
+
+    it('should start with the constructor name', () => {
+      assert.equal(remote.indexOf('GitRemote {'), 0);
+    });
+
+    it('should contain the instance properties', () => {
+      assert.ok(remote.includes('"name":"origin"'));
+      assert.ok(remote.includes('"url":"https://github.com/cedx/coveralls.js.git"'));
+    });
+  });
 });

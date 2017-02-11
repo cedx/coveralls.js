@@ -198,4 +198,20 @@ describe('Configuration', () => {
       assert.equal(map.bar, 'baz');
     });
   });
+
+  /**
+   * @test {Configuration#toString}
+   */
+  describe('#toString()', () => {
+    let config = String(new Configuration({bar: 'baz', foo: 'bar'}));
+
+    it('should start with the constructor name', () => {
+      assert.equal(config.indexOf('Configuration {'), 0);
+    });
+
+    it('should contain the instance properties', () => {
+      assert.ok(config.includes('"bar":"baz"'));
+      assert.ok(config.includes('"foo":"bar"'));
+    });
+  });
 });

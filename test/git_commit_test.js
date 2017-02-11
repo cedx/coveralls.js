@@ -64,4 +64,25 @@ describe('GitCommit', () => {
       assert.equal(map.message, 'Hello World!');
     });
   });
+
+  /**
+   * @test {GitCommit#toString}
+   */
+  describe('#toString()', () => {
+    let commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', 'Hello World!');
+    commit.authorEmail = 'anonymous@secret.com';
+    commit.authorName = 'Anonymous';
+
+    let value = String(commit);
+    it('should start with the constructor name', () => {
+      assert.equal(value.indexOf('GitCommit {'), 0);
+    });
+
+    it('should contain the instance properties', () => {
+      assert.ok(value.includes('"author_email":"anonymous@secret.com"'));
+      assert.ok(value.includes('"author_name":"Anonymous"'));
+      assert.ok(value.includes('"id":"2ef7bde608ce5404e97d5f042f95f89f1c232871"'));
+      assert.ok(value.includes('"message":"Hello World!"'));
+    });
+  });
 });
