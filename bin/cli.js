@@ -26,7 +26,7 @@ let readFile = new Promise((resolve, reject) =>
   })
 );
 
-readFile(program.file)
+readFile
   .then(
     coverage => {
       let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);

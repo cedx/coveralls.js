@@ -22,7 +22,7 @@ export class Client {
    * @type {string}
    */
   static get DEFAULT_ENDPOINT() {
-    return 'https://coveralls.io/api/v1/jobs';
+    return 'https://coveralls.io';
   }
 
   /**
