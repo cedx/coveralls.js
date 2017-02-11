@@ -85,7 +85,7 @@ There are optional environment variables:
 - `COVERALLS_SERVICE_JOB_ID` : a string that uniquely identifies the build job.
 - `COVERALLS_RUN_AT` : a date string for the time that the job ran. This defaults to your build system's date/time if you don't set it.
 
-The full list of supported environment variables is available in the source code of the `coveralls\Configuration` class (see the `fromEnvironment()` static method).
+The full list of supported environment variables is available in the source code of the `Configuration` class (see the `fromEnvironment()` static method).
 
 ## The `.coveralls.yml` file
 This package supports the same configuration sources as the [Coveralls](https://coveralls.io) ones:  
