@@ -34,6 +34,7 @@ describe('Client', () => {
    * @test {Client#_parseReport}
    */
   describe('#_parseReport()', () =>
+    /* eslint-disable no-sync */
     new Client()._parseReport(fs.readFileSync(`${__dirname}/fixtures/lcov.info`, 'utf8')).then(job => {
       assert.ok(Array.isArray(job.sourceFiles));
       assert.equal(job.sourceFiles.length, 3);
@@ -59,6 +60,7 @@ describe('Client', () => {
       assert.ok(isSubset(subset, job.sourceFiles[2].coverage));
     },
     err => assert.ifError(err))
+    /* eslint-enable no-sync */
   );
 
   /**
