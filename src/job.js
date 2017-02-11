@@ -122,6 +122,6 @@ export class Job {
    * @return {string} The string representation of this object.
    */
   toString() {
-    return `this.{this.constructor.name} ${JSON.stringify(this)}`;
+    return `${this.constructor.name} ${JSON.stringify(this)}`;
   }
 }
