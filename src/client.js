@@ -83,7 +83,10 @@ export class Client {
     let promises = [
       this._parseReport(coverage),
       configuration ? Promise.resolve(configuration) : Configuration.loadDefaults(),
-      new Promise(resolve => which('git', (err, gitPath) => resolve(err ? '' : gitPath)))
+      new Promise((resolve, reject) => which('git', err => {
+        if (err) resolve(null);
+        else GitData.fromRepository().then(git => resolve(git), () => reject());
+      }))
     ];
 
     return Promise.all(promises).then(results => {
@@ -91,9 +94,9 @@ export class Client {
       this._updateJob(job, results[1]);
       if (!job.runAt) job.runAt = new Date();
 
-      if (results[2].length) {
+      if (results[2]) {
+        let git = results[2];
         let branch = job.git ? job.git.branch : '';
-        let git = GitData.fromRepository();
         if (git.branch == 'HEAD' && branch.length) git.branch = branch;
         job.git = git;
       }
