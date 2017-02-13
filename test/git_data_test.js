@@ -55,7 +55,7 @@ describe('GitData', () => {
         assert.ok(data.branch.length > 0);
 
         assert.ok(data.commit instanceof GitCommit);
-        assert.ok(/^[a-f\d]{40}/.test(data.commit.id));
+        assert.ok(/^[a-f\d]{40}$/.test(data.commit.id));
 
         assert.ok(data.remotes.length >= 1);
         assert.ok(data.remotes[0] instanceof GitRemote);
