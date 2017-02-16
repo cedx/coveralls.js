@@ -121,7 +121,7 @@ export class Client {
     this._onRequest.next(req);
     return req.then(res => {
       this._onResponse.next(res);
-      if (res.status != 200) throw new Error(`Status code: ${res.status}`);
+      if (res.status != 200) throw new Error(`${res.status} ${res.statusText}`);
     });
   }
 
