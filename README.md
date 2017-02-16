@@ -23,6 +23,8 @@ $ coveralls --help
 
   Usage: coveralls [options]
 
+  Send a LCOV coverage report to the Coveralls service.
+
   Options:
 
     -h, --help         output usage information
