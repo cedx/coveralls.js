@@ -12,6 +12,7 @@ program._name = 'coveralls';
 
 // Parse the command line arguments.
 program
+  .description('Send a LCOV coverage report to the Coveralls service.')
   .version(pkg.version, '-v, --version')
   .option('-f, --file <file>', 'path to the coverage report');
 
