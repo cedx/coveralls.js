@@ -20,7 +20,7 @@
     "commander": "^2.9.0",
     "js-yaml": "^3.8.1",
     "rxjs": "^5.1.1",
-    "superagent": "^3.4.3",
+    "superagent": "^3.4.4",
     "which": "^1.2.12"
   },
   "devDependencies": {
