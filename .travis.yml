@@ -7,8 +7,10 @@ env: NODE_ENV="test"
 sudo: false
 
 before_script: npm run prepublish
-script: npm test
+script:
+- npm test
+- ls var/
 after_script:
 - pwd
-- ls
+- ls var/
 - npm run coverage
