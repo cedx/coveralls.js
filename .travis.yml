@@ -9,8 +9,10 @@ sudo: false
 before_script: npm run prepublish
 script:
 - npm test
-- ls var/
+- ls -l var/
+- cat var/lcov.info
 after_script:
 - pwd
-- ls var/
+- ls -l var/
+- cat var/lcov.info
 - npm run coverage
