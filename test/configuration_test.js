@@ -88,7 +88,7 @@ describe('Configuration', () => {
    * @test {Configuration#length}
    */
   describe('#length', () => {
-    it('should return 0 for an empty configuration', () => {
+    it('should return zero for an empty configuration', () => {
       assert.equal(new Configuration().length, 0);
     });
 
