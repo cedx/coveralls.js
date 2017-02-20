@@ -56,7 +56,7 @@ describe('GitRemote', () => {
   describe('#toString()', () => {
     let remote = String(new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git'));
 
-    it('should start with the constructor name', () => {
+    it('should start with the class name', () => {
       assert.equal(remote.indexOf('GitRemote {'), 0);
     });
 

@@ -74,7 +74,7 @@ describe('GitCommit', () => {
     commit.authorName = 'Anonymous';
 
     let value = String(commit);
-    it('should start with the constructor name', () => {
+    it('should start with the class name', () => {
       assert.equal(value.indexOf('GitCommit {'), 0);
     });
 

@@ -102,7 +102,7 @@ describe('GitData', () => {
   describe('#toString()', () => {
     let data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]));
 
-    it('should start with the constructor name', () => {
+    it('should start with the class name', () => {
       assert.equal(data.indexOf('GitData {'), 0);
     });
 

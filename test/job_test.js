@@ -102,7 +102,7 @@ describe('Job', () => {
     job.sourceFiles = [new SourceFile('/home/cedx/coveralls.php')];
 
     let value = String(job);
-    it('should start with the constructor name', () => {
+    it('should start with the class name', () => {
       assert.equal(value.indexOf('Job {'), 0);
     });
 

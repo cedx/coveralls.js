@@ -205,7 +205,7 @@ describe('Configuration', () => {
   describe('#toString()', () => {
     let config = String(new Configuration({bar: 'baz', foo: 'bar'}));
 
-    it('should start with the constructor name', () => {
+    it('should start with the class name', () => {
       assert.equal(config.indexOf('Configuration {'), 0);
     });
 

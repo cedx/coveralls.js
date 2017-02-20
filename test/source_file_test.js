@@ -79,7 +79,7 @@ describe('SourceFile', () => {
   describe('#toString()', () => {
     let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]));
 
-    it('should start with the constructor name', () => {
+    it('should start with the class name', () => {
       assert.equal(file.indexOf('SourceFile {'), 0);
     });
 
