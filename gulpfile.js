@@ -47,14 +47,14 @@ gulp.task('clean', () => del('var/**/*'));
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => _exec('node bin/cli.js --file=var/lcov.info'));
+gulp.task('coverage', ['test'], () => _exec('node', ['bin/cli.js', '--file=var/lcov.info']));
 
 /**
  * Builds the documentation.
  */
-gulp.task('doc', () => {
-  let executable = path.join('node_modules/.bin', process.platform == 'win32' ? 'esdoc.cmd' : 'esdoc');
-  return del('doc/api').then(() => _exec(executable));
+gulp.task('doc', async () => {
+  await del('doc/api');
+  return _exec(path.normalize('node_modules/.bin/esdoc'));
 });
 
 /**
@@ -77,21 +77,12 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
 /**
  * Runs the unit tests.
  */
-gulp.task('test', ['test:instrument'], () => gulp.src(['test/**/*.js'], {read: false})
-  .pipe(plugins.mocha({compilers: 'js:babel-register'}))
-  .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
-);
-
-gulp.task('test:instrument', ['test:setup'], () => gulp.src(['src/**/*.js'])
-  .pipe(plugins.istanbul({instrumenter: require('isparta').Instrumenter}))
-  .pipe(plugins.istanbul.hookRequire())
-);
-
-gulp.task('test:setup', () => new Promise(resolve => {
-  process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '1' : '0';
-  require('babel-register');
-  resolve();
-}));
+gulp.task('test', () => _exec(path.normalize('node_modules/.bin/nyc'), [
+  '--report-dir=var',
+  '--reporter=lcovonly',
+  path.normalize('node_modules/.bin/mocha'),
+  '--compilers=js:babel-register'
+]));
 
 /**
  * Watches for file changes.
@@ -102,13 +93,14 @@ gulp.task('watch', ['default'], () => {
 
 /**
  * Runs a command and returns its output.
- * @param {string} command The command to run, with space-separated arguments.
+ * @param {string} command The command to run.
+ * @param {string[]} [args] The command arguments.
  * @param {object} [options] The settings to customize how the process is spawned.
- * @return {Promise<string>} The command output when it is finally terminated.
+ * @return {Promise} Completes when the command is finally terminated.
  */
-function _exec(command, options = {}) {
-  return new Promise((resolve, reject) => child_process.exec(command, options, (err, stdout) => {
-    if (err) reject(err);
-    else resolve(stdout.trim());
-  }));
+function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
+  return new Promise((resolve, reject) => child_process
+    .spawn(command, args, options)
+    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())
+  );
 }

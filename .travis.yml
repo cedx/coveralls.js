@@ -1,18 +1,9 @@
 language: node_js
-node_js:
-- 6
-- 7
+node_js: 7
 
 env: NODE_ENV="test"
 sudo: false
 
 before_script: npm run prepublish
-script:
-- npm test
-- ls -l var/
-- cat var/lcov.info
-after_script:
-- pwd
-- ls -l var/
-- cat var/lcov.info
-- npm run coverage
+script: npm test
+after_script: npm run coverage
