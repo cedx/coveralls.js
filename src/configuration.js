@@ -116,17 +116,15 @@ export class Configuration {
    * @param {string} [coverallsFile] The path to the `.coveralls.yml` file. Defaults to the file found in the current directory.
    * @return {Promise<Configuration>} The default configuration.
    */
-  static loadDefaults(coverallsFile = '') {
+  static async loadDefaults(coverallsFile = '') {
     let readYAML = file => new Promise(resolve =>
       fs.readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
     );
 
-    let path = coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`;
-    return readYAML(path).then(config => {
-      let defaults = Configuration.fromEnvironment();
-      if (config) defaults.merge(config);
-      return defaults;
-    });
+    let config = await readYAML(coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`);
+    let defaults = Configuration.fromEnvironment();
+    if (config) defaults.merge(config);
+    return defaults;
   }
 
   /**
