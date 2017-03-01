@@ -53,7 +53,7 @@ export class GitData {
    * @param {string} [path] The path to the repository folder. Defaults to the current working directory.
    * @return {Promise<GitData>} The newly created data.
    */
-  static fromRepository(path = '') {
+  static async fromRepository(path = '') {
     if (!path.length) path = process.cwd();
 
     let commands = {
@@ -69,38 +69,36 @@ export class GitData {
       /* eslint-enable quotes */
     };
 
-    let promises = Object.keys(commands).map(key => new Promise((resolve, reject) =>
+    let results = await Promise.all(Object.keys(commands).map(key => new Promise((resolve, reject) =>
       child_process.exec(commands[key], {cwd: path}, (err, stdout) => {
         if (err) reject(err);
         else resolve(stdout.trim().replace(/^'+|'+$/g, ''));
       })
-    ));
+    )));
 
-    return Promise.all(promises).then(results => {
-      let index = 0;
-      for (let key in commands) {
-        commands[key] = results[index];
-        index++;
+    let index = 0;
+    for (let key in commands) {
+      commands[key] = results[index];
+      index++;
+    }
+
+    let commit = new GitCommit(commands.id, commands.message);
+    commit.authorEmail = commands.authorEmail;
+    commit.authorName = commands.authorName;
+    commit.committerEmail = commands.committerEmail;
+    commit.committerName = commands.committerName;
+
+    let names = [];
+    let remotes = [];
+    for (let remote of commands.remotes.split(/\r?\n/g)) {
+      let parts = remote.replace(/\s+/g, ' ').split(' ');
+      if (!names.includes(parts[0])) {
+        names.push(parts[0]);
+        remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : ''));
       }
+    }
 
-      let commit = new GitCommit(commands.id, commands.message);
-      commit.authorEmail = commands.authorEmail;
-      commit.authorName = commands.authorName;
-      commit.committerEmail = commands.committerEmail;
-      commit.committerName = commands.committerName;
-
-      let names = [];
-      let remotes = [];
-      for (let remote of commands.remotes.split(/\r?\n/g)) {
-        let parts = remote.replace(/\s+/g, ' ').split(' ');
-        if (!names.includes(parts[0])) {
-          names.push(parts[0]);
-          remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : ''));
-        }
-      }
-
-      return new GitData(commit, commands.branch, remotes);
-    });
+    return new GitData(commit, commands.branch, remotes);
   }
 
   /**

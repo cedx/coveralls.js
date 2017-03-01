@@ -71,58 +71,60 @@ export class Client {
    * @param {string} coverage A coverage report.
    * @param {Configuration} [configuration] The environment settings.
    * @return {Promise} Completes when the operation is done.
+   * @throws {Error} The specified coverage report is empty, or its format is not supported.
    */
-  upload(coverage, configuration = null) {
+  async upload(coverage, configuration = null) {
     coverage = coverage.trim();
-    if (!coverage.length) return Promise.reject(new Error('The specified coverage report is empty.'));
+    if (!coverage.length) throw new Error('The specified coverage report is empty.');
 
     let token = coverage.substr(0, 3);
     if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
-      return Promise.reject(new Error('The specified coverage format is not supported.'));
+      throw new Error('The specified coverage format is not supported.');
 
-    let promises = [
+    let results = await Promise.all([
       this._parseReport(coverage),
       configuration ? Promise.resolve(configuration) : Configuration.loadDefaults(),
-      new Promise((resolve, reject) => which('git', err => {
+      new Promise(resolve => which('git', async err => {
         if (err) resolve(null);
-        else GitData.fromRepository().then(git => resolve(git), () => reject());
+        else resolve(await GitData.fromRepository());
       }))
-    ];
+    ]);
 
-    return Promise.all(promises).then(results => {
-      let job = results[0];
-      this._updateJob(job, results[1]);
-      if (!job.runAt) job.runAt = new Date();
+    let job = results[0];
+    this._updateJob(job, results[1]);
+    if (!job.runAt) job.runAt = new Date();
 
-      if (results[2]) {
-        let git = results[2];
-        let branch = job.git ? job.git.branch : '';
-        if (git.branch == 'HEAD' && branch.length) git.branch = branch;
-        job.git = git;
-      }
+    if (results[2]) {
+      let git = results[2];
+      let branch = job.git ? job.git.branch : '';
+      if (git.branch == 'HEAD' && branch.length) git.branch = branch;
+      job.git = git;
+    }
 
-      return this.uploadJob(job);
-    });
+    return this.uploadJob(job);
   }
 
   /**
    * Uploads the specified job to the Coveralls service.
    * @param {Job} job The job to be uploaded.
    * @return {Promise} Completes when the operation is done.
+   * @emits {superagent.Request} The "request" event.
+   * @emits {superagent.Response} The "response" event.
    */
-  uploadJob(job) {
+  async uploadJob(job) {
     if (!job.repoToken.length && !job.serviceName.length)
-      return Promise.reject(new Error('The job does not meet the requirements.'));
+      throw new Error('The job does not meet the requirements.');
 
-    let req = superagent
+    let request = superagent
       .post(`${this.endPoint}/api/v1/jobs`)
       .attach('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    this._onRequest.next(req);
-    return req.then(res => {
-      this._onResponse.next(res);
-      if (res.status != 200) throw new Error(`${res.status} ${res.statusText}`);
-    });
+    this._onRequest.next(request);
+    let response = await request;
+    this._onResponse.next(response);
+
+    if (response.status != 200) throw new Error(`${response.status} ${response.statusText}`);
+    return null;
   }
 
   /**
@@ -130,8 +132,8 @@ export class Client {
    * @param {string} report A coverage report in LCOV format.
    * @return {Promise<Job>} The job corresponding to the specified coverage report.
    */
-  _parseReport(report) {
-    let promises = Report.parse(report).records.map(record => new Promise((resolve, reject) =>
+  async _parseReport(report) {
+    return new Job(await Promise.all(Report.parse(report).records.map(record => new Promise((resolve, reject) =>
       fs.readFile(record.sourceFile, 'utf8', (err, source) => {
         if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
         else {
@@ -144,9 +146,7 @@ export class Client {
           resolve(new SourceFile(filename, digest, source, coverage));
         }
       })
-    ));
-
-    return Promise.all(promises).then(sourceFiles => new Job(sourceFiles));
+    ))));
   }
 
   /**
