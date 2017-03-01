@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {GitCommit, GitData, GitRemote} from '../src/index';
 
 /**
@@ -13,17 +13,15 @@ describe('GitData', () => {
    */
   describe('.fromJSON()', () => {
     it('should return a null reference with a non-object value', () => {
-      assert.strictEqual(GitData.fromJSON('foo'), null);
+      expect(GitData.fromJSON('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
       let data = GitData.fromJSON({});
-      assert.ok(data instanceof GitData);
-      assert.equal(data.branch, '');
-      assert.strictEqual(data.commit, null);
-
-      assert.ok(Array.isArray(data.remotes));
-      assert.equal(data.remotes.length, 0);
+      expect(data).to.be.instanceof(GitData);
+      expect(data.branch).to.be.empty;
+      expect(data.commit).to.be.null;
+      expect(data.remotes).to.be.an('array').and.to.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -33,16 +31,15 @@ describe('GitData', () => {
         remotes: [{name: 'origin'}]
       });
 
-      assert.ok(data instanceof GitData);
-      assert.equal(data.branch, 'develop');
+      expect(data).to.be.instanceof(GitData);
+      expect(data.branch).to.equal('develop');
 
-      assert.ok(data.commit instanceof GitCommit);
-      assert.equal(data.commit.id, '2ef7bde608ce5404e97d5f042f95f89f1c232871');
+      expect(data.commit).to.be.instanceof(GitCommit);
+      expect(data.commit.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
 
-      assert.ok(Array.isArray(data.remotes));
-      assert.equal(data.remotes.length, 1);
-      assert.ok(data.remotes[0] instanceof GitRemote);
-      assert.equal(data.remotes[0].name, 'origin');
+      expect(data.remotes).to.be.an('array').and.have.lengthOf(1);
+      expect(data.remotes[0]).to.be.instanceof(GitRemote);
+      expect(data.remotes[0].name).to.equal('origin');
     });
   });
 
@@ -52,17 +49,17 @@ describe('GitData', () => {
   describe('.fromRepository()', () => {
     it('should retrieve the Git data from the executable output', async () => {
       let data = await GitData.fromRepository(`${__dirname}/..`);
-      assert.ok(data.branch.length > 0);
+      expect(data.branch).to.not.be.empty;
 
-      assert.ok(data.commit instanceof GitCommit);
-      assert.ok(/^[a-f\d]{40}$/.test(data.commit.id));
+      expect(data.commit).to.be.instanceof(GitCommit);
+      expect(data.commit.id).to.match(/^[a-f\d]{40}$/);
 
-      assert.ok(data.remotes.length >= 1);
-      assert.ok(data.remotes[0] instanceof GitRemote);
+      expect(data.remotes).to.not.be.empty;
+      expect(data.remotes[0]).to.be.instanceof(GitRemote);
 
       let origin = data.remotes.filter(remote => remote.name == 'origin');
-      assert.equal(origin.length, 1);
-      assert.equal(origin[0].url, 'https://github.com/cedx/coveralls.js.git');
+      expect(origin).to.have.lengthOf(1);
+      expect(origin[0].url).to.equal('https://github.com/cedx/coveralls.js.git');
     });
   });
 
@@ -72,26 +69,23 @@ describe('GitData', () => {
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       let map = new GitData().toJSON();
-      assert.equal(Object.keys(map).length, 3);
-      assert.equal(map.branch, '');
-      assert.strictEqual(map.head, null);
-
-      assert.ok(Array.isArray(map.remotes));
-      assert.equal(map.remotes.length, 0);
+      expect(Object.keys(map)).to.have.lengthOf(3);
+      expect(map.branch).to.be.empty;
+      expect(map.head).to.be.null;
+      expect(map.remotes).to.be.an('array').and.to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
       let map = new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]).toJSON();
-      assert.equal(Object.keys(map).length, 3);
-      assert.equal(map.branch, 'develop');
+      expect(Object.keys(map)).to.have.lengthOf(3);
+      expect(map.branch).to.equal('develop');
 
-      assert.ok(map.head && typeof map.head == 'object');
-      assert.equal(map.head.id, '2ef7bde608ce5404e97d5f042f95f89f1c232871');
+      expect(map.head).to.be.an('object');
+      expect(map.head.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
 
-      assert.ok(Array.isArray(map.remotes));
-      assert.equal(map.remotes.length, 1);
-      assert.ok(map.remotes[0] && typeof map.remotes[0] == 'object');
-      assert.equal(map.remotes[0].name, 'origin');
+      expect(map.remotes).to.be.an('array').and.have.lengthOf(1);
+      expect(map.remotes[0]).to.be.an('object');
+      expect(map.remotes[0].name).to.equal('origin');
     });
   });
 
@@ -102,13 +96,13 @@ describe('GitData', () => {
     let data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]));
 
     it('should start with the class name', () => {
-      assert.equal(data.indexOf('GitData {'), 0);
+      expect(data.indexOf('GitData {')).to.equal(0);
     });
 
     it('should contain the instance properties', () => {
-      assert.ok(data.includes('"branch":"develop"'));
-      assert.ok(data.includes('"head":{'));
-      assert.ok(data.includes('"remotes":[{'));
+      expect(data).to.contain('"branch":"develop"');
+      expect(data).to.contain('"head":{');
+      expect(data).to.contain('"remotes":[{');
     });
   });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {Configuration} from '../src/index';
 
 /**
@@ -13,7 +13,7 @@ describe('Configuration', () => {
    */
   describe('.fromEnvironment()', () => {
     it('should return an empty configuration for an empty environment', () => {
-      assert.equal(Configuration.fromEnvironment({}).length, 0);
+      expect(Configuration.fromEnvironment({})).to.have.lengthOf(0);
     });
 
     it('should return an initialized instance for a non-empty environment', () => {
@@ -26,12 +26,12 @@ describe('Configuration', () => {
         TRAVIS_BRANCH: 'develop'
       });
 
-      assert.equal(config.get('commit_sha'), 'HEAD');
-      assert.equal(config.get('git_message'), 'Hello World!');
-      assert.equal(config.get('repo_token'), '0123456789abcdef');
-      assert.equal(config.get('service_branch'), 'develop');
-      assert.equal(config.get('service_name'), 'travis-pro');
-      assert.equal(config.get('service_pull_request'), '123');
+      expect(config.get('commit_sha')).to.equal('HEAD');
+      expect(config.get('git_message')).to.equal('Hello World!');
+      expect(config.get('repo_token')).to.equal('0123456789abcdef');
+      expect(config.get('service_branch')).to.equal('develop');
+      expect(config.get('service_name')).to.equal('travis-pro');
+      expect(config.get('service_pull_request')).to.equal('123');
     });
   });
 
@@ -40,15 +40,15 @@ describe('Configuration', () => {
    */
   describe('.fromYAML()', () => {
     it('should return a null reference with a non-object value', () => {
-      assert.strictEqual(Configuration.fromYAML('foo'), null);
+      expect(Configuration.fromYAML('foo')).to.be.null;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
       let config = Configuration.fromYAML('repo_token: 0123456789abcdef\nservice_name: travis-ci');
-      assert.ok(config instanceof Configuration);
-      assert.equal(config.length, 2);
-      assert.equal(config.get('repo_token'), '0123456789abcdef');
-      assert.equal(config.get('service_name'), 'travis-ci');
+      expect(config).to.be.instanceof(Configuration);
+      expect(config).to.have.lengthOf(2);
+      expect(config.get('repo_token')).to.equal('0123456789abcdef');
+      expect(config.get('service_name')).to.equal('travis-ci');
     });
   });
 
@@ -58,9 +58,9 @@ describe('Configuration', () => {
   describe('.loadDefaults()', () => {
     it('should properly initialize from a `.coveralls.yml` file', async () => {
       let config = await Configuration.loadDefaults(`${__dirname}/fixtures/.coveralls.yml`);
-      assert.ok(config.length >= 2);
-      assert.equal(config.get('repo_token'), 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
-      assert.equal(config.get('service_name'), 'travis-pro');
+      expect(config).to.have.length.of.at.least(2);
+      expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+      expect(config.get('service_name')).to.equal('travis-pro');
     });
   });
 
@@ -69,7 +69,7 @@ describe('Configuration', () => {
    */
   describe('#keys', () => {
     it('should return an empty array for an empty configuration', () => {
-      assert.equal(new Configuration().keys.length, 0);
+      expect(new Configuration().keys).to.be.empty;
     });
 
     it('should return the list of keys for a non-empty configuration', () => {
@@ -77,9 +77,9 @@ describe('Configuration', () => {
       let keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
       /* eslint-enable sort-keys */
 
-      assert.equal(keys.length, 2);
-      assert.equal(keys[0], 'foo');
-      assert.equal(keys[1], 'bar');
+      expect(keys).to.have.lengthOf(2);
+      expect(keys[0]).to.equal('foo');
+      expect(keys[1]).to.equal('bar');
     });
   });
 
@@ -88,11 +88,11 @@ describe('Configuration', () => {
    */
   describe('#length', () => {
     it('should return zero for an empty configuration', () => {
-      assert.equal(new Configuration().length, 0);
+      expect(new Configuration()).to.have.lengthOf(0);
     });
 
     it('should return the number of entries for a non-empty configuration', () => {
-      assert.equal(new Configuration({bar: 'baz', foo: 'bar'}).length, 2);
+      expect(new Configuration({bar: 'baz', foo: 'bar'})).to.have.lengthOf(2);
     });
   });
 
@@ -103,7 +103,7 @@ describe('Configuration', () => {
     it('should return a done iterator if configuration is empty', () => {
       let config = new Configuration();
       let iterator = config[Symbol.iterator]();
-      assert.ok(iterator.next().done);
+      expect(iterator.next().done).to.be.true;
     });
 
     it('should return a value iterator if configuration is not empty', () => {
@@ -113,16 +113,15 @@ describe('Configuration', () => {
 
       let iterator = config[Symbol.iterator]();
       let next = iterator.next();
-      assert.ok(!next.done);
-      assert.equal(next.value[0], 'foo');
-      assert.equal(next.value[1], 'bar');
+      expect(next.done).to.be.false;
+      expect(next.value[0]).to.equal('foo');
+      expect(next.value[1]).to.equal('bar');
 
       next = iterator.next();
-      assert.ok(!next.done);
-      assert.equal(next.value[0], 'bar');
-      assert.equal(next.value[1], 'baz');
-
-      assert.ok(iterator.next().done);
+      expect(next.done).to.be.false;
+      expect(next.value[0]).to.equal('bar');
+      expect(next.value[1]).to.equal('baz');
+      expect(iterator.next().done).to.be.true;
     });
   });
 
@@ -131,11 +130,11 @@ describe('Configuration', () => {
    */
   describe('#containsKey()', () => {
     it('should return `false` if the specified key is not contained', () => {
-      assert.ok(!new Configuration().containsKey('foo'));
+      expect(new Configuration().containsKey('foo')).to.be.false;
     });
 
     it('should return `true` if the specified key is not contained', () => {
-      assert.ok(new Configuration({foo: 'bar'}).containsKey('foo'));
+      expect(new Configuration({foo: 'bar'}).containsKey('foo')).to.be.true;
     });
   });
 
@@ -145,11 +144,11 @@ describe('Configuration', () => {
   describe('#get()', () => {
     it('should properly get the configuration entries', () => {
       let config = new Configuration();
-      assert.strictEqual(config.get('foo'), null);
-      assert.equal(config.get('foo', 123), 123);
+      expect(config.get('foo')).to.be.null;
+      expect(config.get('foo', 123)).to.equal(123);
 
       config.set('foo', 'bar');
-      assert.equal(config.get('foo'), 'bar');
+      expect(config.get('foo')).to.equal('bar');
     });
   });
 
@@ -159,12 +158,12 @@ describe('Configuration', () => {
   describe('#merge()', () => {
     it('should have the same entries as the other configuration', () => {
       let config = new Configuration();
-      assert.equal(config.length, 0);
+      expect(config).to.have.lengthOf(0);
 
       config.merge(new Configuration({bar: 'baz', foo: 'bar'}));
-      assert.equal(config.length, 2);
-      assert.equal(config.get('foo'), 'bar');
-      assert.equal(config.get('bar'), 'baz');
+      expect(config).to.have.lengthOf(2);
+      expect(config.get('foo')).to.equal('bar');
+      expect(config.get('bar')).to.equal('baz');
     });
   });
 
@@ -174,10 +173,10 @@ describe('Configuration', () => {
   describe('#set()', () => {
     it('should properly set the configuration entries', () => {
       let config = new Configuration();
-      assert.strictEqual(config.get('foo'), null);
+      expect(config.get('foo')).to.be.null;
 
       config.set('foo', 'bar');
-      assert.equal(config.get('foo'), 'bar');
+      expect(config.get('foo')).to.equal('bar');
     });
   });
 
@@ -187,14 +186,14 @@ describe('Configuration', () => {
   describe('#toJSON()', () => {
     it('should return an empty map for a newly created instance', () => {
       let map = new Configuration().toJSON();
-      assert.equal(Object.keys(map).length, 0);
+      expect(Object.keys(map)).to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
       let map = new Configuration({bar: 'baz', foo: 'bar'}).toJSON();
-      assert.equal(Object.keys(map).length, 2);
-      assert.equal(map.foo, 'bar');
-      assert.equal(map.bar, 'baz');
+      expect(Object.keys(map)).to.have.lengthOf(2);
+      expect(map.foo).to.equal('bar');
+      expect(map.bar).to.equal('baz');
     });
   });
 
@@ -205,12 +204,12 @@ describe('Configuration', () => {
     let config = String(new Configuration({bar: 'baz', foo: 'bar'}));
 
     it('should start with the class name', () => {
-      assert.equal(config.indexOf('Configuration {'), 0);
+      expect(config.indexOf('Configuration {')).to.equal(0);
     });
 
     it('should contain the instance properties', () => {
-      assert.ok(config.includes('"bar":"baz"'));
-      assert.ok(config.includes('"foo":"bar"'));
+      expect(config).to.contain('"bar":"baz"');
+      expect(config).to.contain('"foo":"bar"');
     });
   });
 });

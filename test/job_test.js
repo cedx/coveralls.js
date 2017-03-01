@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {GitData, Job, SourceFile} from '../src/index';
 
 /**
@@ -13,19 +13,17 @@ describe('Job', () => {
    */
   describe('.fromJSON()', () => {
     it('should return a null reference with a non-object value', () => {
-      assert.strictEqual(Job.fromJSON('foo'), null);
+      expect(Job.fromJSON('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
       let job = Job.fromJSON({});
-      assert.ok(job instanceof Job);
-      assert.equal(job.git, null);
-      assert.ok(!job.isParallel);
-      assert.equal(job.repoToken, '');
-      assert.equal(job.runAt, null);
-
-      assert.ok(Array.isArray(job.sourceFiles));
-      assert.equal(job.sourceFiles.length, 0);
+      expect(job).to.be.instanceof(Job);
+      expect(job.git).to.be.null;
+      expect(job.isParallel).to.be.false;
+      expect(job.repoToken).to.be.empty;
+      expect(job.runAt).to.be.null;
+      expect(job.sourceFiles).to.be.an('array').and.to.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -37,20 +35,19 @@ describe('Job', () => {
         source_files: [{name: '/home/cedx/coveralls.php'}]
       });
 
-      assert.ok(job instanceof Job);
-      assert.ok(job.isParallel);
-      assert.equal(job.repoToken, 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+      expect(job).to.be.instanceof(Job);
+      expect(job.isParallel).to.be.true;
+      expect(job.repoToken).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
 
-      assert.ok(job.git instanceof GitData);
-      assert.equal(job.git.branch, 'develop');
+      expect(job.git).to.be.instanceof(GitData);
+      expect(job.git.branch).to.equal('develop');
 
-      assert.ok(job.runAt instanceof Date);
-      assert.equal(job.runAt.toISOString(), '2017-01-29T02:43:30.000Z');
+      expect(job.runAt).to.be.instanceof(Date);
+      expect(job.runAt.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
 
-      assert.ok(Array.isArray(job.sourceFiles));
-      assert.equal(job.sourceFiles.length, 1);
-      assert.ok(job.sourceFiles[0] instanceof SourceFile);
-      assert.equal(job.sourceFiles[0].name, '/home/cedx/coveralls.php');
+      expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(1);
+      expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
+      expect(job.sourceFiles[0].name).to.equal('/home/cedx/coveralls.php');
     });
   });
 
@@ -60,10 +57,8 @@ describe('Job', () => {
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       let map = new Job().toJSON();
-      assert.equal(Object.keys(map).length, 1);
-
-      assert.ok(Array.isArray(map.source_files));
-      assert.equal(map.source_files.length, 0);
+      expect(Object.keys(map)).to.have.lengthOf(1);
+      expect(map.source_files).to.be.an('array').and.to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -75,18 +70,17 @@ describe('Job', () => {
       job.sourceFiles = [new SourceFile('/home/cedx/coveralls.php')];
 
       let map = job.toJSON();
-      assert.equal(Object.keys(map).length, 5);
-      assert.ok(map.parallel);
-      assert.equal(map.repo_token, 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
-      assert.equal(map.run_at, '2017-01-29T02:43:30.000Z');
+      expect(Object.keys(map)).to.have.lengthOf(5);
+      expect(map.parallel).to.be.true;
+      expect(map.repo_token).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+      expect(map.run_at).to.equal('2017-01-29T02:43:30.000Z');
 
-      assert.ok(map && typeof map.git == 'object');
-      assert.equal(map.git.branch, 'develop');
+      expect(map).to.be.an('object');
+      expect(map.git.branch).to.equal('develop');
 
-      assert.ok(Array.isArray(map.source_files));
-      assert.equal(map.source_files.length, 1);
-      assert.ok(map.source_files[0] && typeof map.source_files[0] == 'object');
-      assert.equal(map.source_files[0].name, '/home/cedx/coveralls.php');
+      expect(map.source_files).to.be.an('array').and.have.lengthOf(1);
+      expect(map.source_files[0]).to.be.an('object');
+      expect(map.source_files[0].name).to.equal('/home/cedx/coveralls.php');
     });
   });
 
@@ -103,15 +97,15 @@ describe('Job', () => {
 
     let value = String(job);
     it('should start with the class name', () => {
-      assert.equal(value.indexOf('Job {'), 0);
+      expect(value.indexOf('Job {')).to.equal(0);
     });
 
     it('should contain the instance properties', () => {
-      assert.ok(value.includes('"git":{'));
-      assert.ok(value.includes('"parallel":true'));
-      assert.ok(value.includes('"repo_token":"yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt"'));
-      assert.ok(value.includes('"run_at":"2017-01-29T02:43:30.000Z"'));
-      assert.ok(value.includes('"source_files":[{'));
+      expect(value).to.contain('"git":{');
+      expect(value).to.contain('"parallel":true');
+      expect(value).to.contain('"repo_token":"yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt"');
+      expect(value).to.contain('"run_at":"2017-01-29T02:43:30.000Z"');
+      expect(value).to.contain('"source_files":[{');
     });
   });
 });

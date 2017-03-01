@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {GitRemote} from '../src/index';
 
 /**
@@ -13,21 +13,21 @@ describe('GitRemote', () => {
    */
   describe('.fromJSON()', () => {
     it('should return a null reference with a non-object value', () => {
-      assert.strictEqual(GitRemote.fromJSON('foo'), null);
+      expect(GitRemote.fromJSON('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
       let remote = GitRemote.fromJSON({});
-      assert.ok(remote instanceof GitRemote);
-      assert.equal(remote.name, '');
-      assert.equal(remote.url, '');
+      expect(remote).to.be.instanceof(GitRemote);
+      expect(remote.name).to.be.empty;
+      expect(remote.url).to.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
       let remote = GitRemote.fromJSON({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
-      assert.ok(remote instanceof GitRemote);
-      assert.equal(remote.name, 'origin');
-      assert.equal(remote.url, 'https://github.com/cedx/coveralls.js.git');
+      expect(remote).to.be.instanceof(GitRemote);
+      expect(remote.name).to.equal('origin');
+      expect(remote.url).to.equal('https://github.com/cedx/coveralls.js.git');
     });
   });
 
@@ -37,16 +37,16 @@ describe('GitRemote', () => {
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       let map = new GitRemote().toJSON();
-      assert.equal(Object.keys(map).length, 2);
-      assert.equal(map.name, '');
-      assert.equal(map.url, '');
+      expect(Object.keys(map)).to.have.lengthOf(2);
+      expect(map.name).to.be.empty;
+      expect(map.url).to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
       let map = new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git').toJSON();
-      assert.equal(Object.keys(map).length, 2);
-      assert.equal(map.name, 'origin');
-      assert.equal(map.url, 'https://github.com/cedx/coveralls.js.git');
+      expect(Object.keys(map)).to.have.lengthOf(2);
+      expect(map.name).to.equal('origin');
+      expect(map.url).to.equal('https://github.com/cedx/coveralls.js.git');
     });
   });
 
@@ -57,12 +57,12 @@ describe('GitRemote', () => {
     let remote = String(new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git'));
 
     it('should start with the class name', () => {
-      assert.equal(remote.indexOf('GitRemote {'), 0);
+      expect(remote.indexOf('GitRemote {')).to.equal(0);
     });
 
     it('should contain the instance properties', () => {
-      assert.ok(remote.includes('"name":"origin"'));
-      assert.ok(remote.includes('"url":"https://github.com/cedx/coveralls.js.git"'));
+      expect(remote).to.contain('"name":"origin"');
+      expect(remote).to.contain('"url":"https://github.com/cedx/coveralls.js.git"');
     });
   });
 });

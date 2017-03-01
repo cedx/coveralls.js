@@ -104,9 +104,9 @@ export class Configuration {
       return map && typeof map == 'object' ? new Configuration(map) : null;
     }
 
-    catch (err) {
-      if (err instanceof YAMLException) return null;
-      throw err;
+    catch (error) {
+      if (error instanceof YAMLException) return null;
+      throw error;
     }
   }
 

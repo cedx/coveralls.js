@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {GitCommit} from '../src/index';
 
 /**
@@ -13,16 +13,16 @@ describe('GitCommit', () => {
    */
   describe('.fromJSON()', () => {
     it('should return a null reference with a non-object value', () => {
-      assert.strictEqual(GitCommit.fromJSON('foo'), null);
+      expect(GitCommit.fromJSON('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
       let remote = GitCommit.fromJSON({});
-      assert.ok(remote instanceof GitCommit);
-      assert.equal(remote.authorEmail, '');
-      assert.equal(remote.authorName, '');
-      assert.equal(remote.id, '');
-      assert.equal(remote.message, '');
+      expect(remote).to.be.instanceof(GitCommit);
+      expect(remote.authorEmail).to.be.empty;
+      expect(remote.authorName).to.be.empty;
+      expect(remote.id).to.be.empty;
+      expect(remote.message).to.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -33,11 +33,11 @@ describe('GitCommit', () => {
         message: 'Hello World!'
       });
 
-      assert.ok(remote instanceof GitCommit);
-      assert.equal(remote.authorEmail, 'anonymous@secret.com');
-      assert.equal(remote.authorName, 'Anonymous');
-      assert.equal(remote.id, '2ef7bde608ce5404e97d5f042f95f89f1c232871');
-      assert.equal(remote.message, 'Hello World!');
+      expect(remote).to.be.instanceof(GitCommit);
+      expect(remote.authorEmail).to.equal('anonymous@secret.com');
+      expect(remote.authorName).to.equal('Anonymous');
+      expect(remote.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
+      expect(remote.message).to.equal('Hello World!');
     });
   });
 
@@ -47,8 +47,8 @@ describe('GitCommit', () => {
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       let map = new GitCommit().toJSON();
-      assert.equal(Object.keys(map).length, 1);
-      assert.equal(map.id, '');
+      expect(Object.keys(map)).to.have.lengthOf(1);
+      expect(map.id).to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -57,11 +57,11 @@ describe('GitCommit', () => {
       commit.authorName = 'Anonymous';
 
       let map = commit.toJSON();
-      assert.equal(Object.keys(map).length, 4);
-      assert.equal(map.author_email, 'anonymous@secret.com');
-      assert.equal(map.author_name, 'Anonymous');
-      assert.equal(map.id, '2ef7bde608ce5404e97d5f042f95f89f1c232871');
-      assert.equal(map.message, 'Hello World!');
+      expect(Object.keys(map)).to.have.lengthOf(4);
+      expect(map.author_email).to.equal('anonymous@secret.com');
+      expect(map.author_name).to.equal('Anonymous');
+      expect(map.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
+      expect(map.message).to.equal('Hello World!');
     });
   });
 
@@ -75,14 +75,14 @@ describe('GitCommit', () => {
 
     let value = String(commit);
     it('should start with the class name', () => {
-      assert.equal(value.indexOf('GitCommit {'), 0);
+      expect(value.indexOf('GitCommit {')).to.equal(0);
     });
 
     it('should contain the instance properties', () => {
-      assert.ok(value.includes('"author_email":"anonymous@secret.com"'));
-      assert.ok(value.includes('"author_name":"Anonymous"'));
-      assert.ok(value.includes('"id":"2ef7bde608ce5404e97d5f042f95f89f1c232871"'));
-      assert.ok(value.includes('"message":"Hello World!"'));
+      expect(value).to.contain('"author_email":"anonymous@secret.com"');
+      expect(value).to.contain('"author_name":"Anonymous"');
+      expect(value).to.contain('"id":"2ef7bde608ce5404e97d5f042f95f89f1c232871"');
+      expect(value).to.contain('"message":"Hello World!"');
     });
   });
 });

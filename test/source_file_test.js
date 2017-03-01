@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {SourceFile} from '../src/index';
 
 /**
@@ -13,33 +13,30 @@ describe('SourceFile', () => {
    */
   describe('.fromJSON()', () => {
     it('should return a null reference with a non-object value', () => {
-      assert.strictEqual(SourceFile.fromJSON('foo'), null);
+      expect(SourceFile.fromJSON('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
       let file = SourceFile.fromJSON({});
-      assert.ok(file instanceof SourceFile);
+      expect(file).to.be.instanceof(SourceFile);
 
-      assert.ok(Array.isArray(file.coverage));
-      assert.equal(file.coverage.length, 0);
-
-      assert.equal(file.name, '');
-      assert.equal(file.source, '');
-      assert.equal(file.sourceDigest, '');
+      expect(file.coverage).to.be.an('array').and.to.be.empty;
+      expect(file.name).to.be.empty;
+      expect(file.source).to.be.empty;
+      expect(file.sourceDigest).to.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
       let file = SourceFile.fromJSON({coverage: [null, 2, 0, null, 4, 15, null], name: 'coveralls.js', source: 'function main() {}', source_digest: 'e23fb141da9a7b438479a48eac7b7249'});
-      assert.ok(file instanceof SourceFile);
+      expect(file).to.be.instanceof(SourceFile);
 
-      assert.ok(Array.isArray(file.coverage));
-      assert.equal(file.coverage.length, 7);
-      assert.strictEqual(file.coverage[0], null);
-      assert.equal(file.coverage[1], 2);
+      expect(file.coverage).to.be.an('array').and.have.lengthOf(7);
+      expect(file.coverage[0]).to.be.null;
+      expect(file.coverage[1]).to.equal(2);
 
-      assert.equal(file.name, 'coveralls.js');
-      assert.equal(file.source, 'function main() {}');
-      assert.equal(file.sourceDigest, 'e23fb141da9a7b438479a48eac7b7249');
+      expect(file.name).to.equal('coveralls.js');
+      expect(file.source).to.equal('function main() {}');
+      expect(file.sourceDigest).to.equal('e23fb141da9a7b438479a48eac7b7249');
     });
   });
 
@@ -49,27 +46,24 @@ describe('SourceFile', () => {
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       let map = new SourceFile().toJSON();
-      assert.equal(Object.keys(map).length, 3);
+      expect(Object.keys(map)).to.have.lengthOf(3);
 
-      assert.ok(Array.isArray(map.coverage));
-      assert.equal(map.coverage.length, 0);
-
-      assert.equal(map.name, '');
-      assert.equal(map.source_digest, '');
+      expect(map.coverage).to.be.an('array').and.to.be.empty;
+      expect(map.name).to.be.empty;
+      expect(map.source_digest).to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
       let map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]).toJSON();
-      assert.equal(Object.keys(map).length, 4);
+      expect(Object.keys(map)).to.have.lengthOf(4);
 
-      assert.ok(Array.isArray(map.coverage));
-      assert.equal(map.coverage.length, 7);
-      assert.strictEqual(map.coverage[0], null);
-      assert.equal(map.coverage[1], 2);
+      expect(map.coverage).to.be.an('array').and.have.lengthOf(7);
+      expect(map.coverage[0]).to.be.null;
+      expect(map.coverage[1]).to.equal(2);
 
-      assert.equal(map.name, 'coveralls.js');
-      assert.equal(map.source, 'function main() {}');
-      assert.equal(map.source_digest, 'e23fb141da9a7b438479a48eac7b7249');
+      expect(map.name).to.equal('coveralls.js');
+      expect(map.source).to.equal('function main() {}');
+      expect(map.source_digest).to.equal('e23fb141da9a7b438479a48eac7b7249');
     });
   });
 
@@ -80,13 +74,13 @@ describe('SourceFile', () => {
     let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]));
 
     it('should start with the class name', () => {
-      assert.equal(file.indexOf('SourceFile {'), 0);
+      expect(file.indexOf('SourceFile {')).to.equal(0);
     });
 
     it('should contain the instance properties', () => {
-      assert.ok(file.includes('"name":"coveralls.js"'));
-      assert.ok(file.includes('"source":"function main() {}"'));
-      assert.ok(file.includes('"source_digest":"e23fb141da9a7b438479a48eac7b7249"'));
+      expect(file).to.contain('"name":"coveralls.js"');
+      expect(file).to.contain('"source":"function main() {}"');
+      expect(file).to.contain('"source_digest":"e23fb141da9a7b438479a48eac7b7249"');
     });
   });
 });
