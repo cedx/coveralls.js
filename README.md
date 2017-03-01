@@ -51,11 +51,15 @@ Now, in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScrip
 const fs = require('fs');
 const {Client} = require('@cedx/coveralls');
 
-let coverage = fs.readFileSync('/path/to/coverage.report', 'utf8');
-new Client().upload(coverage).then(
-  () => console.log('The report was sent successfully.'),
-  err => console.log('An error occurred:', err.message)
-);
+try {
+  let coverage = fs.readFileSync('/path/to/coverage.report', 'utf8');
+  await new Client().upload(coverage);
+  console.log('The report was sent successfully.');
+}
+
+catch (error) {
+  console.log(`An error occurred: ${error}`);
+}
 ```
 
 ## Supported coverage formats
