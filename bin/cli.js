@@ -43,7 +43,7 @@ async function main() {
 }
 
 // Run the application.
-if (require.main === module) main().catch(error => {
+if (module === require.main) main().catch(error => {
   console.log(error.message);
   process.exit(1);
 });
