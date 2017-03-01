@@ -26,14 +26,18 @@ async function main() {
   program.parse(process.argv);
   if (!program.file) program.help();
 
-  // Upload the coverage report.
-  let readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? null : data)));
+  // Check the report existence.
+  let fileExists = file => new Promise(resolve => fs.access(file, err => resolve(!err)));
 
   let file = path.normalize(program.file);
-  let coverage = await readFile(file);
-  if (typeof coverage != 'string') throw new Error(`The specified file is not found: ${file}`);
+  if (!await fileExists(file)) throw new Error(`The specified file is not found: ${file}`);
+
+  // Upload the report to Coveralls.
+  let readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
 
   let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
+  let coverage = await readFile(file);
+
   console.log('[Coveralls] Submitting to', client.endPoint);
   return client.upload(coverage);
 }
