@@ -79,7 +79,7 @@ gulp.task('watch', ['default'], () => {
 });
 
 /**
- * Runs a command and returns its output.
+ * Spawns a new process using the specified command.
  * @param {string} command The command to run.
  * @param {string[]} [args] The command arguments.
  * @param {object} [options] The settings to customize how the process is spawned.
