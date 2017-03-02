@@ -208,8 +208,7 @@ describe('Configuration', () => {
     });
 
     it('should contain the instance properties', () => {
-      expect(config).to.contain('"bar":"baz"');
-      expect(config).to.contain('"foo":"bar"');
+      expect(config).to.contain('"bar":"baz"').and.contain('"foo":"bar"');
     });
   });
 });

@@ -61,8 +61,7 @@ describe('GitRemote', () => {
     });
 
     it('should contain the instance properties', () => {
-      expect(remote).to.contain('"name":"origin"');
-      expect(remote).to.contain('"url":"https://github.com/cedx/coveralls.js.git"');
+      expect(remote).to.contain('"name":"origin"').and.contain('"url":"https://github.com/cedx/coveralls.js.git"');
     });
   });
 });

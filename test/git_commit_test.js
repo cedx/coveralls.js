@@ -79,10 +79,10 @@ describe('GitCommit', () => {
     });
 
     it('should contain the instance properties', () => {
-      expect(value).to.contain('"author_email":"anonymous@secret.com"');
-      expect(value).to.contain('"author_name":"Anonymous"');
-      expect(value).to.contain('"id":"2ef7bde608ce5404e97d5f042f95f89f1c232871"');
-      expect(value).to.contain('"message":"Hello World!"');
+      expect(value).to.contain('"author_email":"anonymous@secret.com"')
+        .and.contain('"author_name":"Anonymous"')
+        .and.contain('"id":"2ef7bde608ce5404e97d5f042f95f89f1c232871"')
+        .and.contain('"message":"Hello World!"');
     });
   });
 });

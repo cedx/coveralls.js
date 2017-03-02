@@ -21,7 +21,7 @@ describe('GitData', () => {
       expect(data).to.be.instanceof(GitData);
       expect(data.branch).to.be.empty;
       expect(data.commit).to.be.null;
-      expect(data.remotes).to.be.an('array').and.to.be.empty;
+      expect(data.remotes).to.be.an('array').and.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -72,7 +72,7 @@ describe('GitData', () => {
       expect(Object.keys(map)).to.have.lengthOf(3);
       expect(map.branch).to.be.empty;
       expect(map.head).to.be.null;
-      expect(map.remotes).to.be.an('array').and.to.be.empty;
+      expect(map.remotes).to.be.an('array').and.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -100,9 +100,9 @@ describe('GitData', () => {
     });
 
     it('should contain the instance properties', () => {
-      expect(data).to.contain('"branch":"develop"');
-      expect(data).to.contain('"head":{');
-      expect(data).to.contain('"remotes":[{');
+      expect(data).to.contain('"branch":"develop"')
+        .and.contain('"head":{')
+        .and.contain('"remotes":[{');
     });
   });
 });

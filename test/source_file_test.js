@@ -20,7 +20,7 @@ describe('SourceFile', () => {
       let file = SourceFile.fromJSON({});
       expect(file).to.be.instanceof(SourceFile);
 
-      expect(file.coverage).to.be.an('array').and.to.be.empty;
+      expect(file.coverage).to.be.an('array').and.be.empty;
       expect(file.name).to.be.empty;
       expect(file.source).to.be.empty;
       expect(file.sourceDigest).to.be.empty;
@@ -48,7 +48,7 @@ describe('SourceFile', () => {
       let map = new SourceFile().toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
 
-      expect(map.coverage).to.be.an('array').and.to.be.empty;
+      expect(map.coverage).to.be.an('array').and.be.empty;
       expect(map.name).to.be.empty;
       expect(map.source_digest).to.be.empty;
     });
@@ -78,9 +78,9 @@ describe('SourceFile', () => {
     });
 
     it('should contain the instance properties', () => {
-      expect(file).to.contain('"name":"coveralls.js"');
-      expect(file).to.contain('"source":"function main() {}"');
-      expect(file).to.contain('"source_digest":"e23fb141da9a7b438479a48eac7b7249"');
+      expect(file).to.contain('"name":"coveralls.js"')
+        .and.contain('"source":"function main() {}"')
+        .and.contain('"source_digest":"e23fb141da9a7b438479a48eac7b7249"');
     });
   });
 });

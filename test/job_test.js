@@ -23,7 +23,7 @@ describe('Job', () => {
       expect(job.isParallel).to.be.false;
       expect(job.repoToken).to.be.empty;
       expect(job.runAt).to.be.null;
-      expect(job.sourceFiles).to.be.an('array').and.to.be.empty;
+      expect(job.sourceFiles).to.be.an('array').and.be.empty;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -58,7 +58,7 @@ describe('Job', () => {
     it('should return a map with default values for a newly created instance', () => {
       let map = new Job().toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
-      expect(map.source_files).to.be.an('array').and.to.be.empty;
+      expect(map.source_files).to.be.an('array').and.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -101,11 +101,11 @@ describe('Job', () => {
     });
 
     it('should contain the instance properties', () => {
-      expect(value).to.contain('"git":{');
-      expect(value).to.contain('"parallel":true');
-      expect(value).to.contain('"repo_token":"yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt"');
-      expect(value).to.contain('"run_at":"2017-01-29T02:43:30.000Z"');
-      expect(value).to.contain('"source_files":[{');
+      expect(value).to.contain('"git":{')
+        .and.contain('"parallel":true')
+        .and.contain('"repo_token":"yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt"')
+        .and.contain('"run_at":"2017-01-29T02:43:30.000Z"')
+        .and.contain('"source_files":[{');
     });
   });
 });
