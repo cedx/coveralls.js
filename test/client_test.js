@@ -14,9 +14,15 @@ describe('Client', () => {
    * @test {Client#upload}
    */
   describe('#upload()', () => {
-    it('should throw an exception with an empty coverage report', async () => {
-      try { await new Client().upload(''); }
-      catch (e) { expect(true).to.be.ok; }
+    it('should throw an error with an empty coverage report', async () => {
+      try {
+        await new Client().upload('');
+        expect(true).to.not.be.ok;
+      }
+
+      catch (err) {
+        expect(true).to.be.ok;
+      }
     });
   });
 
@@ -24,9 +30,15 @@ describe('Client', () => {
    * @test {Client#uploadJob}
    */
   describe('#uploadJob()', () => {
-    it('should throw an exception with an empty coverage job', async () => {
-      try { await new Client().uploadJob(new Job()); }
-      catch (e) { expect(true).to.be.ok; }
+    it('should throw an error with an empty coverage job', async () => {
+      try {
+        await new Client().uploadJob(new Job());
+        expect(true).to.not.be.ok;
+      }
+
+      catch (err) {
+        expect(true).to.be.ok;
+      }
     });
   });
 
