@@ -85,7 +85,7 @@ gulp.task('watch', ['default'], () => {
  * @param {object} [options] The settings to customize how the process is spawned.
  * @return {Promise} Completes when the command is finally terminated.
  */
-function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
+async function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
   return new Promise((resolve, reject) => child_process
     .spawn(path.normalize(command), args, options)
     .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())

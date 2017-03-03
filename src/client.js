@@ -71,7 +71,6 @@ export class Client {
    * @param {string} coverage A coverage report.
    * @param {Configuration} [configuration] The environment settings.
    * @return {Promise} Completes when the operation is done.
-   * @throws {Error} The specified coverage report is empty, or its format is not supported.
    * @emits {superagent.Request} The "request" event.
    * @emits {superagent.Response} The "response" event.
    */
@@ -110,7 +109,6 @@ export class Client {
    * Uploads the specified job to the Coveralls service.
    * @param {Job} job The job to be uploaded.
    * @return {Promise} Completes when the operation is done.
-   * @throws {Error} The job does not meet the requirements, or a remote error occurred.
    * @emits {superagent.Request} The "request" event.
    * @emits {superagent.Response} The "response" event.
    */

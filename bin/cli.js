@@ -10,7 +10,6 @@ const {Client} = require('../lib');
 /**
  * Application entry point.
  * @return {Promise} Completes when the program is terminated.
- * @throws {Error} The file specified on the command line is not found.
  */
 async function main() {
   // Initialize the application.
