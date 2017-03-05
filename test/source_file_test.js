@@ -74,7 +74,7 @@ describe('SourceFile', () => {
     let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]));
 
     it('should start with the class name', () => {
-      expect(file.indexOf('SourceFile {')).to.equal(0);
+      expect(file.startsWith('SourceFile {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {

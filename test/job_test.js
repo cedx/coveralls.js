@@ -19,6 +19,7 @@ describe('Job', () => {
     it('should return an instance with default values for an empty map', () => {
       let job = Job.fromJSON({});
       expect(job).to.be.instanceof(Job);
+
       expect(job.git).to.be.null;
       expect(job.isParallel).to.be.false;
       expect(job.repoToken).to.be.empty;
@@ -97,7 +98,7 @@ describe('Job', () => {
 
     let value = String(job);
     it('should start with the class name', () => {
-      expect(value.indexOf('Job {')).to.equal(0);
+      expect(value.startsWith('Job {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {

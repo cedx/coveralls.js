@@ -19,6 +19,7 @@ describe('GitCommit', () => {
     it('should return an instance with default values for an empty map', () => {
       let remote = GitCommit.fromJSON({});
       expect(remote).to.be.instanceof(GitCommit);
+
       expect(remote.authorEmail).to.be.empty;
       expect(remote.authorName).to.be.empty;
       expect(remote.id).to.be.empty;
@@ -75,7 +76,7 @@ describe('GitCommit', () => {
 
     let value = String(commit);
     it('should start with the class name', () => {
-      expect(value.indexOf('GitCommit {')).to.equal(0);
+      expect(value.startsWith('GitCommit {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {

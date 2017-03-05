@@ -96,7 +96,7 @@ describe('GitData', () => {
     let data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]));
 
     it('should start with the class name', () => {
-      expect(data.indexOf('GitData {')).to.equal(0);
+      expect(data.startsWith('GitData {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {

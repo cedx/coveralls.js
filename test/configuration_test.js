@@ -40,6 +40,7 @@ describe('Configuration', () => {
    */
   describe('.fromYAML()', () => {
     it('should return a null reference with a non-object value', () => {
+      expect(Configuration.fromYAML('**123/456**')).to.be.null;
       expect(Configuration.fromYAML('foo')).to.be.null;
     });
 
@@ -204,7 +205,7 @@ describe('Configuration', () => {
     let config = String(new Configuration({bar: 'baz', foo: 'bar'}));
 
     it('should start with the class name', () => {
-      expect(config.indexOf('Configuration {')).to.equal(0);
+      expect(config.startsWith('Configuration {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {

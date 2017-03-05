@@ -57,7 +57,7 @@ describe('GitRemote', () => {
     let remote = String(new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git'));
 
     it('should start with the class name', () => {
-      expect(remote.indexOf('GitRemote {')).to.equal(0);
+      expect(remote.startsWith('GitRemote {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {
