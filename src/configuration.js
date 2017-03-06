@@ -117,7 +117,7 @@ export class Configuration {
    * @return {Promise<Configuration>} The default configuration.
    */
   static async loadDefaults(coverallsFile = '') {
-    let readYAML = file => new Promise(resolve =>
+    const readYAML = file => new Promise(resolve =>
       fs.readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
     );
 

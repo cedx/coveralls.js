@@ -26,13 +26,13 @@ async function main() {
   if (!program.file) program.help();
 
   // Check the report existence.
-  let fileExists = file => new Promise(resolve => fs.access(file, err => resolve(!err)));
+  const fileExists = file => new Promise(resolve => fs.access(file, err => resolve(!err)));
 
   let file = path.normalize(program.file);
   if (!await fileExists(file)) throw new Error(`The specified file is not found: ${file}`);
 
   // Upload the report to Coveralls.
-  let readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
+  const readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
 
   let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
   let coverage = await readFile(file);
