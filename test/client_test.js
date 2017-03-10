@@ -47,9 +47,8 @@ describe('Client', () => {
    */
   describe('#_parseReport()', () => {
     it('should properly parse LCOV reports', async () => {
-      /* eslint-disable no-sync */
-      let coverage = fs.readFileSync(`${__dirname}/fixtures/lcov.info`, 'utf8');
-      /* eslint-enable no-sync */
+      const readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
+      let coverage = await readFile(`${__dirname}/fixtures/lcov.info`);
 
       let job = await new Client()._parseReport(coverage);
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
