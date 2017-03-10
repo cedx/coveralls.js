@@ -49,6 +49,6 @@
   "scripts": {
     "coverage": "node bin/cli.js --file=var/lcov.info",
     "prepublish": "gulp build",
-    "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register"
+    "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register --recursive"
   }
 }
