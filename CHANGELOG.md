@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 0.4.0
+- Updated the package dependencies.
+
 ## Version 0.3.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: using ES2017 features, like async/await functions.
