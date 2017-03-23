@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
 ## Version 0.5.0
+- Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Updated the package dependencies.
 
 ## Version 0.4.0

@@ -2,7 +2,6 @@ import {Report, Token} from '@cedx/lcov';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import {Subject} from 'rxjs';
 import superagent from 'superagent';
 import which from 'which';
 
@@ -36,34 +35,6 @@ export class Client {
      * @type {string}
      */
     this.endPoint = endPoint;
-
-    /**
-     * The handler of "request" events.
-     * @type {Subject<superagent.Request>}
-     */
-    this._onRequest = new Subject();
-
-    /**
-     * The handler of "response" events.
-     * @type {Subject<superagent.Response>}
-     */
-    this._onResponse = new Subject();
-  }
-
-  /**
-   * The stream of "request" events.
-   * @type {Observable<superagent.Request>}
-   */
-  get onRequest() {
-    return this._onRequest.asObservable();
-  }
-
-  /**
-   * The stream of "response" events.
-   * @type {Observable<superagent.Response>}
-   */
-  get onResponse() {
-    return this._onResponse.asObservable();
   }
 
   /**
