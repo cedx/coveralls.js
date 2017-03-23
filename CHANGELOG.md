@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Coveralls 
 
 ## Version 0.5.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
+- Breaking change: the `Client` class is now an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
 - Updated the package dependencies.
 
 ## Version 0.4.0

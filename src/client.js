@@ -1,5 +1,6 @@
 import {Report, Token} from '@cedx/lcov';
 import crypto from 'crypto';
+import EventEmitter from 'events';
 import fs from 'fs';
 import path from 'path';
 import superagent from 'superagent';
@@ -14,7 +15,7 @@ import {SourceFile} from './source_file';
 /**
  * Uploads code coverage reports to the [Coveralls](https://coveralls.io) service.
  */
-export class Client {
+export class Client extends EventEmitter {
 
   /**
    * The URL of the default end point.
@@ -29,6 +30,7 @@ export class Client {
    * @param {string} [endPoint] The URL of the API end point.
    */
   constructor(endPoint = Client.DEFAULT_ENDPOINT) {
+    super();
 
     /**
      * The URL of the API end point.
@@ -91,9 +93,9 @@ export class Client {
       .post(`${this.endPoint}/api/v1/jobs`)
       .attach('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    this._onRequest.next(request);
+    this.emit('request', request);
     let response = await request;
-    this._onResponse.next(response);
+    this.emit('response', response);
 
     if (response.status != 200) throw new Error(`${response.status} ${response.statusText}`);
     return null;
