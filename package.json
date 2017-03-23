@@ -20,7 +20,7 @@
     "commander": "^2.9.0",
     "js-yaml": "^3.8.2",
     "superagent": "^3.5.2",
-    "which": "^1.2.13"
+    "which": "^1.2.14"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^6.1.0",
