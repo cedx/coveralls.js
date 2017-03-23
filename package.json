@@ -18,14 +18,13 @@
   "dependencies": {
     "@cedx/lcov": "^1.0.0",
     "commander": "^2.9.0",
-    "js-yaml": "^3.8.1",
-    "rxjs": "^5.2.0",
-    "superagent": "^3.5.0",
-    "which": "^1.2.12"
+    "js-yaml": "^3.8.2",
+    "superagent": "^3.5.2",
+    "which": "^1.2.13"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^6.1.0",
-    "babel-preset-env": "^1.2.1",
+    "babel-preset-env": "^1.2.2",
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
     "del": "^2.2.2",
