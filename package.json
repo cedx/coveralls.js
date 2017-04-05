@@ -9,8 +9,8 @@
   "repository": "cedx/coveralls.js",
   "version": "0.5.0",
 
-  "jsnext:main": "./src/index",
   "main": "./lib/index",
+  "module": "./src/index",
 
   "bin": {
     "coveralls": "./bin/cli.js"
