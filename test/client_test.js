@@ -2,6 +2,7 @@
 
 import {expect} from 'chai';
 import fs from 'fs';
+import {describe, it} from 'mocha';
 import path from 'path';
 import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
 
