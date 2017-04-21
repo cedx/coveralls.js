@@ -180,7 +180,7 @@ export class Configuration {
   /**
    * Removes the value associated to the specified key.
    * @param {string} key The key to seek for.
-   * @return {string} The value associated with the key before it was removed, or a `null` reference if the key was not found.
+   * @return {*} The value associated with the key before it was removed, or a `null` reference if the key was not found.
    */
   remove(key) {
     let value = this.get(key);
