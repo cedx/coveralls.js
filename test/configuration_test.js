@@ -135,7 +135,7 @@ describe('Configuration', () => {
       expect(new Configuration().containsKey('foo')).to.be.false;
     });
 
-    it('should return `true` if the specified key is not contained', () => {
+    it('should return `true` if the specified key is contained', () => {
       expect(new Configuration({foo: 'bar'}).containsKey('foo')).to.be.true;
     });
   });
