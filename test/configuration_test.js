@@ -10,6 +10,35 @@ import {Configuration} from '../src/index';
 describe('Configuration', () => {
 
   /**
+   * @test {Configuration#[Symbol.iterator]}
+   */
+  describe('#[Symbol.iterator]()', () => {
+    it('should return a done iterator if configuration is empty', () => {
+      let config = new Configuration();
+      let iterator = config[Symbol.iterator]();
+      expect(iterator.next().done).to.be.true;
+    });
+
+    it('should return a value iterator if configuration is not empty', () => {
+      /* eslint-disable sort-keys */
+      let config = new Configuration({foo: 'bar', bar: 'baz'});
+      /* eslint-enable sort-keys */
+
+      let iterator = config[Symbol.iterator]();
+      let next = iterator.next();
+      expect(next.done).to.be.false;
+      expect(next.value[0]).to.equal('foo');
+      expect(next.value[1]).to.equal('bar');
+
+      next = iterator.next();
+      expect(next.done).to.be.false;
+      expect(next.value[0]).to.equal('bar');
+      expect(next.value[1]).to.equal('baz');
+      expect(iterator.next().done).to.be.true;
+    });
+  });
+
+  /**
    * @test {Configuration.fromEnvironment}
    */
   describe('.fromEnvironment()', () => {
@@ -95,35 +124,6 @@ describe('Configuration', () => {
 
     it('should return the number of entries for a non-empty configuration', () => {
       expect(new Configuration({bar: 'baz', foo: 'bar'})).to.have.lengthOf(2);
-    });
-  });
-
-  /**
-   * @test {Configuration#Symbol.iterator}
-   */
-  describe('#[Symbol.iterator]()', () => {
-    it('should return a done iterator if configuration is empty', () => {
-      let config = new Configuration();
-      let iterator = config[Symbol.iterator]();
-      expect(iterator.next().done).to.be.true;
-    });
-
-    it('should return a value iterator if configuration is not empty', () => {
-      /* eslint-disable sort-keys */
-      let config = new Configuration({foo: 'bar', bar: 'baz'});
-      /* eslint-enable sort-keys */
-
-      let iterator = config[Symbol.iterator]();
-      let next = iterator.next();
-      expect(next.done).to.be.false;
-      expect(next.value[0]).to.equal('foo');
-      expect(next.value[1]).to.equal('bar');
-
-      next = iterator.next();
-      expect(next.done).to.be.false;
-      expect(next.value[0]).to.equal('bar');
-      expect(next.value[1]).to.equal('baz');
-      expect(iterator.next().done).to.be.true;
     });
   });
 
