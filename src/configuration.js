@@ -92,13 +92,6 @@ export class Configuration {
   }
 
   /**
-   * Returns a new iterator that allows iterating the entries of this configuration.
-   */
-  *[Symbol.iterator]() {
-    for (let key of this.keys) yield [key, this.get(key)];
-  }
-
-  /**
    * Creates a new source file from the specified YAML document.
    * @param {string} document A YAML document providing configuration parameters.
    * @return {Configuration} The instance corresponding to the specified YAML document, or `null` if a parsing error occurred.
@@ -148,6 +141,13 @@ export class Configuration {
    */
   get length() {
     return this.keys.length;
+  }
+
+  /**
+   * Returns a new iterator that allows iterating the entries of this configuration.
+   */
+  *[Symbol.iterator]() {
+    for (let key of this.keys) yield [key, this.get(key)];
   }
 
   /**
