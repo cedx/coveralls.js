@@ -161,8 +161,7 @@ export class Configuration {
    * @return {*} The value of the configuration parameter, or the default value if the parameter is not found.
    */
   get(key, defaultValue = null) {
-    let value = this._params.get(key);
-    return typeof value != 'undefined' ? value : defaultValue;
+    return this.has(key) ? this._params.get(key) : defaultValue;
   }
 
   /**
