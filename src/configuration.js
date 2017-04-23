@@ -25,9 +25,10 @@ export class Configuration {
 
     /**
      * The configuration parameters.
-     * @type {object}
+     * @type {Map<string, *>}
      */
-    this._params = params;
+    this._params = new Map();
+    for (let key in params) this._params.set(key, params[key]);
   }
 
   /**
@@ -132,7 +133,9 @@ export class Configuration {
    * @type {string[]}
    */
   get keys() {
-    return Object.keys(this._params);
+    let keys = [];
+    keys.push(...this._params.keys());
+    return keys;
   }
 
   /**
@@ -140,14 +143,15 @@ export class Configuration {
    * @type {number}
    */
   get length() {
-    return this.keys.length;
+    return this._params.size;
   }
 
   /**
    * Returns a new iterator that allows iterating the entries of this configuration.
+   * @return {Iterator<Array>} An iterator for the entries of this configuration.
    */
-  *[Symbol.iterator]() {
-    for (let key of this.keys) yield [key, this.get(key)];
+  [Symbol.iterator]() {
+    return this._params.entries();
   }
 
   /**
@@ -157,7 +161,8 @@ export class Configuration {
    * @return {*} The value of the configuration parameter, or the default value if the parameter is not found.
    */
   get(key, defaultValue = null) {
-    return typeof this._params[key] != 'undefined' ? this._params[key] : defaultValue;
+    let value = this._params.get(key);
+    return typeof value != 'undefined' ? value : defaultValue;
   }
 
   /**
@@ -166,7 +171,7 @@ export class Configuration {
    * @return {boolean} `true` if this configuration contains the specified key, otherwise `false`.
    */
   has(key) {
-    return this.keys.includes(key);
+    return this._params.has(key);
   }
 
   /**
@@ -180,12 +185,9 @@ export class Configuration {
   /**
    * Removes the value associated to the specified key.
    * @param {string} key The key to seek for.
-   * @return {*} The value associated with the key before it was removed, or a `null` reference if the key was not found.
    */
   remove(key) {
-    let value = this.get(key);
-    delete this._params[key];
-    return value;
+    this._params.delete(key);
   }
 
   /**
@@ -194,7 +196,7 @@ export class Configuration {
    * @param {*} value The parameter value.
    */
   set(key, value) {
-    this._params[key] = value;
+    this._params.set(key, value);
   }
 
   /**
@@ -202,7 +204,9 @@ export class Configuration {
    * @return {object} The map in JSON format corresponding to this object.
    */
   toJSON() {
-    return this._params;
+    let map = {};
+    for (let item of this) map[item[0]] = item[1];
+    return map;
   }
 
   /**
