@@ -151,15 +151,6 @@ export class Configuration {
   }
 
   /**
-   * Gets a value indicating whether this configuration contains the specified key.
-   * @param {string} key The key to seek for.
-   * @return {boolean} `true` if this configuration contains the specified key, otherwise `false`.
-   */
-  containsKey(key) {
-    return this.keys.includes(key);
-  }
-
-  /**
    * Gets the value associated to the specified key.
    * @param {string} key The key to seek for.
    * @param {*} defaultValue The default parameter value if it does not exist.
@@ -167,6 +158,15 @@ export class Configuration {
    */
   get(key, defaultValue = null) {
     return typeof this._params[key] != 'undefined' ? this._params[key] : defaultValue;
+  }
+
+  /**
+   * Gets a value indicating whether this configuration contains the specified key.
+   * @param {string} key The key to seek for.
+   * @return {boolean} `true` if this configuration contains the specified key, otherwise `false`.
+   */
+  has(key) {
+    return this.keys.includes(key);
   }
 
   /**

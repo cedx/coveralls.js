@@ -128,19 +128,6 @@ describe('Configuration', () => {
   });
 
   /**
-   * @test {Configuration#containsKey}
-   */
-  describe('#containsKey()', () => {
-    it('should return `false` if the specified key is not contained', () => {
-      expect(new Configuration().containsKey('foo')).to.be.false;
-    });
-
-    it('should return `true` if the specified key is contained', () => {
-      expect(new Configuration({foo: 'bar'}).containsKey('foo')).to.be.true;
-    });
-  });
-
-  /**
    * @test {Configuration#get}
    */
   describe('#get()', () => {
@@ -151,6 +138,19 @@ describe('Configuration', () => {
 
       config.set('foo', 'bar');
       expect(config.get('foo')).to.equal('bar');
+    });
+  });
+
+  /**
+   * @test {Configuration#has}
+   */
+  describe('#has()', () => {
+    it('should return `false` if the specified key is not contained', () => {
+      expect(new Configuration().has('foo')).to.be.false;
+    });
+
+    it('should return `true` if the specified key is contained', () => {
+      expect(new Configuration({foo: 'bar'}).has('foo')).to.be.true;
     });
   });
 

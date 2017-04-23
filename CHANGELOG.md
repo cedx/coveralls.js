@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 0.6.0
+- Breaking change: renamed the `Configuration#containsKey` method to `has`.
+- Updated the package dependencies.
+
 ## Version 0.5.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Breaking change: the `Client` class is now an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
