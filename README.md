@@ -51,14 +51,16 @@ Now, in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScrip
 const fs = require('fs');
 const {Client} = require('@cedx/coveralls');
 
-try {
-  let coverage = fs.readFileSync('/path/to/coverage.report', 'utf8');
-  await new Client().upload(coverage);
-  console.log('The report was sent successfully.');
-}
-
-catch (error) {
-  console.log(`An error occurred: ${error}`);
+async function main() {
+  try {
+    let coverage = fs.readFileSync('/path/to/coverage.report', 'utf8');
+    await new Client().upload(coverage);
+    console.log('The report was sent successfully.');
+  }
+    
+  catch (error) {
+    console.log(`An error occurred: ${error}`);
+  }
 }
 ```
 

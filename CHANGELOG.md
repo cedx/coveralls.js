@@ -3,6 +3,8 @@ This file contains highlights of what changes on each version of the [Coveralls 
 
 ## Version 0.6.0
 - Breaking change: renamed the `Configuration#containsKey` method to `has`.
+- Breaking change: the `Configuration#remove` does not return anymore the removed value.
+- Replaced the internal `Configuration` parameters object by a `Map`.
 - Updated the package dependencies.
 
 ## Version 0.5.0
