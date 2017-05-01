@@ -48,12 +48,12 @@ $ npm install --save @cedx/coveralls
 Now, in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use the `Client` class to upload your coverage reports:
 
 ```javascript
-const fs = require('fs');
+const {readFileSync} = require('fs');
 const {Client} = require('@cedx/coveralls');
 
 async function main() {
   try {
-    let coverage = fs.readFileSync('/path/to/coverage.report', 'utf8');
+    let coverage = readFileSync('/path/to/coverage.report', 'utf8');
     await new Client().upload(coverage);
     console.log('The report was sent successfully.');
   }
