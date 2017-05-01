@@ -1,8 +1,8 @@
 import {Report, Token} from '@cedx/lcov';
-import crypto from 'crypto';
+import {createHash} from 'crypto';
 import EventEmitter from 'events';
-import fs from 'fs';
-import path from 'path';
+import {readFile} from 'fs';
+import {relative} from 'path';
 import superagent from 'superagent';
 import which from 'which';
 
@@ -108,15 +108,15 @@ export class Client extends EventEmitter {
    */
   async _parseReport(report) {
     return new Job(await Promise.all(Report.parse(report).records.map(record => new Promise((resolve, reject) =>
-      fs.readFile(record.sourceFile, 'utf8', (err, source) => {
+      readFile(record.sourceFile, 'utf8', (err, source) => {
         if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
         else {
           let lines = source.split(/\r?\n/);
           let coverage = new Array(lines.length).fill(null);
           for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
 
-          let filename = path.relative(process.cwd(), record.sourceFile);
-          let digest = crypto.createHash('md5').update(source).digest('hex');
+          let filename = relative(process.cwd(), record.sourceFile);
+          let digest = createHash('md5').update(source).digest('hex');
           resolve(new SourceFile(filename, digest, source, coverage));
         }
       })

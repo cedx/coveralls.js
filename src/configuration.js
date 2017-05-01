@@ -1,16 +1,16 @@
-import fs from 'fs';
+import {readFile} from 'fs';
 import {safeLoad as loadYAML, YAMLException} from 'js-yaml';
 
-import * as appveyor from './services/appveyor';
-import * as circleci from './services/circleci';
-import * as codeship from './services/codeship';
-import * as gitlab_ci from './services/gitlab_ci';
-import * as jenkins from './services/jenkins';
-import * as semaphore from './services/semaphore';
-import * as solano_ci from './services/solano_ci';
-import * as surf from './services/surf';
-import * as travis_ci from './services/travis_ci';
-import * as wercker from './services/wercker';
+import {getConfiguration as getAppveyorConfig} from './services/appveyor';
+import {getConfiguration as getCircleCIConfig} from './services/circleci';
+import {getConfiguration as getCodeshipConfig} from './services/codeship';
+import {getConfiguration as getGitLabCIConfig} from './services/gitlab_ci';
+import {getConfiguration as getJenkinsConfig} from './services/jenkins';
+import {getConfiguration as getSemaphoreConfig} from './services/semaphore';
+import {getConfiguration as getSolanoCIConfig} from './services/solano_ci';
+import {getConfiguration as getSurfConfig} from './services/surf';
+import {getConfiguration as getTravisCIConfig} from './services/travis_ci';
+import {getConfiguration as getWerckerConfig} from './services/wercker';
 
 /**
  * Provides access to the coverage settings.
@@ -76,18 +76,18 @@ export class Configuration {
 
     // CI services.
     if ('TRAVIS' in env) {
-      config.merge(travis_ci.getConfiguration(env));
+      config.merge(getTravisCIConfig(env));
       if (serviceName.length && serviceName != 'travis-ci') config.set('service_name', serviceName);
     }
-    else if ('APPVEYOR' in env) config.merge(appveyor.getConfiguration(env));
-    else if ('CIRCLECI' in env) config.merge(circleci.getConfiguration(env));
-    else if (serviceName == 'codeship') config.merge(codeship.getConfiguration(env));
-    else if ('GITLAB_CI' in env) config.merge(gitlab_ci.getConfiguration(env));
-    else if ('JENKINS_URL' in env) config.merge(jenkins.getConfiguration(env));
-    else if ('SEMAPHORE' in env) config.merge(semaphore.getConfiguration(env));
-    else if ('SURF_SHA1' in env) config.merge(surf.getConfiguration(env));
-    else if ('TDDIUM' in env) config.merge(solano_ci.getConfiguration(env));
-    else if ('WERCKER' in env) config.merge(wercker.getConfiguration(env));
+    else if ('APPVEYOR' in env) config.merge(getAppveyorConfig(env));
+    else if ('CIRCLECI' in env) config.merge(getCircleCIConfig(env));
+    else if (serviceName == 'codeship') config.merge(getCodeshipConfig(env));
+    else if ('GITLAB_CI' in env) config.merge(getGitLabCIConfig(env));
+    else if ('JENKINS_URL' in env) config.merge(getJenkinsConfig(env));
+    else if ('SEMAPHORE' in env) config.merge(getSemaphoreConfig(env));
+    else if ('SURF_SHA1' in env) config.merge(getSurfConfig(env));
+    else if ('TDDIUM' in env) config.merge(getSolanoCIConfig(env));
+    else if ('WERCKER' in env) config.merge(getWerckerConfig(env));
 
     return config;
   }
@@ -119,7 +119,7 @@ export class Configuration {
    */
   static async loadDefaults(coverallsFile = '') {
     const readYAML = file => new Promise(resolve =>
-      fs.readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
+      readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
     );
 
     let config = await readYAML(coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`);

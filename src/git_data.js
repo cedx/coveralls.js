@@ -1,4 +1,4 @@
-import child_process from 'child_process';
+import {exec} from 'child_process';
 import {GitCommit} from './git_commit';
 import {GitRemote} from './git_remote';
 
@@ -70,7 +70,7 @@ export class GitData {
     };
 
     let results = await Promise.all(Object.keys(commands).map(key => new Promise((resolve, reject) =>
-      child_process.exec(commands[key], {cwd: path}, (err, stdout) => {
+      exec(commands[key], {cwd: path}, (err, stdout) => {
         if (err) reject(err);
         else resolve(stdout.trim().replace(/^'+|'+$/g, ''));
       })
