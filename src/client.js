@@ -91,7 +91,7 @@ export class Client extends EventEmitter {
       throw new Error('The job does not meet the requirements.');
 
     let request = superagent
-      .post(new URL('/api/v1/jobs', this.endPoint).href)
+      .post(new URL('api/v1/jobs', this.endPoint).href)
       .attach('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
     this.emit('request', request);
