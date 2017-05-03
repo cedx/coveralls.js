@@ -60,7 +60,7 @@ describe('GitData', () => {
 
       let origin = data.remotes.filter(remote => remote.name == 'origin');
       expect(origin).to.have.lengthOf(1);
-      expect(origin[0].url).to.equal('https://github.com/cedx/coveralls.js.git');
+      expect(origin[0].url.href).to.equal('https://github.com/cedx/coveralls.js.git');
     });
   });
 
