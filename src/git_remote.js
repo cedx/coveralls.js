@@ -1,3 +1,5 @@
+import {URL} from 'url';
+
 /**
  * Represents a Git remote repository.
  */
@@ -6,9 +8,9 @@ export class GitRemote {
   /**
    * Initializes a new instance of the class.
    * @param {string} [name] The remote's name.
-   * @param {string} [url] The remote's URL.
+   * @param {string|URL} [url] The remote's URL.
    */
-  constructor(name = '', url = '') {
+  constructor(name = '', url = null) {
 
     /**
      * The remote's name.
@@ -18,9 +20,9 @@ export class GitRemote {
 
     /**
      * The remote's URL.
-     * @type {string}
+     * @type {URL}
      */
-    this.url = url;
+    this.url = typeof url == 'string' ? new URL(url) : url;
   }
 
   /**
@@ -31,7 +33,7 @@ export class GitRemote {
   static fromJSON(map) {
     return !map || typeof map != 'object' ? null : new GitRemote(
       typeof map.name == 'string' ? map.name : '',
-      typeof map.url == 'string' ? map.url : ''
+      typeof map.url == 'string' ? map.url : null
     );
   }
 
@@ -42,7 +44,7 @@ export class GitRemote {
   toJSON() {
     return {
       name: this.name,
-      url: this.url
+      url: this.url ? this.url.href : null
     };
   }
 

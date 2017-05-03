@@ -2,7 +2,9 @@
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
 ## Version 0.8.0
+- Breaking change: properties representing URLs as strings now uses instances of the [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) class.
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Updated the package dependencies.
 
 ## Version 0.7.0
 - Added support for the [Node Security Platform](https://nodesecurity.io) reports.

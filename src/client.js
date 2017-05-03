@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 import {readFile} from 'fs';
 import {relative} from 'path';
 import superagent from 'superagent';
+import {URL} from 'url';
 import which from 'which';
 
 import {Configuration} from './configuration';
@@ -19,24 +20,24 @@ export class Client extends EventEmitter {
 
   /**
    * The URL of the default end point.
-   * @type {string}
+   * @type {URL}
    */
   static get DEFAULT_ENDPOINT() {
-    return 'https://coveralls.io';
+    return new URL('https://coveralls.io');
   }
 
   /**
    * Initializes a new instance of the class.
-   * @param {string} [endPoint] The URL of the API end point.
+   * @param {string|URL} [endPoint] The URL of the API end point.
    */
   constructor(endPoint = Client.DEFAULT_ENDPOINT) {
     super();
 
     /**
      * The URL of the API end point.
-     * @type {string}
+     * @type {URL}
      */
-    this.endPoint = endPoint;
+    this.endPoint = typeof endPoint == 'string' ? new URL(endPoint) : endPoint;
   }
 
   /**
@@ -90,7 +91,7 @@ export class Client extends EventEmitter {
       throw new Error('The job does not meet the requirements.');
 
     let request = superagent
-      .post(`${this.endPoint}/api/v1/jobs`)
+      .post(new URL('/api/v1/jobs', this.endPoint).href)
       .attach('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
     this.emit('request', request);

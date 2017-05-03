@@ -2,6 +2,7 @@
 
 import {expect} from 'chai';
 import {describe, it} from 'mocha';
+import {URL} from 'url';
 import {GitRemote} from '../src/index';
 
 /**
@@ -21,14 +22,14 @@ describe('GitRemote', () => {
       let remote = GitRemote.fromJSON({});
       expect(remote).to.be.instanceof(GitRemote);
       expect(remote.name).to.be.empty;
-      expect(remote.url).to.be.empty;
+      expect(remote.url).to.be.null;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
       let remote = GitRemote.fromJSON({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
       expect(remote).to.be.instanceof(GitRemote);
       expect(remote.name).to.equal('origin');
-      expect(remote.url).to.equal('https://github.com/cedx/coveralls.js.git');
+      expect(remote.url).to.be.instanceOf(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
     });
   });
 
@@ -40,7 +41,7 @@ describe('GitRemote', () => {
       let map = new GitRemote().toJSON();
       expect(Object.keys(map)).to.have.lengthOf(2);
       expect(map.name).to.be.empty;
-      expect(map.url).to.be.empty;
+      expect(map.url).to.be.null;
     });
 
     it('should return a non-empty map for an initialized instance', () => {

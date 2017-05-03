@@ -94,7 +94,7 @@ export class GitData {
       let parts = remote.replace(/\s+/g, ' ').split(' ');
       if (!names.includes(parts[0])) {
         names.push(parts[0]);
-        remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : ''));
+        remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
       }
     }
 
