@@ -108,6 +108,7 @@ export class Client extends EventEmitter {
    * @return {Promise<Job>} The job corresponding to the specified coverage report.
    */
   async _parseReport(report) {
+    let workingDir = process.cwd();
     return new Job(await Promise.all(Report.parse(report).records.map(record => new Promise((resolve, reject) =>
       readFile(record.sourceFile, 'utf8', (err, source) => {
         if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
@@ -116,7 +117,7 @@ export class Client extends EventEmitter {
           let coverage = new Array(lines.length).fill(null);
           for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
 
-          let filename = relative(process.cwd(), record.sourceFile);
+          let filename = relative(workingDir, record.sourceFile);
           let digest = createHash('md5').update(source).digest('hex');
           resolve(new SourceFile(filename, digest, source, coverage));
         }

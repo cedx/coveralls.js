@@ -122,7 +122,7 @@ export class Configuration {
       readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
     );
 
-    let config = await readYAML(coverallsFile.length ? coverallsFile : `${process.cwd()}/.coveralls.yml`);
+    let config = await readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml');
     let defaults = Configuration.fromEnvironment();
     if (config) defaults.merge(config);
     return defaults;
