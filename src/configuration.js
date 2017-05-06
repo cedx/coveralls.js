@@ -27,8 +27,7 @@ export class Configuration {
      * The configuration parameters.
      * @type {Map<string, *>}
      */
-    this._params = new Map();
-    for (let key in params) this.set(key, params[key]);
+    this._params = new Map(Object.entries(params));
   }
 
   /**
