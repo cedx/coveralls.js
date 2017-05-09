@@ -56,7 +56,7 @@ export class Client extends EventEmitter {
     if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
       throw new Error('The specified coverage format is not supported.');
 
-    let results = await Promise.all([
+    let [job, config, git] = await Promise.all([
       this._parseReport(coverage),
       configuration ? Promise.resolve(configuration) : Configuration.loadDefaults(),
       new Promise(resolve => which('git', async err => {
@@ -65,12 +65,10 @@ export class Client extends EventEmitter {
       }))
     ]);
 
-    let job = results[0];
-    this._updateJob(job, results[1]);
+    this._updateJob(job, config);
     if (!job.runAt) job.runAt = new Date();
 
-    if (results[2]) {
-      let git = results[2];
+    if (git) {
       let branch = job.git ? job.git.branch : '';
       if (git.branch == 'HEAD' && branch.length) git.branch = branch;
       job.git = git;

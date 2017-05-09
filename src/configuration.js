@@ -177,7 +177,7 @@ export class Configuration {
    * @param {Configuration} config The configuration to be merged.
    */
   merge(config) {
-    for (let item of config) this.set(item[0], item[1]);
+    for (let [key, value] of config) this.set(key, value);
   }
 
   /**
@@ -203,7 +203,7 @@ export class Configuration {
    */
   toJSON() {
     let map = {};
-    for (let item of this) map[item[0]] = item[1];
+    for (let [key, value] of this) map[key] = value;
     return map;
   }
 
