@@ -6,6 +6,7 @@
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/coveralls.js/issues",
   "license": "Apache-2.0",
+  "preferGlobal": true,
   "repository": "cedx/coveralls.js",
   "version": "0.8.0",
 
