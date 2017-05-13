@@ -54,7 +54,7 @@ const {Client} = require('@cedx/coveralls');
 async function main() {
   try {
     let coverage = readFileSync('/path/to/coverage.report', 'utf8');
-    await new Client().upload(coverage);
+    await (new Client).upload(coverage);
     console.log('The report was sent successfully.');
   }
     

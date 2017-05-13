@@ -71,7 +71,7 @@ describe('Configuration', () => {
    */
   describe('#keys', () => {
     it('should return an empty array for an empty configuration', () => {
-      expect(new Configuration().keys).to.be.empty;
+      expect((new Configuration).keys).to.be.empty;
     });
 
     it('should return the list of keys for a non-empty configuration', () => {
@@ -90,7 +90,7 @@ describe('Configuration', () => {
    */
   describe('#length', () => {
     it('should return zero for an empty configuration', () => {
-      expect(new Configuration()).to.have.lengthOf(0);
+      expect(new Configuration).to.have.lengthOf(0);
     });
 
     it('should return the number of entries for a non-empty configuration', () => {
@@ -103,7 +103,7 @@ describe('Configuration', () => {
    */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if configuration is empty', () => {
-      let config = new Configuration();
+      let config = new Configuration;
       let iterator = config[Symbol.iterator]();
       expect(iterator.next().done).to.be.true;
     });
@@ -132,7 +132,7 @@ describe('Configuration', () => {
    */
   describe('#get()', () => {
     it('should properly get the configuration entries', () => {
-      let config = new Configuration();
+      let config = new Configuration;
       expect(config.get('foo')).to.be.null;
       expect(config.get('foo', 123)).to.equal(123);
 
@@ -146,7 +146,7 @@ describe('Configuration', () => {
    */
   describe('#has()', () => {
     it('should return `false` if the specified key is not contained', () => {
-      expect(new Configuration().has('foo')).to.be.false;
+      expect((new Configuration).has('foo')).to.be.false;
     });
 
     it('should return `true` if the specified key is contained', () => {
@@ -159,7 +159,7 @@ describe('Configuration', () => {
    */
   describe('#merge()', () => {
     it('should have the same entries as the other configuration', () => {
-      let config = new Configuration();
+      let config = new Configuration;
       expect(config).to.have.lengthOf(0);
 
       config.merge(new Configuration({bar: 'baz', foo: 'bar'}));
@@ -174,7 +174,7 @@ describe('Configuration', () => {
    */
   describe('#set()', () => {
     it('should properly set the configuration entries', () => {
-      let config = new Configuration();
+      let config = new Configuration;
       expect(config.get('foo')).to.be.null;
 
       config.set('foo', 'bar');
@@ -187,7 +187,7 @@ describe('Configuration', () => {
    */
   describe('#toJSON()', () => {
     it('should return an empty map for a newly created instance', () => {
-      let map = new Configuration().toJSON();
+      let map = (new Configuration).toJSON();
       expect(Object.keys(map)).to.be.empty;
     });
 

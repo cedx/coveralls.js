@@ -48,7 +48,7 @@ describe('GitCommit', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = new GitCommit().toJSON();
+      let map = (new GitCommit).toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
       expect(map.id).to.be.empty;
     });

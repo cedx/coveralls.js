@@ -36,7 +36,7 @@ export class Configuration {
    * @return {Configuration} The newly created configuration.
    */
   static fromEnvironment(env = process.env) {
-    let config = new Configuration();
+    let config = new Configuration;
 
     // Standard.
     let serviceName = typeof env.CI_NAME == 'string' ? env.CI_NAME : '';

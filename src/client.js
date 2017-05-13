@@ -66,7 +66,7 @@ export class Client extends EventEmitter {
     ]);
 
     this._updateJob(job, config);
-    if (!job.runAt) job.runAt = new Date();
+    if (!job.runAt) job.runAt = new Date;
 
     if (git) {
       let branch = job.git ? job.git.branch : '';

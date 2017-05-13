@@ -81,7 +81,7 @@ export class Job {
   static fromJSON(map) {
     if (!map || typeof map != 'object') return null;
 
-    let job = new Job();
+    let job = new Job;
     job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
     job.git = GitData.fromJSON(map.git);
     job.isParallel = typeof map.parallel == 'boolean' ? map.parallel : false;

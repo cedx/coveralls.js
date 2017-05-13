@@ -69,7 +69,7 @@ describe('GitData', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = new GitData().toJSON();
+      let map = (new GitData).toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
       expect(map.branch).to.be.empty;
       expect(map.head).to.be.null;

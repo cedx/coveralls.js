@@ -58,13 +58,13 @@ describe('Job', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = new Job().toJSON();
+      let map = (new Job).toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
       expect(map.source_files).to.be.an('array').and.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let job = new Job();
+      let job = new Job;
       job.git = new GitData(null, 'develop');
       job.isParallel = true;
       job.repoToken = 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt';
@@ -90,7 +90,7 @@ describe('Job', () => {
    * @test {Job#toString}
    */
   describe('#toString()', () => {
-    let job = new Job();
+    let job = new Job;
     job.git = new GitData(null, 'develop');
     job.isParallel = true;
     job.repoToken = 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt';

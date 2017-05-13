@@ -17,7 +17,7 @@ describe('Client', () => {
   describe('#upload()', () => {
     it('should throw an error with an empty coverage report', async () => {
       try {
-        await new Client().upload('');
+        await (new Client).upload('');
         expect(true).to.not.be.ok;
       }
 
@@ -33,7 +33,7 @@ describe('Client', () => {
   describe('#uploadJob()', () => {
     it('should throw an error with an empty coverage job', async () => {
       try {
-        await new Client().uploadJob(new Job());
+        await (new Client).uploadJob(new Job);
         expect(true).to.not.be.ok;
       }
 
@@ -51,7 +51,7 @@ describe('Client', () => {
       const loadReport = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
       let coverage = await loadReport(`${__dirname}/fixtures/lcov.info`);
 
-      let job = await new Client()._parseReport(coverage);
+      let job = await (new Client)._parseReport(coverage);
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
       expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
@@ -79,11 +79,11 @@ describe('Client', () => {
    * @test {Client#_updateJob}
    */
   describe('#_updateJob()', () => {
-    let client = new Client();
-    let job = new Job();
+    let client = new Client;
+    let job = new Job;
 
     it('should not modify the job if the configuration is empty', () => {
-      client._updateJob(job, new Configuration());
+      client._updateJob(job, new Configuration);
       expect(job.git).to.be.null;
       expect(job.isParallel).to.be.false;
       expect(job.repoToken).to.be.empty;
