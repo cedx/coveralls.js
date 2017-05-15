@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 1.0.0
+- First stable release.
+- Updated the package dependencies.
+
 ## Version 0.8.0
 - Breaking change: properties representing URLs as strings now use instances of the [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) class.
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.

@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "preferGlobal": true,
   "repository": "cedx/coveralls.js",
-  "version": "0.8.0",
+  "version": "1.0.0",
 
   "main": "./lib/index",
   "module": "./src/index",
