@@ -17,7 +17,7 @@
     "coveralls": "./bin/cli.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^1.1.0",
+    "@cedx/lcov": "^1.1.1",
     "commander": "^2.9.0",
     "js-yaml": "^3.8.4",
     "superagent": "^3.5.2",
