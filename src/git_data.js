@@ -58,19 +58,19 @@ export class GitData {
 
     let commands = {
       /* eslint-disable quotes */
-      authorEmail: "git log -1 --pretty=format:'%ae'",
-      authorName: "git log -1 --pretty=format:'%aN'",
-      branch: 'git rev-parse --abbrev-ref HEAD',
-      committerEmail: "git log -1 --pretty=format:'%ce'",
-      committerName: "git log -1 --pretty=format:'%cN'",
-      id: "git log -1 --pretty=format:'%H'",
-      message: "git log -1 --pretty=format:'%s'",
-      remotes: 'git remote -v'
+      authorEmail: "log -1 --pretty=format:'%ae'",
+      authorName: "log -1 --pretty=format:'%aN'",
+      branch: 'rev-parse --abbrev-ref HEAD',
+      committerEmail: "log -1 --pretty=format:'%ce'",
+      committerName: "log -1 --pretty=format:'%cN'",
+      id: "log -1 --pretty=format:'%H'",
+      message: "log -1 --pretty=format:'%s'",
+      remotes: 'remote -v'
       /* eslint-enable quotes */
     };
 
     let results = await Promise.all(Object.keys(commands).map(key => new Promise((resolve, reject) =>
-      exec(commands[key], {cwd: path}, (err, stdout) => {
+      exec(`git ${commands[key]}`, {cwd: path}, (err, stdout) => {
         if (err) reject(err);
         else resolve(stdout.trim().replace(/^'+|'+$/g, ''));
       })
