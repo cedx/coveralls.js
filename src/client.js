@@ -19,7 +19,7 @@ import {SourceFile} from './source_file';
 export class Client extends EventEmitter {
 
   /**
-   * The URL of the default end point.
+   * The URL of the default API end point.
    * @type {URL}
    */
   static get DEFAULT_ENDPOINT() {
