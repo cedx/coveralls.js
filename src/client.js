@@ -96,7 +96,7 @@ export class Client extends EventEmitter {
     let response = await request;
     this.emit('response', response);
 
-    if (response.status != 200) throw new Error(`${response.status} ${response.statusText}`);
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
     return null;
   }
 
