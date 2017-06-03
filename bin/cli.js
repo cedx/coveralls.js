@@ -37,7 +37,7 @@ async function main() {
   let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
   let coverage = await loadReport(file);
 
-  console.log('[Coveralls] Submitting to', client.endPoint);
+  console.log('[Coveralls] Submitting to', client.endPoint.href);
   return client.upload(coverage);
 }
 
