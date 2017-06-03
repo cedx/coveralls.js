@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 1.0.2
+- Fixed a display bug.
+
 ## Version 1.0.1
 - Fixed a code generation bug.
 - Updated the package dependencies.
