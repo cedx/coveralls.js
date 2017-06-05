@@ -1,18 +1,15 @@
 {
-  "description": "Send LCOV coverage reports to the Coveralls service.",
-  "homepage": "https://github.com/cedx/coveralls.js",
-  "name": "@cedx/coveralls",
-
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/coveralls.js/issues",
+  "description": "Send LCOV coverage reports to the Coveralls service.",
+  "homepage": "https://github.com/cedx/coveralls.js",
   "license": "Apache-2.0",
+  "main": "./lib/index",
+  "module": "./src/index",
+  "name": "@cedx/coveralls",
   "preferGlobal": true,
   "repository": "cedx/coveralls.js",
   "version": "1.0.2",
-
-  "main": "./lib/index",
-  "module": "./src/index",
-
   "bin": {
     "coveralls": "./bin/cli.js"
   },
