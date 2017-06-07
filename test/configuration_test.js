@@ -75,10 +75,7 @@ describe('Configuration', () => {
     });
 
     it('should return the list of keys for a non-empty configuration', () => {
-      /* eslint-disable sort-keys */
       let keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
-      /* eslint-enable sort-keys */
-
       expect(keys).to.have.lengthOf(2);
       expect(keys[0]).to.equal('foo');
       expect(keys[1]).to.equal('bar');
@@ -109,11 +106,9 @@ describe('Configuration', () => {
     });
 
     it('should return a value iterator if configuration is not empty', () => {
-      /* eslint-disable sort-keys */
       let config = new Configuration({foo: 'bar', bar: 'baz'});
-      /* eslint-enable sort-keys */
-
       let iterator = config[Symbol.iterator]();
+
       let next = iterator.next();
       expect(next.done).to.be.false;
       expect(next.value[0]).to.equal('foo');

@@ -56,13 +56,11 @@ export class SourceFile {
    * @return {object} The map in JSON format corresponding to this object.
    */
   toJSON() {
-    /* eslint-disable sort-keys */
     let map = {
       name: this.name,
       source_digest: this.sourceDigest,
       coverage: this.coverage
     };
-    /* eslint-enable sort-keys */
 
     if (this.source.length) map.source = this.source;
     return map;
