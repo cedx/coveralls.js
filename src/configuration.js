@@ -121,7 +121,7 @@ export class Configuration {
     const readYAML = promisify(readFile);
 
     let config;
-    try { config = Configuration.fromYAML(await readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml')); }
+    try { config = Configuration.fromYAML(await readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml', 'utf8')); }
     catch (err) { config = null; }
 
     let defaults = Configuration.fromEnvironment();
