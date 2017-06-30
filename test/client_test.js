@@ -4,6 +4,7 @@ import {expect} from 'chai';
 import {readFile} from 'fs';
 import {describe, it} from 'mocha';
 import {join} from 'path';
+import {promisify} from 'util';
 import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
 
 /**
@@ -48,8 +49,8 @@ describe('Client', () => {
    */
   describe('#_parseReport()', () => {
     it('should properly parse LCOV reports', async () => {
-      const loadReport = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
-      let coverage = await loadReport(`${__dirname}/fixtures/lcov.info`);
+      const loadReport = promisify(readFile);
+      let coverage = await loadReport(`${__dirname}/fixtures/lcov.info`, 'utf8');
 
       let job = await (new Client)._parseReport(coverage);
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);

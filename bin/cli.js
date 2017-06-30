@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 'use strict';
 
-const {access, readFile} = require('fs');
-const {version: pkgVersion} = require('../package.json');
-const {normalize} = require('path');
 const program = require('commander');
+const {access, readFile} = require('fs');
+const {normalize} = require('path');
+const {promisify} = require('util');
+
 const {Client} = require('../lib');
+const {version: pkgVersion} = require('../package.json');
 
 /**
  * Application entry point.
@@ -32,11 +34,10 @@ async function main() {
   if (!await fileExists(file)) throw new Error(`The specified file is not found: ${file}`);
 
   // Upload the report to Coveralls.
-  const loadReport = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
+  const loadReport = promisify(readFile);
+  let coverage = await loadReport(file, 'utf8');
 
   let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
-  let coverage = await loadReport(file);
-
   console.log('[Coveralls] Submitting to', client.endPoint.href);
   return client.upload(coverage);
 }

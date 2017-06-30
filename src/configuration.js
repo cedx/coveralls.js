@@ -1,5 +1,6 @@
 import {readFile} from 'fs';
 import {safeLoad as loadYAML, YAMLException} from 'js-yaml';
+import {promisify} from 'util';
 
 import {getConfiguration as getAppveyorConfig} from './services/appveyor';
 import {getConfiguration as getCircleCIConfig} from './services/circleci';
@@ -117,11 +118,12 @@ export class Configuration {
    * @return {Promise<Configuration>} The default configuration.
    */
   static async loadDefaults(coverallsFile = '') {
-    const readYAML = file => new Promise(resolve =>
-      readFile(file, 'utf8', (err, doc) => resolve(err ? null : Configuration.fromYAML(doc)))
-    );
+    const readYAML = promisify(readFile);
 
-    let config = await readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml');
+    let config;
+    try { config = Configuration.fromYAML(await readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml')); }
+    catch (err) { config = null; }
+
     let defaults = Configuration.fromEnvironment();
     if (config) defaults.merge(config);
     return defaults;
