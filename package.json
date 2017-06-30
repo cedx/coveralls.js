@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@cedx/lcov": "^1.1.1",
-    "commander": "^2.9.0",
+    "commander": "^2.10.0",
     "js-yaml": "^3.8.4",
     "superagent": "^3.5.2",
     "which": "^1.2.14"
@@ -27,15 +27,16 @@
     "chai": "^4.0.1",
     "del": "^3.0.0",
     "esdoc": "^0.5.2",
+    "estraverse": "^4.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^4.0.0",
     "mocha": "^3.4.2",
     "nsp": "^2.6.3",
-    "nyc": "^11.0.2"
+    "nyc": "^11.0.3"
   },
   "engines": {
-    "node": ">=7.10.0"
+    "node": ">=8.1.0"
   },
   "keywords": [
     "client",
