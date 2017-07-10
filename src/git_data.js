@@ -74,12 +74,9 @@ export class GitData {
     let observables = Object.values(commands).map(value => execCommand(`git ${value}`, {cwd: path}));
 
     return Observable.zip(...observables)
-      .map(results =>
-        results.map(result => result[0].trim().replace(/^'+|'+$/g, ''))
-      )
       .do(results => {
         let index = 0;
-        for (let key in commands) commands[key] = results[index++];
+        for (let key in commands) commands[key] = results[index++][0].trim().replace(/^'+|'+$/g, '');
       })
       .map(() => {
         let remotes = {};
