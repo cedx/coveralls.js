@@ -1,4 +1,5 @@
 import {exec} from 'child_process';
+import {Observable} from 'rxjs';
 import {GitCommit} from './git_commit';
 import {GitRemote} from './git_remote';
 
@@ -51,54 +52,48 @@ export class GitData {
    * Creates a new Git data from a local repository.
    * This method relies on the availability of the Git executable in the system path.
    * @param {string} [path] The path to the repository folder. Defaults to the current working directory.
-   * @return {Promise<GitData>} The newly created data.
+   * @return {Observable<GitData>} The newly created data.
    */
-  static async fromRepository(path = '') {
+  static fromRepository(path = '') {
     if (!path.length) path = process.cwd();
 
     let commands = {
       /* eslint-disable quotes */
-      authorEmail: "log -1 --pretty=format:'%ae'",
-      authorName: "log -1 --pretty=format:'%aN'",
+      author_email: "log -1 --pretty=format:'%ae'",
+      author_name: "log -1 --pretty=format:'%aN'",
       branch: 'rev-parse --abbrev-ref HEAD',
-      committerEmail: "log -1 --pretty=format:'%ce'",
-      committerName: "log -1 --pretty=format:'%cN'",
+      committer_email: "log -1 --pretty=format:'%ce'",
+      committer_name: "log -1 --pretty=format:'%cN'",
       id: "log -1 --pretty=format:'%H'",
       message: "log -1 --pretty=format:'%s'",
       remotes: 'remote -v'
       /* eslint-enable quotes */
     };
 
-    let results = await Promise.all(Object.keys(commands).map(key => new Promise((resolve, reject) =>
-      exec(`git ${commands[key]}`, {cwd: path}, (err, stdout) => {
-        if (err) reject(err);
-        else resolve(stdout.trim().replace(/^'+|'+$/g, ''));
+    const execCommand = Observable.bindNodeCallback(exec);
+    let observables = Object.values(commands).map(value => execCommand(`git ${value}`, {cwd: path}));
+
+    return Observable.zip(...observables)
+      .map(results =>
+        results.map(result => result[0].trim().replace(/^'+|'+$/g, ''))
+      )
+      .do(results => {
+        let index = 0;
+        for (let key in commands) commands[key] = results[index++];
       })
-    )));
+      .map(() => {
+        let names = [];
+        let remotes = [];
+        for (let remote of commands.remotes.split(/\r?\n/g)) {
+          let parts = remote.replace(/\s+/g, ' ').split(' ');
+          if (!names.includes(parts[0])) {
+            names.push(parts[0]);
+            remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
+          }
+        }
 
-    let index = 0;
-    for (let key in commands) {
-      commands[key] = results[index];
-      index++;
-    }
-
-    let commit = new GitCommit(commands.id, commands.message);
-    commit.authorEmail = commands.authorEmail;
-    commit.authorName = commands.authorName;
-    commit.committerEmail = commands.committerEmail;
-    commit.committerName = commands.committerName;
-
-    let names = [];
-    let remotes = [];
-    for (let remote of commands.remotes.split(/\r?\n/g)) {
-      let parts = remote.replace(/\s+/g, ' ').split(' ');
-      if (!names.includes(parts[0])) {
-        names.push(parts[0]);
-        remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
-      }
-    }
-
-    return new GitData(commit, commands.branch, remotes);
+        return new GitData(GitCommit.fromJSON(commands), commands.branch, remotes);
+      });
   }
 
   /**

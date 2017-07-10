@@ -58,10 +58,10 @@ export class Client extends EventEmitter {
 
     let [job, config, git] = await Promise.all([
       this._parseReport(coverage),
-      configuration ? Promise.resolve(configuration) : Configuration.loadDefaults(),
+      configuration ? Promise.resolve(configuration) : Configuration.loadDefaults().toPromise(),
       new Promise(resolve => which('git', async err => {
         if (err) resolve(null);
-        else resolve(await GitData.fromRepository());
+        else resolve(await GitData.fromRepository().toPromise());
       }))
     ]);
 
