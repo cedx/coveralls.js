@@ -71,17 +71,19 @@ export class Client {
    * Uploads the specified code coverage report to the Coveralls service.
    * @param {string} coverage A coverage report.
    * @param {Configuration} [configuration] The environment settings.
-   * @return {Promise} Completes when the operation is done.
+   * @return {Observable} Completes when the operation is done.
    * @emits {superagent.Request} The "request" event.
    * @emits {superagent.Response} The "response" event.
    */
-  async upload(coverage, configuration = null) {
+  upload(coverage, configuration = null) {
     coverage = coverage.trim();
-    if (!coverage.length) throw new Error('The specified coverage report is empty.');
+    if (!coverage.length) return Observable.throw(new Error('The specified coverage report is empty.'));
 
     let token = coverage.substr(0, 3);
     if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
-      throw new Error('The specified coverage format is not supported.');
+      return Observable.throw(new Error('The specified coverage format is not supported.'));
+
+    // TODO: let observables =
 
     let [job, config, git] = await Promise.all([
       this._parseReport(coverage),
@@ -107,33 +109,54 @@ export class Client {
   /**
    * Uploads the specified job to the Coveralls service.
    * @param {Job} job The job to be uploaded.
-   * @return {Promise} Completes when the operation is done.
+   * @return {Observable} Completes when the operation is done.
    * @emits {superagent.Request} The "request" event.
    * @emits {superagent.Response} The "response" event.
    */
-  async uploadJob(job) {
+  uploadJob(job) {
     if (!job.repoToken.length && !job.serviceName.length)
-      throw new Error('The job does not meet the requirements.');
+      return Observable.throw(new Error('The job does not meet the requirements.'));
 
-    let request = superagent
+    let req = superagent
       .post(new URL('api/v1/jobs', this.endPoint).href)
       .attach('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    this.emit('request', request);
-    let response = await request;
-    this.emit('response', response);
-
-    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-    return null;
+    this._onRequest.next(req);
+    return Observable.from(req).map(res => {
+      this._onResponse.next(res);
+      return res.ok ? res.text : Observable.throw(new Error(`${res.status} ${res.statusText}`));
+    });
   }
 
   /**
    * Parses the specified [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage report.
    * @param {string} report A coverage report in LCOV format.
-   * @return {Promise<Job>} The job corresponding to the specified coverage report.
+   * @return {Observable<Job>} The job corresponding to the specified coverage report.
    */
   async _parseReport(report) {
     let workingDir = process.cwd();
+
+    /*
+    const loadFile = Observable.bindNodeCallback(readFile);
+    let records = Report.parse(report).records;
+    let observables = records.map(record => loadFile(record.sourceFile, 'utf8'));
+
+    return Observable.zip(...observables)
+      .map(results => {
+        for (let index = 0; index < results.length; i++) {
+          let record = records[index];
+          let source = results[index];
+
+          let lines = source.split(/\r?\n/);
+          let coverage = new Array(lines.length).fill(null);
+          for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
+
+          let filename = relative(workingDir, record.sourceFile);
+          let digest = createHash('md5').update(source).digest('hex');
+          results[index] = new SourceFile(filename, digest, source, coverage);
+        }
+      });*/
+
     return new Job(await Promise.all(Report.parse(report).records.map(record => new Promise((resolve, reject) =>
       readFile(record.sourceFile, 'utf8', (err, source) => {
         if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));

@@ -16,15 +16,11 @@ describe('Client', () => {
    * @test {Client#upload}
    */
   describe('#upload()', () => {
-    it('should throw an error with an empty coverage report', async () => {
-      try {
-        await (new Client).upload('');
-        expect(true).to.not.be.ok;
-      }
-
-      catch (err) {
-        expect(true).to.be.ok;
-      }
+    it('should throw an error with an empty coverage report', done => {
+      (new Client).upload('').subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
     });
   });
 
@@ -32,15 +28,11 @@ describe('Client', () => {
    * @test {Client#uploadJob}
    */
   describe('#uploadJob()', () => {
-    it('should throw an error with an empty coverage job', async () => {
-      try {
-        await (new Client).uploadJob(new Job);
-        expect(true).to.not.be.ok;
-      }
-
-      catch (err) {
-        expect(true).to.be.ok;
-      }
+    it('should throw an error with an empty coverage job', done => {
+      (new Client).uploadJob(new Job).subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
     });
   });
 
