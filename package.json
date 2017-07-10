@@ -9,7 +9,7 @@
   "name": "@cedx/coveralls",
   "preferGlobal": true,
   "repository": "cedx/coveralls.js",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "bin": {
     "coveralls": "./bin/cli.js"
   },
@@ -36,7 +36,7 @@
     "nyc": "^11.0.3"
   },
   "engines": {
-    "node": ">=8.1.0"
+    "node": ">=8.0.0"
   },
   "keywords": [
     "client",
