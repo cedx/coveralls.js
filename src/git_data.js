@@ -82,17 +82,13 @@ export class GitData {
         for (let key in commands) commands[key] = results[index++];
       })
       .map(() => {
-        let names = [];
-        let remotes = [];
+        let remotes = {};
         for (let remote of commands.remotes.split(/\r?\n/g)) {
           let parts = remote.replace(/\s+/g, ' ').split(' ');
-          if (!names.includes(parts[0])) {
-            names.push(parts[0]);
-            remotes.push(new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
-          }
+          if (!(parts[0] in remotes)) remotes[parts[0]] = new GitRemote(parts[0], parts.length > 1 ? parts[1] : null);
         }
 
-        return new GitData(GitCommit.fromJSON(commands), commands.branch, remotes);
+        return new GitData(GitCommit.fromJSON(commands), commands.branch, Object.values(remotes));
       });
   }
 
