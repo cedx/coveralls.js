@@ -118,15 +118,14 @@ export class Configuration {
    */
   static loadDefaults(coverallsFile = '') {
     const readYAML = Observable.bindNodeCallback(readFile);
-    return readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml', 'utf8').map(data => {
-      let config;
-      try { config = Configuration.fromYAML(data); }
-      catch (err) { config = null; }
-
-      let defaults = Configuration.fromEnvironment();
-      if (config) defaults.merge(config);
-      return defaults;
-    });
+    return readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml', 'utf8')
+      .catch(() => null)
+      .map(data => {
+        let config = Configuration.fromYAML(data);
+        let defaults = Configuration.fromEnvironment();
+        if (config) defaults.merge(config);
+        return defaults;
+      });
   }
 
   /**
