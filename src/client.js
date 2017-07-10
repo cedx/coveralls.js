@@ -1,9 +1,9 @@
 import {Report, Token} from '@cedx/lcov';
 import {createHash} from 'crypto';
-import EventEmitter from 'events';
 import {readFile} from 'fs';
 import {relative} from 'path';
 import superagent from 'superagent';
+import {Observable, Subject} from 'rxjs';
 import {URL} from 'url';
 import which from 'which';
 
@@ -16,7 +16,7 @@ import {SourceFile} from './source_file';
 /**
  * Uploads code coverage reports to the [Coveralls](https://coveralls.io) service.
  */
-export class Client extends EventEmitter {
+export class Client {
 
   /**
    * The URL of the default API end point.
@@ -31,13 +31,40 @@ export class Client extends EventEmitter {
    * @param {string|URL} [endPoint] The URL of the API end point.
    */
   constructor(endPoint = Client.DEFAULT_ENDPOINT) {
-    super();
 
     /**
      * The URL of the API end point.
      * @type {URL}
      */
     this.endPoint = typeof endPoint == 'string' ? new URL(endPoint) : endPoint;
+
+    /**
+     * The handler of "request" events.
+     * @type {Subject<superagent.Request>}
+     */
+    this._onRequest = new Subject();
+
+    /**
+     * The handler of "response" events.
+     * @type {Subject<superagent.Response>}
+     */
+    this._onResponse = new Subject();
+  }
+
+  /**
+   * The stream of "request" events.
+   * @type {Observable<superagent.Request>}
+   */
+  get onRequest() {
+    return this._onRequest.asObservable();
+  }
+
+  /**
+   * The stream of "response" events.
+   * @type {Observable<superagent.Response>}
+   */
+  get onResponse() {
+    return this._onResponse.asObservable();
   }
 
   /**
