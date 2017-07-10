@@ -1,6 +1,6 @@
 import {readFile} from 'fs';
-import {safeLoad as loadYAML, YAMLException} from 'js-yaml';
-import {promisify} from 'util';
+import {safeLoad as loadYAML} from 'js-yaml';
+import {Observable} from 'rxjs';
 
 import {getConfiguration as getAppveyorConfig} from './services/appveyor';
 import {getConfiguration as getCircleCIConfig} from './services/circleci';
@@ -106,8 +106,7 @@ export class Configuration {
     }
 
     catch (error) {
-      if (error instanceof YAMLException) return null;
-      throw error;
+      return null;
     }
   }
 
@@ -115,18 +114,19 @@ export class Configuration {
    * Loads the default configuration.
    * The default values are read from the environment variables and an optional `.coveralls.yml` file.
    * @param {string} [coverallsFile] The path to the `.coveralls.yml` file. Defaults to the file found in the current directory.
-   * @return {Promise<Configuration>} The default configuration.
+   * @return {Observable<Configuration>} The default configuration.
    */
-  static async loadDefaults(coverallsFile = '') {
-    const readYAML = promisify(readFile);
+  static loadDefaults(coverallsFile = '') {
+    const readYAML = Observable.bindNodeCallback(readFile);
+    return readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml', 'utf8').map(data => {
+      let config;
+      try { config = Configuration.fromYAML(data); }
+      catch (err) { config = null; }
 
-    let config;
-    try { config = Configuration.fromYAML(await readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml', 'utf8')); }
-    catch (err) { config = null; }
-
-    let defaults = Configuration.fromEnvironment();
-    if (config) defaults.merge(config);
-    return defaults;
+      let defaults = Configuration.fromEnvironment();
+      if (config) defaults.merge(config);
+      return defaults;
+    });
   }
 
   /**
