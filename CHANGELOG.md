@@ -1,6 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 2.0.0
+- Breaking change: ported the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)-based APIs to [Observable](http://reactivex.io/intro.html).
+- Added new unit tests.
+- Updated the package dependencies.
+
 ## Version 1.0.2
 - Fixed a display bug.
 
@@ -29,7 +34,7 @@ This file contains highlights of what changes on each version of the [Coveralls 
 
 ## Version 0.5.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
-- Breaking change: the `Client` class is now an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
+- The `Client` class is now an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
 - Updated the package dependencies.
 
 ## Version 0.4.0
