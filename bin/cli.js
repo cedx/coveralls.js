@@ -36,14 +36,13 @@ function main() {
     .mergeMap(() => loadReport(file, 'utf8'))
     .mergeMap(coverage => {
       let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
-      console.log('[Coveralls] Submitting to', client.endPoint.href);
+      console.log('[Coveralls] Submitting to %s', client.endPoint);
       return client.upload(coverage);
     });
 }
 
 // Start the application.
 if (module === require.main) main().subscribe({error: err => {
-  console.error(err.message);
-  console.error(err.stack);
+  console.error(err);
   process.exit(1);
 }});
