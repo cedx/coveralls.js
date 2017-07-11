@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import {readFile} from 'fs';
 import {describe, it} from 'mocha';
 import {join} from 'path';
-import {promisify} from 'util';
+import {Observable} from 'rxjs';
 import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
 
 /**
@@ -40,31 +40,32 @@ describe('Client', () => {
    * @test {Client#_parseReport}
    */
   describe('#_parseReport()', () => {
-    it('should properly parse LCOV reports', async () => {
-      const loadReport = promisify(readFile);
-      let coverage = await loadReport(`${__dirname}/fixtures/lcov.info`, 'utf8');
+    it('should properly parse LCOV reports', done => {
+      const loadReport = Observable.bindNodeCallback(readFile);
+      loadReport(`${__dirname}/fixtures/lcov.info`, 'utf8')
+        .mergeMap(coverage => (new Client)._parseReport(coverage))
+        .subscribe(job => {
+          expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
-      let job = await (new Client)._parseReport(coverage);
-      expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
+          expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
+          expect(job.sourceFiles[0].name).to.equal(join('src', 'client.js'));
+          expect(job.sourceFiles[0].sourceDigest).to.not.be.empty;
 
-      expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
-      expect(job.sourceFiles[0].name).to.equal(join('src', 'client.js'));
-      expect(job.sourceFiles[0].sourceDigest).to.not.be.empty;
+          let subset = [null, 2, 2, 2, 2, null];
+          expect(job.sourceFiles[0].coverage).to.include.members(subset);
 
-      let subset = [null, 2, 2, 2, 2, null];
-      expect(job.sourceFiles[0].coverage).to.include.members(subset);
+          expect(job.sourceFiles[1].name).to.equal(join('src', 'configuration.js'));
+          expect(job.sourceFiles[1].sourceDigest).to.not.be.empty;
 
-      expect(job.sourceFiles[1].name).to.equal(join('src', 'configuration.js'));
-      expect(job.sourceFiles[1].sourceDigest).to.not.be.empty;
+          subset = [null, 4, 4, 2, 2, 4, 2, 2, 4, 4, null];
+          expect(job.sourceFiles[1].coverage).to.include.members(subset);
 
-      subset = [null, 4, 4, 2, 2, 4, 2, 2, 4, 4, null];
-      expect(job.sourceFiles[1].coverage).to.include.members(subset);
+          expect(job.sourceFiles[2].name).to.equal(join('src', 'git_commit.js'));
+          expect(job.sourceFiles[2].sourceDigest).to.not.be.empty;
 
-      expect(job.sourceFiles[2].name).to.equal(join('src', 'git_commit.js'));
-      expect(job.sourceFiles[2].sourceDigest).to.not.be.empty;
-
-      subset = [null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null];
-      expect(job.sourceFiles[2].coverage).to.include.members(subset);
+          subset = [null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null];
+          expect(job.sourceFiles[2].coverage).to.include.members(subset);
+        }, done, done);
     });
   });
 
