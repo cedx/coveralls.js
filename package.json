@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@cedx/lcov": "^1.1.1",
-    "commander": "^2.10.0",
-    "js-yaml": "^3.8.4",
+    "commander": "^2.11.0",
+    "js-yaml": "^3.9.0",
     "rxjs": "^5.4.2",
     "superagent": "^3.5.2",
     "which": "^1.2.14"
@@ -44,7 +44,9 @@
     "code",
     "coverage",
     "coveralls",
-    "lcov"
+    "lcov",
+    "observable",
+    "rxjs"
   ],
   "scripts": {
     "coverage": "node bin/cli.js --file=var/lcov.info",

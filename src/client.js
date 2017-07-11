@@ -83,27 +83,26 @@ export class Client {
     if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
       return Observable.throw(new Error('The specified coverage format is not supported.'));
 
-    // TODO: let observables =
-
-    let [job, config, git] = await Promise.all([
+    let findExecutable = Observable.bindNodeCallback(which);
+    let observables = [
       this._parseReport(coverage),
-      configuration ? Promise.resolve(configuration) : Configuration.loadDefaults().toPromise(),
-      new Promise(resolve => which('git', async err => {
-        if (err) resolve(null);
-        else resolve(await GitData.fromRepository().toPromise());
-      }))
-    ]);
+      configuration ? Observable.of(configuration) : Configuration.loadDefaults(),
+      findExecutable('git').catch(() => null).map(() => GitData.fromRepository())
+    ];
 
-    this._updateJob(job, config);
-    if (!job.runAt) job.runAt = new Date;
+    return Observable.zip(...observables).mergeMap(results => {
+      let [job, config, git] = results;
+      this._updateJob(job, config);
+      if (!job.runAt) job.runAt = new Date;
 
-    if (git) {
-      let branch = job.git ? job.git.branch : '';
-      if (git.branch == 'HEAD' && branch.length) git.branch = branch;
-      job.git = git;
-    }
+      if (git) {
+        let branch = job.git ? job.git.branch : '';
+        if (git.branch == 'HEAD' && branch.length) git.branch = branch;
+        job.git = git;
+      }
 
-    return this.uploadJob(job);
+      return this.uploadJob(job);
+    });
   }
 
   /**
@@ -133,44 +132,23 @@ export class Client {
    * @param {string} report A coverage report in LCOV format.
    * @return {Observable<Job>} The job corresponding to the specified coverage report.
    */
-  async _parseReport(report) {
+  _parseReport(report) {
     let workingDir = process.cwd();
 
-    /*
     const loadFile = Observable.bindNodeCallback(readFile);
     let records = Report.parse(report).records;
     let observables = records.map(record => loadFile(record.sourceFile, 'utf8'));
 
-    return Observable.zip(...observables)
-      .map(results => {
-        for (let index = 0; index < results.length; i++) {
-          let record = records[index];
-          let source = results[index];
+    return Observable.zip(...observables).map(results => new Job(results.map((source, index) => {
+      let record = records[index];
+      let lines = source.split(/\r?\n/);
+      let coverage = new Array(lines.length).fill(null);
+      for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
 
-          let lines = source.split(/\r?\n/);
-          let coverage = new Array(lines.length).fill(null);
-          for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
-
-          let filename = relative(workingDir, record.sourceFile);
-          let digest = createHash('md5').update(source).digest('hex');
-          results[index] = new SourceFile(filename, digest, source, coverage);
-        }
-      });*/
-
-    return new Job(await Promise.all(Report.parse(report).records.map(record => new Promise((resolve, reject) =>
-      readFile(record.sourceFile, 'utf8', (err, source) => {
-        if (err) reject(new Error(`Source file not found: ${record.sourceFile}`));
-        else {
-          let lines = source.split(/\r?\n/);
-          let coverage = new Array(lines.length).fill(null);
-          for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
-
-          let filename = relative(workingDir, record.sourceFile);
-          let digest = createHash('md5').update(source).digest('hex');
-          resolve(new SourceFile(filename, digest, source, coverage));
-        }
-      })
-    ))));
+      let filename = relative(workingDir, record.sourceFile);
+      let digest = createHash('md5').update(source).digest('hex');
+      return new SourceFile(filename, digest, source, coverage);
+    })));
   }
 
   /**
