@@ -98,9 +98,9 @@ export class Client {
     console.log('configuration');
     console.log(configuration);
     return Observable.zip(...observables).mergeMap(results => {
+      console.log('results');
+      console.log(results);
       let [job, config, git] = results;
-      console.log('config');
-      console.log(config);
       this._updateJob(job, config);
       if (!job.runAt) job.runAt = new Date;
 
