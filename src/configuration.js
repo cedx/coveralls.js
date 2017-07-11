@@ -117,12 +117,11 @@ export class Configuration {
    * @return {Observable<Configuration>} The default configuration.
    */
   static loadDefaults(coverallsFile = '.coveralls.yml') {
-    let defaults = Configuration.fromEnvironment();
-
     const readYAML = Observable.bindNodeCallback(readFile);
     return readYAML(coverallsFile, 'utf8')
-      .catch(() => defaults)
+      .catch(() => null)
       .map(data => {
+        let defaults = Configuration.fromEnvironment();
         let config = Configuration.fromYAML(data);
         if (config) defaults.merge(config);
         return defaults;

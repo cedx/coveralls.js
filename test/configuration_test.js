@@ -65,6 +65,14 @@ describe('Configuration', () => {
         expect(config.get('service_name')).to.equal('travis-pro');
       }, done, done);
     });
+
+    it('should use the environment defaults if the `.coveralls.yml` file is not found', done => {
+      let defaults = Configuration.fromEnvironment();
+      Configuration.loadDefaults('.dummy/config.yml').subscribe(config => {
+        expect(config).to.be.instanceof(Configuration);
+        expect(config.toJSON()).to.deep.equal(defaults.toJSON());
+      }, done, done);
+    });
   });
 
   /**
