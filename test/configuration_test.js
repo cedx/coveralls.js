@@ -166,6 +166,21 @@ describe('Configuration', () => {
   });
 
   /**
+   * @test {Configuration#remove}
+   */
+  describe('#remove()', () => {
+    it('should properly remove the configuration entries', () => {
+      let config = new Configuration({bar: 'baz', foo: 'bar'});
+      expect(config).to.have.lengthOf(2);
+
+      expect(config.remove('foo'));
+      expect(config).to.have.lengthOf(1);
+      expect(config.remove('bar'));
+      expect(config).to.have.lengthOf(0);
+    });
+  });
+
+  /**
    * @test {Configuration#set}
    */
   describe('#set()', () => {

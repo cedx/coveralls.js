@@ -85,8 +85,7 @@ export class Client {
 
     console.log('configuration');
     console.log(configuration);
-    console.log(Observable.of(configuration));
-    console.log(Configuration.loadDefaults());
+    console.log('\n');
 
     let findExecutable = Observable.bindNodeCallback(which);
     let observables = [
@@ -95,8 +94,10 @@ export class Client {
       findExecutable('git').catch(() => null).mergeMap(() => GitData.fromRepository())
     ];
 
-    console.log('configuration');
-    console.log(configuration);
+    console.log('observables');
+    console.log(observables);
+    console.log('\n');
+
     return Observable.zip(...observables).mergeMap(results => {
       console.log('results');
       console.log(results);

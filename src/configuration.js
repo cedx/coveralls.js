@@ -116,17 +116,17 @@ export class Configuration {
    * @param {string} [coverallsFile] The path to the `.coveralls.yml` file. Defaults to the file found in the current directory.
    * @return {Observable<Configuration>} The default configuration.
    */
-  static loadDefaults(coverallsFile = '') {
+  static loadDefaults(coverallsFile = '.coveralls.yml') {
     let defaults = Configuration.fromEnvironment();
 
     const readYAML = Observable.bindNodeCallback(readFile);
-    return readYAML(coverallsFile.length ? coverallsFile : '.coveralls.yml', 'utf8')
+    return readYAML(coverallsFile, 'utf8')
+      .catch(() => defaults)
       .map(data => {
         let config = Configuration.fromYAML(data);
         if (config) defaults.merge(config);
         return defaults;
-      })
-      .catch(() => defaults);
+      });
   }
 
   /**
