@@ -83,6 +83,11 @@ export class Client {
     if (token != `${Token.TEST_NAME}:` && token != `${Token.SOURCE_FILE}:`)
       return Observable.throw(new Error('The specified coverage format is not supported.'));
 
+    console.log('configuration');
+    console.log(configuration);
+    console.log(Observable.of(configuration));
+    console.log(Configuration.loadDefaults());
+
     let findExecutable = Observable.bindNodeCallback(which);
     let observables = [
       this._parseReport(coverage),
@@ -90,12 +95,12 @@ export class Client {
       findExecutable('git').catch(() => null).mergeMap(() => GitData.fromRepository())
     ];
 
+    console.log('configuration');
+    console.log(configuration);
     return Observable.zip(...observables).mergeMap(results => {
       let [job, config, git] = results;
       console.log('config');
       console.log(config);
-      console.log('git');
-      console.log(git);
       this._updateJob(job, config);
       if (!job.runAt) job.runAt = new Date;
 
