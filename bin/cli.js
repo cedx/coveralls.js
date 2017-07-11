@@ -44,5 +44,6 @@ function main() {
 // Start the application.
 if (module === require.main) main().subscribe({error: err => {
   console.error(err.message);
+  console.error(err.stack);
   process.exit(1);
 }});
