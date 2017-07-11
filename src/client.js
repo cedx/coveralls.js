@@ -87,7 +87,7 @@ export class Client {
     let observables = [
       this._parseReport(coverage),
       configuration ? Observable.of(configuration) : Configuration.loadDefaults(),
-      findExecutable('git').catch(() => null).mergeMap(() => GitData.fromRepository())
+      findExecutable('git').catch(() => Observable.of(null)).mergeMap(() => GitData.fromRepository())
     ];
 
     return Observable.zip(...observables).mergeMap(results => {
