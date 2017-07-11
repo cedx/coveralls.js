@@ -4,16 +4,16 @@
 const program = require('commander');
 const {access, readFile} = require('fs');
 const {normalize} = require('path');
-const {promisify} = require('util');
+const {Observable} = require('rxjs');
 
 const {Client} = require('../lib');
 const {version: pkgVersion} = require('../package.json');
 
 /**
  * Application entry point.
- * @return {Promise} Completes when the program is terminated.
+ * @return {Observable} Completes when the program is terminated.
  */
-async function main() {
+function main() {
   // Initialize the application.
   process.title = 'Coveralls.js';
   program._name = 'coveralls';
@@ -27,23 +27,22 @@ async function main() {
   program.parse(process.argv);
   if (!program.file) program.help();
 
-  // Check the report existence.
-  const fileExists = file => new Promise(resolve => access(file, err => resolve(!err)));
+  // Run the program.
+  const fileExists = Observable.bindNodeCallback(access);
+  const loadReport = Observable.bindNodeCallback(readFile);
 
   let file = normalize(program.file);
-  if (!await fileExists(file)) throw new Error(`The specified file is not found: ${file}`);
-
-  // Upload the report to Coveralls.
-  const loadReport = promisify(readFile);
-  let coverage = await loadReport(file, 'utf8');
-
-  let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
-  console.log('[Coveralls] Submitting to', client.endPoint.href);
-  return client.upload(coverage);
+  return fileExists(file)
+    .mergeMap(() => loadReport(file, 'utf8'))
+    .mergeMap(coverage => {
+      let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
+      console.log('[Coveralls] Submitting to', client.endPoint.href);
+      return client.upload(coverage);
+    });
 }
 
-// Run the application.
-if (module === require.main) main().catch(error => {
-  console.error(error.message);
+// Start the application.
+if (module === require.main) main().subscribe({error: err => {
+  console.error(err.message);
   process.exit(1);
-});
+}});
