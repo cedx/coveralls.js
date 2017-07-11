@@ -48,19 +48,20 @@ describe('GitData', () => {
    * @test {GitData.fromRepository}
    */
   describe('.fromRepository()', () => {
-    it('should retrieve the Git data from the executable output', async () => {
-      let data = await GitData.fromRepository(`${__dirname}/..`);
-      expect(data.branch).to.not.be.empty;
+    it('should retrieve the Git data from the executable output', done => {
+      GitData.fromRepository(`${__dirname}/..`).subscribe(data => {
+        expect(data.branch).to.not.be.empty;
 
-      expect(data.commit).to.be.instanceof(GitCommit);
-      expect(data.commit.id).to.match(/^[a-f\d]{40}$/);
+        expect(data.commit).to.be.instanceof(GitCommit);
+        expect(data.commit.id).to.match(/^[a-f\d]{40}$/);
 
-      expect(data.remotes).to.not.be.empty;
-      expect(data.remotes[0]).to.be.instanceof(GitRemote);
+        expect(data.remotes).to.not.be.empty;
+        expect(data.remotes[0]).to.be.instanceof(GitRemote);
 
-      let origin = data.remotes.filter(remote => remote.name == 'origin');
-      expect(origin).to.have.lengthOf(1);
-      expect(origin[0].url.href).to.equal('https://github.com/cedx/coveralls.js.git');
+        let origin = data.remotes.filter(remote => remote.name == 'origin');
+        expect(origin).to.have.lengthOf(1);
+        expect(origin[0].url.href).to.equal('https://github.com/cedx/coveralls.js.git');
+      }, done, done);
     });
   });
 

@@ -58,11 +58,12 @@ describe('Configuration', () => {
    * @test {Configuration.loadDefaults}
    */
   describe('.loadDefaults()', () => {
-    it('should properly initialize from a `.coveralls.yml` file', async () => {
-      let config = await Configuration.loadDefaults(`${__dirname}/fixtures/.coveralls.yml`);
-      expect(config).to.have.length.of.at.least(2);
-      expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
-      expect(config.get('service_name')).to.equal('travis-pro');
+    it('should properly initialize from a `.coveralls.yml` file', done => {
+      Configuration.loadDefaults(`${__dirname}/fixtures/.coveralls.yml`).subscribe(config => {
+        expect(config).to.have.length.of.at.least(2);
+        expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+        expect(config.get('service_name')).to.equal('travis-pro');
+      }, done, done);
     });
   });
 

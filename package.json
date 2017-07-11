@@ -9,14 +9,15 @@
   "name": "@cedx/coveralls",
   "preferGlobal": true,
   "repository": "cedx/coveralls.js",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "bin": {
     "coveralls": "./bin/cli.js"
   },
   "dependencies": {
     "@cedx/lcov": "^1.1.1",
-    "commander": "^2.10.0",
-    "js-yaml": "^3.8.4",
+    "commander": "^2.11.0",
+    "js-yaml": "^3.9.0",
+    "rxjs": "^5.4.2",
     "superagent": "^3.5.2",
     "which": "^1.2.14"
   },
@@ -36,14 +37,16 @@
     "nyc": "^11.0.3"
   },
   "engines": {
-    "node": ">=8.1.0"
+    "node": ">=8.0.0"
   },
   "keywords": [
     "client",
     "code",
     "coverage",
     "coveralls",
-    "lcov"
+    "lcov",
+    "observable",
+    "rxjs"
   ],
   "scripts": {
     "coverage": "node bin/cli.js --file=var/lcov.info",
