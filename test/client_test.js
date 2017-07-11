@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import {readFile} from 'fs';
 import {describe, it} from 'mocha';
 import {join} from 'path';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
 
 /**
@@ -13,11 +13,40 @@ import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
 describe('Client', () => {
 
   /**
+   * @test {Client#onRequest}
+   */
+  describe('#onRequest', () => {
+    it('should return an `Observable` instead of the underlying `Subject`', () => {
+      let stream = new Client().onRequest;
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
+    });
+  });
+
+  /**
+   * @test {Client#onResponse}
+   */
+  describe('#onResponse', () => {
+    it('should return an `Observable` instead of the underlying `Subject`', () => {
+      let stream = new Client().onResponse;
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
+    });
+  });
+
+  /**
    * @test {Client#upload}
    */
   describe('#upload()', () => {
     it('should throw an error with an empty coverage report', done => {
       (new Client).upload('').subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
+    });
+
+    it('should throw an error with an invalid coverage report', done => {
+      (new Client).upload('end_of_record').subscribe({
         complete: () => done(new Error('Error not thrown.')),
         error: () => done()
       });
