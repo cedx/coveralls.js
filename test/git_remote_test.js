@@ -29,7 +29,7 @@ describe('GitRemote', () => {
       let remote = GitRemote.fromJSON({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
       expect(remote).to.be.instanceof(GitRemote);
       expect(remote.name).to.equal('origin');
-      expect(remote.url).to.be.instanceOf(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
+      expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
     });
   });
 
