@@ -36,7 +36,7 @@ function main() {
     .mergeMap(() => loadReport(file, 'utf8'))
     .mergeMap(coverage => {
       let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
-      console.log('[Coveralls] Submitting to %s', client.endPoint);
+      console.log(`[Coveralls] Submitting to ${client.endPoint}`);
       return client.upload(coverage);
     });
 }
