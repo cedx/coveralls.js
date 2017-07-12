@@ -14,7 +14,7 @@
     "coveralls": "./bin/cli.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^1.1.1",
+    "@cedx/lcov": "^2.0.0",
     "commander": "^2.11.0",
     "js-yaml": "^3.9.0",
     "rxjs": "^5.4.2",
