@@ -49,7 +49,7 @@ describe('GitData', () => {
    */
   describe('.fromRepository()', () => {
     it('should retrieve the Git data from the executable output', done => {
-      GitData.fromRepository(`${__dirname}/..`).subscribe(data => {
+      GitData.fromRepository().subscribe(data => {
         expect(data.branch).to.not.be.empty;
 
         expect(data.commit).to.be.instanceof(GitCommit);

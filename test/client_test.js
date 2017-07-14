@@ -71,7 +71,7 @@ describe('Client', () => {
   describe('#_parseReport()', () => {
     it('should properly parse LCOV reports', done => {
       const loadReport = Observable.bindNodeCallback(readFile);
-      loadReport(`${__dirname}/fixtures/lcov.info`, 'utf8')
+      loadReport('test/fixtures/lcov.info', 'utf8')
         .mergeMap(coverage => (new Client)._parseReport(coverage))
         .subscribe(job => {
           expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);

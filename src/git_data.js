@@ -70,13 +70,13 @@ export class GitData {
       /* eslint-enable quotes */
     };
 
-    const execCommand = Observable.bindNodeCallback(exec, stdout => stdout);
+    const execCommand = Observable.bindNodeCallback(exec, stdout => stdout.trim().replace(/^'+|'+$/g, ''));
     let observables = Object.values(commands).map(value => execCommand(`git ${value}`, {cwd: path}));
 
     return Observable.zip(...observables)
       .do(results => {
         let index = 0;
-        for (let key in commands) commands[key] = results[index++].trim().replace(/^'+|'+$/g, '');
+        for (let key in commands) commands[key] = results[index++];
       })
       .map(() => {
         let remotes = {};
