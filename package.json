@@ -22,7 +22,7 @@
     "which": "^1.2.14"
   },
   "devDependencies": {
-    "@cedx/gulp-david": "^7.0.1",
+    "@cedx/gulp-david": "^8.0.0",
     "babel-preset-env": "^1.5.2",
     "babel-register": "^6.24.1",
     "chai": "^4.1.0",
