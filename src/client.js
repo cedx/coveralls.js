@@ -123,7 +123,8 @@ export class Client {
     this._onRequest.next(req);
     return Observable.from(req).map(res => {
       this._onResponse.next(res);
-      return res.ok ? res.text : Observable.throw(new Error(`${res.status} ${res.statusText}`));
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return res.text;
     });
   }
 
