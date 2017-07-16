@@ -54,9 +54,7 @@ export class GitData {
    * @param {string} [path] The path to the repository folder. Defaults to the current working directory.
    * @return {Observable<GitData>} The newly created data.
    */
-  static fromRepository(path = '') {
-    if (!path.length) path = process.cwd();
-
+  static fromRepository(path = process.cwd()) {
     let commands = {
       /* eslint-disable quotes */
       author_email: "log -1 --pretty=format:'%ae'",
