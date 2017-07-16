@@ -2,8 +2,7 @@
 'use strict';
 
 const program = require('commander');
-const {access, readFile} = require('fs');
-const {normalize} = require('path');
+const {readFile} = require('fs');
 const {Observable} = require('rxjs');
 
 const {Client} = require('../lib');
@@ -28,17 +27,12 @@ function main() {
   if (!program.file) program.help();
 
   // Run the program.
-  const fileExists = Observable.bindNodeCallback(access);
   const loadReport = Observable.bindNodeCallback(readFile);
-
-  let file = normalize(program.file);
-  return fileExists(file)
-    .mergeMap(() => loadReport(file, 'utf8'))
-    .mergeMap(coverage => {
-      let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
-      console.log(`[Coveralls] Submitting to ${client.endPoint}`);
-      return client.upload(coverage);
-    });
+  return loadReport(program.file, 'utf8').mergeMap(coverage => {
+    let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
+    console.log(`[Coveralls] Submitting to ${client.endPoint}`);
+    return client.upload(coverage);
+  });
 }
 
 // Start the application.
