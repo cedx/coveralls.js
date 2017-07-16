@@ -103,9 +103,9 @@ describe('Client', () => {
    */
   describe('#_updateJob()', () => {
     let client = new Client;
-    let job = new Job;
 
     it('should not modify the job if the configuration is empty', () => {
+      let job = new Job;
       client._updateJob(job, new Configuration);
       expect(job.git).to.be.null;
       expect(job.isParallel).to.be.false;
@@ -114,6 +114,7 @@ describe('Client', () => {
     });
 
     it('should modify the job if the configuration is not empty', () => {
+      let job = new Job;
       client._updateJob(job, new Configuration({
         parallel: 'true',
         repo_token: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt',
