@@ -72,8 +72,6 @@ export class Client {
    * @param {string} coverage A coverage report.
    * @param {Configuration} [configuration] The environment settings.
    * @return {Observable} Completes when the operation is done.
-   * @emits {superagent.Request} The "request" event.
-   * @emits {superagent.Response} The "response" event.
    */
   upload(coverage, configuration = null) {
     coverage = coverage.trim();
