@@ -60,6 +60,7 @@ describe('Configuration', () => {
   describe('.loadDefaults()', () => {
     it('should properly initialize from a `.coveralls.yml` file', done => {
       Configuration.loadDefaults('test/fixtures/.coveralls.yml').subscribe(config => {
+        expect(config).to.be.instanceof(Configuration);
         expect(config).to.have.length.of.at.least(2);
         expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
         expect(config.get('service_name')).to.equal('travis-pro');
