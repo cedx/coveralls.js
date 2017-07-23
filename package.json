@@ -13,7 +13,7 @@
     "coveralls": "./bin/cli.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^2.0.0",
+    "@cedx/lcov": "^2.1.0",
     "commander": "^2.11.0",
     "js-yaml": "^3.9.0",
     "rxjs": "^5.4.2",
@@ -21,7 +21,7 @@
     "which": "^1.2.14"
   },
   "devDependencies": {
-    "@cedx/gulp-david": "^8.0.0",
+    "@cedx/gulp-david": "^8.1.0",
     "chai": "^4.1.0",
     "del": "^3.0.0",
     "esdoc": "^0.5.2",
