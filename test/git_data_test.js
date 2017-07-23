@@ -1,8 +1,7 @@
 'use strict';
 
-import {expect} from 'chai';
-import {describe, it} from 'mocha';
-import {GitCommit, GitData, GitRemote} from '../src/index';
+const {expect} = require('chai');
+const {GitCommit, GitData, GitRemote} = require('../lib');
 
 /**
  * @test {GitData}

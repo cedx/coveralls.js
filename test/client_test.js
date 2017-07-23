@@ -1,11 +1,10 @@
 'use strict';
 
-import {expect} from 'chai';
-import {readFile} from 'fs';
-import {describe, it} from 'mocha';
-import {join} from 'path';
-import {Observable, Subject} from 'rxjs';
-import {Client, Configuration, GitData, Job, SourceFile} from '../src/index';
+const {expect} = require('chai');
+const {readFile} = require('fs');
+const {join} = require('path');
+const {Observable, Subject} = require('rxjs');
+const {Client, Configuration, GitData, Job, SourceFile} = require('../lib');
 
 /**
  * @test {Client}
@@ -77,19 +76,19 @@ describe('Client', () => {
           expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
           expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
-          expect(job.sourceFiles[0].name).to.equal(join('src', 'client.js'));
+          expect(job.sourceFiles[0].name).to.equal(join('lib', 'client.js'));
           expect(job.sourceFiles[0].sourceDigest).to.not.be.empty;
 
           let subset = [null, 2, 2, 2, 2, null];
           expect(job.sourceFiles[0].coverage).to.include.members(subset);
 
-          expect(job.sourceFiles[1].name).to.equal(join('src', 'configuration.js'));
+          expect(job.sourceFiles[1].name).to.equal(join('lib', 'configuration.js'));
           expect(job.sourceFiles[1].sourceDigest).to.not.be.empty;
 
           subset = [null, 4, 4, 2, 2, 4, 2, 2, 4, 4, null];
           expect(job.sourceFiles[1].coverage).to.include.members(subset);
 
-          expect(job.sourceFiles[2].name).to.equal(join('src', 'git_commit.js'));
+          expect(job.sourceFiles[2].name).to.equal(join('lib', 'git_commit.js'));
           expect(job.sourceFiles[2].sourceDigest).to.not.be.empty;
 
           subset = [null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null];
