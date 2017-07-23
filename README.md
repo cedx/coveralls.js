@@ -21,7 +21,7 @@ Then use it to upload your coverage reports:
 ```shell
 $ coveralls --help
 
-  Usage: coveralls [options]
+  Usage: coveralls [options] <file>
 
   Send a LCOV coverage report to the Coveralls service.
 
@@ -29,13 +29,12 @@ $ coveralls --help
 
     -h, --help         output usage information
     -v, --version      output the version number
-    -f, --file <file>  path to the coverage report
 ```
 
 For example:
 
 ```shell
-$ coveralls -f build/lcov.info
+$ coveralls build/lcov.info
 ```
 
 ### Programming interface
@@ -48,9 +47,9 @@ $ npm install --save @cedx/coveralls
 Now, in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use the `Client` class to upload your coverage reports:
 
 ```javascript
-import {Client} from '@cedx/coveralls';
-import {readFile} from 'fs';
-import {Observable} from 'rxjs';
+const {Client} = require('@cedx/coveralls');
+const {readFile} = require('fs');
+const {Observable} = require('rxjs');
 
 const loadCoverage = Observable.bindNodeCallback(readFile);
 loadCoverage('/path/to/coverage.report', 'utf8')
