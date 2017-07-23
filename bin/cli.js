@@ -21,7 +21,8 @@ function main() {
   program
     .description('Send a LCOV coverage report to the Coveralls service.')
     .version(pkgVersion, '-v, --version')
-    .option('-f, --file <file>', 'path to the coverage report');
+    .arguments('<file>')
+    .action(file => program.file = file);
 
   program.parse(process.argv);
   if (!program.file) program.help();
