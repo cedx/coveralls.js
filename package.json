@@ -46,7 +46,7 @@
     "rxjs"
   ],
   "scripts": {
-    "coverage": "node bin/cli.js --file=var/lcov.info",
+    "coverage": "node bin/cli.js var/lcov.info",
     "test": "nyc --report-dir=var --reporter=lcovonly mocha --recursive"
   }
 }
