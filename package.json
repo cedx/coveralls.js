@@ -14,11 +14,11 @@
   },
   "dependencies": {
     "@cedx/lcov": "^2.1.0",
+    "@cedx/which": "^0.1.0",
     "commander": "^2.11.0",
     "js-yaml": "^3.9.0",
     "rxjs": "^5.4.2",
-    "superagent": "^3.5.2",
-    "which": "^1.2.14"
+    "superagent": "^3.5.2"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^8.1.0",

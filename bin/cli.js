@@ -13,18 +13,16 @@ const {version: pkgVersion} = require('../package.json');
  * @return {Observable} Completes when the program is terminated.
  */
 function main() {
-  // Initialize the application.
   process.title = 'Coveralls.js';
-  program._name = 'coveralls';
 
   // Parse the command line arguments.
-  program
+  program.name('coveralls')
     .description('Send a LCOV coverage report to the Coveralls service.')
     .version(pkgVersion, '-v, --version')
     .arguments('<file>')
-    .action(file => program.file = file);
+    .action(file => program.file = file)
+    .parse(process.argv);
 
-  program.parse(process.argv);
   if (!program.file) program.help();
 
   // Run the program.
