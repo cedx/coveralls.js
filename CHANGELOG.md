@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 2.2.0
+- Replaced the `which` module by an `Observable`-based one.
+- Updated the package dependencies.
+
 ## Version 2.1.0
 - Removed the dependency on [Babel](https://babeljs.io) compiler.
 - Updated the package dependencies.
