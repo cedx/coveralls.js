@@ -8,13 +8,13 @@
   "name": "@cedx/coveralls",
   "preferGlobal": true,
   "repository": "cedx/coveralls.js",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "bin": {
     "coveralls": "./bin/cli.js"
   },
   "dependencies": {
     "@cedx/lcov": "^2.1.0",
-    "@cedx/which": "^0.1.0",
+    "@cedx/which": "^1.0.0",
     "commander": "^2.11.0",
     "js-yaml": "^3.9.0",
     "rxjs": "^5.4.2",
@@ -30,7 +30,7 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "mocha": "^3.4.2",
-    "nsp": "^2.6.3",
+    "nsp": "^2.7.0",
     "nyc": "^11.1.0"
   },
   "engines": {
