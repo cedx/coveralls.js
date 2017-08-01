@@ -36,16 +36,16 @@ describe('Configuration', () => {
   });
 
   /**
-   * @test {Configuration.fromYAML}
+   * @test {Configuration.fromYaml}
    */
-  describe('.fromYAML()', () => {
+  describe('.fromYaml()', () => {
     it('should return a null reference with a non-object value', () => {
-      expect(Configuration.fromYAML('**123/456**')).to.be.null;
-      expect(Configuration.fromYAML('foo')).to.be.null;
+      expect(Configuration.fromYaml('**123/456**')).to.be.null;
+      expect(Configuration.fromYaml('foo')).to.be.null;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let config = Configuration.fromYAML('repo_token: 0123456789abcdef\nservice_name: travis-ci');
+      let config = Configuration.fromYaml('repo_token: 0123456789abcdef\nservice_name: travis-ci');
       expect(config).to.be.instanceof(Configuration);
       expect(config).to.have.lengthOf(2);
       expect(config.get('repo_token')).to.equal('0123456789abcdef');
