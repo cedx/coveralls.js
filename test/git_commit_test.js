@@ -9,15 +9,15 @@ const {GitCommit} = require('../lib');
 describe('GitCommit', () => {
 
   /**
-   * @test {GitCommit.fromJSON}
+   * @test {GitCommit.fromJson}
    */
-  describe('.fromJSON()', () => {
+  describe('.fromJson()', () => {
     it('should return a null reference with a non-object value', () => {
-      expect(GitCommit.fromJSON('foo')).to.be.null;
+      expect(GitCommit.fromJson('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let remote = GitCommit.fromJSON({});
+      let remote = GitCommit.fromJson({});
       expect(remote).to.be.instanceof(GitCommit);
 
       expect(remote.authorEmail).to.be.empty;
@@ -27,7 +27,7 @@ describe('GitCommit', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let remote = GitCommit.fromJSON({
+      let remote = GitCommit.fromJson({
         author_email: 'anonymous@secret.com',
         author_name: 'Anonymous',
         id: '2ef7bde608ce5404e97d5f042f95f89f1c232871',

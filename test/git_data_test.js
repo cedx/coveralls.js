@@ -9,15 +9,15 @@ const {GitCommit, GitData, GitRemote} = require('../lib');
 describe('GitData', () => {
 
   /**
-   * @test {GitData.fromJSON}
+   * @test {GitData.fromJson}
    */
-  describe('.fromJSON()', () => {
+  describe('.fromJson()', () => {
     it('should return a null reference with a non-object value', () => {
-      expect(GitData.fromJSON('foo')).to.be.null;
+      expect(GitData.fromJson('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let data = GitData.fromJSON({});
+      let data = GitData.fromJson({});
       expect(data).to.be.instanceof(GitData);
       expect(data.branch).to.be.empty;
       expect(data.commit).to.be.null;
@@ -25,7 +25,7 @@ describe('GitData', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let data = GitData.fromJSON({
+      let data = GitData.fromJson({
         branch: 'develop',
         head: {id: '2ef7bde608ce5404e97d5f042f95f89f1c232871'},
         remotes: [{name: 'origin'}]

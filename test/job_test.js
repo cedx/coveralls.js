@@ -9,15 +9,15 @@ const {GitData, Job, SourceFile} = require('../lib');
 describe('Job', () => {
 
   /**
-   * @test {Job.fromJSON}
+   * @test {Job.fromJson}
    */
-  describe('.fromJSON()', () => {
+  describe('.fromJson()', () => {
     it('should return a null reference with a non-object value', () => {
-      expect(Job.fromJSON('foo')).to.be.null;
+      expect(Job.fromJson('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let job = Job.fromJSON({});
+      let job = Job.fromJson({});
       expect(job).to.be.instanceof(Job);
 
       expect(job.git).to.be.null;
@@ -28,7 +28,7 @@ describe('Job', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let job = Job.fromJSON({
+      let job = Job.fromJson({
         git: {branch: 'develop'},
         parallel: true,
         repo_token: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt',

@@ -10,22 +10,22 @@ const {GitRemote} = require('../lib');
 describe('GitRemote', () => {
 
   /**
-   * @test {GitRemote.fromJSON}
+   * @test {GitRemote.fromJson}
    */
-  describe('.fromJSON()', () => {
+  describe('.fromJson()', () => {
     it('should return a null reference with a non-object value', () => {
-      expect(GitRemote.fromJSON('foo')).to.be.null;
+      expect(GitRemote.fromJson('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let remote = GitRemote.fromJSON({});
+      let remote = GitRemote.fromJson({});
       expect(remote).to.be.instanceof(GitRemote);
       expect(remote.name).to.be.empty;
       expect(remote.url).to.be.null;
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let remote = GitRemote.fromJSON({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
+      let remote = GitRemote.fromJson({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
       expect(remote).to.be.instanceof(GitRemote);
       expect(remote.name).to.equal('origin');
       expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');

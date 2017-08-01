@@ -9,15 +9,15 @@ const {SourceFile} = require('../lib');
 describe('SourceFile', () => {
 
   /**
-   * @test {SourceFile.fromJSON}
+   * @test {SourceFile.fromJson}
    */
-  describe('.fromJSON()', () => {
+  describe('.fromJson()', () => {
     it('should return a null reference with a non-object value', () => {
-      expect(SourceFile.fromJSON('foo')).to.be.null;
+      expect(SourceFile.fromJson('foo')).to.be.null;
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let file = SourceFile.fromJSON({});
+      let file = SourceFile.fromJson({});
       expect(file).to.be.instanceof(SourceFile);
 
       expect(file.coverage).to.be.an('array').and.be.empty;
@@ -27,7 +27,7 @@ describe('SourceFile', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let file = SourceFile.fromJSON({coverage: [null, 2, 0, null, 4, 15, null], name: 'coveralls.js', source: 'function main() {}', source_digest: 'e23fb141da9a7b438479a48eac7b7249'});
+      let file = SourceFile.fromJson({coverage: [null, 2, 0, null, 4, 15, null], name: 'coveralls.js', source: 'function main() {}', source_digest: 'e23fb141da9a7b438479a48eac7b7249'});
       expect(file).to.be.instanceof(SourceFile);
 
       expect(file.coverage).to.be.an('array').and.have.lengthOf(7);
