@@ -2,6 +2,8 @@
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
 ## Version 3.1.0
+- Replaced the [SuperAgent](https://visionmedia.github.io/superagent) HTTP client by `node-fetch`.
+- Updated the package dependencies.
 
 ## Version 3.0.0
 - Breaking change: renamed the `fromJSON()` static methods to `fromJson`.
