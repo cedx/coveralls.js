@@ -16,18 +16,18 @@
     "@cedx/lcov": "^3.0.0",
     "@cedx/which": "^1.1.0",
     "commander": "^2.11.0",
+    "form-data": "^2.2.0",
     "js-yaml": "^3.9.1",
-    "rxjs": "^5.4.2",
-    "superagent": "^3.5.2"
+    "node-fetch": "^1.7.2",
+    "rxjs": "^5.4.3"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^9.0.0",
-    "chai": "^4.1.0",
+    "chai": "^4.1.1",
     "del": "^3.0.0",
     "esdoc": "^1.0.1",
     "esdoc-node": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
-    "estraverse": "^4.2.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "mocha": "^3.5.0",
@@ -35,7 +35,7 @@
     "nyc": "^11.1.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.3.0"
   },
   "keywords": [
     "client",
