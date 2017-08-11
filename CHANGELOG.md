@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version 3.1.0
+
 ## Version 3.0.0
 - Breaking change: renamed the `fromJSON()` static methods to `fromJson`.
 - Breaking change: renamed the `Configuration.fromYAML()` method to `fromYaml`.
