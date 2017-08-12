@@ -16,7 +16,7 @@ describe('Client', () => {
    */
   describe('#onRequest', () => {
     it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = new Client().onRequest;
+      let stream = (new Client).onRequest;
       expect(stream).to.be.instanceof(Observable);
       expect(stream).to.not.be.instanceof(Subject);
     });
@@ -27,7 +27,7 @@ describe('Client', () => {
    */
   describe('#onResponse', () => {
     it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = new Client().onResponse;
+      let stream = (new Client).onResponse;
       expect(stream).to.be.instanceof(Observable);
       expect(stream).to.not.be.instanceof(Subject);
     });
