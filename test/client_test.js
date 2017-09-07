@@ -17,7 +17,7 @@ describe('Client', () => {
   describe('#upload()', () => {
     it('should throw an error with an empty coverage report', async () => {
       try {
-        (new Client).upload('');
+        await (new Client).upload('');
         expect(true).to.not.be.ok;
       }
 
@@ -28,7 +28,7 @@ describe('Client', () => {
 
     it('should throw an error with an invalid coverage report', async () => {
       try {
-        (new Client).upload('end_of_record');
+        await (new Client).upload('end_of_record');
         expect(true).to.not.be.ok;
       }
 
@@ -44,7 +44,7 @@ describe('Client', () => {
   describe('#uploadJob()', () => {
     it('should throw an error with an empty coverage job', async () => {
       try {
-        (new Client).uploadJob(new Job);
+        await (new Client).uploadJob(new Job);
         expect(true).to.not.be.ok;
       }
 
