@@ -12,28 +12,6 @@ const {Client, Configuration, GitData, Job, SourceFile} = require('../lib');
 describe('Client', () => {
 
   /**
-   * @test {Client#onRequest}
-   */
-  describe('#onRequest', () => {
-    it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = (new Client).onRequest;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Client#onResponse}
-   */
-  describe('#onResponse', () => {
-    it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = (new Client).onResponse;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
    * @test {Client#upload}
    */
   describe('#upload()', () => {
