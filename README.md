@@ -49,15 +49,14 @@ Now, in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScrip
 ```javascript
 const {Client} = require('@cedx/coveralls');
 const {readFile} = require('fs');
-const {Observable} = require('rxjs');
+const {promisify} = require('util');
 
-const loadCoverage = Observable.bindNodeCallback(readFile);
-loadCoverage('/path/to/coverage.report', 'utf8')
-  .mergeMap(coverage => (new Client).upload(coverage))
-  .subscribe(() => console.log('The report was sent successfully.'));
+const loadCoverage = promisify(readFile);
+let coverage = await loadCoverage('/path/to/coverage.report', 'utf8');
+
+await (new Client).upload(coverage);
+console.log('The report was sent successfully.');
 ```
-
-> This package has an API based on [Observables](http://reactivex.io/intro.html).
 
 ## Supported coverage formats
 Currently, this package only supports the de facto standard: the [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) format.

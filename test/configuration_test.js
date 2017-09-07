@@ -57,21 +57,19 @@ describe('Configuration', () => {
    * @test {Configuration.loadDefaults}
    */
   describe('.loadDefaults()', () => {
-    it('should properly initialize from a `.coveralls.yml` file', done => {
-      Configuration.loadDefaults('test/fixtures/.coveralls.yml').subscribe(config => {
-        expect(config).to.be.instanceof(Configuration);
-        expect(config).to.have.length.of.at.least(2);
-        expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
-        expect(config.get('service_name')).to.equal('travis-pro');
-      }, done, done);
+    it('should properly initialize from a `.coveralls.yml` file', async () => {
+      let config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
+      expect(config).to.be.instanceof(Configuration);
+      expect(config).to.have.length.of.at.least(2);
+      expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+      expect(config.get('service_name')).to.equal('travis-pro');
     });
 
-    it('should use the environment defaults if the `.coveralls.yml` file is not found', done => {
+    it('should use the environment defaults if the `.coveralls.yml` file is not found', async () => {
       let defaults = Configuration.fromEnvironment();
-      Configuration.loadDefaults('.dummy/config.yml').subscribe(config => {
-        expect(config).to.be.instanceof(Configuration);
-        expect(config.toJSON()).to.deep.equal(defaults.toJSON());
-      }, done, done);
+      let config = await Configuration.loadDefaults('.dummy/config.yml');
+      expect(config).to.be.instanceof(Configuration);
+      expect(config.toJSON()).to.deep.equal(defaults.toJSON());
     });
   });
 

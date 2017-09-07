@@ -3,16 +3,15 @@
 
 const program = require('commander');
 const {readFile} = require('fs');
-const {Observable} = require('rxjs');
-
+const {promisify} = require('util');
 const {Client} = require('../lib');
 const {version: pkgVersion} = require('../package.json');
 
 /**
  * Application entry point.
- * @return {Observable} Completes when the program is terminated.
+ * @return {Promise} Completes when the program is terminated.
  */
-function main() {
+async function main() {
   process.title = 'Coveralls.js';
 
   // Parse the command line arguments.
@@ -26,16 +25,16 @@ function main() {
   if (!program.file) program.help();
 
   // Run the program.
-  const loadReport = Observable.bindNodeCallback(readFile);
-  return loadReport(program.file, 'utf8').mergeMap(coverage => {
-    let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
-    console.log(`[Coveralls] Submitting to ${client.endPoint}`);
-    return client.upload(coverage);
-  });
+  const loadReport = promisify(readFile);
+  let coverage = await loadReport(program.file, 'utf8');
+
+  let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.DEFAULT_ENDPOINT);
+  console.log(`[Coveralls] Submitting to ${client.endPoint}`);
+  return client.upload(coverage);
 }
 
 // Start the application.
-if (module === require.main) main().subscribe({error: err => {
+if (module === require.main) main().catch(err => {
   console.error(err);
   process.exit(1);
-}});
+});
