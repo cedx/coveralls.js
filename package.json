@@ -3,7 +3,7 @@
   "bugs": "https://github.com/cedx/coveralls.js/issues",
   "description": "Send LCOV coverage reports to the Coveralls service.",
   "homepage": "https://github.com/cedx/coveralls.js",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "main": "./lib/index",
   "name": "@cedx/coveralls",
   "preferGlobal": true,

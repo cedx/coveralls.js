@@ -96,4 +96,4 @@ This package supports the same configuration sources as the [Coveralls](https://
 - [Continuous integration](https://travis-ci.org/cedx/coveralls.js)
 
 ## License
-[Coveralls for JS](https://github.com/cedx/coveralls.js) is distributed under the Apache License, version 2.0.
+[Coveralls for JS](https://github.com/cedx/coveralls.js) is distributed under the MIT License.
