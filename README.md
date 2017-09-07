@@ -51,11 +51,17 @@ const {Client} = require('@cedx/coveralls');
 const {readFile} = require('fs');
 const {promisify} = require('util');
 
-const loadCoverage = promisify(readFile);
-let coverage = await loadCoverage('/path/to/coverage.report', 'utf8');
+try {
+  const loadCoverage = promisify(readFile);
+  let coverage = await loadCoverage('/path/to/coverage.report', 'utf8');
+    
+  await (new Client).upload(coverage);
+  console.log('The report was sent successfully.');
+}
 
-await (new Client).upload(coverage);
-console.log('The report was sent successfully.');
+catch (err) {
+  console.log(`An error occurred: ${err}`);
+}
 ```
 
 ## Supported coverage formats
