@@ -39,9 +39,9 @@ describe('Configuration', () => {
    * @test {Configuration.fromYaml}
    */
   describe('.fromYaml()', () => {
-    it('should return a null reference with a non-object value', () => {
-      expect(Configuration.fromYaml('**123/456**')).to.be.null;
-      expect(Configuration.fromYaml('foo')).to.be.null;
+    it('should throw an exception with a non-object value', () => {
+      expect(() => Configuration.fromYaml('**123/456**')).to.throw(TypeError);
+      expect(() => Configuration.fromYaml('foo')).to.throw(TypeError);
     });
 
     it('should return an initialized instance for a non-empty map', () => {
