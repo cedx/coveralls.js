@@ -54,7 +54,11 @@ describe('SourceFile', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]).toJSON();
+      let map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
+        coverage: [null, 2, 0, null, 4, 15, null],
+        source: 'function main() {}'}
+      ).toJSON();
+
       expect(Object.keys(map)).to.have.lengthOf(4);
 
       expect(map.coverage).to.be.an('array').and.have.lengthOf(7);
@@ -71,7 +75,10 @@ describe('SourceFile', () => {
    * @test {SourceFile#toString}
    */
   describe('#toString()', () => {
-    let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', 'function main() {}', [null, 2, 0, null, 4, 15, null]));
+    let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
+      coverage: [null, 2, 0, null, 4, 15, null],
+      source: 'function main() {}'
+    }));
 
     it('should start with the class name', () => {
       expect(file.startsWith('SourceFile {')).to.be.true;
