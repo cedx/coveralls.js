@@ -13,11 +13,11 @@
     "coveralls": "./bin/cli.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^3.1.0",
-    "@cedx/which": "^2.0.2",
+    "@cedx/lcov": "^4.0.0",
+    "@cedx/which": "^3.0.0",
     "commander": "^2.11.0",
     "form-data": "^2.3.1",
-    "js-yaml": "^3.9.1",
+    "js-yaml": "^3.10.0",
     "node-fetch": "^1.7.3"
   },
   "devDependencies": {
@@ -29,12 +29,12 @@
     "esdoc-standard-plugin": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
-    "mocha": "^3.5.0",
+    "mocha": "^3.5.3",
     "nsp": "^2.8.0",
     "nyc": "^11.2.1"
   },
   "engines": {
-    "node": ">=8.4.0"
+    "node": ">=8.5.0"
   },
   "keywords": [
     "client",
