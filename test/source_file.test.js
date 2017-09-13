@@ -45,7 +45,7 @@ describe('SourceFile', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = (new SourceFile).toJSON();
+      let map = new SourceFile('', '').toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
 
       expect(map.coverage).to.be.an('array').and.be.empty;

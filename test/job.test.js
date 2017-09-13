@@ -33,7 +33,7 @@ describe('Job', () => {
         parallel: true,
         repo_token: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt',
         run_at: '2017-01-29T02:43:30.000Z',
-        source_files: [{name: '/home/cedx/coveralls.php'}]
+        source_files: [{name: '/home/cedx/coveralls.js'}]
       });
 
       expect(job).to.be.instanceof(Job);
@@ -48,7 +48,7 @@ describe('Job', () => {
 
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(1);
       expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
-      expect(job.sourceFiles[0].name).to.equal('/home/cedx/coveralls.php');
+      expect(job.sourceFiles[0].name).to.equal('/home/cedx/coveralls.js');
     });
   });
 
@@ -63,12 +63,11 @@ describe('Job', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let job = new Job;
-      job.git = new GitData(null, 'develop');
+      let job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
+      job.git = new GitData(null, {branch: 'develop'});
       job.isParallel = true;
-      job.repoToken = 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt';
       job.runAt = new Date('2017-01-29T02:43:30.000Z');
-      job.sourceFiles = [new SourceFile('/home/cedx/coveralls.php')];
+      job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
 
       let map = job.toJSON();
       expect(Object.keys(map)).to.have.lengthOf(5);
@@ -81,7 +80,7 @@ describe('Job', () => {
 
       expect(map.source_files).to.be.an('array').and.have.lengthOf(1);
       expect(map.source_files[0]).to.be.an('object');
-      expect(map.source_files[0].name).to.equal('/home/cedx/coveralls.php');
+      expect(map.source_files[0].name).to.equal('/home/cedx/coveralls.js');
     });
   });
 
@@ -89,12 +88,11 @@ describe('Job', () => {
    * @test {Job#toString}
    */
   describe('#toString()', () => {
-    let job = new Job;
-    job.git = new GitData(null, 'develop');
+    let job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
+    job.git = new GitData(null, {branch: 'develop'});
     job.isParallel = true;
-    job.repoToken = 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt';
     job.runAt = new Date('2017-01-29T02:43:30.000Z');
-    job.sourceFiles = [new SourceFile('/home/cedx/coveralls.php')];
+    job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
 
     let value = String(job);
     it('should start with the class name', () => {

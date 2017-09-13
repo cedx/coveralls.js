@@ -47,15 +47,17 @@ describe('GitCommit', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = (new GitCommit).toJSON();
+      let map = new GitCommit('').toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
       expect(map.id).to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', 'Hello World!');
-      commit.authorEmail = 'anonymous@secret.com';
-      commit.authorName = 'Anonymous';
+      let commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', {
+        authorEmail: 'anonymous@secret.com',
+        authorName: 'Anonymous',
+        message: 'Hello World!'
+      });
 
       let map = commit.toJSON();
       expect(Object.keys(map)).to.have.lengthOf(4);
@@ -70,9 +72,11 @@ describe('GitCommit', () => {
    * @test {GitCommit#toString}
    */
   describe('#toString()', () => {
-    let commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', 'Hello World!');
-    commit.authorEmail = 'anonymous@secret.com';
-    commit.authorName = 'Anonymous';
+    let commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', {
+      authorEmail: 'anonymous@secret.com',
+      authorName: 'Anonymous',
+      message: 'Hello World!'
+    });
 
     let value = String(commit);
     it('should start with the class name', () => {

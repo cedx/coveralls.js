@@ -68,7 +68,7 @@ describe('GitData', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = (new GitData).toJSON();
+      let map = new GitData(null).toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
       expect(map.branch).to.be.empty;
       expect(map.head).to.be.null;
@@ -76,7 +76,11 @@ describe('GitData', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let map = new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]).toJSON();
+      let map = new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), {
+        branch: 'develop',
+        remotes: [new GitRemote('origin')]
+      }).toJSON();
+
       expect(Object.keys(map)).to.have.lengthOf(3);
       expect(map.branch).to.equal('develop');
 
@@ -93,7 +97,10 @@ describe('GitData', () => {
    * @test {GitData#toString}
    */
   describe('#toString()', () => {
-    let data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), 'develop', [new GitRemote('origin')]));
+    let data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), {
+      branch: 'develop',
+      remotes: [new GitRemote('origin')]
+    }));
 
     it('should start with the class name', () => {
       expect(data.startsWith('GitData {')).to.be.true;
