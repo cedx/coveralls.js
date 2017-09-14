@@ -1,6 +1,6 @@
 {
-  "all": true,
   "cache": true,
+  "include": ["lib/**"],
   "report-dir": "var",
   "reporter": ["lcovonly"]
 }
