@@ -6,11 +6,12 @@
 /var/
 /www/
 
+/.*ignore
+/.*rc
 /.editorconfig
 /.esdoc.json
 /.eslintrc.yaml
 /.gitattributes
-/.gitignore
 /.travis.yml
 /*.iml
 /*.js

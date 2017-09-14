@@ -45,6 +45,6 @@
   ],
   "scripts": {
     "coverage": "node bin/cli.js var/lcov.info",
-    "test": "nyc --report-dir=var --reporter=lcovonly mocha --recursive"
+    "test": "nyc mocha"
   }
 }
