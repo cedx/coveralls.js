@@ -1,19 +1,13 @@
 * text=auto
 
-.*ignore text
-.*rc text
-.editorconfig text
-.esdoc.json text
-.eslintrc.yaml text
-.gitattributes text
-.travis.yml text
-
-*.ico binary
+.* text
 *.info text
 *.js text
 *.json text
 *.md text
 *.opts text
-*.png binary
 *.txt text
 *.yaml text
+
+*.ico binary
+*.png binary
