@@ -5,7 +5,7 @@ This file contains highlights of what changes on each version of the [Coveralls 
 - Breaking change: changed the signature of most class constructors.
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: renamed the `Client.DEFAULT_ENDPOINT` property to `defaultEndPoint`.
-- Breaking change: the `Configuration.fromYaml()` now throws a `TypeError` if the document is invalid.
+- Breaking change: the `Configuration.fromYaml()` method now throws a `TypeError` if the document is invalid.
 - Added support for [Clover](https://www.atlassian.com/software/clover) reports.
 - Updated the package dependencies.
 
