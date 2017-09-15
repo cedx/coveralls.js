@@ -1,7 +1,7 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/coveralls.js/issues",
-  "description": "Send LCOV coverage reports to the Coveralls service.",
+  "description": "Send LCOV and Clover coverage reports to the Coveralls service.",
   "homepage": "https://github.com/cedx/coveralls.js",
   "license": "MIT",
   "main": "./lib/index",
@@ -18,7 +18,8 @@
     "commander": "^2.11.0",
     "form-data": "^2.3.1",
     "js-yaml": "^3.10.0",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^1.7.3",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^10.0.0",

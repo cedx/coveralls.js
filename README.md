@@ -1,7 +1,7 @@
 # Coveralls for JS
 ![Runtime](https://img.shields.io/badge/node-%3E%3D8.4-brightgreen.svg) ![Release](https://img.shields.io/npm/v/@cedx/coveralls.svg) ![License](https://img.shields.io/npm/l/@cedx/coveralls.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/coveralls.svg) ![Dependencies](https://david-dm.org/cedx/coveralls.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/coveralls.js/badge.svg) ![Build](https://travis-ci.org/cedx/coveralls.js.svg)
 
-Send [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage reports to the [Coveralls](https://coveralls.io) service, in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+Send [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) and [Clover](https://www.atlassian.com/software/clover) coverage reports to the [Coveralls](https://coveralls.io) service, in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
 ## Requirements
 The latest [Node.js](https://nodejs.org) and [npm](https://www.npmjs.com) versions.
@@ -23,7 +23,7 @@ $ coveralls --help
 
   Usage: coveralls [options] <file>
 
-  Send a LCOV coverage report to the Coveralls service.
+  Send a coverage report to the Coveralls service.
 
   Options:
 
@@ -65,7 +65,9 @@ catch (err) {
 ```
 
 ## Supported coverage formats
-Currently, this package only supports the de facto standard: the [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) format.
+Currently, this package supports two formats of coverage reports:
+- [LCOV](http://ltp.sourceforge.net/coverage/lcov.php): the de facto standard.
+- [Clover](https://www.atlassian.com/software/clover): a common format produced by [Java](https://www.java.com) and [PHP](https://secure.php.net) test frameworks.
 
 ## Supported CI services
 This project has been tested with [Travis CI](https://travis-ci.com) service, but these services should also work with no extra effort:

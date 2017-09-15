@@ -16,7 +16,7 @@ async function main() {
 
   // Parse the command line arguments.
   program.name('coveralls')
-    .description('Send a LCOV coverage report to the Coveralls service.')
+    .description('Send a coverage report to the Coveralls service.')
     .version(pkgVersion, '-v, --version')
     .arguments('<file>')
     .action(file => program.file = file)

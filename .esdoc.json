@@ -1,7 +1,7 @@
 {
   "source": "lib",
   "destination": "doc/api",
-  "excludes": ["index\\.js$"],
+  "excludes": ["index\\.js$", "parsers", "services"],
   "plugins": [
     {"name": "esdoc-node"},
     {"name": "esdoc-standard-plugin", "option": {
@@ -9,7 +9,7 @@
       "manual": {"files": ["CHANGELOG.md"]},
       "test": {"source": "test"},
       "brand": {
-        "description": "Send LCOV coverage reports to the Coveralls service, in JavaScript.",
+        "description": "Send LCOV and Clover coverage reports to the Coveralls service, in JavaScript.",
         "logo": "www/favicon.ico",
         "repository": "https://github.com/cedx/coveralls.js",
         "title": "Coveralls for JS"
