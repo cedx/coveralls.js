@@ -1,9 +1,9 @@
-/.*/
+/.*
+
 /doc/
 /test/
 /var/
 /www/
 
-/.*
 /*.iml
 /*.js
