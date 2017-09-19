@@ -59,6 +59,11 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/**/*.js', 'test/**/*.
 gulp.task('test', () => _exec('node_modules/.bin/nyc', [normalize('node_modules/.bin/mocha')]));
 
 /**
+ * Watches for file changes.
+ */
+gulp.task('watch', () => gulp.watch(['lib/**/*.js', 'test/**/*.js'], ['test']));
+
+/**
  * Spawns a new process using the specified command.
  * @param {string} command The command to run.
  * @param {string[]} [args] The command arguments.
