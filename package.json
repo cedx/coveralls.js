@@ -22,15 +22,15 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@cedx/gulp-david": "^10.0.0",
+    "@cedx/gulp-david": "^11.0.0",
     "chai": "^4.1.2",
     "del": "^3.0.0",
-    "esdoc": "^1.0.2",
+    "esdoc": "^1.0.3",
     "esdoc-node": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.0",
     "nsp": "^2.8.1",
     "nyc": "^11.2.1"
   },
