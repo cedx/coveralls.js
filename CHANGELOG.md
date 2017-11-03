@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version [5.1.0](https://github.com/cedx/coveralls.js/compare/v5.0.0...v5.1.0)
+- Updated the package dependencies.
+
 ## Version [5.0.0](https://github.com/cedx/coveralls.js/compare/v4.0.0...v5.0.0)
 - Breaking change: changed the signature of most class constructors.
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
