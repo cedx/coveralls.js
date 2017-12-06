@@ -39,7 +39,7 @@ $ coveralls build/lcov.info
 
 ### Programming interface
 The hard way. From a command prompt, install the library:
-              
+
 ```shell
 $ npm install --save @cedx/coveralls
 ```
@@ -54,7 +54,7 @@ const {promisify} = require('util');
 try {
   const loadCoverage = promisify(readFile);
   let coverage = await loadCoverage('/path/to/coverage.report', 'utf8');
-    
+
   await (new Client).upload(coverage);
   console.log('The report was sent successfully.');
 }
@@ -64,12 +64,14 @@ catch (err) {
 }
 ```
 
-## Supported coverage formats
+## Features
+
+### Coverage formats
 Currently, this package supports two formats of coverage reports:
 - [LCOV](http://ltp.sourceforge.net/coverage/lcov.php): the de facto standard.
 - [Clover](https://www.atlassian.com/software/clover): a common format produced by [Java](https://www.java.com) and [PHP](https://secure.php.net) test frameworks.
 
-## Supported CI services
+### CI services
 This project has been tested with [Travis CI](https://travis-ci.com) service, but these services should also work with no extra effort:
 - [AppVeyor](https://www.appveyor.com)
 - [CircleCI](https://circleci.com)
@@ -81,7 +83,7 @@ This project has been tested with [Travis CI](https://travis-ci.com) service, bu
 - [Surf](https://github.com/surf-build/surf)
 - [Wercker](http://www.wercker.com)
 
-## Environment variables
+### Environment variables
 If your build system is not supported, you can still use this package.
 There are a few environment variables that are necessary for supporting your build system:
 - `COVERALLS_SERVICE_NAME` : the name of your build system.
@@ -93,7 +95,7 @@ There are optional environment variables:
 
 The full list of supported environment variables is available in the source code of the `Configuration` class (see the `fromEnvironment()` static method).
 
-## The `.coveralls.yml` file
+### The `.coveralls.yml` file
 This package supports the same configuration sources as the [Coveralls](https://coveralls.io) ones:  
 [Coveralls currently supports](https://coveralls.zendesk.com/hc/en-us/articles/201347419-Coveralls-currently-supports)
 
