@@ -10,7 +10,7 @@
   "repository": "cedx/coveralls.js",
   "version": "5.1.0",
   "bin": {
-    "coveralls": "./bin/cli.js"
+    "coveralls": "./bin/coveralls.js"
   },
   "dependencies": {
     "@cedx/lcov": "^4.1.0",
@@ -45,7 +45,7 @@
     "lcov"
   ],
   "scripts": {
-    "coverage": "node bin/cli.js var/lcov.info",
+    "coverage": "node bin/coveralls.js var/lcov.info",
     "test": "nyc mocha"
   }
 }

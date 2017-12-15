@@ -20,7 +20,7 @@ gulp.task('clean', () => del(['.nyc_output', 'var/**/*']));
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => _exec('node', ['bin/cli.js', 'var/lcov.info']));
+gulp.task('coverage', ['test'], () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
 
 /**
  * Checks the package dependencies.
