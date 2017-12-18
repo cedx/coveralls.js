@@ -2,7 +2,7 @@
 
 const {expect} = require('chai');
 const {URL} = require('url');
-const {GitRemote} = require('../lib');
+const {GitRemote} = require('../lib/index.js');
 
 /**
  * @test {GitRemote}

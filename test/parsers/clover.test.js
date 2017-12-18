@@ -5,8 +5,8 @@ const {readFile} = require('fs');
 const {join} = require('path');
 const {promisify} = require('util');
 
-const {SourceFile} = require('../../lib');
-const {parseReport} = require('../../lib/parsers/clover');
+const {SourceFile} = require('../../lib/index.js');
+const {parseReport} = require('../../lib/parsers/clover.js');
 
 describe('Clover', () => {
   /**

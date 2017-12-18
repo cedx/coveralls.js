@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-const {GitCommit, GitData, GitRemote} = require('../lib');
+const {GitCommit, GitData, GitRemote} = require('../lib/index.js');
 
 /**
  * @test {GitData}

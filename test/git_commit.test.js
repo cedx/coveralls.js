@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-const {GitCommit} = require('../lib');
+const {GitCommit} = require('../lib/index.js');
 
 /**
  * @test {GitCommit}

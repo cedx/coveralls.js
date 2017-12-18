@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-const {Client, Configuration, GitData, Job} = require('../lib');
+const {Client, Configuration, GitData, Job} = require('../lib/index.js');
 
 /**
  * @test {Client}
