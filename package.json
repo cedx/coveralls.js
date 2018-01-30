@@ -6,7 +6,6 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "@cedx/coveralls",
-  "preferGlobal": true,
   "repository": "cedx/coveralls.js",
   "version": "5.1.0",
   "bin": {
