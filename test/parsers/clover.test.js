@@ -36,7 +36,7 @@ describe('Clover', () => {
     it('should throw an excepton if the Clover report is invalid', async () => {
       try {
         await parseReport('<coverage><foo /></coverage>');
-        expect(true).to.not.be.ok;
+        expect.fail(/* TODO: explanation */);
       }
 
       catch (err) {
