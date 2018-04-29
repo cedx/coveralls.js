@@ -2,7 +2,7 @@
 'use strict';
 
 const program = require('commander');
-const {readFile} = require('fs');
+const {readFile} = require('fs/promises');
 const {promisify} = require('util');
 const {Client} = require('../lib/index.js');
 const {version: pkgVersion} = require('../package.json');

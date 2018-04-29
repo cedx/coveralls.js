@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-const {readFile} = require('fs');
+const {readFile} = require('fs/promises');
 const {join} = require('path');
 const {promisify} = require('util');
 
