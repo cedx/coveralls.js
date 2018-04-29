@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Updated the package dependencies.
+
 ## Version [5.1.0](https://github.com/cedx/coveralls.js/compare/v5.0.0...v5.1.0)
 - Updated the package dependencies.
 
