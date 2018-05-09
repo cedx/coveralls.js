@@ -48,13 +48,10 @@ Now, in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScrip
 
 ```javascript
 const {Client} = require('@cedx/coveralls');
-const {readFile} = require('fs/promises');
-const {promisify} = require('util');
+const {promises} = require('fs');
 
 try {
-  const loadCoverage = promisify(readFile);
-  let coverage = await loadCoverage('/path/to/coverage.report', 'utf8');
-
+  let coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
   await (new Client).upload(coverage);
   console.log('The report was sent successfully.');
 }
