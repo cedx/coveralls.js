@@ -8,34 +8,28 @@ const eslint = require('gulp-eslint');
 const {normalize} = require('path');
 
 /**
- * Runs the default tasks.
- */
-gulp.task('default', ['test']);
-
-/**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', () => del(['.nyc_output', 'var/**/*']));
+gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'var/**/*', 'web']));
 
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
+gulp.task('coverage', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
 
 /**
  * Checks the package dependencies.
  */
-gulp.task('deps', ['deps:outdated', 'deps:security']);
 gulp.task('deps:outdated', () => gulp.src('package.json').pipe(david()));
 gulp.task('deps:security', () => _exec('node_modules/.bin/nsp', ['check']));
+gulp.task('deps', gulp.series('deps:outdated', 'deps:security'));
 
 /**
  * Builds the documentation.
  */
-gulp.task('doc', async () => {
-  await del('doc/api');
-  return _exec('node_modules/.bin/esdoc');
-});
+gulp.task('doc:api', () => _exec('node_modules/.bin/esdoc'));
+gulp.task('doc:web', () => _exec('mkdocs', ['build']));
+gulp.task('doc', gulp.series('doc:api', 'doc:web'));
 
 /**
  * Fixes the coding standards issues.
@@ -59,15 +53,31 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/**/*.js', 'test/**/*.
 gulp.task('test', () => _exec('node_modules/.bin/nyc', [normalize('node_modules/.bin/mocha')]));
 
 /**
+ * Upgrades the project to the latest revision.
+ */
+gulp.task('upgrade', async () => {
+  await _exec('git', ['reset', '--hard']);
+  await _exec('git', ['fetch', '--all', '--prune']);
+  await _exec('git', ['pull', '--rebase']);
+  await _exec('npm', ['install']);
+  return _exec('npm', ['update']);
+});
+
+/**
  * Watches for file changes.
  */
-gulp.task('watch', () => gulp.watch(['lib/**/*.js', 'test/**/*.js'], ['test']));
+gulp.task('watch', () => gulp.watch(['lib/**/*.js', 'test/**/*.js'], gulp.task('test')));
+
+/**
+ * Runs the default tasks.
+ */
+gulp.task('default', gulp.task('test'));
 
 /**
  * Spawns a new process using the specified command.
  * @param {string} command The command to run.
  * @param {string[]} [args] The command arguments.
- * @param {object} [options] The settings to customize how the process is spawned.
+ * @param {Object} [options] The settings to customize how the process is spawned.
  * @return {Promise} Completes when the command is finally terminated.
  */
 async function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {

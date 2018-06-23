@@ -27,8 +27,8 @@
     "esdoc": "^1.0.4",
     "esdoc-node": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^4.0.2",
     "mocha": "^5.2.0",
     "nsp": "^3.1.0",
     "nyc": "^13.0.0"
