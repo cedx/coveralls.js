@@ -10,7 +10,7 @@
       "test": {"source": "test"},
       "brand": {
         "description": "Send LCOV and Clover coverage reports to the Coveralls service, in JavaScript.",
-        "logo": "www/favicon.ico",
+        "logo": "doc/img/favicon.ico",
         "repository": "https://github.com/cedx/coveralls.js",
         "title": "Coveralls for JS"
       }
