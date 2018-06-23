@@ -1,7 +1,11 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Coveralls for JS](https://github.com/cedx/coveralls.js) library.
 
+## Version [6.0.0](https://github.com/cedx/coveralls.js/compare/v5.1.0...v6.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Added the `ClientError` class.
+- Using the `fs` promises API.
+- Added a user guide based on [MkDocs](http://www.mkdocs.org).
+- Updated the build system to [Gulp](https://gulpjs.com) version 4.
 - Updated the package dependencies.
 
 ## Version [5.1.0](https://github.com/cedx/coveralls.js/compare/v5.0.0...v5.1.0)
