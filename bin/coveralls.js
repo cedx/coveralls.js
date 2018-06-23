@@ -2,10 +2,9 @@
 'use strict';
 
 const program = require('commander');
-const {readFile} = require('fs/promises');
-const {promisify} = require('util');
+const {promises} = require('fs');
 const {Client} = require('../lib/index.js');
-const {version: pkgVersion} = require('../package.json');
+const pkg = require('../package.json');
 
 /**
  * Application entry point.
@@ -17,18 +16,20 @@ async function main() {
   // Parse the command line arguments.
   program.name('coveralls')
     .description('Send a coverage report to the Coveralls service.')
-    .version(pkgVersion, '-v, --version')
+    .version(pkg.version, '-v, --version')
     .arguments('<file>')
     .action(file => program.file = file)
     .parse(process.argv);
 
-  if (!program.file) program.help();
+  if (!program.file) {
+    program.outputHelp();
+    process.exitCode = 64;
+    return null;
+  }
 
   // Run the program.
-  const loadReport = promisify(readFile);
-
   let client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.defaultEndPoint);
-  let coverage = await loadReport(program.file, 'utf8');
+  let coverage = await promises.readFile(program.file, 'utf8');
   console.log(`[Coveralls] Submitting to ${client.endPoint}`);
   return client.upload(coverage);
 }
@@ -36,6 +37,5 @@ async function main() {
 // Start the application.
 if (module === require.main) main().catch(err => {
   console.error(err);
-  process.exit(1); // TODO exitCode = 1
   process.exitCode = 1;
 });

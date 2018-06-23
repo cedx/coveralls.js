@@ -1,9 +1,8 @@
 'use strict';
 
 const {expect} = require('chai');
-const {readFile} = require('fs/promises');
+const {promises} = require('fs');
 const {join} = require('path');
-const {promisify} = require('util');
 
 const {SourceFile} = require('../../lib/index.js');
 const {parseReport} = require('../../lib/parsers/lcov.js');
@@ -15,9 +14,7 @@ describe('Lcov', () => {
    */
   describe('parseReport()', () => {
     it('should properly parse LCOV reports', async () => {
-      const loadReport = promisify(readFile);
-
-      let job = await parseReport(await loadReport('test/fixtures/lcov.info', 'utf8'));
+      let job = await parseReport(await promises.readFile('test/fixtures/lcov.info', 'utf8'));
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
       expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);

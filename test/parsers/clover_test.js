@@ -1,9 +1,8 @@
 'use strict';
 
 const {expect} = require('chai');
-const {readFile} = require('fs/promises');
+const {promises} = require('fs');
 const {join} = require('path');
-const {promisify} = require('util');
 
 const {SourceFile} = require('../../lib/index.js');
 const {parseReport} = require('../../lib/parsers/clover.js');
@@ -14,9 +13,7 @@ describe('Clover', () => {
    */
   describe('parseReport()', () => {
     it('should properly parse Clover reports', async () => {
-      const loadReport = promisify(readFile);
-
-      let job = await parseReport(await loadReport('test/fixtures/clover.xml', 'utf8'));
+      let job = await parseReport(await promises.readFile('test/fixtures/clover.xml', 'utf8'));
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
       expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
@@ -36,7 +33,7 @@ describe('Clover', () => {
     it('should throw an excepton if the Clover report is invalid', async () => {
       try {
         await parseReport('<coverage><foo /></coverage>');
-        expect.fail(/* TODO: explanation */);
+        expect.fail('Error not thrown');
       }
 
       catch (err) {
