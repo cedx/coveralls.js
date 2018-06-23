@@ -26,7 +26,7 @@ describe('Lcov', () => {
       expect(job.sourceFiles[1].sourceDigest).to.not.be.empty;
       expect(job.sourceFiles[1].coverage).to.include.members([null, 4, 4, 2, 2, 4, 2, 2, 4, 4, null]);
 
-      expect(job.sourceFiles[2].name).to.equal(join('lib', 'git_commit.js'));
+      expect(job.sourceFiles[2].name).to.equal(join('lib', 'git.js'));
       expect(job.sourceFiles[2].sourceDigest).to.not.be.empty;
       expect(job.sourceFiles[2].coverage).to.include.members([null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null]);
     });

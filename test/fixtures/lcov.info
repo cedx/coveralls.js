@@ -37,7 +37,7 @@ LF:9
 LH:9
 end_of_record
 
-SF:lib/git_commit.js
+SF:lib/git.js
 FN:5,GitCommit#toJSON
 FNDA:2,GitCommit#toJSON
 FNF:1

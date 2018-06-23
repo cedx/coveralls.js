@@ -29,7 +29,7 @@
         <line num="15" type="stmt" count="4"/>
         <metrics loc="212" ncloc="132" classes="1" methods="15" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="68" coveredstatements="64" elements="83" coveredelements="77"/>
       </file>
-      <file name="lib/git_commit.js">
+      <file name="lib/git.js">
         <class name="GitCommit" namespace="coveralls">
           <metrics complexity="35" methods="16" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="38" elements="56" coveredelements="53"/>
         </class>
