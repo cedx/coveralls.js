@@ -14,7 +14,7 @@
   "dependencies": {
     "@cedx/lcov": "^4.4.0",
     "@cedx/which": "^4.0.1",
-    "commander": "^2.15.1",
+    "commander": "^2.16.0",
     "form-data": "^2.3.2",
     "js-yaml": "^3.12.0",
     "node-fetch": "^2.1.2",
