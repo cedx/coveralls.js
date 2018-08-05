@@ -2,9 +2,12 @@
 
 /doc/
 /example/
+/src/
 /test/
 /var/
-/www/
+/web/
 
 /*.iml
 /*.js
+/*.yml
+/lib/*.map
