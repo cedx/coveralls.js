@@ -1,5 +1,3 @@
-'use strict';
-
 const {expect} = require('chai');
 const {GitData, Job, SourceFile} = require('../lib/index.js');
 

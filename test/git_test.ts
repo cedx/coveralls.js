@@ -1,5 +1,3 @@
-'use strict';
-
 const {expect} = require('chai');
 const {GitCommit, GitData, GitRemote} = require('../lib/index.js');
 
