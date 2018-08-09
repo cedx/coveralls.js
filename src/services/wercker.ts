@@ -1,4 +1,4 @@
-const {Configuration} = require('../configuration.js');
+const {Configuration} from '../configuration.js');
 
 /**
  * Gets the [Wercker](http://www.wercker.com) configuration parameters from the environment.

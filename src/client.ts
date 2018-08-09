@@ -1,10 +1,10 @@
-const {which} = require('@cedx/which');
-const EventEmitter = require('events');
-const FormData = require('form-data');
-const fetch = require('node-fetch');
+const {which} from '@cedx/which');
+const EventEmitter from 'events');
+const FormData from 'form-data');
+const fetch from 'node-fetch');
 
-const {Configuration} = require('./configuration.js');
-const {GitCommit, GitData} = require('./git.js');
+const {Configuration} from './configuration.js');
+const {GitCommit, GitData} from './git.js');
 
 /**
  * An exception caused by an error in a `Client` request.
@@ -34,9 +34,9 @@ class ClientError extends Error {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     let values = `"${this.message}"`;
     if (this.uri) values = `${values}, uri: "${this.uri.href}"`;
     return `${this.name}(${values})`;
@@ -74,7 +74,7 @@ class Client extends EventEmitter {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'Client';
   }
 
@@ -92,13 +92,13 @@ class Client extends EventEmitter {
 
     let job;
     if (report.substring(0, 5) == '<?xml' || report.substring(0, 10) == '<coverage') {
-      const {parseReport} = require('./parsers/clover.js');
+      const {parseReport} from './parsers/clover.js');
       job = await parseReport(report);
     }
     else {
       let token = report.substring(0, 3);
       if (token == 'TN:' || token == 'SF:') {
-        const {parseReport} = require('./parsers/lcov.js');
+        const {parseReport} from './parsers/lcov.js');
         job = await parseReport(report);
       }
     }
@@ -174,6 +174,3 @@ class Client extends EventEmitter {
     }
   }
 }
-
-// Module exports.
-exports.Client = Client;

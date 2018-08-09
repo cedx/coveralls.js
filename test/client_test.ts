@@ -1,5 +1,5 @@
-const {expect} = require('chai');
-const {Client, Configuration, GitData, Job} = require('../lib/index.js');
+import {expect} from 'chai';
+const {Client, Configuration, GitData, Job} from '../lib';
 
 /**
  * @test {Client}

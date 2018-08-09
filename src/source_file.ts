@@ -40,7 +40,7 @@ class SourceFile {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'SourceFile';
   }
 
@@ -49,7 +49,7 @@ class SourceFile {
    * @param {Object} map A JSON map representing a source file.
    * @return {SourceFile} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  static fromJson(map) {
+  public static fromJson(map: {[key: string]: any}) {
     if (!map || typeof map != 'object') return null;
 
     let options = {
@@ -66,9 +66,9 @@ class SourceFile {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     let map = {
       name: this.name,
       source_digest: this.sourceDigest,
@@ -81,12 +81,9 @@ class SourceFile {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
-
-// Module exports.
-exports.SourceFile = SourceFile;

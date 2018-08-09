@@ -5,8 +5,8 @@ source: client.ts
 The hard way. Use the `Client` class to upload your coverage reports:
 
 ```javascript
-const {Client, ClientError} = require('@cedx/coveralls');
-const {promises} = require('fs');
+const {Client, ClientError} from '@cedx/coveralls');
+const {promises} from 'fs');
 
 async function main() {
   try {

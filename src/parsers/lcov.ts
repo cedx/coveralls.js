@@ -1,10 +1,10 @@
-const {Report} = require('@cedx/lcov');
-const {createHash} = require('crypto');
-const {promises} = require('fs');
-const {relative} = require('path');
+const {Report} from '@cedx/lcov');
+const {createHash} from 'crypto');
+const {promises} from 'fs');
+const {relative} from 'path');
 
-const {Job} = require('../job.js');
-const {SourceFile} = require('../source_file.js');
+const {Job} from '../job.js');
+const {SourceFile} from '../source_file.js');
 
 /**
  * Parses the specified [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage report.

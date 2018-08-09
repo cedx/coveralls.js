@@ -1,4 +1,4 @@
-const {Configuration} = require('../configuration.js');
+const {Configuration} from '../configuration.js');
 
 /**
  * Gets the [Surf](https://github.com/surf-build/surf) configuration parameters from the environment.

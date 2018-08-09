@@ -1,5 +1,5 @@
-const {expect} = require('chai');
-const {GitCommit, GitData, GitRemote} = require('../lib/index.js');
+import {expect} from 'chai';
+const {GitCommit, GitData, GitRemote} from '../lib';
 
 /**
  * @test {GitCommit}

@@ -1,4 +1,4 @@
-const {Configuration} = require('../configuration.js');
+const {Configuration} from '../configuration.js');
 
 /**
  * Gets the [Semaphore](https://semaphoreci.com) configuration parameters from the environment.

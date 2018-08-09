@@ -1,9 +1,9 @@
-const {expect} = require('chai');
-const {promises} = require('fs');
-const {join} = require('path');
+import {expect} from 'chai';
+const {promises} from 'fs');
+const {join} from 'path');
 
-const {SourceFile} = require('../../lib/index.js');
-const {parseReport} = require('../../lib/parsers/lcov.js');
+const {SourceFile} from '../../lib';
+const {parseReport} from '../../lib/parsers/lcov.js');
 
 describe('Lcov', () => {
 
