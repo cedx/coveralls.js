@@ -1,5 +1,5 @@
-const {GitData} = require('./git.js');
-const {SourceFile} = require('./source_file.js');
+const {GitData} from './git.js');
+const {SourceFile} from './source_file.js');
 
 /**
  * Represents a Git remote repository.
@@ -77,7 +77,7 @@ class Job {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'Job';
   }
 
@@ -86,7 +86,7 @@ class Job {
    * @param {Object} map A JSON map representing a job.
    * @return {Job} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  static fromJson(map) {
+  public static fromJson(map: {[key: string]: any}) {
     if (!map || typeof map != 'object') return null;
 
     let job = new this({
@@ -108,9 +108,9 @@ class Job {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     let map = {};
 
     if (this.repoToken.length) map.repo_token = this.repoToken;
@@ -130,12 +130,9 @@ class Job {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
-
-// Module exports.
-exports.Job = Job;

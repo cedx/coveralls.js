@@ -1,4 +1,4 @@
-const {Configuration} = require('../configuration.js');
+const {Configuration} from '../configuration.js');
 
 /**
  * Gets the [Jenkins](https://jenkins.io) configuration parameters from the environment.

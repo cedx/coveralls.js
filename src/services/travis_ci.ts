@@ -1,4 +1,4 @@
-const {Configuration} = require('../configuration.js');
+const {Configuration} from '../configuration.js');
 
 /**
  * Gets the [Travis CI](https://travis-ci.com) configuration parameters from the environment.

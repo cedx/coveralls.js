@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-const program = require('commander');
-const {promises} = require('fs');
-const {Client} = require('../lib/index.js');
-const pkg = require('../package.json');
+const program from 'commander');
+const {promises} from 'fs');
+const {Client} from '../lib';
+const pkg from '../package.json');
 
 /**
  * Application entry point.

@@ -1,11 +1,11 @@
-const {createHash} = require('crypto');
-const {promises} = require('fs');
-const {relative} = require('path');
-const {parseString} = require('xml2js');
-const {promisify} = require('util');
+const {createHash} from 'crypto');
+const {promises} from 'fs');
+const {relative} from 'path');
+const {parseString} from 'xml2js');
+const {promisify} from 'util');
 
-const {Job} = require('../job.js');
-const {SourceFile} = require('../source_file.js');
+const {Job} from '../job.js');
+const {SourceFile} from '../source_file.js');
 
 /**
  * Returns direct child elements of the specified node.

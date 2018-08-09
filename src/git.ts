@@ -1,5 +1,5 @@
-const {exec} = require('child_process');
-const {promisify} = require('util');
+const {exec} from 'child_process');
+const {promisify} from 'util');
 
 /**
  * Represents a Git remote repository.
@@ -54,7 +54,7 @@ class GitCommit {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'GitCommit';
   }
 
@@ -63,7 +63,7 @@ class GitCommit {
    * @param {Object} map A JSON map representing a Git commit.
    * @return {GitCommit} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  static fromJson(map) {
+  public static fromJson(map: {[key: string]: any}) {
     return !map || typeof map != 'object' ? null : new this(typeof map.id == 'string' ? map.id : '', {
       authorEmail: typeof map.author_email == 'string' ? map.author_email : '',
       authorName: typeof map.author_name == 'string' ? map.author_name : '',
@@ -75,9 +75,9 @@ class GitCommit {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     let map = {id: this.id};
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
@@ -89,9 +89,9 @@ class GitCommit {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
@@ -125,7 +125,7 @@ class GitRemote {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'GitRemote';
   }
 
@@ -134,7 +134,7 @@ class GitRemote {
    * @param {Object} map A JSON map representing a remote repository.
    * @return {GitRemote} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  static fromJson(map) {
+  public static fromJson(map: {[key: string]: any}) {
     return !map || typeof map != 'object' ? null : new this(
       typeof map.name == 'string' ? map.name : '',
       typeof map.url == 'string' ? map.url : null
@@ -143,9 +143,9 @@ class GitRemote {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     return {
       name: this.name,
       url: this.url ? this.url.href : null
@@ -154,9 +154,9 @@ class GitRemote {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
@@ -196,7 +196,7 @@ class GitData {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'GitData';
   }
 
@@ -205,7 +205,7 @@ class GitData {
    * @param {Object} map A JSON map representing a Git data.
    * @return {GitData} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  static fromJson(map) {
+  public static fromJson(map: {[key: string]: any}) {
     return !map || typeof map != 'object' ? null : new this(GitCommit.fromJson(map.head), {
       branch: typeof map.branch == 'string' ? map.branch : '',
       remotes: Array.isArray(map.remotes) ? map.remotes.map(item => GitRemote.fromJson(item)).filter(item => item != null) : []
@@ -247,9 +247,9 @@ class GitData {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     return {
       branch: this.branch,
       head: this.commit ? this.commit.toJSON() : null,
@@ -259,14 +259,9 @@ class GitData {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
-
-// Module exports.
-exports.GitCommit = GitCommit;
-exports.GitData = GitData;
-exports.GitRemote = GitRemote;

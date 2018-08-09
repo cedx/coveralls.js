@@ -1,8 +1,12 @@
 extends: tslint:recommended
 jsRules:
+  arrow-parens: [true, ban-single-arg-parens]
   curly: [true, as-needed]
+  max-classes-per-file: false
   max-line-length: {options: [200]}
-  no-console: false
+  member-ordering: [true, {order: fields-first}]
+  new-parens: false
+  no-bitwise: false
   one-line: false
   quotemark: [true, single, avoid-escape, avoid-template]
   trailing-comma: false
@@ -13,7 +17,10 @@ rules:
   interface-name: [true, never-prefix]
   max-classes-per-file: false
   max-line-length: {options: [200]}
+  member-ordering: [true, {order: fields-first}]
+  new-parens: false
   no-bitwise: false
   one-line: false
   quotemark: [true, single, avoid-escape, avoid-template]
+  trailing-comma: false
   triple-equals: false

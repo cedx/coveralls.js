@@ -1,4 +1,4 @@
-const {Configuration} = require('../configuration.js');
+const {Configuration} from '../configuration.js');
 
 /**
  * Gets the [GitLab CI](https://gitlab.com) configuration parameters from the environment.

@@ -1,5 +1,5 @@
-const {Client, ClientError} = require('@cedx/coveralls');
-const {promises} = require('fs');
+const {Client, ClientError} from '@cedx/coveralls');
+const {promises} from 'fs');
 
 /**
  * Uploads a coverage report.
