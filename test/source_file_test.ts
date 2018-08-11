@@ -15,7 +15,7 @@ describe('SourceFile', () => {
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let file = SourceFile.fromJson({});
+      const file = SourceFile.fromJson({});
       expect(file).to.be.instanceof(SourceFile);
 
       expect(file.coverage).to.be.an('array').and.be.empty;
@@ -25,7 +25,7 @@ describe('SourceFile', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let file = SourceFile.fromJson({coverage: [null, 2, 0, null, 4, 15, null], name: 'coveralls.js', source: 'function main() {}', source_digest: 'e23fb141da9a7b438479a48eac7b7249'});
+      const file = SourceFile.fromJson({coverage: [null, 2, 0, null, 4, 15, null], name: 'coveralls.js', source: 'function main() {}', source_digest: 'e23fb141da9a7b438479a48eac7b7249'});
       expect(file).to.be.instanceof(SourceFile);
 
       expect(file.coverage).to.be.an('array').and.have.lengthOf(7);
@@ -43,7 +43,7 @@ describe('SourceFile', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = new SourceFile('', '').toJSON();
+      const map = new SourceFile('', '').toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
 
       expect(map.coverage).to.be.an('array').and.be.empty;
@@ -52,7 +52,7 @@ describe('SourceFile', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
+      const map = new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
         coverage: [null, 2, 0, null, 4, 15, null],
         source: 'function main() {}'}
       ).toJSON();
@@ -73,7 +73,7 @@ describe('SourceFile', () => {
    * @test {SourceFile#toString}
    */
   describe('#toString()', () => {
-    let file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
+    const file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
       coverage: [null, 2, 0, null, 4, 15, null],
       source: 'function main() {}'
     }));

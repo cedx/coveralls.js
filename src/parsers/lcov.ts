@@ -12,16 +12,16 @@ const {SourceFile} from '../source_file.js');
  * @return {Promise<Job>} The job corresponding to the specified coverage report.
  */
 exports.parseReport = async function parseReport(report) {
-  let sourceFiles = [];
-  let workingDir = process.cwd();
+  const sourceFiles = [];
+  const workingDir = process.cwd();
 
-  for (let record of Report.fromCoverage(report).records) {
-    let source = await promises.readFile(record.sourceFile, 'utf8');
-    let coverage = new Array(source.split(/\r?\n/).length).fill(null);
-    for (let lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
+  for (const record of Report.fromCoverage(report).records) {
+    const source = await promises.readFile(record.sourceFile, 'utf8');
+    const coverage = new Array(source.split(/\r?\n/).length).fill(null);
+    for (const lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
 
-    let filename = relative(workingDir, record.sourceFile);
-    let digest = createHash('md5').update(source).digest('hex');
+    const filename = relative(workingDir, record.sourceFile);
+    const digest = createHash('md5').update(source).digest('hex');
     sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
   }
 

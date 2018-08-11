@@ -15,7 +15,7 @@ describe('Configuration', () => {
     });
 
     it('should return an initialized instance for a non-empty environment', () => {
-      let config = Configuration.fromEnvironment({
+      const config = Configuration.fromEnvironment({
         CI_NAME: 'travis-pro',
         CI_PULL_REQUEST: 'PR #123',
         COVERALLS_REPO_TOKEN: '0123456789abcdef',
@@ -43,7 +43,7 @@ describe('Configuration', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let config = Configuration.fromYaml('repo_token: 0123456789abcdef\nservice_name: travis-ci');
+      const config = Configuration.fromYaml('repo_token: 0123456789abcdef\nservice_name: travis-ci');
       expect(config).to.be.instanceof(Configuration);
       expect(config).to.have.lengthOf(2);
       expect(config.get('repo_token')).to.equal('0123456789abcdef');
@@ -56,7 +56,7 @@ describe('Configuration', () => {
    */
   describe('.loadDefaults()', () => {
     it('should properly initialize from a `.coveralls.yml` file', async () => {
-      let config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
+      const config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
       expect(config).to.be.instanceof(Configuration);
       expect(config).to.have.length.of.at.least(2);
       expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
@@ -64,8 +64,8 @@ describe('Configuration', () => {
     });
 
     it('should use the environment defaults if the `.coveralls.yml` file is not found', async () => {
-      let defaults = Configuration.fromEnvironment();
-      let config = await Configuration.loadDefaults('.dummy/config.yml');
+      const defaults = Configuration.fromEnvironment();
+      const config = await Configuration.loadDefaults('.dummy/config.yml');
       expect(config).to.be.instanceof(Configuration);
       expect(config.toJSON()).to.deep.equal(defaults.toJSON());
     });
@@ -80,7 +80,7 @@ describe('Configuration', () => {
     });
 
     it('should return the list of keys for a non-empty configuration', () => {
-      let keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
+      const keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
       expect(keys).to.have.lengthOf(2);
       expect(keys[0]).to.equal('foo');
       expect(keys[1]).to.equal('bar');
@@ -105,16 +105,16 @@ describe('Configuration', () => {
    */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if configuration is empty', () => {
-      let config = new Configuration;
-      let iterator = config[Symbol.iterator]();
+      const config = new Configuration;
+      const iterator = config[Symbol.iterator]();
       expect(iterator.next().done).to.be.true;
     });
 
     it('should return a value iterator if configuration is not empty', () => {
-      let config = new Configuration({foo: 'bar', bar: 'baz'});
-      let iterator = config[Symbol.iterator]();
+      const config = new Configuration({foo: 'bar', bar: 'baz'});
+      const iterator = config[Symbol.iterator]();
 
-      let next = iterator.next();
+      const next = iterator.next();
       expect(next.done).to.be.false;
       expect(next.value[0]).to.equal('foo');
       expect(next.value[1]).to.equal('bar');
@@ -132,7 +132,7 @@ describe('Configuration', () => {
    */
   describe('#get()', () => {
     it('should properly get the configuration entries', () => {
-      let config = new Configuration;
+      const config = new Configuration;
       expect(config.get('foo')).to.be.null;
       expect(config.get('foo', 123)).to.equal(123);
 
@@ -159,7 +159,7 @@ describe('Configuration', () => {
    */
   describe('#merge()', () => {
     it('should have the same entries as the other configuration', () => {
-      let config = new Configuration;
+      const config = new Configuration;
       expect(config).to.have.lengthOf(0);
 
       config.merge(new Configuration({bar: 'baz', foo: 'bar'}));
@@ -174,7 +174,7 @@ describe('Configuration', () => {
    */
   describe('#remove()', () => {
     it('should properly remove the configuration entries', () => {
-      let config = new Configuration({bar: 'baz', foo: 'bar'});
+      const config = new Configuration({bar: 'baz', foo: 'bar'});
       expect(config).to.have.lengthOf(2);
 
       expect(config.remove('foo'));
@@ -189,7 +189,7 @@ describe('Configuration', () => {
    */
   describe('#set()', () => {
     it('should properly set the configuration entries', () => {
-      let config = new Configuration;
+      const config = new Configuration;
       expect(config.get('foo')).to.be.null;
 
       config.set('foo', 'bar');
@@ -202,12 +202,12 @@ describe('Configuration', () => {
    */
   describe('#toJSON()', () => {
     it('should return an empty map for a newly created instance', () => {
-      let map = (new Configuration).toJSON();
+      const map = (new Configuration).toJSON();
       expect(Object.keys(map)).to.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let map = new Configuration({bar: 'baz', foo: 'bar'}).toJSON();
+      const map = new Configuration({bar: 'baz', foo: 'bar'}).toJSON();
       expect(Object.keys(map)).to.have.lengthOf(2);
       expect(map.foo).to.equal('bar');
       expect(map.bar).to.equal('baz');
@@ -218,7 +218,7 @@ describe('Configuration', () => {
    * @test {Configuration#toString}
    */
   describe('#toString()', () => {
-    let config = String(new Configuration({bar: 'baz', foo: 'bar'}));
+    const config = String(new Configuration({bar: 'baz', foo: 'bar'}));
 
     it('should start with the class name', () => {
       expect(config.startsWith('Configuration {')).to.be.true;

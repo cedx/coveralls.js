@@ -89,7 +89,7 @@ class Job {
   public static fromJson(map: {[key: string]: any}) {
     if (!map || typeof map != 'object') return null;
 
-    let job = new this({
+    const job = new this({
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
       serviceName: typeof map.service_name == 'string' ? map.service_name : '',
@@ -111,7 +111,7 @@ class Job {
    * @return The map in JSON format corresponding to this object.
    */
   public toJSON(): {[key: string]: any} {
-    let map = {};
+    const map = {};
 
     if (this.repoToken.length) map.repo_token = this.repoToken;
     if (this.serviceName.length) map.service_name = this.serviceName;

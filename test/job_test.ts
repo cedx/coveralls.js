@@ -15,7 +15,7 @@ describe('Job', () => {
     });
 
     it('should return an instance with default values for an empty map', () => {
-      let job = Job.fromJson({});
+      const job = Job.fromJson({});
       expect(job).to.be.instanceof(Job);
 
       expect(job.git).to.be.null;
@@ -26,7 +26,7 @@ describe('Job', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let job = Job.fromJson({
+      const job = Job.fromJson({
         git: {branch: 'develop'},
         parallel: true,
         repo_token: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt',
@@ -55,19 +55,19 @@ describe('Job', () => {
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      let map = (new Job).toJSON();
+      const map = (new Job).toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
       expect(map.source_files).to.be.an('array').and.be.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
+      const job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
       job.git = new GitData(null, {branch: 'develop'});
       job.isParallel = true;
       job.runAt = new Date('2017-01-29T02:43:30.000Z');
       job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
 
-      let map = job.toJSON();
+      const map = job.toJSON();
       expect(Object.keys(map)).to.have.lengthOf(5);
       expect(map.parallel).to.be.true;
       expect(map.repo_token).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
@@ -86,13 +86,13 @@ describe('Job', () => {
    * @test {Job#toString}
    */
   describe('#toString()', () => {
-    let job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
+    const job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
     job.git = new GitData(null, {branch: 'develop'});
     job.isParallel = true;
     job.runAt = new Date('2017-01-29T02:43:30.000Z');
     job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
 
-    let value = String(job);
+    const value = String(job);
     it('should start with the class name', () => {
       expect(value.startsWith('Job {')).to.be.true;
     });

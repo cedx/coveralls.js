@@ -6,7 +6,7 @@ const {Configuration} from '../configuration.js');
  * @return {Configuration} The configuration parameters.
  */
 exports.getConfiguration = function getConfiguration(env) {
-  let config = new Configuration({
+  const config = new Configuration({
     commit_sha: 'HEAD',
     service_branch: env.TRAVIS_BRANCH,
     service_job_id: env.TRAVIS_JOB_ID,

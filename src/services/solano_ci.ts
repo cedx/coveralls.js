@@ -6,7 +6,7 @@ const {Configuration} from '../configuration.js');
  * @return {Configuration} The configuration parameters.
  */
 exports.getConfiguration = function getConfiguration(env) {
-  let serviceNumber = env.TDDIUM_SESSION_ID;
+  const serviceNumber = env.TDDIUM_SESSION_ID;
   return new Configuration({
     service_branch: env.TDDIUM_CURRENT_BRANCH,
     service_build_url: serviceNumber ? `https://ci.solanolabs.com/reports/${serviceNumber}` : null,

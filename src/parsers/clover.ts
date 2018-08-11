@@ -34,35 +34,35 @@ function getAttribute(node, name) {
  */
 exports.parseReport = async function parseReport(report) {
   const parseXml = promisify(parseString);
-  let xml = await parseXml(report);
+  const xml = await parseXml(report);
   if (!xml.coverage || typeof xml.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
 
-  let projects = findElements(xml.coverage, 'project');
+  const projects = findElements(xml.coverage, 'project');
   if (!projects.length) throw new TypeError('The specified Clover report is empty.');
 
-  let workingDir = process.cwd();
-  let sourceFiles = [];
+  const workingDir = process.cwd();
+  const sourceFiles = [];
 
-  for (let pkg of findElements(projects[0], 'package'))
-    for (let file of findElements(pkg, 'file')) {
-      let sourceFile = getAttribute(file, 'name');
+  for (const pkg of findElements(projects[0], 'package'))
+    for (const file of findElements(pkg, 'file')) {
+      const sourceFile = getAttribute(file, 'name');
       if (!sourceFile.length) throw new TypeError(`Invalid file data: ${JSON.stringify(file)}`);
 
-      let source = await promises.readFile(sourceFile, 'utf8');
-      let coverage = new Array(source.split(/\r?\n/).length).fill(null);
+      const source = await promises.readFile(sourceFile, 'utf8');
+      const coverage = new Array(source.split(/\r?\n/).length).fill(null);
 
-      for (let line of findElements(file, 'line')) {
+      for (const line of findElements(file, 'line')) {
         if (getAttribute(line, 'type') != 'stmt') continue;
 
-        let lineNumber = Number.parseInt(getAttribute(line, 'num'), 10);
-        let executionCount = Number.parseInt(getAttribute(line, 'count'), 10);
+        const lineNumber = Number.parseInt(getAttribute(line, 'num'), 10);
+        const executionCount = Number.parseInt(getAttribute(line, 'count'), 10);
         if (Number.isNaN(lineNumber) || Number.isNaN(executionCount)) throw new TypeError(`Invalid line data: ${JSON.stringify(line)}`);
 
         coverage[Math.max(1, lineNumber) - 1] = Math.max(0, executionCount);
       }
 
-      let filename = relative(workingDir, sourceFile);
-      let digest = createHash('md5').update(source).digest('hex');
+      const filename = relative(workingDir, sourceFile);
+      const digest = createHash('md5').update(source).digest('hex');
       sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
     }
 

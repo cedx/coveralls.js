@@ -33,10 +33,10 @@ class Configuration {
    * @return {Configuration} The newly created configuration.
    */
   static fromEnvironment(env = process.env) {
-    let config = new this;
+    const config = new this;
 
     // Standard.
-    let serviceName = typeof env.CI_NAME == 'string' ? env.CI_NAME : '';
+    const serviceName = typeof env.CI_NAME == 'string' ? env.CI_NAME : '';
     if (serviceName.length) config.set('service_name', serviceName);
 
     if ('CI_BRANCH' in env) config.set('service_branch', env.CI_BRANCH);
@@ -46,7 +46,7 @@ class Configuration {
     if ('CI_JOB_ID' in env) config.set('service_job_id', env.CI_JOB_ID);
 
     if ('CI_PULL_REQUEST' in env) {
-      let matches = /(\d+)$/.exec(env.CI_PULL_REQUEST);
+      const matches = /(\d+)$/.exec(env.CI_PULL_REQUEST);
       if (matches && matches.length >= 2) config.set('service_pull_request', matches[1]);
     }
 
@@ -103,7 +103,7 @@ class Configuration {
     if (typeof document != 'string' || !document.trim().length) throw new TypeError('The specified YAML document is empty.');
 
     try {
-      let map = safeLoad(document);
+      const map = safeLoad(document);
       if (!map || typeof map != 'object') throw new TypeError('The specified YAML document is invalid.');
       return new this(map);
     }
@@ -121,14 +121,14 @@ class Configuration {
    * @return {Promise<Configuration>} The default configuration.
    */
   static async loadDefaults(coverallsFile = '.coveralls.yml') {
-    let defaults = Configuration.fromEnvironment();
+    const defaults = Configuration.fromEnvironment();
 
     try {
       defaults.merge(Configuration.fromYaml(await promises.readFile(coverallsFile, 'utf8')));
       return defaults;
     }
 
-    catch (err) {
+    catch {
       return defaults;
     }
   }
@@ -138,7 +138,7 @@ class Configuration {
    * @type {string[]}
    */
   get keys() {
-    let keys = [];
+    const keys = [];
     keys.push(...this._params.keys());
     return keys;
   }
@@ -183,7 +183,7 @@ class Configuration {
    * @param {Configuration} config The configuration to be merged.
    */
   merge(config) {
-    for (let [key, value] of config) this.set(key, value);
+    for (const [key, value] of config) this.set(key, value);
   }
 
   /**
@@ -208,8 +208,8 @@ class Configuration {
    * @return The map in JSON format corresponding to this object.
    */
   public toJSON(): {[key: string]: any} {
-    let map = {};
-    for (let [key, value] of this) map[key] = value;
+    const map = {};
+    for (const [key, value] of this) map[key] = value;
     return map;
   }
 
