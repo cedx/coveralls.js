@@ -8,9 +8,9 @@ The hard way. Use the `Client` class to upload your coverage reports:
 const {Client, ClientError} from '@cedx/coveralls');
 const {promises} from 'fs');
 
-async function main() {
+async function main(): Promise<void> {
   try {
-    let coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
+    const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
     await new Client().upload(coverage);
     console.log('The report was sent successfully.');
   }
