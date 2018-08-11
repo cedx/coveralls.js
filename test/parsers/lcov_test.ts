@@ -12,7 +12,7 @@ describe('Lcov', () => {
    */
   describe('parseReport()', () => {
     it('should properly parse LCOV reports', async () => {
-      let job = await parseReport(await promises.readFile('test/fixtures/lcov.info', 'utf8'));
+      const job = await parseReport(await promises.readFile('test/fixtures/lcov.info', 'utf8'));
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
       expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);

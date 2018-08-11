@@ -52,7 +52,7 @@ class SourceFile {
   public static fromJson(map: {[key: string]: any}) {
     if (!map || typeof map != 'object') return null;
 
-    let options = {
+    const options = {
       coverage: Array.isArray(map.coverage) ? map.coverage : [],
       source: typeof map.source == 'string' ? map.source : ''
     };
@@ -69,7 +69,7 @@ class SourceFile {
    * @return The map in JSON format corresponding to this object.
    */
   public toJSON(): {[key: string]: any} {
-    let map = {
+    const map = {
       name: this.name,
       source_digest: this.sourceDigest,
       coverage: this.coverage

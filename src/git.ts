@@ -78,7 +78,7 @@ class GitCommit {
    * @return The map in JSON format corresponding to this object.
    */
   public toJSON(): {[key: string]: any} {
-    let map = {id: this.id};
+    const map = {id: this.id};
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
     if (this.committerEmail.length) map.committer_email = this.committerEmail;
@@ -219,7 +219,7 @@ class GitData {
    * @return {Promise<GitData>} The newly created data.
    */
   static async fromRepository(path = process.cwd()) {
-    let commands = {
+    const commands = {
       author_email: 'log -1 --pretty=format:%ae',
       author_name: 'log -1 --pretty=format:%aN',
       branch: 'rev-parse --abbrev-ref HEAD',
@@ -231,14 +231,14 @@ class GitData {
     };
 
     const execCommand = promisify(exec);
-    for (let [key, value] of Object.entries(commands)) {
-      let {stdout} = await execCommand(`git ${value}`, {cwd: path});
+    for (const [key, value] of Object.entries(commands)) {
+      const {stdout} = await execCommand(`git ${value}`, {cwd: path});
       commands[key] = stdout.trim();
     }
 
-    let remotes = {};
-    for (let remote of commands.remotes.split(/\r?\n/g)) {
-      let parts = remote.replace(/\s+/g, ' ').split(' ');
+    const remotes = {};
+    for (const remote of commands.remotes.split(/\r?\n/g)) {
+      const parts = remote.replace(/\s+/g, ' ').split(' ');
       if (!(parts[0] in remotes)) remotes[parts[0]] = new GitRemote(parts[0], parts.length > 1 ? parts[1] : null);
     }
 

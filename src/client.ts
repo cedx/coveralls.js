@@ -37,7 +37,7 @@ class ClientError extends Error {
    * @return The string representation of this object.
    */
   public toString(): string {
-    let values = `"${this.message}"`;
+    const values = `"${this.message}"`;
     if (this.uri) values = `${values}, uri: "${this.uri.href}"`;
     return `${this.name}(${values})`;
   }
@@ -87,16 +87,16 @@ class Client extends EventEmitter {
    * @emits {fetch~Response} The "response" event.
    */
   async upload(coverage, configuration = null) {
-    let report = coverage.trim();
+    const report = coverage.trim();
     if (!report.length) throw new TypeError('The specified coverage report is empty.');
 
-    let job;
+    const job;
     if (report.substring(0, 5) == '<?xml' || report.substring(0, 10) == '<coverage') {
       const {parseReport} from './parsers/clover.js');
       job = await parseReport(report);
     }
     else {
-      let token = report.substring(0, 3);
+      const token = report.substring(0, 3);
       if (token == 'TN:' || token == 'SF:') {
         const {parseReport} from './parsers/lcov.js');
         job = await parseReport(report);
@@ -109,14 +109,14 @@ class Client extends EventEmitter {
 
     try {
       if ((await which('git')).length) {
-        let git = await GitData.fromRepository();
-        let branch = job.git ? job.git.branch : '';
+        const git = await GitData.fromRepository();
+        const branch = job.git ? job.git.branch : '';
         if (git.branch == 'HEAD' && branch.length) git.branch = branch;
         job.git = git;
       }
     }
 
-    catch (err) { /* Noop */ }
+    catch { /* Noop */ }
     return this.uploadJob(job);
   }
 
@@ -130,13 +130,13 @@ class Client extends EventEmitter {
   async uploadJob(job) {
     if (!job.repoToken.length && !job.serviceName.length) throw new TypeError('The job does not meet the requirements.');
 
-    let body = new FormData;
+    const body = new FormData;
     body.append('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    let req = new fetch.Request(new URL('api/v1/jobs', this.endPoint).href, {method: 'POST', body});
+    const req = new fetch.Request(new URL('api/v1/jobs', this.endPoint).href, {method: 'POST', body});
     this.emit('request', req);
 
-    let res = await fetch(req);
+    const res = await fetch(req);
     this.emit('response', res);
 
     if (!res.ok) throw new ClientError('An error occurred while uploading the report.');
@@ -159,10 +159,10 @@ class Client extends EventEmitter {
     if (config.has('service_number')) job.serviceNumber = config.get('service_number');
     if (config.has('service_pull_request')) job.servicePullRequest = config.get('service_pull_request');
 
-    let hasGitData = config.keys.some(key => key == 'service_branch' || key.substr(0, 4) == 'git_');
+    const hasGitData = config.keys.some(key => key == 'service_branch' || key.substr(0, 4) == 'git_');
     if (!hasGitData) job.commitSha = config.has('commit_sha') ? config.get('commit_sha') : '';
     else {
-      let commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha') : '', {
+      const commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha') : '', {
         authorEmail: config.has('git_author_email') ? config.get('git_author_email') : '',
         authorName: config.has('git_author_name') ? config.get('git_author_name') : '',
         committerEmail: config.has('git_committer_email') ? config.get('git_committer_email') : '',

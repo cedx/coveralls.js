@@ -6,8 +6,8 @@ const {Configuration} from '../configuration.js');
  * @return {Configuration} The configuration parameters.
  */
 exports.getConfiguration = function getConfiguration(env) {
-  let repoName = env.APPVEYOR_REPO_NAME;
-  let serviceNumber = env.APPVEYOR_BUILD_VERSION;
+  const repoName = env.APPVEYOR_REPO_NAME;
+  const serviceNumber = env.APPVEYOR_BUILD_VERSION;
 
   return new Configuration({
     commit_sha: env.APPVEYOR_REPO_COMMIT,
