@@ -1,9 +1,9 @@
 'use strict';
 
-const {spawn} from 'child_process');
-const del from 'del');
-const gulp from 'gulp');
-const {normalize} from 'path');
+const {spawn} = require('child_process');
+const del = require('del');
+const gulp = require('gulp');
+const {normalize} = require('path');
 
 /**
  * The file patterns providing the list of source files.
