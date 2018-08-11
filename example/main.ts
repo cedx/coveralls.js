@@ -1,10 +1,13 @@
-const {Client, ClientError} from '@cedx/coveralls');
-const {promises} from 'fs');
+/* tslint:disable: no-console */
+
+// @ts-ignore
+import {Client, ClientError} from '@cedx/coveralls';
+import {promises} from 'fs';
 
 /**
  * Uploads a coverage report.
  */
-async function main() {
+async function main(): Promise<void> {
   try {
     const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
     await new Client().upload(coverage);
