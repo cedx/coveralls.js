@@ -32,7 +32,7 @@ export class Configuration {
    * @param env A map providing environment variables. Defaults to `process.env`.
    * @return The newly created configuration.
    */
-  public static fromEnvironment(env: StringMap = process.env): Configuration {
+  public static async fromEnvironment(env: StringMap = process.env): Promise<Configuration> {
     const config = new this;
 
     // Standard.
@@ -121,7 +121,7 @@ export class Configuration {
    * @return The default configuration.
    */
   public static async loadDefaults(coverallsFile: string = '.coveralls.yml'): Promise<Configuration> {
-    const defaults = Configuration.fromEnvironment();
+    const defaults = await Configuration.fromEnvironment();
 
     try {
       defaults.merge(Configuration.fromYaml(await promises.readFile(coverallsFile, 'utf8')));

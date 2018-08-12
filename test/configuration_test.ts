@@ -12,12 +12,12 @@ import {Configuration} from '../src';
    * @test {Configuration.fromEnvironment}
    */
   @test('It should initialize the instance from the provided environment variables')
-  public testFromEnvironment(): void {
+  public async testFromEnvironment(): Promise<void> {
     // It should return an empty configuration for an empty environment.
-    expect(Configuration.fromEnvironment({})).to.have.lengthOf(0);
+    expect(await Configuration.fromEnvironment({})).to.have.lengthOf(0);
 
     // It should return an initialized instance for a non-empty environment.
-    const config = Configuration.fromEnvironment({
+    const config = await Configuration.fromEnvironment({
       CI_NAME: 'travis-pro',
       CI_PULL_REQUEST: 'PR #123',
       COVERALLS_REPO_TOKEN: '0123456789abcdef',
@@ -64,7 +64,7 @@ import {Configuration} from '../src';
     expect(config.get('service_name')).to.equal('travis-pro');
 
     // It should use the environment defaults if the `.coveralls.yml` file is not found.
-    const defaults = Configuration.fromEnvironment();
+    const defaults = await Configuration.fromEnvironment();
     config = await Configuration.loadDefaults('.dummy/config.yml');
     expect(config).to.be.instanceof(Configuration);
     expect(config.toJSON()).to.deep.equal(defaults.toJSON());
