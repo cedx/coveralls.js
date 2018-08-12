@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+/* tslint:disable: no-console */
 const program = require('commander');
 const {promises} = require('fs');
 const {Client} = require('../lib');

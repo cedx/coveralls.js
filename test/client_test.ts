@@ -1,7 +1,7 @@
 /* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
-import {Client, ClientError, Job} from '../src';
+import {Client, Job} from '../src';
 
 /**
  * Tests the features of the `Client` class.

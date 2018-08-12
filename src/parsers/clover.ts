@@ -5,13 +5,13 @@ import {promisify} from 'util';
 import {parseString} from 'xml2js';
 
 import {Job} from '../job';
-import {JsonMap} from '../map';
+import {StringMap} from '../map';
 import {SourceFile} from '../source_file';
 
 /**
  * Defines the shape of a node in an XML document.
  */
-type XmlNode = JsonMap;
+type XmlNode = StringMap<any>;
 
 /**
  * Returns direct child elements of the specified node.
