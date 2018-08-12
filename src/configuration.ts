@@ -71,24 +71,24 @@ export class Configuration {
     if ('GIT_MESSAGE' in env) config.set('git_message', env.GIT_MESSAGE!);
 
     // CI services.
-    const merge = (service: string) => {
-      const {getConfiguration} = require(`./services/${service}`);
+    const merge = async (service: string) => {
+      const {getConfiguration} = await import(`./services/${service}`);
       config.merge(getConfiguration(env));
     };
 
     if ('TRAVIS' in env) {
-      merge('travis_ci');
+      await merge('travis_ci');
       if (serviceName.length && serviceName != 'travis-ci') config.set('service_name', serviceName);
     }
-    else if ('APPVEYOR' in env) merge('appveyor');
-    else if ('CIRCLECI' in env) merge('circleci');
-    else if (serviceName == 'codeship') merge('codeship');
-    else if ('GITLAB_CI' in env) merge('gitlab_ci');
-    else if ('JENKINS_URL' in env) merge('jenkins');
-    else if ('SEMAPHORE' in env) merge('semaphore');
-    else if ('SURF_SHA1' in env) merge('surf');
-    else if ('TDDIUM' in env) merge('solano_ci');
-    else if ('WERCKER' in env) merge('wercker');
+    else if ('APPVEYOR' in env) await merge('appveyor');
+    else if ('CIRCLECI' in env) await merge('circleci');
+    else if (serviceName == 'codeship') await merge('codeship');
+    else if ('GITLAB_CI' in env) await merge('gitlab_ci');
+    else if ('JENKINS_URL' in env) await merge('jenkins');
+    else if ('SEMAPHORE' in env) await merge('semaphore');
+    else if ('SURF_SHA1' in env) await merge('surf');
+    else if ('TDDIUM' in env) await merge('solano_ci');
+    else if ('WERCKER' in env) await merge('wercker');
 
     return config;
   }
