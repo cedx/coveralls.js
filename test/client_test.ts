@@ -20,7 +20,7 @@ import {Client, ClientError, Job} from '../src';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(ClientError);
+      expect(err).to.be.instanceof(TypeError);
     }
 
     // It should throw an error with an invalid coverage report.
@@ -30,14 +30,14 @@ import {Client, ClientError, Job} from '../src';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(ClientError);
+      expect(err).to.be.instanceof(TypeError);
     }
   }
 
   /**
    * @test {Client#uploadJob}
    */
-  @test('It should throw an error with an empty coverage job')
+  @test('It should throw an error with an empty test job')
   public async testUploadJob(): Promise<void> {
     try {
       await (new Client).uploadJob(new Job);
@@ -45,7 +45,7 @@ import {Client, ClientError, Job} from '../src';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(ClientError);
+      expect(err).to.be.instanceof(TypeError);
     }
   }
 }

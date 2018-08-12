@@ -129,8 +129,7 @@ import {Configuration} from '../src';
   @test('It should properly get the configuration entries')
   public testGet(): void {
     const config = new Configuration;
-    expect(config.get('foo')).to.be.null;
-    expect(config.get('foo', '123')).to.equal('123');
+    expect(config.get('foo')).to.be.undefined;
 
     config.set('foo', 'bar');
     expect(config.get('foo')).to.equal('bar');
@@ -182,7 +181,7 @@ import {Configuration} from '../src';
   @test('It should properly set the configuration entries')
   public testSet(): void {
     const config = new Configuration;
-    expect(config.get('foo')).to.be.null;
+    expect(config.get('foo')).to.be.undefined;
 
     config.set('foo', 'bar');
     expect(config.get('foo')).to.equal('bar');
