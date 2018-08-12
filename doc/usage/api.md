@@ -1,12 +1,12 @@
-path: blob/master/src
-source: client.ts
+path: blob/master
+source: src/client.ts
 
 # Application programming interface
 The hard way. Use the `Client` class to upload your coverage reports:
 
-```javascript
-const {Client, ClientError} from '@cedx/coveralls');
-const {promises} from 'fs');
+```ts
+import {Client, ClientError} from '@cedx/coveralls';
+import {promises} from 'fs';
 
 async function main(): Promise<void> {
   try {
