@@ -33,20 +33,16 @@ class ClientError extends Error {
   }
 
   /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
+   * An event that is triggered when a request is made to the remote service.
+   * @event request
    */
-  public toString(): string {
-    const values = `"${this.message}"`;
-    if (this.uri) values = `${values}, uri: "${this.uri.href}"`;
-    return `${this.name}(${values})`;
-  }
-}
+  public static readonly eventRequest: string = 'request';
 
-/**
- * Uploads code coverage reports to the [Coveralls](https://coveralls.io) service.
- */
-class Client extends EventEmitter {
+  /**
+   * An event that is triggered when a response is received from the remote service.
+   * @event response
+   */
+  public static readonly eventResponse: string = 'response';
 
   /**
    * The URL of the default API end point.
