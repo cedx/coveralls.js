@@ -1,44 +1,34 @@
+import {JsonMap} from './map';
+
 /**
  * Represents a source code file and its coverage data for a single job.
  */
-class SourceFile {
+export class SourceFile {
+
+  /**
+   * The coverage data for this file's job.
+   */
+  public coverage: Array<number | null>;
+
+  /**
+   * The contents of this source file.
+   */
+  public source: string;
 
   /**
    * Initializes a new instance of the class.
-   * @param {string} name The file path of this source file.
-   * @param {string} sourceDigest The MD5 digest of the full source code of this file.
-   * @param {Object} [options] An object specifying values used to initialize this instance.
+   * @param name The file path of this source file.
+   * @param sourceDigest The MD5 digest of the full source code of this file.
+   * @param options An object specifying values used to initialize this instance.
    */
-  constructor(name, sourceDigest, {coverage = [], source = ''} = {}) {
-
-    /**
-     * The coverage data for this file's job.
-     * @type {int[]}
-     */
+  constructor(public name: string, public sourceDigest: string, options: Partial<SourceFileOptions> = {}) {
+    const {coverage = [], source = ''} = options;
     this.coverage = coverage;
-
-    /**
-     * The file path of this source file.
-     * @type {string}
-     */
-    this.name = name;
-
-    /**
-     * The contents of this source file.
-     * @type {string}
-     */
     this.source = source;
-
-    /**
-     * The MD5 digest of the full source code of this file.
-     * @type {string}
-     */
-    this.sourceDigest = sourceDigest;
   }
 
   /**
    * The class name.
-   * @type {string}
    */
   get [Symbol.toStringTag](): string {
     return 'SourceFile';
@@ -46,12 +36,10 @@ class SourceFile {
 
   /**
    * Creates a new source file from the specified JSON map.
-   * @param {Object} map A JSON map representing a source file.
-   * @return {SourceFile} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @param map A JSON map representing a source file.
+   * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: {[key: string]: any}) {
-    if (!map || typeof map != 'object') return null;
-
+  public static fromJson(map: JsonMap): SourceFile {
     const options = {
       coverage: Array.isArray(map.coverage) ? map.coverage : [],
       source: typeof map.source == 'string' ? map.source : ''
@@ -68,11 +56,11 @@ class SourceFile {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): {[key: string]: any} {
-    const map = {
+  public toJSON(): JsonMap {
+    const map: JsonMap = {
+      coverage: this.coverage,
       name: this.name,
-      source_digest: this.sourceDigest,
-      coverage: this.coverage
+      source_digest: this.sourceDigest
     };
 
     if (this.source.length) map.source = this.source;
@@ -86,4 +74,20 @@ class SourceFile {
   public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
+}
+
+/**
+ * Defines the options of a `SourceFile` instance.
+ */
+export interface SourceFileOptions {
+
+  /**
+   * The coverage data for this file's job.
+   */
+  coverage: Array<number | null>;
+
+  /**
+   * The contents of this source file.
+   */
+  source: string;
 }

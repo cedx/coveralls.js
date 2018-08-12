@@ -1,81 +1,76 @@
-const {GitData} from './git.js');
-const {SourceFile} from './source_file.js');
+import {GitData} from './git';
+import {JsonMap} from './map';
+import {SourceFile} from './source_file';
 
 /**
  * Represents a Git remote repository.
  */
-class Job {
+export class Job {
+
+  /**
+   * The current SHA of the commit being built to override the `git` parameter.
+   */
+  public commitSha: string = '';
+
+  /**
+   * The Git data that can be used to display more information to users.
+   */
+  public git: GitData | null = null;
+
+  /**
+   * Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls.
+   */
+  public isParallel: boolean = false;
+
+  /**
+   * The secret token for the repository.
+   */
+  public repoToken: string;
+
+  /**
+   * The timestamp of when the job ran.
+   */
+  public runAt: Date | null = null;
+
+  /**
+   * The unique identifier of the job on the CI service.
+   */
+  public serviceJobId: string;
+
+  /**
+   * The CI service or other environment in which the test suite was run.
+   */
+  public serviceName: string;
+
+  /**
+   * The build number.
+   */
+  public serviceNumber: string = '';
+
+  /**
+   * The associated pull request identifier of the build.
+   */
+  public servicePullRequest: string = '';
+
+  /**
+   * The list of source files.
+   */
+  public sourceFiles: SourceFile[];
 
   /**
    * Initializes a new instance of the class.
-   * @param {Object} [options] An object specifying values used to initialize this instance.
+   * @param options An object specifying values used to initialize this instance.
    */
-  constructor({repoToken = '', serviceJobId = '', serviceName = '', sourceFiles = []} = {}) {
-
-    /**
-     * The current SHA of the commit being built to override the `git` parameter.
-     * @type {string}
-     */
-    this.commitSha = '';
-
-    /**
-     * The Git data that can be used to display more information to users.
-     * @type {GitData}
-     */
-    this.git = null;
-
-    /**
-     * Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls.
-     * @type {boolean}
-     */
-    this.isParallel = false;
-
-    /**
-     * The secret token for the repository.
-     * @type {string}
-     */
+  constructor(options: Partial<JobOptions> = {}) {
+    const {repoToken = '', serviceJobId = '', serviceName = '', sourceFiles = []} = options;
     this.repoToken = repoToken;
-
-    /**
-     * The timestamp of when the job ran.
-     * @type {Date}
-     */
-    this.runAt = null;
-
-    /**
-     * The unique identifier of the job on the CI service.
-     * @type {string}
-     */
     this.serviceJobId = serviceJobId;
-
-    /**
-     * The CI service or other environment in which the test suite was run.
-     * @type {string}
-     */
     this.serviceName = serviceName;
-
-    /**
-     * The build number.
-     * @type {string}
-     */
-    this.serviceNumber = '';
-
-    /**
-     * The associated pull request identifier of the build.
-     * @type {string}
-     */
-    this.servicePullRequest = '';
-
-    /**
-     * The list of source files.
-     * @type {SourceFile[]}
-     */
     this.sourceFiles = sourceFiles;
   }
 
   /**
    * The class name.
-   * @type {string}
    */
   get [Symbol.toStringTag](): string {
     return 'Job';
@@ -83,21 +78,19 @@ class Job {
 
   /**
    * Creates a new job from the specified JSON map.
-   * @param {Object} map A JSON map representing a job.
-   * @return {Job} The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @param map A JSON map representing a job.
+   * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: {[key: string]: any}) {
-    if (!map || typeof map != 'object') return null;
-
+  public static fromJson(map: JsonMap): Job {
     const job = new this({
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
       serviceName: typeof map.service_name == 'string' ? map.service_name : '',
-      sourceFiles: Array.isArray(map.source_files) ? map.source_files.map(item => SourceFile.fromJson(item)).filter(item => item != null) : []
+      sourceFiles: Array.isArray(map.source_files) ? map.source_files.map(item => SourceFile.fromJson(item)) : []
     });
 
     job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
-    job.git = GitData.fromJson(map.git);
+    job.git = typeof map.git == 'object' && map.git ? GitData.fromJson(map.git) : null;
     job.isParallel = typeof map.parallel == 'boolean' ? map.parallel : false;
     job.runAt = typeof map.run_at == 'string' ? new Date(map.run_at) : null;
     job.serviceNumber = typeof map.service_number == 'string' ? map.service_number : '';
@@ -110,8 +103,8 @@ class Job {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): {[key: string]: any} {
-    const map = {};
+  public toJSON(): JsonMap {
+    const map: JsonMap = {};
 
     if (this.repoToken.length) map.repo_token = this.repoToken;
     if (this.serviceName.length) map.service_name = this.serviceName;
@@ -135,4 +128,30 @@ class Job {
   public toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
+}
+
+/**
+ * Defines the options of a `Job` instance.
+ */
+export interface JobOptions {
+
+  /**
+   * The secret token for the repository.
+   */
+  repoToken: string;
+
+  /**
+   * The unique identifier of the job on the CI service.
+   */
+  serviceJobId: string;
+
+  /**
+   * The CI service or other environment in which the test suite was run.
+   */
+  serviceName: string;
+
+  /**
+   * The list of source files.
+   */
+  sourceFiles: SourceFile[];
 }

@@ -1,38 +1,38 @@
-const {createHash} from 'crypto');
-const {promises} from 'fs');
-const {relative} from 'path');
-const {parseString} from 'xml2js');
-const {promisify} from 'util');
+import {createHash} from 'crypto';
+import {promises} from 'fs';
+import {relative} from 'path';
+import {promisify} from 'util';
+import {parseString} from 'xml2js';
 
-const {Job} from '../job.js');
-const {SourceFile} from '../source_file.js');
+import {Job} from '../job';
+import {SourceFile} from '../source_file';
 
 /**
  * Returns direct child elements of the specified node.
  * @param {Object} node The node to process.
- * @param {string} name The tag name of the child elements to find.
+ * @param name The tag name of the child elements to find.
  * @return {Array} The direct child elements with the given tag name.
  */
-function findElements(node, name) {
+function findElements(node, name: string) {
   return name in node && Array.isArray(node[name]) ? node[name] : [];
 }
 
 /**
  * Return an attribute value of the specified node.
  * @param {Object} node The node to process.
- * @param {string} name The name of the attribute value to get.
- * @return {string} The attribute value with the given name.
+ * @param name The name of the attribute value to get.
+ * @return The attribute value with the given name.
  */
-function getAttribute(node, name) {
+function getAttribute(node, name: string): string {
   return '$' in node && typeof node.$[name] == 'string' ? node.$[name] : '';
 }
 
 /**
  * Parses the specified [Clover](https://www.atlassian.com/software/clover) coverage report.
- * @param {string} report A coverage report in Clover format.
+ * @param report A coverage report in Clover format.
  * @return {Promise<Job>} The job corresponding to the specified coverage report.
  */
-exports.parseReport = async function parseReport(report) {
+export async function parseReport(report: string): Promise<Job> {
   const parseXml = promisify(parseString);
   const xml = await parseXml(report);
   if (!xml.coverage || typeof xml.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
@@ -67,4 +67,4 @@ exports.parseReport = async function parseReport(report) {
     }
 
   return new Job({sourceFiles});
-};
+}
