@@ -16,6 +16,6 @@ async function main(): Promise<void> {
 
   catch (error) {
     console.log(`An error occurred: ${error.message}`);
-    if (error instanceof ClientError) console.log(`From: ${error.uri.href}`);
+    if (error instanceof ClientError) console.log(`From: ${error.uri}`);
   }
 }

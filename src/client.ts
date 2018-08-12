@@ -100,13 +100,14 @@ export class Client extends EventEmitter {
     const body = new FormData;
     body.append('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    const req = new Request(new URL('api/v1/jobs', this.endPoint).href, {method: 'POST', body});
+    const url = new URL('api/v1/jobs', this.endPoint);
+    const req = new Request(url.href, {method: 'POST', body});
     this.emit(Client.eventRequest, req);
 
     const res = await fetch(req);
     this.emit(Client.eventResponse, req, res);
 
-    if (!res.ok) throw new ClientError('An error occurred while uploading the report.');
+    if (!res.ok) throw new ClientError('An error occurred while uploading the report.', url);
   }
 
   /**
