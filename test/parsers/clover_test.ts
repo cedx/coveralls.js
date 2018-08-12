@@ -1,16 +1,21 @@
 import {expect} from 'chai';
-const {promises} from 'fs');
-const {join} from 'path');
+import {promises} from 'fs';
+import {suite, test} from 'mocha-typescript';
+import {join} from 'path';
 
-const {SourceFile} from '../../lib';
-const {parseReport} from '../../lib/parsers/clover.js');
+import {SourceFile} from '../../src';
+import {parseReport} from '../../src/parsers/clover';
 
-describe('Clover', () => {
+/**
+ * Tests the features of the Clover parser.
+ */
+@suite class CloverTest {
+
   /**
    * @test {parseReport}
    */
   describe('parseReport()', () => {
-    it('should properly parse Clover reports', async () => {
+    // It should properly parse Clover reports', async () => {
       const job = await parseReport(await promises.readFile('test/fixtures/clover.xml', 'utf8'));
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
@@ -26,9 +31,8 @@ describe('Clover', () => {
       expect(job.sourceFiles[2].name).to.equal(join('lib', 'git.js'));
       expect(job.sourceFiles[2].sourceDigest).to.not.be.empty;
       expect(job.sourceFiles[2].coverage).to.include.members([null, 2, 2, 2, 2, 2, 0, 0, 2, 2, null]);
-    });
 
-    it('should throw an excepton if the Clover report is invalid', async () => {
+    // It should throw an excepton if the Clover report is invalid', async () => {
       try {
         await parseReport('<coverage><foo /></coverage>');
         expect.fail('Error not thrown');
@@ -37,6 +41,5 @@ describe('Clover', () => {
       catch (err) {
         expect(true).to.be.ok;
       }
-    });
-  });
-});
+  }
+}
