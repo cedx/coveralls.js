@@ -10,14 +10,14 @@ export class Configuration {
   /**
    * The configuration parameters.
    */
-  private _params: Map<string, string>;
+  private _params: Map<string, string | undefined>;
 
   /**
    * Initializes a new instance of the class.
    * @param params The configuration parameters.
    */
   constructor(params: StringMap = {}) {
-    this._params = new Map(Object.entries(params)) as Map<string, string>;
+    this._params = new Map(Object.entries(params));
   }
 
   /**
@@ -150,7 +150,7 @@ export class Configuration {
   /**
    * Returns a new iterator that allows iterating the entries of this configuration.
    */
-  public [Symbol.iterator](): Iterator<[string, string]> {
+  public [Symbol.iterator](): Iterator<[string, string | undefined]> {
     return this._params.entries();
   }
 
@@ -193,7 +193,7 @@ export class Configuration {
    * @param key The key to seek for.
    * @param value The parameter value.
    */
-  public set(key: string, value: string) {
+  public set(key: string, value: string | undefined): void {
     this._params.set(key, value);
   }
 
