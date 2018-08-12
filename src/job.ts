@@ -3,7 +3,7 @@ import {JsonMap} from './map';
 import {SourceFile} from './source_file';
 
 /**
- * Represents a Git remote repository.
+ * Represents the coverage data from a single run of a test suite.
  */
 export class Job {
 
