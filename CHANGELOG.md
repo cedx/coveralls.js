@@ -1,8 +1,9 @@
 # Changelog
 
-## Version [6.1.0](https://github.com/cedx/coveralls.js/compare/v6.0.0...v6.1.0)
+## Version [7.0.0](https://github.com/cedx/coveralls.js/compare/v6.0.0...v7.0.0)
 - Ported the source code to [TypeScript](https://www.typescriptlang.org).
 - Added the `eventRequest` and `eventResponse` static properties to the `Client` class.
+- Replaced [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
 - Updated the package dependencies.
 
 ## Version [6.0.0](https://github.com/cedx/coveralls.js/compare/v5.1.0...v6.0.0)
