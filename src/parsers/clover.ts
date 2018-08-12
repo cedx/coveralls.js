@@ -5,37 +5,45 @@ import {promisify} from 'util';
 import {parseString} from 'xml2js';
 
 import {Job} from '../job';
+import {JsonMap} from '../map';
 import {SourceFile} from '../source_file';
 
 /**
- * Returns direct child elements of the specified node.
- * @param {Object} node The node to process.
- * @param name The tag name of the child elements to find.
- * @return {Array} The direct child elements with the given tag name.
+ * Defines the shape of a node in an XML document.
  */
-function findElements(node, name: string) {
+type XmlNode = JsonMap;
+
+/**
+ * Returns direct child elements of the specified node.
+ * @param node The node to process.
+ * @param name The tag name of the child elements to find.
+ * @return The direct child elements with the given tag name.
+ */
+function findElements(node: XmlNode, name: string): XmlNode[] {
   return name in node && Array.isArray(node[name]) ? node[name] : [];
 }
 
 /**
  * Return an attribute value of the specified node.
- * @param {Object} node The node to process.
+ * @param node The node to process.
  * @param name The name of the attribute value to get.
  * @return The attribute value with the given name.
  */
-function getAttribute(node, name: string): string {
+function getAttribute(node: XmlNode, name: string): string {
   return '$' in node && typeof node.$[name] == 'string' ? node.$[name] : '';
 }
 
 /**
  * Parses the specified [Clover](https://www.atlassian.com/software/clover) coverage report.
  * @param report A coverage report in Clover format.
- * @return {Promise<Job>} The job corresponding to the specified coverage report.
+ * @return The job corresponding to the specified coverage report.
  */
 export async function parseReport(report: string): Promise<Job> {
   const parseXml = promisify(parseString);
-  const xml = await parseXml(report);
-  if (!xml.coverage || typeof xml.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
+
+  // @ts-ignore
+  const xml: XmlNode = await parseXml(report);
+  if (typeof xml.coverage != 'object' || !xml.coverage) throw new TypeError('The specified Clover report is invalid.');
 
   const projects = findElements(xml.coverage, 'project');
   if (!projects.length) throw new TypeError('The specified Clover report is empty.');
