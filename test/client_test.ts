@@ -11,8 +11,7 @@ import {Client, Job} from '../src';
   /**
    * @test {Client#upload}
    */
-  @test('It should throw an error with an empty or invalid coverage report')
-  public async testUpload(): Promise<void> {
+  @test public async testUpload(): Promise<void> {
     // It should throw an error with an empty coverage report.
     try {
       await (new Client).upload('');
@@ -37,8 +36,8 @@ import {Client, Job} from '../src';
   /**
    * @test {Client#uploadJob}
    */
-  @test('It should throw an error with an empty test job')
-  public async testUploadJob(): Promise<void> {
+  @test public async testUploadJob(): Promise<void> {
+    // It should throw an error with an empty test job.
     try {
       await (new Client).uploadJob(new Job);
       expect.fail('Error not thrown');

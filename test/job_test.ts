@@ -11,8 +11,7 @@ import {GitData, Job, SourceFile} from '../src';
   /**
    * @test {Job.fromJson}
    */
-  @test('It should initialize the instance from a JSON map')
-  public testFromJson(): void {
+  @test public testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let job = Job.fromJson({});
     expect(job).to.be.instanceof(Job);
@@ -50,8 +49,7 @@ import {GitData, Job, SourceFile} from '../src';
   /**
    * @test {Job#toJSON}
    */
-  @test('It should return a JSON map corresponding to the instance properties')
-  public testToJson(): void {
+  @test public testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = (new Job).toJSON();
     expect(Object.keys(map)).to.have.lengthOf(1);
@@ -81,8 +79,7 @@ import {GitData, Job, SourceFile} from '../src';
   /**
    * @test {Job#toString}
    */
-  @test('It should return a string starting with the class name and containing the instance properties')
-  public testToString(): void {
+  @test public testToString(): void {
     const job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
     job.git = new GitData(null, {branch: 'develop'});
     job.isParallel = true;

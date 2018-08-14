@@ -15,8 +15,8 @@ import {parseReport} from '../../src/parsers/clover';
   /**
    * @test {parseReport}
    */
-  @test('It should properly parse Clover reports')
-  public async parseReport(): Promise<void> {
+  @test public async parseReport(): Promise<void> {
+    // It should properly parse Clover reports.
     const job = await parseReport(await promises.readFile('test/fixtures/clover.xml', 'utf8'));
     expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 

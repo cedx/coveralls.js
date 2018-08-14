@@ -11,8 +11,7 @@ import {SourceFile} from '../src';
   /**
    * @test {SourceFile.fromJson}
    */
-  @test('It should initialize the instance from a JSON map')
-  public testFromJson(): void {
+  @test public testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let file = SourceFile.fromJson({});
     expect(file).to.be.instanceof(SourceFile);
@@ -38,8 +37,7 @@ import {SourceFile} from '../src';
   /**
    * @test {SourceFile#toJSON}
    */
-  @test('It should return a JSON map corresponding to the instance properties')
-  public testToJson(): void {
+  @test public testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new SourceFile('', '').toJSON();
     expect(Object.keys(map)).to.have.lengthOf(3);
@@ -68,8 +66,7 @@ import {SourceFile} from '../src';
   /**
    * @test {SourceFile#toString}
    */
-  @test('It should return a string starting with the class name and containing the instance properties')
-  public testToString(): void {
+  @test public testToString(): void {
     const file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
       coverage: [null, 2, 0, null, 4, 15, null],
       source: 'function main() {}'

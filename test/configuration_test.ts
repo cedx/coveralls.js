@@ -11,8 +11,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration.fromEnvironment}
    */
-  @test('It should initialize the instance from the provided environment variables')
-  public async testFromEnvironment(): Promise<void> {
+  @test public async testFromEnvironment(): Promise<void> {
     // It should return an empty configuration for an empty environment.
     expect(await Configuration.fromEnvironment({})).to.have.lengthOf(0);
 
@@ -37,8 +36,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration.fromYaml}
    */
-  @test('It should initialize the instance from a YAML map')
-  public testFromYaml(): void {
+  @test public testFromYaml(): void {
     // It should throw an exception with a non-object value.
     expect(() => Configuration.fromYaml('**123/456**')).to.throw(TypeError);
     expect(() => Configuration.fromYaml('foo')).to.throw(TypeError);
@@ -54,8 +52,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration.loadDefaults}
    */
-  @test('It should initialize from a `.coveralls.yml` file, defaulting to the environment variables')
-  public async testLoadDefaults(): Promise<void> {
+  @test public async testLoadDefaults(): Promise<void> {
     // It should properly initialize from a `.coveralls.yml` file.
     let config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
     expect(config).to.be.instanceof(Configuration);
@@ -73,8 +70,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#keys}
    */
-  @test('It should return the list of configuration keys')
-  public testKeys(): void {
+  @test public testKeys(): void {
     // It should return an empty array for an empty configuration.
     expect((new Configuration).keys).to.be.empty;
 
@@ -88,8 +84,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#length}
    */
-  @test('It should return the number of configuration entries')
-  public testLength(): void {
+  @test public testLength(): void {
     // It should return zero for an empty configuration.
     expect(new Configuration).to.have.lengthOf(0);
 
@@ -100,8 +95,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#Symbol.iterator}
    */
-  @test('It should return an iterator over the keys and values of the configuration')
-  public testSymbolIterator(): void {
+  @test public testSymbolIterator(): void {
     // It should return a done iterator if configuration is empty.
     let config = new Configuration;
     let iterator = config[Symbol.iterator]();
@@ -126,8 +120,8 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#get}
    */
-  @test('It should properly get the configuration entries')
-  public testGet(): void {
+  @test public testGet(): void {
+    // It should properly get the configuration entries.
     const config = new Configuration;
     expect(config.get('foo')).to.be.undefined;
 
@@ -138,8 +132,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#has}
    */
-  @test('It should return `true` if the specified key is contained, otherwise `false`')
-  public testHas(): void {
+  @test public testHas(): void {
     // It should return `false` if the specified key is not contained.
     expect((new Configuration).has('foo')).to.be.false;
 
@@ -150,8 +143,8 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#merge}
    */
-  @test('It should have the same entries as the other configuration')
-  public testMerge(): void {
+  @test public testMerge(): void {
+    // It should have the same entries as the other configuration.
     const config = new Configuration;
     expect(config).to.have.lengthOf(0);
 
@@ -164,8 +157,8 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#remove}
    */
-  @test('It should properly remove the configuration entries')
-  public testRemove(): void {
+  @test public testRemove(): void {
+    // It should properly remove the configuration entries.
     const config = new Configuration({bar: 'baz', foo: 'bar'});
     expect(config).to.have.lengthOf(2);
 
@@ -178,8 +171,8 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#set}
    */
-  @test('It should properly set the configuration entries')
-  public testSet(): void {
+  @test public testSet(): void {
+    // It should properly set the configuration entries.
     const config = new Configuration;
     expect(config.get('foo')).to.be.undefined;
 
@@ -190,8 +183,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#toJSON}
    */
-  @test('It should return a JSON map corresponding to the instance properties')
-  public testToJson(): void {
+  @test public testToJson(): void {
     // It should return an empty map for a newly created instance.
     let map = (new Configuration).toJSON();
     expect(Object.keys(map)).to.be.empty;
@@ -206,8 +198,7 @@ import {Configuration} from '../src';
   /**
    * @test {Configuration#toString}
    */
-  @test('It should return a string starting with the class name and containing the instance properties')
-  public testToString(): void {
+  @test public testToString(): void {
     const config = String(new Configuration({bar: 'baz', foo: 'bar'}));
 
     // It should start with the class name.

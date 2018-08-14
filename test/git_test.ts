@@ -11,8 +11,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitCommit.fromJson}
    */
-  @test('It should initialize the instance from a JSON map')
-  public testFromJson(): void {
+  @test public testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitCommit.fromJson({});
     expect(remote).to.be.instanceof(GitCommit);
@@ -40,8 +39,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitCommit#toJSON}
    */
-  @test('It should return a JSON map corresponding to the instance properties')
-  public testToJson(): void {
+  @test public testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitCommit('').toJSON();
     expect(Object.keys(map)).to.have.lengthOf(1);
@@ -65,8 +63,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitCommit#toString}
    */
-  @test('It should return a string starting with the class name and containing the instance properties')
-  public testToString(): void {
+  @test public testToString(): void {
     const commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', {
       authorEmail: 'anonymous@secret.com',
       authorName: 'Anonymous',
@@ -94,8 +91,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData.fromJson}
    */
-  @test('It should initialize the instance from a JSON map')
-  public testFromJson(): void {
+  @test public testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let data = GitData.fromJson({});
     expect(data).to.be.instanceof(GitData);
@@ -124,8 +120,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData.fromRepository}
    */
-  @test('It should initialize the instance from a local Git repository')
-  public async testFromRepository(): Promise<void> {
+  @test public async testFromRepository(): Promise<void> {
     // It should retrieve the Git data from the executable output.
     const data = await GitData.fromRepository();
     expect(data.branch).to.not.be.empty;
@@ -144,8 +139,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData#toJSON}
    */
-  @test('It should return a JSON map corresponding to the instance properties')
-  public testToJson(): void {
+  @test public testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitData(null).toJSON();
     expect(Object.keys(map)).to.have.lengthOf(3);
@@ -173,8 +167,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData#toString}
    */
-  @test('It should return a string starting with the class name and containing the instance properties')
-  public testToString(): void {
+  @test public testToString(): void {
     const data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), {
       branch: 'develop',
       remotes: [new GitRemote('origin')]
@@ -198,8 +191,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitRemote.fromJson}
    */
-  @test('It should initialize the instance from a JSON map')
-  public testFromJson(): void {
+  @test public testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitRemote.fromJson({});
     expect(remote).to.be.instanceof(GitRemote);
@@ -216,8 +208,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitRemote#toJSON}
    */
-  @test('It should return a JSON map corresponding to the instance properties')
-  public testToJson(): void {
+  @test public testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitRemote('').toJSON();
     expect(Object.keys(map)).to.have.lengthOf(2);
@@ -234,8 +225,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitRemote#toString}
    */
-  @test('It should return a string starting with the class name and containing the instance properties')
-  public testToString(): void {
+  @test public testToString(): void {
     const remote = String(new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git'));
 
     // It should start with the class name.
