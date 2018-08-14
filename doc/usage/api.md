@@ -26,3 +26,21 @@ The `Client#upload()` method returns a [`Promise`](https://developer.mozilla.org
 
 The promise rejects with a [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError)
 if the input report is invalid. It rejects with a `ClientError` if any error occurred while uploading the report.
+
+## Client events
+The `Client` class is an [`EventEmitter`](https://nodejs.org/api/events.html) that triggers some events during its life cycle:
+
+- `request` : emitted every time a request is made to the remote service.
+- `response` : emitted every time a response is received from the remote service.
+
+You can subscribe to them using the `on()` method:
+
+```ts
+client.on('request', (request) =>
+  console.log(`Client request: ${request.url}`)
+);
+
+client.on('response', (request, response) =>
+  console.log(`Server response: ${response.status}`)
+);
+```
