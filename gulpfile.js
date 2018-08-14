@@ -24,7 +24,7 @@ gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web'
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
 
 /**
  * Builds the documentation.
