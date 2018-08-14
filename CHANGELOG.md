@@ -6,6 +6,7 @@
 - Breaking change: the `Configuration.fromEnvironment` is now asynchronous.
 - Added the `eventRequest` and `eventResponse` static properties to the `Client` class.
 - Replaced [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
+- Replaced [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
 - Updated the package dependencies.
 
 ## Version [6.0.0](https://github.com/cedx/coveralls.js/compare/v5.1.0...v6.0.0)
