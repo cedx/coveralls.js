@@ -1,7 +1,7 @@
 import {which} from '@cedx/which';
 import {EventEmitter} from 'events';
 import * as FormData from 'form-data';
-import fetch, {Request} from 'node-fetch';
+import fetch, {Request, Response} from 'node-fetch';
 import {Configuration} from './configuration';
 import {GitCommit, GitData} from './git';
 import {Job} from './job';
@@ -104,9 +104,11 @@ export class Client extends EventEmitter {
     const req = new Request(url.href, {method: 'POST', body});
     this.emit(Client.eventRequest, req);
 
-    const res = await fetch(req);
-    this.emit(Client.eventResponse, req, res);
+    let res: Response;
+    try { res = await fetch(req); }
+    catch (err) { throw new ClientError(err.message, url); }
 
+    this.emit(Client.eventResponse, req, res);
     if (!res.ok) throw new ClientError('An error occurred while uploading the report.', url);
   }
 
