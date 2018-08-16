@@ -29,17 +29,11 @@ export class Client extends EventEmitter {
   public static readonly eventResponse: string = 'response';
 
   /**
-   * The URL of the API end point.
-   */
-  public endPoint: URL;
-
-  /**
    * Initializes a new instance of the class.
    * @param endPoint The URL of the API end point.
    */
-  constructor(endPoint: string | URL = Client.defaultEndPoint) {
+  constructor(public endPoint: URL = Client.defaultEndPoint) {
     super();
-    this.endPoint = typeof endPoint == 'string' ? new URL(endPoint) : endPoint;
   }
 
   /**
@@ -150,19 +144,13 @@ export class Client extends EventEmitter {
 export class ClientError extends Error {
 
   /**
-   * The URL of the HTTP request or response that failed.
-   */
-  public uri: URL | null;
-
-  /**
    * Creates a new client error.
    * @param message A message describing the error.
    * @param uri The URL of the HTTP request or response that failed.
    */
-  constructor(message: string = '', uri: null | string | URL = null) {
+  constructor(message: string = '', public readonly uri: URL | null = null) {
     super(message);
     this.name = 'ClientError';
-    this.uri = typeof uri == 'string' ? new URL(uri) : uri;
   }
 
   /**

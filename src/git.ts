@@ -194,7 +194,7 @@ export class GitData {
     const remotes = new Map;
     for (const remote of commands.remotes.split(/\r?\n/g)) {
       const parts = remote.replace(/\s+/g, ' ').split(' ');
-      if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
+      if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? new URL(parts[1]) : null));
     }
 
     return new this(GitCommit.fromJson(commands), {
@@ -246,18 +246,11 @@ export interface GitDataOptions {
 export class GitRemote {
 
   /**
-   * The remote's URL.
-   */
-  public url: URL | null;
-
-  /**
    * Initializes a new instance of the class.
    * @param name The remote's name.
    * @param url The remote's URL.
    */
-  constructor(public name: string, url: null | string | URL = null) {
-    this.url = typeof url == 'string' ? new URL(url) : url;
-  }
+  constructor(public name: string, public url: URL | null = null) {}
 
   /**
    * The class name.
@@ -274,7 +267,7 @@ export class GitRemote {
   public static fromJson(map: JsonMap): GitRemote {
     return new this(
       typeof map.name == 'string' ? map.name : '',
-      typeof map.url == 'string' ? map.url : null
+      typeof map.url == 'string' ? new URL(map.url) : null
     );
   }
 

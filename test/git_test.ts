@@ -216,7 +216,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(map.url).to.be.null;
 
     // It should return a non-empty map for an initialized instance.
-    map = new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git').toJSON();
+    map = new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')).toJSON();
     expect(Object.keys(map)).to.have.lengthOf(2);
     expect(map.name).to.equal('origin');
     expect(map.url).to.equal('https://github.com/cedx/coveralls.js.git');
@@ -226,7 +226,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
    * @test {GitRemote#toString}
    */
   @test public testToString(): void {
-    const remote = String(new GitRemote('origin', 'https://github.com/cedx/coveralls.js.git'));
+    const remote = String(new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')));
 
     // It should start with the class name.
     expect(remote.startsWith('GitRemote {')).to.be.true;
