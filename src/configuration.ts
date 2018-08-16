@@ -157,7 +157,7 @@ export class Configuration {
   /**
    * Gets the value associated to the specified key.
    * @param key The key to seek for.
-   * @return The value of the configuration parameter, or the default value if the parameter is not found.
+   * @return The value of the configuration parameter, or `undefined` if the parameter is not found.
    */
   public get(key: string): string | undefined {
     return this._params.get(key);
