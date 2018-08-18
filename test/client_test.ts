@@ -11,7 +11,7 @@ import {Client, Job} from '../src';
   /**
    * @test {Client#upload}
    */
-  @test public async testUpload(): Promise<void> {
+  @test async testUpload(): Promise<void> {
     // It should throw an error with an empty coverage report.
     try {
       await (new Client).upload('');
@@ -36,7 +36,7 @@ import {Client, Job} from '../src';
   /**
    * @test {Client#uploadJob}
    */
-  @test public async testUploadJob(): Promise<void> {
+  @test async testUploadJob(): Promise<void> {
     // It should throw an error with an empty test job.
     try {
       await (new Client).uploadJob(new Job);

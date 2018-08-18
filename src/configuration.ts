@@ -32,7 +32,7 @@ export class Configuration {
    * @param env A map providing environment variables. Defaults to `process.env`.
    * @return The newly created configuration.
    */
-  public static async fromEnvironment(env: StringMap = process.env): Promise<Configuration> {
+  static async fromEnvironment(env: StringMap = process.env): Promise<Configuration> {
     const config = new this;
 
     // Standard.
@@ -99,7 +99,7 @@ export class Configuration {
    * @return The instance corresponding to the specified YAML document.
    * @throws {TypeError} The specified document is invalid.
    */
-  public static fromYaml(document: string): Configuration {
+  static fromYaml(document: string): Configuration {
     if (!document.trim().length) throw new TypeError('The specified YAML document is empty.');
 
     try {
@@ -120,7 +120,7 @@ export class Configuration {
    * @param coverallsFile The path to the `.coveralls.yml` file. Defaults to the file found in the current directory.
    * @return The default configuration.
    */
-  public static async loadDefaults(coverallsFile: string = '.coveralls.yml'): Promise<Configuration> {
+  static async loadDefaults(coverallsFile: string = '.coveralls.yml'): Promise<Configuration> {
     const defaults = await Configuration.fromEnvironment();
 
     try {
@@ -150,7 +150,7 @@ export class Configuration {
   /**
    * Returns a new iterator that allows iterating the entries of this configuration.
    */
-  public [Symbol.iterator](): Iterator<[string, string | undefined]> {
+  [Symbol.iterator](): Iterator<[string, string | undefined]> {
     return this._params.entries();
   }
 
@@ -159,7 +159,7 @@ export class Configuration {
    * @param key The key to seek for.
    * @return The value of the configuration parameter, or `undefined` if the parameter is not found.
    */
-  public get(key: string): string | undefined {
+  get(key: string): string | undefined {
     return this._params.get(key);
   }
 
@@ -168,7 +168,7 @@ export class Configuration {
    * @param key The key to seek for.
    * @return `true` if this configuration contains the specified key, otherwise `false`.
    */
-  public has(key: string): boolean {
+  has(key: string): boolean {
     return this._params.has(key);
   }
 
@@ -176,7 +176,7 @@ export class Configuration {
    * Adds all entries of the specified configuration to this one.
    * @param config The configuration to be merged.
    */
-  public merge(config: Configuration): void {
+  merge(config: Configuration): void {
     for (const [key, value] of config) this.set(key, value);
   }
 
@@ -184,7 +184,7 @@ export class Configuration {
    * Removes the value associated to the specified key.
    * @param key The key to seek for.
    */
-  public remove(key: string): void {
+  remove(key: string): void {
     this._params.delete(key);
   }
 
@@ -193,7 +193,7 @@ export class Configuration {
    * @param key The key to seek for.
    * @param value The parameter value.
    */
-  public set(key: string, value: string | undefined): void {
+  set(key: string, value: string | undefined): void {
     this._params.set(key, value);
   }
 
@@ -201,7 +201,7 @@ export class Configuration {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     const map: JsonMap = {};
     for (const [key, value] of this) map[key] = value;
     return map;
@@ -211,7 +211,7 @@ export class Configuration {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

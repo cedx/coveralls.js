@@ -15,7 +15,7 @@ import {parseReport} from '../../src/parsers/lcov';
   /**
    * @test {parseReport}
    */
-  @test public async parseReport(): Promise<void> {
+  @test async parseReport(): Promise<void> {
     // It should properly parse LCOV reports.
     const job = await parseReport(await promises.readFile('test/fixtures/lcov.info', 'utf8'));
     expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);

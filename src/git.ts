@@ -10,27 +10,27 @@ export class GitCommit {
   /**
    * The author mail address.
    */
-  public authorEmail: string;
+  authorEmail: string;
 
   /**
    * The author name.
    */
-  public authorName: string;
+  authorName: string;
 
   /**
    * The committer mail address.
    */
-  public committerEmail: string;
+  committerEmail: string;
 
   /**
    * The committer name.
    */
-  public committerName: string;
+  committerName: string;
 
   /**
    * The commit message.
    */
-  public message: string;
+  message: string;
 
   /**
    * Initializes a new instance of the class.
@@ -58,7 +58,7 @@ export class GitCommit {
    * @param map A JSON map representing a Git commit.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: JsonMap): GitCommit {
+  static fromJson(map: JsonMap): GitCommit {
     return new this(typeof map.id == 'string' ? map.id : '', {
       authorEmail: typeof map.author_email == 'string' ? map.author_email : '',
       authorName: typeof map.author_name == 'string' ? map.author_name : '',
@@ -72,7 +72,7 @@ export class GitCommit {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     const map: JsonMap = {id: this.id};
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
@@ -86,7 +86,7 @@ export class GitCommit {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
@@ -130,12 +130,12 @@ export class GitData {
   /**
    * The branch name.
    */
-  public branch: string;
+  branch: string;
 
   /**
    * The remote repositories.
    */
-  public remotes: GitRemote[];
+  remotes: GitRemote[];
 
   /**
    * Initializes a new instance of the class.
@@ -160,7 +160,7 @@ export class GitData {
    * @param map A JSON map representing a Git data.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: JsonMap): GitData {
+  static fromJson(map: JsonMap): GitData {
     return new this(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : null, {
       branch: typeof map.branch == 'string' ? map.branch : '',
       remotes: Array.isArray(map.remotes) ? map.remotes.map(item => GitRemote.fromJson(item)) : []
@@ -173,7 +173,7 @@ export class GitData {
    * @param path The path to the repository folder. Defaults to the current working directory.
    * @return The newly created data.
    */
-  public static async fromRepository(path: string = process.cwd()): Promise<GitData> {
+  static async fromRepository(path: string = process.cwd()): Promise<GitData> {
     const commands: JsonMap = {
       author_email: 'log -1 --pretty=format:%ae',
       author_name: 'log -1 --pretty=format:%aN',
@@ -207,7 +207,7 @@ export class GitData {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     return {
       branch: this.branch,
       head: this.commit ? this.commit.toJSON() : null,
@@ -219,7 +219,7 @@ export class GitData {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
@@ -264,7 +264,7 @@ export class GitRemote {
    * @param map A JSON map representing a remote repository.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: JsonMap): GitRemote {
+  static fromJson(map: JsonMap): GitRemote {
     return new this(
       typeof map.name == 'string' ? map.name : '',
       typeof map.url == 'string' ? new URL(map.url) : null
@@ -275,7 +275,7 @@ export class GitRemote {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     return {
       name: this.name,
       url: this.url ? this.url.href : null
@@ -286,7 +286,7 @@ export class GitRemote {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

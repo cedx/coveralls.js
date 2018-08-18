@@ -11,7 +11,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitCommit.fromJson}
    */
-  @test public testFromJson(): void {
+  @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitCommit.fromJson({});
     expect(remote).to.be.instanceof(GitCommit);
@@ -39,7 +39,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitCommit#toJSON}
    */
-  @test public testToJson(): void {
+  @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitCommit('').toJSON();
     expect(Object.keys(map)).to.have.lengthOf(1);
@@ -63,7 +63,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitCommit#toString}
    */
-  @test public testToString(): void {
+  @test testToString(): void {
     const commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', {
       authorEmail: 'anonymous@secret.com',
       authorName: 'Anonymous',
@@ -91,7 +91,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData.fromJson}
    */
-  @test public testFromJson(): void {
+  @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let data = GitData.fromJson({});
     expect(data).to.be.instanceof(GitData);
@@ -120,7 +120,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData.fromRepository}
    */
-  @test public async testFromRepository(): Promise<void> {
+  @test async testFromRepository(): Promise<void> {
     // It should retrieve the Git data from the executable output.
     const data = await GitData.fromRepository();
     expect(data.branch).to.not.be.empty;
@@ -139,7 +139,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData#toJSON}
    */
-  @test public testToJson(): void {
+  @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitData(null).toJSON();
     expect(Object.keys(map)).to.have.lengthOf(3);
@@ -167,7 +167,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitData#toString}
    */
-  @test public testToString(): void {
+  @test testToString(): void {
     const data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), {
       branch: 'develop',
       remotes: [new GitRemote('origin')]
@@ -191,7 +191,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitRemote.fromJson}
    */
-  @test public testFromJson(): void {
+  @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitRemote.fromJson({});
     expect(remote).to.be.instanceof(GitRemote);
@@ -208,7 +208,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitRemote#toJSON}
    */
-  @test public testToJson(): void {
+  @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitRemote('').toJSON();
     expect(Object.keys(map)).to.have.lengthOf(2);
@@ -225,7 +225,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   /**
    * @test {GitRemote#toString}
    */
-  @test public testToString(): void {
+  @test testToString(): void {
     const remote = String(new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')));
 
     // It should start with the class name.

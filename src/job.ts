@@ -10,52 +10,52 @@ export class Job {
   /**
    * The current SHA of the commit being built to override the `git` parameter.
    */
-  public commitSha: string = '';
+  commitSha: string = '';
 
   /**
    * The Git data that can be used to display more information to users.
    */
-  public git: GitData | null = null;
+  git: GitData | null = null;
 
   /**
    * Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls.
    */
-  public isParallel: boolean = false;
+  isParallel: boolean = false;
 
   /**
    * The secret token for the repository.
    */
-  public repoToken: string;
+  repoToken: string;
 
   /**
    * The timestamp of when the job ran.
    */
-  public runAt: Date | null = null;
+  runAt: Date | null = null;
 
   /**
    * The unique identifier of the job on the CI service.
    */
-  public serviceJobId: string;
+  serviceJobId: string;
 
   /**
    * The CI service or other environment in which the test suite was run.
    */
-  public serviceName: string;
+  serviceName: string;
 
   /**
    * The build number.
    */
-  public serviceNumber: string = '';
+  serviceNumber: string = '';
 
   /**
    * The associated pull request identifier of the build.
    */
-  public servicePullRequest: string = '';
+  servicePullRequest: string = '';
 
   /**
    * The list of source files.
    */
-  public sourceFiles: SourceFile[];
+  sourceFiles: SourceFile[];
 
   /**
    * Initializes a new instance of the class.
@@ -81,7 +81,7 @@ export class Job {
    * @param map A JSON map representing a job.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: JsonMap): Job {
+  static fromJson(map: JsonMap): Job {
     const job = new this({
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
@@ -103,7 +103,7 @@ export class Job {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     const map: JsonMap = {};
 
     if (this.repoToken.length) map.repo_token = this.repoToken;
@@ -125,7 +125,7 @@ export class Job {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

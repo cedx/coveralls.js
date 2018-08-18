@@ -8,12 +8,12 @@ export class SourceFile {
   /**
    * The coverage data for this file's job.
    */
-  public coverage: Array<number | null>;
+  coverage: Array<number | null>;
 
   /**
    * The contents of this source file.
    */
-  public source: string;
+  source: string;
 
   /**
    * Initializes a new instance of the class.
@@ -39,7 +39,7 @@ export class SourceFile {
    * @param map A JSON map representing a source file.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: JsonMap): SourceFile {
+  static fromJson(map: JsonMap): SourceFile {
     const options = {
       coverage: Array.isArray(map.coverage) ? map.coverage : [],
       source: typeof map.source == 'string' ? map.source : ''
@@ -56,7 +56,7 @@ export class SourceFile {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     const map: JsonMap = {
       coverage: this.coverage,
       name: this.name,
@@ -71,7 +71,7 @@ export class SourceFile {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

@@ -14,19 +14,19 @@ export class Client extends EventEmitter {
   /**
    * The URL of the default API end point.
    */
-  public static readonly defaultEndPoint: URL = new URL('https://coveralls.io');
+  static readonly defaultEndPoint: URL = new URL('https://coveralls.io');
 
   /**
    * An event that is triggered when a request is made to the remote service.
    * @event request
    */
-  public static readonly eventRequest: string = 'request';
+  static readonly eventRequest: string = 'request';
 
   /**
    * An event that is triggered when a response is received from the remote service.
    * @event response
    */
-  public static readonly eventResponse: string = 'response';
+  static readonly eventResponse: string = 'response';
 
   /**
    * Initializes a new instance of the class.
@@ -49,7 +49,7 @@ export class Client extends EventEmitter {
    * @param configuration The environment settings.
    * @return Completes when the operation is done.
    */
-  public async upload(coverage: string, configuration?: Configuration): Promise<void> {
+  async upload(coverage: string, configuration?: Configuration): Promise<void> {
     const report = coverage.trim();
     if (!report.length) throw new TypeError('The specified coverage report is empty.');
 
@@ -88,7 +88,7 @@ export class Client extends EventEmitter {
    * @param job The job to be uploaded.
    * @return Completes when the operation is done.
    */
-  public async uploadJob(job: Job): Promise<void> {
+  async uploadJob(job: Job): Promise<void> {
     if (!job.repoToken.length && !job.serviceName.length) throw new TypeError('The job does not meet the requirements.');
 
     const body = new FormData;
@@ -148,7 +148,7 @@ export class ClientError extends Error {
    * @param message A message describing the error.
    * @param uri The URL of the HTTP request or response that failed.
    */
-  constructor(message: string = '', public readonly uri: URL | null = null) {
+  constructor(message: string = '', readonly uri: URL | null = null) {
     super(message);
     this.name = 'ClientError';
   }
@@ -157,7 +157,7 @@ export class ClientError extends Error {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     let values = `"${this.message}"`;
     if (this.uri) values = `${values}, uri: "${this.uri.href}"`;
     return `${this.name}(${values})`;
