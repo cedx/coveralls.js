@@ -115,6 +115,21 @@ import {Configuration} from '../src';
     expect(next.value[0]).to.equal('bar');
     expect(next.value[1]).to.equal('baz');
     expect(iterator.next().done).to.be.true;
+
+    // It should allow the "iterable" protocol.
+    let index = 0;
+    for (const [key, value] of config) {
+      if (index == 0) {
+        expect(key).to.equal('foo');
+        expect(value).to.equal('bar');
+      }
+      else if (index == 1) {
+        expect(key).to.equal('bar');
+        expect(value).to.equal('baz');
+      }
+      else expect.fail('More than two iteration rounds.');
+      index++;
+    }
   }
 
   /**
