@@ -71,12 +71,11 @@ export class Client extends EventEmitter {
     if (!job.runAt) job.runAt = new Date;
 
     try {
-      if ((await which('git')).length) {
-        const git = await GitData.fromRepository();
-        const branch = job.git ? job.git.branch : '';
-        if (git.branch == 'HEAD' && branch.length) git.branch = branch;
-        job.git = git;
-      }
+      await which('git');
+      const git = await GitData.fromRepository();
+      const branch = job.git ? job.git.branch : '';
+      if (git.branch == 'HEAD' && branch.length) git.branch = branch;
+      job.git = git;
     }
 
     catch { /* Noop */ }
