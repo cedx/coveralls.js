@@ -93,7 +93,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#Symbol.iterator}
+   * @test {Configuration#[Symbol.iterator]}
    */
   @test testSymbolIterator(): void {
     // It should return a done iterator if configuration is empty.
