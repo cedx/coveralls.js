@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [8.0.0](https://github.com/cedx/coveralls.js/compare/v7.1.0...v8.0.0)
+- Breaking change: changed the signature of the `Client`, `ClientError` and `GitRemote` constructors.
+- Updated the package dependencies.
+
 ## Version [7.1.0](https://github.com/cedx/coveralls.js/compare/v7.0.0...v7.1.0)
 - Ported the unit tests to classes with experimental decorators.
 - Updated the package dependencies.
