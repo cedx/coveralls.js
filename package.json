@@ -8,7 +8,7 @@
   "name": "@cedx/coveralls",
   "repository": "cedx/coveralls.js",
   "types": "./lib/index.d.ts",
-  "version": "7.1.0",
+  "version": "8.0.0",
   "bin": {
     "coveralls": "./bin/coveralls.js"
   },
@@ -25,7 +25,7 @@
     "@types/chai": "^4.1.4",
     "@types/form-data": "^2.2.1",
     "@types/js-yaml": "^3.11.2",
-    "@types/node": "^10.7.0",
+    "@types/node": "^10.7.1",
     "@types/node-fetch": "^2.1.2",
     "@types/xml2js": "^0.4.3",
     "chai": "^4.1.2",
@@ -34,7 +34,7 @@
     "mocha": "^5.2.0",
     "mocha-typescript": "^1.1.17",
     "nyc": "^13.0.1",
-    "source-map-support": "^0.5.8",
+    "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "typedoc": "^0.12.0",
