@@ -9,7 +9,7 @@ import {GitData, Job, SourceFile} from '../src';
 @suite class JobTest {
 
   /**
-   * @test {Job.fromJson}
+   * Tests the `Job.fromJson()` method.
    */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
@@ -47,7 +47,7 @@ import {GitData, Job, SourceFile} from '../src';
   }
 
   /**
-   * @test {Job#toJSON}
+   * Tests the `Job#toJSON()` method.
    */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
@@ -77,7 +77,7 @@ import {GitData, Job, SourceFile} from '../src';
   }
 
   /**
-   * @test {Job#toString}
+   * Tests the `Job#toString()` method.
    */
   @test testToString(): void {
     const job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});

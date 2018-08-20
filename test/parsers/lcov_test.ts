@@ -13,7 +13,7 @@ import {parseReport} from '../../src/parsers/lcov';
 @suite class LcovTest {
 
   /**
-   * @test {parseReport}
+   * Tests the `parseReport()` function.
    */
   @test async parseReport(): Promise<void> {
     // It should properly parse LCOV reports.

@@ -9,7 +9,7 @@ import {Configuration} from '../src';
 @suite class ConfigurationTest {
 
   /**
-   * @test {Configuration.fromEnvironment}
+   * Tests the `Configuration.fromEnvironment()` method.
    */
   @test async testFromEnvironment(): Promise<void> {
     // It should return an empty configuration for an empty environment.
@@ -34,7 +34,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration.fromYaml}
+   * Tests the `Configuration.fromYaml()` method.
    */
   @test testFromYaml(): void {
     // It should throw an exception with a non-object value.
@@ -50,7 +50,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration.loadDefaults}
+   * Tests the `Configuration.loadDefaults()` method.
    */
   @test async testLoadDefaults(): Promise<void> {
     // It should properly initialize from a `.coveralls.yml` file.
@@ -68,7 +68,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#keys}
+   * Tests the `Configuration#keys` property.
    */
   @test testKeys(): void {
     // It should return an empty array for an empty configuration.
@@ -82,7 +82,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#length}
+   * Tests the `Configuration#length` property.
    */
   @test testLength(): void {
     // It should return zero for an empty configuration.
@@ -93,7 +93,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#[Symbol.iterator]}
+   * Tests the `Configuration#[Symbol.iterator]()` method.
    */
   @test testSymbolIterator(): void {
     // It should return a done iterator if configuration is empty.
@@ -133,7 +133,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#get}
+   * Tests the `Configuration#get()` method.
    */
   @test testGet(): void {
     // It should properly get the configuration entries.
@@ -145,7 +145,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#has}
+   * Tests the `Configuration#has()` method.
    */
   @test testHas(): void {
     // It should return `false` if the specified key is not contained.
@@ -156,7 +156,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#merge}
+   * Tests the `Configuration#merge()` method.
    */
   @test testMerge(): void {
     // It should have the same entries as the other configuration.
@@ -170,7 +170,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#remove}
+   * Tests the `Configuration#remove()` method.
    */
   @test testRemove(): void {
     // It should properly remove the configuration entries.
@@ -184,7 +184,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#set}
+   * Tests the `Configuration#set()` method.
    */
   @test testSet(): void {
     // It should properly set the configuration entries.
@@ -196,7 +196,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#toJSON}
+   * Tests the `Configuration#toJSON()` method.
    */
   @test testToJson(): void {
     // It should return an empty map for a newly created instance.
@@ -211,7 +211,7 @@ import {Configuration} from '../src';
   }
 
   /**
-   * @test {Configuration#toString}
+   * Tests the `Configuration#toString()` method.
    */
   @test testToString(): void {
     const config = String(new Configuration({bar: 'baz', foo: 'bar'}));

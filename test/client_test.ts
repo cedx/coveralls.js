@@ -9,7 +9,7 @@ import {Client, Job} from '../src';
 @suite class ClientTest {
 
   /**
-   * @test {Client#upload}
+   * Tests the `Client#upload()` method.
    */
   @test async testUpload(): Promise<void> {
     // It should throw an error with an empty coverage report.
@@ -34,7 +34,7 @@ import {Client, Job} from '../src';
   }
 
   /**
-   * @test {Client#uploadJob}
+   * Tests the `Client#uploadJob()` method.
    */
   @test async testUploadJob(): Promise<void> {
     // It should throw an error with an empty test job.

@@ -13,7 +13,7 @@ import {parseReport} from '../../src/parsers/clover';
 @suite class CloverTest {
 
   /**
-   * @test {parseReport}
+   * Tests the `parseReport()` function.
    */
   @test async parseReport(): Promise<void> {
     // It should properly parse Clover reports.

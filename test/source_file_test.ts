@@ -9,7 +9,7 @@ import {SourceFile} from '../src';
 @suite class SourceFileTest {
 
   /**
-   * @test {SourceFile.fromJson}
+   * Tests the `SourceFile.fromJson()` method.
    */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
@@ -35,7 +35,7 @@ import {SourceFile} from '../src';
   }
 
   /**
-   * @test {SourceFile#toJSON}
+   * Tests the `SourceFile#toJSON()` method.
    */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
@@ -64,7 +64,7 @@ import {SourceFile} from '../src';
   }
 
   /**
-   * @test {SourceFile#toString}
+   * Tests the `SourceFile#toString()` method.
    */
   @test testToString(): void {
     const file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {

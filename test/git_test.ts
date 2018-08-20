@@ -9,7 +9,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
 @suite class GitCommitTest {
 
   /**
-   * @test {GitCommit.fromJson}
+   * Tests the `GitCommit.fromJson()` method.
    */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
@@ -37,7 +37,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitCommit#toJSON}
+   * Tests the `GitCommit#toJSON()` method.
    */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
@@ -61,7 +61,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitCommit#toString}
+   * Tests the `GitCommit#toString()` method.
    */
   @test testToString(): void {
     const commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', {
@@ -89,7 +89,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
 @suite class GitDataTest {
 
   /**
-   * @test {GitData.fromJson}
+   * Tests the `GitData.fromJson()` method.
    */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
@@ -118,7 +118,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitData.fromRepository}
+   * Tests the `GitData.fromRepository()` method.
    */
   @test async testFromRepository(): Promise<void> {
     // It should retrieve the Git data from the executable output.
@@ -137,7 +137,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitData#toJSON}
+   * Tests the `GitData#toJSON()` method.
    */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
@@ -165,7 +165,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitData#toString}
+   * Tests the `GitData#toString()` method.
    */
   @test testToString(): void {
     const data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), {
@@ -189,7 +189,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
 @suite class GitRemoteTest {
 
   /**
-   * @test {GitRemote.fromJson}
+   * Tests the `GitRemote.fromJson()` method.
    */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
@@ -206,7 +206,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitRemote#toJSON}
+   * Tests the `GitRemote#toJSON()` method.
    */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
@@ -223,7 +223,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 
   /**
-   * @test {GitRemote#toString}
+   * Tests the `GitRemote#toString()` method.
    */
   @test testToString(): void {
     const remote = String(new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')));
