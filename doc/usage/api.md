@@ -36,11 +36,11 @@ The `Client` class is an [`EventEmitter`](https://nodejs.org/api/events.html) th
 You can subscribe to them using the `on()` method:
 
 ```ts
-client.on('request', (request) =>
+client.on(Client.eventRequest, (request) =>
   console.log(`Client request: ${request.url}`)
 );
 
-client.on('response', (request, response) =>
+client.on(Client.eventResponse, (request, response) =>
   console.log(`Server response: ${response.status}`)
 );
 ```
