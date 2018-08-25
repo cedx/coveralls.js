@@ -29,7 +29,7 @@ async function main() {
   }
 
   // Run the program.
-  const client = new Client('COVERALLS_ENDPOINT' in process.env ? process.env.COVERALLS_ENDPOINT : Client.defaultEndPoint);
+  const client = new Client('COVERALLS_ENDPOINT' in process.env ? new URL(process.env.COVERALLS_ENDPOINT) : Client.defaultEndPoint);
   const coverage = await promises.readFile(program.file, 'utf8');
   console.log(`[Coveralls] Submitting to ${client.endPoint}`);
   return client.upload(coverage);
