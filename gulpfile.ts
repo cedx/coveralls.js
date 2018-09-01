@@ -2,7 +2,11 @@ import {spawn, SpawnOptions} from 'child_process';
 import * as del from 'del';
 import {promises} from 'fs';
 import * as gulp from 'gulp';
+import * as replace from 'gulp-replace';
 import {delimiter, normalize, resolve} from 'path';
+
+// @ts-ignore: disable processing of the imported JSON file.
+import * as pkg from './package.json';
 
 // Initialize the build system.
 const _path = 'PATH' in process.env ? process.env.PATH! : '';
@@ -66,6 +70,14 @@ gulp.task('upgrade', async () => {
 });
 
 /**
+ * Updates the version number contained in the sources.
+ */
+gulp.task('version', () => gulp.src('bin/coveralls.js')
+  .pipe(replace(/const version = '\d+(\.\d+){2}'/g, `const version = '${pkg.version}'`))
+  .pipe(gulp.dest('bin'))
+);
+
+/**
  * Watches for file changes.
  */
 gulp.task('watch', () => {
@@ -73,8 +85,10 @@ gulp.task('watch', () => {
   gulp.watch('test/**/*.ts', gulp.task('test'));
 });
 
-// Run the default tasks.
-gulp.task('default', gulp.task('build'));
+/**
+ * Runs the default tasks.
+ */
+gulp.task('default', gulp.series('build', 'version'));
 
 /**
  * Spawns a new process using the specified command.

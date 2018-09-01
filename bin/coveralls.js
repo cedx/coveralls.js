@@ -5,21 +5,25 @@
 const program = require('commander');
 const {promises} = require('fs');
 const {Client} = require('../lib');
-const pkg = require('../package.json');
+
+/**
+ * The version number of the package.
+ */
+const version = '8.0.0';
 
 /**
  * Application entry point.
  * @return {Promise} Completes when the program is terminated.
  */
 async function main() {
+  // Initialize the application.
   process.title = 'Coveralls.js';
 
   // Parse the command line arguments.
   program.name('coveralls')
     .description('Send a coverage report to the Coveralls service.')
-    .version(pkg.version, '-v, --version')
-    .arguments('<file>')
-    .action(file => program.file = file)
+    .version(version, '-v, --version')
+    .arguments('<file>').action(file => program.file = file)
     .parse(process.argv);
 
   if (!program.file) {
