@@ -29,7 +29,7 @@ export class Client extends EventEmitter {
   static readonly eventResponse: string = 'response';
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new client.
    * @param endPoint The URL of the API end point.
    */
   constructor(public endPoint: URL = Client.defaultEndPoint) {

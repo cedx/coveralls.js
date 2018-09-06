@@ -33,7 +33,7 @@ export class GitCommit {
   message: string;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new Git commit.
    * @param id The commit identifier.
    * @param options An object specifying values used to initialize this instance.
    */
@@ -138,7 +138,7 @@ export class GitData {
   remotes: GitRemote[];
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new Git data.
    * @param commit The Git commit.
    * @param options An object specifying values used to initialize this instance.
    */
@@ -246,7 +246,7 @@ export interface GitDataOptions {
 export class GitRemote {
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new Git remote repository.
    * @param name The remote's name.
    * @param url The remote's URL.
    */

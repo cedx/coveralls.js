@@ -13,7 +13,7 @@ export class Configuration {
   private _params: Map<string, string | undefined>;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new configuration.
    * @param params The configuration parameters.
    */
   constructor(params: StringMap = {}) {

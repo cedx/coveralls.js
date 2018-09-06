@@ -16,7 +16,7 @@ export class SourceFile {
   source: string;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new source file.
    * @param name The file path of this source file.
    * @param sourceDigest The MD5 digest of the full source code of this file.
    * @param options An object specifying values used to initialize this instance.

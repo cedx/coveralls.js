@@ -58,7 +58,7 @@ export class Job {
   sourceFiles: SourceFile[];
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new job.
    * @param options An object specifying values used to initialize this instance.
    */
   constructor(options: Partial<JobOptions> = {}) {
