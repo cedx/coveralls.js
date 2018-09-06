@@ -193,7 +193,7 @@ export class Configuration {
    * @param key The key to seek for.
    * @param value The parameter value.
    */
-  set(key: string, value: string | undefined): void {
+  set(key: string, value?: string): void {
     this._params.set(key, value);
   }
 
