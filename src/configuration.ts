@@ -183,18 +183,23 @@ export class Configuration {
   /**
    * Removes the value associated to the specified key.
    * @param key The key to seek for.
+   * @return The value associated with the specified key before it was removed.
    */
-  remove(key: string): void {
+  remove(key: string): string | undefined {
+    const previousValue = this.get(key);
     this._params.delete(key);
+    return previousValue;
   }
 
   /**
    * Associates a given value to the specified key.
    * @param key The key to seek for.
    * @param value The parameter value.
+   * @return This instance.
    */
-  set(key: string, value?: string): void {
+  set(key: string, value?: string): this {
     this._params.set(key, value);
+    return this;
   }
 
   /**
