@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [8.1.0](https://github.com/cedx/coveralls.js/compare/v8.0.0...v8.1.0)
+- The `Configuration#remove()` method now returns the removed value.
+- The `Configuration#set()` method now uses a fluent interface.
+- Updated the package dependencies.
+
 ## Version [8.0.0](https://github.com/cedx/coveralls.js/compare/v7.1.0...v8.0.0)
 - Breaking change: changed the signature of the `Client`, `ClientError` and `GitRemote` constructors.
 - Updated the package dependencies.
