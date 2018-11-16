@@ -18,7 +18,7 @@
     "commander": "^2.19.0",
     "form-data": "^2.3.3",
     "js-yaml": "^3.12.0",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.3.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
