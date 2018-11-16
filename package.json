@@ -8,7 +8,7 @@
   "name": "@cedx/coveralls",
   "repository": "cedx/coveralls.js",
   "types": "./lib/index.d.ts",
-  "version": "8.1.0",
+  "version": "8.2.0",
   "bin": {
     "coveralls": "./bin/coveralls.js"
   },

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [8.2.0](https://github.com/cedx/coveralls.js/compare/v8.1.0...v8.2.0)
+- Improved the handling of SSH-based [Git](https://git-scm.com) remotes.
+- Updated the package dependencies.
+
 ## Version [8.1.0](https://github.com/cedx/coveralls.js/compare/v8.0.0...v8.1.0)
 - The `Configuration#remove()` method now returns the removed value.
 - The `Configuration#set()` method now uses a fluent interface.
