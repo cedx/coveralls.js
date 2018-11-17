@@ -1,7 +1,7 @@
 # Changelog
 
 ## Version [8.2.1](https://github.com/cedx/coveralls.js/compare/v8.2.0...v8.2.1)
-- Fixed the [issue #4](https://github.com/cedx/coveralls.js/issues/4): an invalid output URL was generated when using a well-formed input URL.
+- Fixed the [GitHub issue #4](https://github.com/cedx/coveralls.js/issues/4): an invalid output URL was generated when using a well-formed input URL.
 
 ## Version [8.2.0](https://github.com/cedx/coveralls.js/compare/v8.1.0...v8.2.0)
 - Improved the handling of SSH-based [Git](https://git-scm.com) remotes.

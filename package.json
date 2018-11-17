@@ -1,12 +1,11 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://github.com/cedx/coveralls.js/issues",
+  "bugs": "https://git.belin.io/cedx/coveralls.js/issues",
   "description": "Send LCOV and Clover coverage reports to the Coveralls service.",
   "homepage": "https://dev.belin.io/coveralls.js",
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "@cedx/coveralls",
-  "repository": "cedx/coveralls.js",
   "types": "./lib/index.d.ts",
   "version": "8.2.1",
   "bin": {
@@ -52,6 +51,10 @@
     "coveralls",
     "lcov"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.belin.io/cedx/coveralls.js.git"
+  },
   "scripts": {
     "coverage": "gulp coverage",
     "prepare": "gulp build",

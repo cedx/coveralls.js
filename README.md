@@ -4,11 +4,14 @@
 Send [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) and [Clover](https://www.atlassian.com/software/clover) coverage reports to the [Coveralls](https://coveralls.io) service,
 in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [TypeScript](https://www.typescriptlang.org).
 
-## Resources
-- [Documentation](https://dev.belin.io/coveralls.js)
+## Documentation
+- [User guide](https://dev.belin.io/coveralls.js)
 - [API reference](https://dev.belin.io/coveralls.js/api)
+
+## Development
+- [Git repository](https://git.belin.io/cedx/coveralls.js)
 - [npm package](https://www.npmjs.com/package/@cedx/coveralls)
-- [GitHub repository](https://github.com/cedx/coveralls.js)
+- [Submit an issue](https://git.belin.io/cedx/coveralls.js/issues)
 
 ## License
 [Coveralls for JS](https://dev.belin.io/coveralls.js) is distributed under the MIT License.
