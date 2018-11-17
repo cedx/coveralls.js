@@ -1,4 +1,4 @@
-path: blob/master
+path: src/branch/master
 source: bin/coveralls.js
 
 # Command line interface
