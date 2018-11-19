@@ -8,6 +8,7 @@ const {Client} = require('../lib');
 
 /**
  * The version number of the package.
+ * @type {string}
  */
 const version = '8.2.1';
 
