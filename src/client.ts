@@ -1,7 +1,7 @@
 import {which} from '@cedx/which';
 import {EventEmitter} from 'events';
 import * as FormData from 'form-data';
-import * as fetch from 'node-fetch';
+import fetch from 'node-fetch';
 import {Request, Response} from 'node-fetch';
 import {Configuration} from './configuration';
 import {GitCommit, GitData} from './git';
