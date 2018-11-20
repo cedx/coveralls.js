@@ -32,7 +32,7 @@ gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web'
 /**
  * Uploads the results of the code coverage.
  */
-gulp.task('coverage', () => _exec('coveralls', ['var/lcov.info']));
+gulp.task('coverage', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
 
 /**
  * Builds the documentation.
