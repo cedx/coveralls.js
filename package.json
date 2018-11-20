@@ -1,6 +1,6 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://git.belin.io/cedx/coveralls.js/issues",
+  "bugs": "https://github.com/cedx/coveralls.js/issues",
   "description": "Send LCOV and Clover coverage reports to the Coveralls service.",
   "homepage": "https://dev.belin.io/coveralls.js",
   "license": "MIT",
