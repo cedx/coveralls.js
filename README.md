@@ -11,7 +11,7 @@ in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [Ty
 ## Development
 - [Git repository](https://git.belin.io/cedx/coveralls.js)
 - [npm package](https://www.npmjs.com/package/@cedx/coveralls)
-- [Submit an issue](https://git.belin.io/cedx/coveralls.js/issues)
+- [Submit an issue](https://github.com/cedx/coveralls.js/issues)
 
 ## License
 [Coveralls for JS](https://dev.belin.io/coveralls.js) is distributed under the MIT License.
