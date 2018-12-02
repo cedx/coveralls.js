@@ -8,6 +8,9 @@ The easy way. From a command prompt with administrator privileges, install the `
 npm install --global @cedx/coveralls
 ```
 
+!!! tip
+    Consider adding the [`npm install --global`](https://docs.npmjs.com/files/folders) executables directory to your system path.
+
 Then use it to upload your coverage reports:
 
 ```shell
