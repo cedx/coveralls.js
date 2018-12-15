@@ -32,7 +32,7 @@ gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web'
 /**
  * Uploads the results of the code coverage.
  */
-gulp.task('coverage', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
+gulp.task('coverage', () => _exec('node', ['bin/main.js', 'var/lcov.info']));
 
 /**
  * Builds the documentation.
@@ -73,7 +73,7 @@ gulp.task('upgrade', async () => {
 /**
  * Updates the version number contained in the sources.
  */
-gulp.task('version', () => gulp.src('bin/coveralls.js')
+gulp.task('version', () => gulp.src('bin/main.js')
   .pipe(replace(/const version = '\d+(\.\d+){2}'/g, `const version = '${pkg.version}'`))
   .pipe(gulp.dest('bin'))
 );

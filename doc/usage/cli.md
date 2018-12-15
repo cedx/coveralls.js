@@ -1,5 +1,5 @@
 path: src/branch/master
-source: bin/coveralls.js
+source: bin/main.js
 
 # Command line interface
 The easy way. From a command prompt with administrator privileges, install the `coveralls` executable:
