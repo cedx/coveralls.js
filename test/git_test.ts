@@ -134,9 +134,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
     const origin = data.remotes.filter(remote => remote.name == 'origin');
     expect(origin).to.have.lengthOf(1);
     expect(origin[0].url!.href).to.be.oneOf([
-      'https://git.belin.io/cedx/coveralls.js.git',
       'https://github.com/cedx/coveralls.js.git',
-      'ssh://git@git.belin.io/cedx/coveralls.js.git',
       'ssh://git@github.com/cedx/coveralls.js.git'
     ]);
   }
@@ -204,13 +202,13 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(remote.url).to.be.null;
 
     // It should return an initialized instance for a non-empty map.
-    remote = GitRemote.fromJson({name: 'origin', url: 'git@git.belin.io:cedx/coveralls.js.git'});
+    remote = GitRemote.fromJson({name: 'origin', url: 'git@github.com:cedx/coveralls.js.git'});
     expect(remote).to.be.instanceof(GitRemote);
     expect(remote.name).to.equal('origin');
-    expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('ssh://git@git.belin.io/cedx/coveralls.js.git');
+    expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('ssh://git@github.com/cedx/coveralls.js.git');
 
-    remote = GitRemote.fromJson({name: 'origin', url: 'https://git.belin.io/cedx/coveralls.js.git'});
-    expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('https://git.belin.io/cedx/coveralls.js.git');
+    remote = GitRemote.fromJson({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
+    expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
   }
 
   /**
@@ -224,28 +222,28 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(map.url).to.be.null;
 
     // It should return a non-empty map for an initialized instance.
-    map = new GitRemote('origin', 'git@git.belin.io:cedx/coveralls.js.git').toJSON();
+    map = new GitRemote('origin', 'git@github.com:cedx/coveralls.js.git').toJSON();
     expect(Object.keys(map)).to.have.lengthOf(2);
     expect(map.name).to.equal('origin');
-    expect(map.url).to.equal('ssh://git@git.belin.io/cedx/coveralls.js.git');
+    expect(map.url).to.equal('ssh://git@github.com/cedx/coveralls.js.git');
 
-    map = new GitRemote('origin', new URL('https://git.belin.io/cedx/coveralls.js.git')).toJSON();
-    expect(map.url).to.equal('https://git.belin.io/cedx/coveralls.js.git');
+    map = new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')).toJSON();
+    expect(map.url).to.equal('https://github.com/cedx/coveralls.js.git');
   }
 
   /**
    * Tests the `GitRemote#toString()` method.
    */
   @test testToString(): void {
-    let remote = String(new GitRemote('origin', 'git@git.belin.io:cedx/coveralls.js.git'));
+    let remote = String(new GitRemote('origin', 'git@github.com:cedx/coveralls.js.git'));
 
     // It should start with the class name.
     expect(remote.startsWith('GitRemote {')).to.be.true;
 
     // It should contain the instance properties.
-    expect(remote).to.contain('"name":"origin"').and.contain('"url":"ssh://git@git.belin.io/cedx/coveralls.js.git"');
+    expect(remote).to.contain('"name":"origin"').and.contain('"url":"ssh://git@github.com/cedx/coveralls.js.git"');
 
-    remote = String(new GitRemote('origin', new URL('https://git.belin.io/cedx/coveralls.js.git')));
-    expect(remote).to.contain('"url":"https://git.belin.io/cedx/coveralls.js.git"');
+    remote = String(new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')));
+    expect(remote).to.contain('"url":"https://github.com/cedx/coveralls.js.git"');
   }
 }
