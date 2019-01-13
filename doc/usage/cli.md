@@ -1,4 +1,4 @@
-path: src/branch/master
+path: blob/master
 source: bin/main.js
 
 # Command line interface

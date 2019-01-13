@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [8.3.0](https://github.com/cedx/coveralls.js/compare/v8.2.1...v8.3.0)
+- Updated the package dependencies.
+- Updated the URL of the Git repository.
+
 ## Version [8.2.1](https://github.com/cedx/coveralls.js/compare/v8.2.0...v8.2.1)
 - Fixed the [GitHub issue #4](https://github.com/cedx/coveralls.js/issues/4): an invalid output URL was generated when using a well-formed input URL.
 

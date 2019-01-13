@@ -1,5 +1,5 @@
 # Coveralls for JS
-![Runtime](https://img.shields.io/badge/node-%3E%3D10.13-brightgreen.svg) ![Release](https://img.shields.io/npm/v/@cedx/coveralls.svg) ![License](https://img.shields.io/npm/l/@cedx/coveralls.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/coveralls.svg) ![Dependencies](https://david-dm.org/cedx/coveralls.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/coveralls.js/badge.svg) ![Build](https://travis-ci.com/cedx/coveralls.js.svg)
+![Runtime](https://img.shields.io/badge/node-%3E%3D10.15-brightgreen.svg) ![Release](https://img.shields.io/npm/v/@cedx/coveralls.svg) ![License](https://img.shields.io/npm/l/@cedx/coveralls.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/coveralls.svg) ![Dependencies](https://david-dm.org/cedx/coveralls.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/coveralls.js/badge.svg) ![Build](https://travis-ci.com/cedx/coveralls.js.svg)
 
 Send [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) and [Clover](https://www.atlassian.com/software/clover) coverage reports to the [Coveralls](https://coveralls.io) service,
 in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [TypeScript](https://www.typescriptlang.org).
@@ -9,7 +9,7 @@ in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [Ty
 - [API reference](https://dev.belin.io/coveralls.js/api)
 
 ## Development
-- [Git repository](https://git.belin.io/cedx/coveralls.js)
+- [Git repository](https://github.com/cedx/coveralls.js)
 - [npm package](https://www.npmjs.com/package/@cedx/coveralls)
 - [Submit an issue](https://github.com/cedx/coveralls.js/issues)
 
