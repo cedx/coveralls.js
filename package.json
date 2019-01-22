@@ -17,7 +17,7 @@
     "coveralls": "./bin/main.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^4.8.0",
+    "@cedx/lcov": "^5.0.0",
     "@cedx/which": "^5.2.0",
     "commander": "^2.19.0",
     "form-data": "^2.3.3",
@@ -40,7 +40,7 @@
     "mocha-typescript": "^1.1.17",
     "nyc": "^13.1.0",
     "source-map-support": "^0.5.10",
-    "ts-node": "^7.0.1",
+    "ts-node": "^8.0.1",
     "tslint": "^5.12.1",
     "typedoc": "^0.14.2",
     "typescript": "^3.2.4"
