@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [8.4.0](https://github.com/cedx/coveralls.js/compare/v8.3.0...v8.4.0)
+- Updated the package dependencies.
+
 ## Version [8.3.0](https://github.com/cedx/coveralls.js/compare/v8.2.1...v8.3.0)
 - Updated the package dependencies.
 - Updated the URL of the Git repository.
