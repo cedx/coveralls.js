@@ -3,10 +3,10 @@
   "description": "Send LCOV and Clover coverage reports to the Coveralls service.",
   "homepage": "https://dev.belin.io/coveralls.js",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "lib/index",
   "name": "@cedx/coveralls",
   "repository": "github:cedx/coveralls.js",
-  "types": "./lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "version": "8.4.0",
   "author": {
     "email": "cedric@belin.io",
