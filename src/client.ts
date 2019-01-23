@@ -30,18 +30,16 @@ export class Client extends EventEmitter {
   static readonly eventResponse: string = 'response';
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Client';
+
+  /**
    * Creates a new client.
    * @param endPoint The URL of the API end point.
    */
   constructor(public endPoint: URL = Client.defaultEndPoint) {
     super();
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Client';
   }
 
   /**

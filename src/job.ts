@@ -8,6 +8,11 @@ import {SourceFile} from './source_file';
 export class Job {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Job';
+
+  /**
    * The current SHA of the commit being built to override the `git` parameter.
    */
   commitSha: string = '';
@@ -67,13 +72,6 @@ export class Job {
     this.serviceJobId = serviceJobId;
     this.serviceName = serviceName;
     this.sourceFiles = sourceFiles;
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Job';
   }
 
   /**

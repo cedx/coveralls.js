@@ -8,6 +8,11 @@ import {JsonMap} from './map';
 export class GitCommit {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'GitCommit';
+
+  /**
    * The author mail address.
    */
   authorEmail: string;
@@ -44,13 +49,6 @@ export class GitCommit {
     this.committerEmail = committerEmail;
     this.committerName = committerName;
     this.message = message;
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'GitCommit';
   }
 
   /**
@@ -128,6 +126,11 @@ export interface GitCommitOptions {
 export class GitData {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'GitData';
+
+  /**
    * The branch name.
    */
   branch: string;
@@ -146,13 +149,6 @@ export class GitData {
     const {branch = '', remotes = []} = options;
     this.branch = branch;
     this.remotes = remotes;
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'GitData';
   }
 
   /**
@@ -246,6 +242,11 @@ export interface GitDataOptions {
 export class GitRemote {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'GitRemote';
+
+  /**
    * The remote's URL.
    */
   url: URL | null;
@@ -259,13 +260,6 @@ export class GitRemote {
     this.url = typeof url == 'string' ?
       new URL(/^\w+:\/\//.test(url) ? url : url.replace(/^([^@]+@)?([^:]+):(.+)$/, 'ssh://$1$2/$3')) :
       url;
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'GitRemote';
   }
 
   /**

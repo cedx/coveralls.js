@@ -6,6 +6,11 @@ import {JsonMap} from './map';
 export class SourceFile {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'SourceFile';
+
+  /**
    * The coverage data for this file's job.
    */
   coverage: Array<number | null>;
@@ -25,13 +30,6 @@ export class SourceFile {
     const {coverage = [], source = ''} = options;
     this.coverage = coverage;
     this.source = source;
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'SourceFile';
   }
 
   /**

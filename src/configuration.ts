@@ -8,6 +8,11 @@ import {JsonMap, StringMap} from './map';
 export class Configuration {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Configuration';
+
+  /**
    * The configuration parameters.
    */
   private _params: Map<string, string | undefined>;
@@ -18,13 +23,6 @@ export class Configuration {
    */
   constructor(params: StringMap = {}) {
     this._params = new Map(Object.entries(params));
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Configuration';
   }
 
   /**
