@@ -4,7 +4,6 @@
   "homepage": "https://dev.belin.io/coveralls.js",
   "license": "MIT",
   "main": "lib/index",
-  "module": "lib/index.mjs",
   "name": "@cedx/coveralls",
   "repository": "github:cedx/coveralls.js",
   "types": "lib/index.d.ts",
