@@ -15,7 +15,7 @@
     "url": "https://belin.io"
   },
   "bin": {
-    "coveralls": "./bin/main.js"
+    "coveralls": "bin/main.js"
   },
   "dependencies": {
     "@cedx/lcov": "^5.0.0",
