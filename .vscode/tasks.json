@@ -2,6 +2,12 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "group": {"isDefault": true, "kind": "build"},
+      "problemMatcher": [],
+      "task": "default",
+      "type": "gulp"
+    },
+    {
       "problemMatcher": [],
       "task": "build",
       "type": "gulp"
@@ -9,6 +15,11 @@
     {
       "problemMatcher": [],
       "task": "clean",
+      "type": "gulp"
+    },
+    {
+      "problemMatcher": [],
+      "task": "coverage",
       "type": "gulp"
     },
     {
@@ -27,7 +38,6 @@
       "type": "gulp"
     },
     {
-      "group": {"isDefault": true, "kind": "build"},
       "problemMatcher": [],
       "task": "test",
       "type": "gulp"
@@ -35,6 +45,11 @@
     {
       "problemMatcher": [],
       "task": "upgrade",
+      "type": "gulp"
+    },
+    {
+      "problemMatcher": [],
+      "task": "version",
       "type": "gulp"
     },
     {
