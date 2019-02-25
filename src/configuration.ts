@@ -148,7 +148,7 @@ export class Configuration {
   /**
    * Returns a new iterator that allows iterating the entries of this configuration.
    */
-  [Symbol.iterator](): Iterator<[string, string | undefined]> {
+  [Symbol.iterator](): IterableIterator<[string, string | undefined]> {
     return this._params.entries();
   }
 
