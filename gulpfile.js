@@ -1,9 +1,8 @@
 'use strict';
-
 const {spawn} = require('child_process');
 const del = require('del');
 const {promises} = require('fs');
-const gulp = require('gulp');
+const {dest, series, src, task, watch} = require('gulp');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const {delimiter, normalize, resolve} = require('path');
@@ -23,25 +22,25 @@ const sources = ['*.js', 'bin/*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.t
 /**
  * Builds the project.
  */
-gulp.task('build:cjs', () => _exec('tsc'));
-gulp.task('build:esm', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
-gulp.task('build:rename', () => gulp.src('lib/**/*.js').pipe(rename({extname: '.mjs'})).pipe(gulp.dest('lib')));
-gulp.task('build', gulp.series('build:esm', 'build:rename', 'build:cjs'));
+task('build:cjs', () => _exec('tsc'));
+task('build:esm', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
+task('build:rename', () => src('lib/**/*.js').pipe(rename({extname: '.mjs'})).pipe(dest('lib')));
+task('build', series('build:esm', 'build:rename', 'build:cjs'));
 
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
+task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 
 /**
  * Uploads the results of the code coverage.
  */
-gulp.task('coverage', () => _exec('node', ['bin/main.js', 'var/lcov.info']));
+task('coverage', () => _exec('node', ['bin/main.js', 'var/lcov.info']));
 
 /**
  * Builds the documentation.
  */
-gulp.task('doc', async () => {
+task('doc', async () => {
   await promises.copyFile('CHANGELOG.md', 'doc/about/changelog.md');
   await promises.copyFile('LICENSE.md', 'doc/about/license.md');
   await _exec('typedoc');
@@ -51,22 +50,22 @@ gulp.task('doc', async () => {
 /**
  * Fixes the coding standards issues.
  */
-gulp.task('fix', () => _exec('tslint', ['--fix', ...sources]));
+task('fix', () => _exec('tslint', ['--fix', ...sources]));
 
 /**
  * Performs the static analysis of source code.
  */
-gulp.task('lint', () => _exec('tslint', sources));
+task('lint', () => _exec('tslint', sources));
 
 /**
  * Runs the test suites.
  */
-gulp.task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), 'test/**/*.ts']));
+task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), 'test/**/*.ts']));
 
 /**
  * Upgrades the project to the latest revision.
  */
-gulp.task('upgrade', async () => {
+task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
   await _exec('git', ['pull', '--rebase']);
@@ -77,23 +76,23 @@ gulp.task('upgrade', async () => {
 /**
  * Updates the version number contained in the sources.
  */
-gulp.task('version', () => gulp.src('bin/main.js')
+task('version', () => src('bin/main.js')
   .pipe(replace(/const version = '\d+(\.\d+){2}'/g, `const version = '${pkg.version}'`))
-  .pipe(gulp.dest('bin'))
+  .pipe(dest('bin'))
 );
 
 /**
  * Watches for file changes.
  */
-gulp.task('watch', () => {
-  gulp.watch('src/**/*.ts', {ignoreInitial: false}, gulp.task('build'));
-  gulp.watch('test/**/*.ts', gulp.task('test'));
+task('watch', () => {
+  watch('src/**/*.ts', {ignoreInitial: false}, task('build'));
+  watch('test/**/*.ts', task('test'));
 });
 
 /**
  * Runs the default tasks.
  */
-gulp.task('default', gulp.series('build', 'version'));
+task('default', series('build', 'version'));
 
 /**
  * Spawns a new process using the specified command.
