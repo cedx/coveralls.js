@@ -120,7 +120,7 @@ export class Client extends EventEmitter {
     if (config.has('service_number')) job.serviceNumber = config.get('service_number')!;
     if (config.has('service_pull_request')) job.servicePullRequest = config.get('service_pull_request')!;
 
-    const hasGitData = config.keys.some(key => key == 'service_branch' || key.substr(0, 4) == 'git_');
+    const hasGitData = config.keys.some(key => key == 'service_branch' || key.substring(0, 4) == 'git_');
     if (!hasGitData) job.commitSha = config.has('commit_sha') ? config.get('commit_sha')! : '';
     else {
       const commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha')! : '', {
