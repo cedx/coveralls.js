@@ -14,7 +14,7 @@ import {GitData, Job, SourceFile} from '../src';
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let job = Job.fromJson({});
-    expect(job).to.be.instanceof(Job);
+    expect(job).to.be.an.instanceof(Job);
 
     expect(job.git).to.be.null;
     expect(job.isParallel).to.be.false;
@@ -31,18 +31,18 @@ import {GitData, Job, SourceFile} from '../src';
       source_files: [{name: '/home/cedx/coveralls.js'}]
     });
 
-    expect(job).to.be.instanceof(Job);
+    expect(job).to.be.an.instanceof(Job);
     expect(job.isParallel).to.be.true;
     expect(job.repoToken).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
 
-    expect(job.git).to.be.instanceof(GitData);
+    expect(job.git).to.be.an.instanceof(GitData);
     expect(job.git!.branch).to.equal('develop');
 
-    expect(job.runAt).to.be.instanceof(Date);
+    expect(job.runAt).to.be.an.instanceof(Date);
     expect(job.runAt!.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
 
     expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(1);
-    expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
+    expect(job.sourceFiles[0]).to.be.an.instanceof(SourceFile);
     expect(job.sourceFiles[0].name).to.equal('/home/cedx/coveralls.js');
   }
 

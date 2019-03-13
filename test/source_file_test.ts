@@ -14,7 +14,7 @@ import {SourceFile} from '../src';
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let file = SourceFile.fromJson({});
-    expect(file).to.be.instanceof(SourceFile);
+    expect(file).to.be.an.instanceof(SourceFile);
 
     expect(file.coverage).to.be.an('array').and.be.empty;
     expect(file.name).to.be.empty;
@@ -23,7 +23,7 @@ import {SourceFile} from '../src';
 
     // It should return an initialized instance for a non-empty map.
     file = SourceFile.fromJson({coverage: [null, 2, 0, null, 4, 15, null], name: 'coveralls.js', source: 'function main() {}', source_digest: 'e23fb141da9a7b438479a48eac7b7249'});
-    expect(file).to.be.instanceof(SourceFile);
+    expect(file).to.be.an.instanceof(SourceFile);
 
     expect(file.coverage).to.be.an('array').and.have.lengthOf(7);
     expect(file.coverage[0]).to.be.null;

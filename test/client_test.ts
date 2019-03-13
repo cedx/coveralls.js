@@ -19,7 +19,7 @@ import {Client, Job} from '../src';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(TypeError);
+      expect(err).to.be.an.instanceof(TypeError);
     }
 
     // It should throw an error with an invalid coverage report.
@@ -29,7 +29,7 @@ import {Client, Job} from '../src';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(TypeError);
+      expect(err).to.be.an.instanceof(TypeError);
     }
   }
 
@@ -44,7 +44,7 @@ import {Client, Job} from '../src';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(TypeError);
+      expect(err).to.be.an.instanceof(TypeError);
     }
   }
 }

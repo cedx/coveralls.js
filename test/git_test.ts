@@ -14,7 +14,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitCommit.fromJson({});
-    expect(remote).to.be.instanceof(GitCommit);
+    expect(remote).to.be.an.instanceof(GitCommit);
 
     expect(remote.authorEmail).to.be.empty;
     expect(remote.authorName).to.be.empty;
@@ -29,7 +29,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
       message: 'Hello World!'
     });
 
-    expect(remote).to.be.instanceof(GitCommit);
+    expect(remote).to.be.an.instanceof(GitCommit);
     expect(remote.authorEmail).to.equal('anonymous@secret.com');
     expect(remote.authorName).to.equal('Anonymous');
     expect(remote.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
@@ -94,7 +94,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let data = GitData.fromJson({});
-    expect(data).to.be.instanceof(GitData);
+    expect(data).to.be.an.instanceof(GitData);
     expect(data.branch).to.be.empty;
     expect(data.commit).to.be.null;
     expect(data.remotes).to.be.an('array').and.be.empty;
@@ -106,14 +106,14 @@ import {GitCommit, GitData, GitRemote} from '../src';
       remotes: [{name: 'origin'}]
     });
 
-    expect(data).to.be.instanceof(GitData);
+    expect(data).to.be.an.instanceof(GitData);
     expect(data.branch).to.equal('develop');
 
-    expect(data.commit).to.be.instanceof(GitCommit);
+    expect(data.commit).to.be.an.instanceof(GitCommit);
     expect(data.commit!.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
 
     expect(data.remotes).to.be.an('array').and.have.lengthOf(1);
-    expect(data.remotes[0]).to.be.instanceof(GitRemote);
+    expect(data.remotes[0]).to.be.an.instanceof(GitRemote);
     expect(data.remotes[0].name).to.equal('origin');
   }
 
@@ -125,11 +125,11 @@ import {GitCommit, GitData, GitRemote} from '../src';
     const data = await GitData.fromRepository();
     expect(data.branch).to.not.be.empty;
 
-    expect(data.commit).to.be.instanceof(GitCommit);
+    expect(data.commit).to.be.an.instanceof(GitCommit);
     expect(data.commit!.id).to.match(/^[a-f\d]{40}$/);
 
     expect(data.remotes).to.not.be.empty;
-    expect(data.remotes[0]).to.be.instanceof(GitRemote);
+    expect(data.remotes[0]).to.be.an.instanceof(GitRemote);
 
     const origin = data.remotes.filter(remote => remote.name == 'origin');
     expect(origin).to.have.lengthOf(1);
@@ -197,18 +197,18 @@ import {GitCommit, GitData, GitRemote} from '../src';
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitRemote.fromJson({});
-    expect(remote).to.be.instanceof(GitRemote);
+    expect(remote).to.be.an.instanceof(GitRemote);
     expect(remote.name).to.be.empty;
     expect(remote.url).to.be.null;
 
     // It should return an initialized instance for a non-empty map.
     remote = GitRemote.fromJson({name: 'origin', url: 'git@github.com:cedx/coveralls.js.git'});
-    expect(remote).to.be.instanceof(GitRemote);
+    expect(remote).to.be.an.instanceof(GitRemote);
     expect(remote.name).to.equal('origin');
-    expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('ssh://git@github.com/cedx/coveralls.js.git');
+    expect(remote.url).to.be.an.instanceof(URL).and.have.property('href').that.equal('ssh://git@github.com/cedx/coveralls.js.git');
 
     remote = GitRemote.fromJson({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
-    expect(remote.url).to.be.instanceof(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
+    expect(remote.url).to.be.an.instanceof(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
   }
 
   /**

@@ -20,7 +20,7 @@ import {parseReport} from '../../src/parsers/clover';
     const job = await parseReport(await promises.readFile('test/fixtures/clover.xml', 'utf8'));
     expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(3);
 
-    expect(job.sourceFiles[0]).to.be.instanceof(SourceFile);
+    expect(job.sourceFiles[0]).to.be.an.instanceof(SourceFile);
     expect(job.sourceFiles[0].name).to.equal(join('src', 'client.ts'));
     expect(job.sourceFiles[0].sourceDigest).to.not.be.empty;
     expect(job.sourceFiles[0].coverage).to.include.members([null, 2, 2, 2, 2, null]);
@@ -40,7 +40,7 @@ import {parseReport} from '../../src/parsers/clover';
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(TypeError);
+      expect(err).to.be.an.instanceof(TypeError);
     }
   }
 }

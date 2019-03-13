@@ -43,7 +43,7 @@ import {Configuration} from '../src';
 
     // It should return an initialized instance for a non-empty map.
     const config = Configuration.fromYaml('repo_token: 0123456789abcdef\nservice_name: travis-ci');
-    expect(config).to.be.instanceof(Configuration);
+    expect(config).to.be.an.instanceof(Configuration);
     expect(config).to.have.lengthOf(2);
     expect(config.get('repo_token')).to.equal('0123456789abcdef');
     expect(config.get('service_name')).to.equal('travis-ci');
@@ -55,7 +55,7 @@ import {Configuration} from '../src';
   @test async testLoadDefaults(): Promise<void> {
     // It should properly initialize from a `.coveralls.yml` file.
     let config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
-    expect(config).to.be.instanceof(Configuration);
+    expect(config).to.be.an.instanceof(Configuration);
     expect(config).to.have.length.of.at.least(2);
     expect(config.get('repo_token')).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
     expect(config.get('service_name')).to.equal('travis-pro');
@@ -63,7 +63,7 @@ import {Configuration} from '../src';
     // It should use the environment defaults if the `.coveralls.yml` file is not found.
     const defaults = await Configuration.fromEnvironment();
     config = await Configuration.loadDefaults('.dummy/config.yml');
-    expect(config).to.be.instanceof(Configuration);
+    expect(config).to.be.an.instanceof(Configuration);
     expect(config.toJSON()).to.deep.equal(defaults.toJSON());
   }
 
