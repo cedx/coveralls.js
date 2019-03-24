@@ -8,11 +8,6 @@ import {SourceFile} from './source_file';
 export class Job {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Job';
-
-  /**
    * The current SHA of the commit being built to override the `git` parameter.
    */
   commitSha: string = '';
@@ -117,14 +112,6 @@ export class Job {
     if (this.runAt) map.run_at = this.runAt.toISOString();
 
     return map;
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
 

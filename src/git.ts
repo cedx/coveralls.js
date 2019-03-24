@@ -8,11 +8,6 @@ import {JsonMap} from './map';
 export class GitCommit {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'GitCommit';
-
-  /**
    * The author mail address.
    */
   authorEmail: string;
@@ -79,14 +74,6 @@ export class GitCommit {
     if (this.message.length) map.message = this.message;
     return map;
   }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
-  }
 }
 
 /**
@@ -124,11 +111,6 @@ export interface GitCommitOptions {
  * Represents a Git remote repository.
  */
 export class GitData {
-
-  /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'GitData';
 
   /**
    * The branch name.
@@ -210,14 +192,6 @@ export class GitData {
       remotes: this.remotes.map(item => item.toJSON())
     };
   }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
-  }
 }
 
 /**
@@ -240,11 +214,6 @@ export interface GitDataOptions {
  * Represents a Git remote repository.
  */
 export class GitRemote {
-
-  /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'GitRemote';
 
   /**
    * The remote's URL.
@@ -281,13 +250,5 @@ export class GitRemote {
       name: this.name,
       url: this.url ? this.url.href : null
     };
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

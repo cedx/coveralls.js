@@ -8,11 +8,6 @@ import {JsonMap, StringMap} from './map';
 export class Configuration {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Configuration';
-
-  /**
    * The configuration parameters.
    */
   private _params: Map<string, string | undefined>;
@@ -209,13 +204,5 @@ export class Configuration {
     const map: JsonMap = {};
     for (const [key, value] of this) map[key] = value;
     return map;
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

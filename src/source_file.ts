@@ -6,11 +6,6 @@ import {JsonMap} from './map';
 export class SourceFile {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'SourceFile';
-
-  /**
    * The coverage data for this file's job.
    */
   coverage: Array<number | null>;
@@ -63,14 +58,6 @@ export class SourceFile {
 
     if (this.source.length) map.source = this.source;
     return map;
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
 
