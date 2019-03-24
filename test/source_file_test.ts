@@ -62,22 +62,4 @@ import {SourceFile} from '../src';
     expect(map.source).to.equal('function main() {}');
     expect(map.source_digest).to.equal('e23fb141da9a7b438479a48eac7b7249');
   }
-
-  /**
-   * Tests the `SourceFile#toString()` method.
-   */
-  @test testToString(): void {
-    const file = String(new SourceFile('coveralls.js', 'e23fb141da9a7b438479a48eac7b7249', {
-      coverage: [null, 2, 0, null, 4, 15, null],
-      source: 'function main() {}'
-    }));
-
-    // It should start with the class name.
-    expect(file.startsWith('SourceFile {')).to.be.true;
-
-    // It should contain the instance properties.
-    expect(file).to.contain('"name":"coveralls.js"')
-      .and.contain('"source":"function main() {}"')
-      .and.contain('"source_digest":"e23fb141da9a7b438479a48eac7b7249"');
-  }
 }

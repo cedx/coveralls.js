@@ -75,27 +75,4 @@ import {GitData, Job, SourceFile} from '../src';
     expect(map.source_files[0]).to.be.an('object');
     expect(map.source_files[0].name).to.equal('/home/cedx/coveralls.js');
   }
-
-  /**
-   * Tests the `Job#toString()` method.
-   */
-  @test testToString(): void {
-    const job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
-    job.git = new GitData(null, {branch: 'develop'});
-    job.isParallel = true;
-    job.runAt = new Date('2017-01-29T02:43:30.000Z');
-    job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
-
-    const value = String(job);
-
-    // It should start with the class name.
-    expect(value.startsWith('Job {')).to.be.true;
-
-    // It should contain the instance properties.
-    expect(value).to.contain('"git":{')
-      .and.contain('"parallel":true')
-      .and.contain('"repo_token":"yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt"')
-      .and.contain('"run_at":"2017-01-29T02:43:30.000Z"')
-      .and.contain('"source_files":[{');
-  }
 }

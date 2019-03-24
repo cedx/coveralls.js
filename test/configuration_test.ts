@@ -209,17 +209,4 @@ import {Configuration} from '../src';
     expect(map.foo).to.equal('bar');
     expect(map.bar).to.equal('baz');
   }
-
-  /**
-   * Tests the `Configuration#toString()` method.
-   */
-  @test testToString(): void {
-    const config = String(new Configuration({bar: 'baz', foo: 'bar'}));
-
-    // It should start with the class name.
-    expect(config.startsWith('Configuration {')).to.be.true;
-
-    // It should contain the instance properties.
-    expect(config).to.contain('"bar":"baz"').and.contain('"foo":"bar"');
-  }
 }

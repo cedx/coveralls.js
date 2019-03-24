@@ -59,28 +59,6 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(map.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
     expect(map.message).to.equal('Hello World!');
   }
-
-  /**
-   * Tests the `GitCommit#toString()` method.
-   */
-  @test testToString(): void {
-    const commit = new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871', {
-      authorEmail: 'anonymous@secret.com',
-      authorName: 'Anonymous',
-      message: 'Hello World!'
-    });
-
-    const value = String(commit);
-
-    // It should start with the class name.
-    expect(value.startsWith('GitCommit {')).to.be.true;
-
-    // It should contain the instance properties.
-    expect(value).to.contain('"author_email":"anonymous@secret.com"')
-      .and.contain('"author_name":"Anonymous"')
-      .and.contain('"id":"2ef7bde608ce5404e97d5f042f95f89f1c232871"')
-      .and.contain('"message":"Hello World!"');
-  }
 }
 
 /**
@@ -166,24 +144,6 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(map.remotes[0]).to.be.an('object');
     expect(map.remotes[0].name).to.equal('origin');
   }
-
-  /**
-   * Tests the `GitData#toString()` method.
-   */
-  @test testToString(): void {
-    const data = String(new GitData(new GitCommit('2ef7bde608ce5404e97d5f042f95f89f1c232871'), {
-      branch: 'develop',
-      remotes: [new GitRemote('origin')]
-    }));
-
-    // It should start with the class name.
-    expect(data.startsWith('GitData {')).to.be.true;
-
-    // It should contain the instance properties.
-    expect(data).to.contain('"branch":"develop"')
-      .and.contain('"head":{')
-      .and.contain('"remotes":[{');
-  }
 }
 
 /**
@@ -229,21 +189,5 @@ import {GitCommit, GitData, GitRemote} from '../src';
 
     map = new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')).toJSON();
     expect(map.url).to.equal('https://github.com/cedx/coveralls.js.git');
-  }
-
-  /**
-   * Tests the `GitRemote#toString()` method.
-   */
-  @test testToString(): void {
-    let remote = String(new GitRemote('origin', 'git@github.com:cedx/coveralls.js.git'));
-
-    // It should start with the class name.
-    expect(remote.startsWith('GitRemote {')).to.be.true;
-
-    // It should contain the instance properties.
-    expect(remote).to.contain('"name":"origin"').and.contain('"url":"ssh://git@github.com/cedx/coveralls.js.git"');
-
-    remote = String(new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')));
-    expect(remote).to.contain('"url":"https://github.com/cedx/coveralls.js.git"');
   }
 }
