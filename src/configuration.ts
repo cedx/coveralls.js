@@ -201,7 +201,7 @@ export class Configuration {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonMap {
-    const map: JsonMap = {};
+    const map = {} as JsonMap;
     for (const [key, value] of this) map[key] = value;
     return map;
   }

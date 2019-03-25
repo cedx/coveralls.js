@@ -66,7 +66,7 @@ export class GitCommit {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonMap {
-    const map: JsonMap = {id: this.id};
+    const map = {id: this.id} as JsonMap;
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
     if (this.committerEmail.length) map.committer_email = this.committerEmail;
@@ -141,7 +141,7 @@ export class GitData {
   static fromJson(map: JsonMap): GitData {
     return new this(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : null, {
       branch: typeof map.branch == 'string' ? map.branch : '',
-      remotes: Array.isArray(map.remotes) ? map.remotes.map(item => GitRemote.fromJson(item)) : []
+      remotes: Array.isArray(map.remotes) ? map.remotes.map(GitRemote.fromJson) : []
     });
   }
 

@@ -79,7 +79,7 @@ export class Job {
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
       serviceName: typeof map.service_name == 'string' ? map.service_name : '',
-      sourceFiles: Array.isArray(map.source_files) ? map.source_files.map(item => SourceFile.fromJson(item)) : []
+      sourceFiles: Array.isArray(map.source_files) ? map.source_files.map(SourceFile.fromJson) : []
     });
 
     job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
@@ -97,8 +97,7 @@ export class Job {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonMap {
-    const map: JsonMap = {};
-
+    const map = {} as JsonMap;
     if (this.repoToken.length) map.repo_token = this.repoToken;
     if (this.serviceName.length) map.service_name = this.serviceName;
     if (this.serviceNumber.length) map.service_number = this.serviceNumber;
