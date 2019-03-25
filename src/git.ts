@@ -37,7 +37,7 @@ export class GitCommit {
    * @param id The commit identifier.
    * @param options An object specifying values used to initialize this instance.
    */
-  constructor(public id: string, options: Partial<GitCommitOptions> = {}) {
+  constructor(readonly id: string, options: Partial<GitCommitOptions> = {}) {
     const {authorEmail = '', authorName = '', committerEmail = '', committerName = '', message = ''} = options;
     this.authorEmail = authorEmail;
     this.authorName = authorName;
