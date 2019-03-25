@@ -38,7 +38,7 @@ export class SourceFile {
       source: typeof map.source == 'string' ? map.source : ''
     };
 
-    return new this(
+    return new SourceFile(
       typeof map.name == 'string' ? map.name : '',
       typeof map.source_digest == 'string' ? map.source_digest : '',
       options

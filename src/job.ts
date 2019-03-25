@@ -75,7 +75,7 @@ export class Job {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonMap): Job {
-    const job = new this({
+    const job = new Job({
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
       serviceName: typeof map.service_name == 'string' ? map.service_name : '',

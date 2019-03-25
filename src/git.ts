@@ -52,7 +52,7 @@ export class GitCommit {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonMap): GitCommit {
-    return new this(typeof map.id == 'string' ? map.id : '', {
+    return new GitCommit(typeof map.id == 'string' ? map.id : '', {
       authorEmail: typeof map.author_email == 'string' ? map.author_email : '',
       authorName: typeof map.author_name == 'string' ? map.author_name : '',
       committerEmail: typeof map.committer_email == 'string' ? map.committer_email : '',
@@ -139,7 +139,7 @@ export class GitData {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonMap): GitData {
-    return new this(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : null, {
+    return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : null, {
       branch: typeof map.branch == 'string' ? map.branch : '',
       remotes: Array.isArray(map.remotes) ? map.remotes.map(GitRemote.fromJson) : []
     });
@@ -175,7 +175,7 @@ export class GitData {
       if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
     }
 
-    return new this(GitCommit.fromJson(commands), {
+    return new GitData(GitCommit.fromJson(commands), {
       branch: commands.branch,
       remotes: Array.from(remotes.values())
     });
@@ -235,7 +235,7 @@ export class GitRemote {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonMap): GitRemote {
-    return new this(
+    return new GitRemote(
       typeof map.name == 'string' ? map.name : '',
       typeof map.url == 'string' ? map.url : null
     );

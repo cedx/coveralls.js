@@ -26,7 +26,7 @@ export class Configuration {
    * @return The newly created configuration.
    */
   static async fromEnvironment(env: StringMap = process.env): Promise<Configuration> {
-    const config = new this;
+    const config = new Configuration;
 
     // Standard.
     const serviceName = 'CI_NAME' in env ? env.CI_NAME! : '';
@@ -98,7 +98,7 @@ export class Configuration {
     try {
       const map = safeLoad(document);
       if (typeof map != 'object' || !map) throw new TypeError('The specified YAML document is invalid.');
-      return new this(map);
+      return new Configuration(map);
     }
 
     catch (err) {
