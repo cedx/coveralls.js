@@ -15,7 +15,7 @@ export class Client extends EventEmitter {
   /**
    * The URL of the default API end point.
    */
-  static readonly defaultEndPoint: URL = new URL('https://coveralls.io/');
+  static readonly defaultEndPoint: URL = new URL('https://coveralls.io/api/v1/');
 
   /**
    * An event that is triggered when a request is made to the remote service.
@@ -87,7 +87,7 @@ export class Client extends EventEmitter {
     const body = new FormData;
     body.append('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    const url = new URL('api/v1/jobs', this.endPoint);
+    const url = new URL('jobs', this.endPoint);
     const req = new Request(url.href, {method: 'POST', body});
     this.emit(Client.eventRequest, req);
 
