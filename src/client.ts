@@ -15,7 +15,7 @@ export class Client extends EventEmitter {
   /**
    * The URL of the default API end point.
    */
-  static readonly defaultEndPoint: URL = new URL('https://coveralls.io');
+  static readonly defaultEndPoint: URL = new URL('https://coveralls.io/');
 
   /**
    * An event that is triggered when a request is made to the remote service.
