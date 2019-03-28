@@ -77,7 +77,7 @@ export class GitCommit {
 }
 
 /**
- * Defines the options of a `GitCommit` instance.
+ * Defines the options of a [[GitCommit]] instance.
  */
 export interface GitCommitOptions {
 
@@ -195,7 +195,7 @@ export class GitData {
 }
 
 /**
- * Defines the options of a `GitData` instance.
+ * Defines the options of a [[GitData]] instance.
  */
 export interface GitDataOptions {
 

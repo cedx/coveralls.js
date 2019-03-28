@@ -62,7 +62,7 @@ export class SourceFile {
 }
 
 /**
- * Defines the options of a `SourceFile` instance.
+ * Defines the options of a [[SourceFile]] instance.
  */
 export interface SourceFileOptions {
 

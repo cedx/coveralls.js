@@ -115,7 +115,7 @@ export class Job {
 }
 
 /**
- * Defines the options of a `Job` instance.
+ * Defines the options of a [[Job]] instance.
  */
 export interface JobOptions {
 
