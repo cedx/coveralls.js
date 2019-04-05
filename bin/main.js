@@ -10,7 +10,7 @@ const {Client} = require('../lib');
  * The version number of the package.
  * @type {string}
  */
-const version = '8.4.0';
+const version = '8.5.0';
 
 /**
  * Application entry point.
