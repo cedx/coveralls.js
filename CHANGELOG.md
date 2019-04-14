@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [8.6.0](https://github.com/cedx/coveralls.js/compare/v8.5.0...v8.6.0)
+- Modified the package layout.
+- Updated the package dependencies.
+
 ## Version [8.5.0](https://github.com/cedx/coveralls.js/compare/v8.4.0...v8.5.0)
 - Added support for [ECMAScript modules](https://nodejs.org/api/esm.html).
 - Updated the package dependencies.
