@@ -35,16 +35,16 @@ task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 /**
  * Uploads the results of the code coverage.
  */
-task('coverage', () => _exec('node', ['bin/main.js', 'var/lcov.info']));
+task('coverage', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
 
 /**
  * Builds the documentation.
  */
 task('doc', async () => {
-  await promises.copyFile('CHANGELOG.md', 'doc/about/changelog.md');
-  await promises.copyFile('LICENSE.md', 'doc/about/license.md');
-  await _exec('typedoc');
-  return _exec('mkdocs', ['build']);
+  for (const path of ['CHANGELOG.md', 'LICENSE.md']) await promises.copyFile(path, `doc/about/${path.toLowerCase()}`);
+  await _exec('typedoc', ['--options', 'doc/typedoc.js']);
+  await _exec('mkdocs', ['build', '--config-file=doc/mkdocs.yml']);
+  return del(['doc/about/changelog.md', 'doc/about/license.md', 'web/mkdocs.yml', 'web/typedoc.js']);
 });
 
 /**
@@ -60,7 +60,12 @@ task('lint', () => _exec('tslint', sources));
 /**
  * Runs the test suites.
  */
-task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), '"test/**/*.ts"']));
+task('test', () => _exec('nyc', [
+  '--nycrc-path=test/.nycrc',
+  normalize('node_modules/.bin/mocha'),
+  '--config=test/.mocharc.yaml',
+  '"test/**/*.ts"'
+]));
 
 /**
  * Upgrades the project to the latest revision.
@@ -76,7 +81,7 @@ task('upgrade', async () => {
 /**
  * Updates the version number contained in the sources.
  */
-task('version', () => src('bin/main.js')
+task('version', () => src('bin/coveralls.js')
   .pipe(replace(/const version = '\d+(\.\d+){2}'/g, `const version = '${pkg.version}'`))
   .pipe(dest('bin'))
 );
