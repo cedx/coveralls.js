@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {GitCommit, GitData, GitRemote} from '../src';
 
 /**
- * Tests the features of the `GitCommit` class.
+ * Tests the features of the [[GitCommit]] class.
  */
 @suite class GitCommitTest {
 
@@ -62,7 +62,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
 }
 
 /**
- * Tests the features of the `GitData` class.
+ * Tests the features of the [[GitData]] class.
  */
 @suite class GitDataTest {
 
@@ -147,7 +147,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
 }
 
 /**
- * Tests the features of the `GitRemote` class.
+ * Tests the features of the [[GitRemote]] class.
  */
 @suite class GitRemoteTest {
 

@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {GitData, Job, SourceFile} from '../src';
 
 /**
- * Tests the features of the `Job` class.
+ * Tests the features of the [[Job]] class.
  */
 @suite class JobTest {
 

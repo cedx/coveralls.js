@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {Configuration} from '../src';
 
 /**
- * Tests the features of the `Configuration` class.
+ * Tests the features of the [[Configuration]] class.
  */
 @suite class ConfigurationTest {
 

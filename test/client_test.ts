@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {Client, Job} from '../src';
 
 /**
- * Tests the features of the `Client` class.
+ * Tests the features of the [[Client]] class.
  */
 @suite class ClientTest {
 

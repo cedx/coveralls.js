@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {SourceFile} from '../src';
 
 /**
- * Tests the features of the `SourceFile` class.
+ * Tests the features of the [[SourceFile]] class.
  */
 @suite class SourceFileTest {
 
