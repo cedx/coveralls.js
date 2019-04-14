@@ -1,7 +1,5 @@
 /.*
 
-/build/
-/coverage/
 /doc/api/
 /share/
 /src/
@@ -12,7 +10,5 @@
 /*.code-workspace
 /*.iml
 /*.js
-/*.yaml
-/*.yml
 /**/*.tsconfig.json
 /lib/**/*.map
