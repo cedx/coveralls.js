@@ -1,18 +1,12 @@
 import {JsonMap} from './map';
 
-/**
- * Represents a source code file and its coverage data for a single job.
- */
+/** Represents a source code file and its coverage data for a single job. */
 export class SourceFile {
 
-  /**
-   * The coverage data for this file's job.
-   */
+  /** The coverage data for this file's job. */
   coverage: Array<number | null>;
 
-  /**
-   * The contents of this source file.
-   */
+  /** The contents of this source file. */
   source: string;
 
   /**
@@ -61,18 +55,12 @@ export class SourceFile {
   }
 }
 
-/**
- * Defines the options of a [[SourceFile]] instance.
- */
+/** Defines the options of a [[SourceFile]] instance. */
 export interface SourceFileOptions {
 
-  /**
-   * The coverage data for this file's job.
-   */
+  /** The coverage data for this file's job. */
   coverage: Array<number | null>;
 
-  /**
-   * The contents of this source file.
-   */
+  /** The contents of this source file. */
   source: string;
 }

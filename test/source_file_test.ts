@@ -3,14 +3,10 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {SourceFile} from '../src';
 
-/**
- * Tests the features of the [[SourceFile]] class.
- */
+/** Tests the features of the [[SourceFile]] class. */
 @suite class SourceFileTest {
 
-  /**
-   * Tests the `SourceFile.fromJson()` method.
-   */
+  /** Tests the `SourceFile.fromJson()` method. */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let file = SourceFile.fromJson({});
@@ -34,9 +30,7 @@ import {SourceFile} from '../src';
     expect(file.sourceDigest).to.equal('e23fb141da9a7b438479a48eac7b7249');
   }
 
-  /**
-   * Tests the `SourceFile#toJSON()` method.
-   */
+  /** Tests the `SourceFile#toJSON()` method. */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new SourceFile('', '').toJSON();

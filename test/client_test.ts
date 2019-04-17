@@ -3,14 +3,10 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {Client, Job} from '../src';
 
-/**
- * Tests the features of the [[Client]] class.
- */
+/** Tests the features of the [[Client]] class. */
 @suite class ClientTest {
 
-  /**
-   * Tests the `Client#upload()` method.
-   */
+  /** Tests the `Client#upload()` method. */
   @test async testUpload(): Promise<void> {
     // It should throw an error with an empty coverage report.
     try {
@@ -33,9 +29,7 @@ import {Client, Job} from '../src';
     }
   }
 
-  /**
-   * Tests the `Client#uploadJob()` method.
-   */
+  /** Tests the `Client#uploadJob()` method. */
   @test async testUploadJob(): Promise<void> {
     // It should throw an error with an empty test job.
     try {

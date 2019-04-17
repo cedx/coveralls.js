@@ -2,14 +2,10 @@ import {promises} from 'fs';
 import {safeLoad, YAMLException} from 'js-yaml';
 import {JsonMap, StringMap} from './map';
 
-/**
- * Provides access to the coverage settings.
- */
+/** Provides access to the coverage settings. */
 export class Configuration {
 
-  /**
-   * The configuration parameters.
-   */
+  /** The configuration parameters. */
   private _params: Map<string, string | undefined>;
 
   /**
@@ -126,16 +122,12 @@ export class Configuration {
     }
   }
 
-  /**
-   * The keys of this configuration.
-   */
+  /** The keys of this configuration. */
   get keys(): string[] {
     return Array.from(this._params.keys());
   }
 
-  /**
-   * The number of entries in this configuration.
-   */
+  /** The number of entries in this configuration. */
   get length(): number {
     return this._params.size;
   }

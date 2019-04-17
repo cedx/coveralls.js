@@ -7,14 +7,10 @@ import {join} from 'path';
 import {SourceFile} from '../../src';
 import {parseReport} from '../../src/parsers/lcov';
 
-/**
- * Tests the features of the LCOV parser.
- */
+/** Tests the features of the LCOV parser. */
 @suite class LcovTest {
 
-  /**
-   * Tests the `parseReport()` function.
-   */
+  /** Tests the `parseReport()` function. */
   @test async parseReport(): Promise<void> {
     // It should properly parse LCOV reports.
     const job = await parseReport(await promises.readFile('test/fixtures/lcov.info', 'utf8'));

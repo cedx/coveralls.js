@@ -4,9 +4,7 @@
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
-/**
- * Uploads a coverage report.
- */
+/** Uploads a coverage report. */
 async function main(): Promise<void> {
   try {
     const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');

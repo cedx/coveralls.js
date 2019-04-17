@@ -3,14 +3,10 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {GitCommit, GitData, GitRemote} from '../src';
 
-/**
- * Tests the features of the [[GitCommit]] class.
- */
+/** Tests the features of the [[GitCommit]] class. */
 @suite class GitCommitTest {
 
-  /**
-   * Tests the `GitCommit.fromJson()` method.
-   */
+  /** Tests the `GitCommit.fromJson()` method. */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitCommit.fromJson({});
@@ -36,9 +32,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(remote.message).to.equal('Hello World!');
   }
 
-  /**
-   * Tests the `GitCommit#toJSON()` method.
-   */
+  /** Tests the `GitCommit#toJSON()` method. */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitCommit('').toJSON();
@@ -61,14 +55,10 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 }
 
-/**
- * Tests the features of the [[GitData]] class.
- */
+/** Tests the features of the [[GitData]] class. */
 @suite class GitDataTest {
 
-  /**
-   * Tests the `GitData.fromJson()` method.
-   */
+  /** Tests the `GitData.fromJson()` method. */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let data = GitData.fromJson({});
@@ -95,9 +85,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(data.remotes[0].name).to.equal('origin');
   }
 
-  /**
-   * Tests the `GitData.fromRepository()` method.
-   */
+  /** Tests the `GitData.fromRepository()` method. */
   @test async testFromRepository(): Promise<void> {
     // It should retrieve the Git data from the executable output.
     const data = await GitData.fromRepository();
@@ -117,9 +105,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
     ]);
   }
 
-  /**
-   * Tests the `GitData#toJSON()` method.
-   */
+  /** Tests the `GitData#toJSON()` method. */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitData(null).toJSON();
@@ -146,14 +132,10 @@ import {GitCommit, GitData, GitRemote} from '../src';
   }
 }
 
-/**
- * Tests the features of the [[GitRemote]] class.
- */
+/** Tests the features of the [[GitRemote]] class. */
 @suite class GitRemoteTest {
 
-  /**
-   * Tests the `GitRemote.fromJson()` method.
-   */
+  /** Tests the `GitRemote.fromJson()` method. */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let remote = GitRemote.fromJson({});
@@ -171,9 +153,7 @@ import {GitCommit, GitData, GitRemote} from '../src';
     expect(remote.url).to.be.an.instanceof(URL).and.have.property('href').that.equal('https://github.com/cedx/coveralls.js.git');
   }
 
-  /**
-   * Tests the `GitRemote#toJSON()` method.
-   */
+  /** Tests the `GitRemote#toJSON()` method. */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = new GitRemote('').toJSON();

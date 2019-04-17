@@ -7,14 +7,10 @@ import {join} from 'path';
 import {SourceFile} from '../../src';
 import {parseReport} from '../../src/parsers/clover';
 
-/**
- * Tests the features of the Clover parser.
- */
+/** Tests the features of the Clover parser. */
 @suite class CloverTest {
 
-  /**
-   * Tests the `parseReport()` function.
-   */
+  /** Tests the `parseReport()` function. */
   @test async parseReport(): Promise<void> {
     // It should properly parse Clover reports.
     const job = await parseReport(await promises.readFile('test/fixtures/clover.xml', 'utf8'));

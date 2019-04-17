@@ -2,59 +2,37 @@ import {GitData} from './git';
 import {JsonMap} from './map';
 import {SourceFile} from './source_file';
 
-/**
- * Represents the coverage data from a single run of a test suite.
- */
+/** Represents the coverage data from a single run of a test suite. */
 export class Job {
 
-  /**
-   * The current SHA of the commit being built to override the `git` parameter.
-   */
+  /** The current SHA of the commit being built to override the `git` parameter. */
   commitSha: string = '';
 
-  /**
-   * The Git data that can be used to display more information to users.
-   */
+  /** The Git data that can be used to display more information to users. */
   git: GitData | null = null;
 
-  /**
-   * Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls.
-   */
+  /** Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls. */
   isParallel: boolean = false;
 
-  /**
-   * The secret token for the repository.
-   */
+  /** The secret token for the repository. */
   repoToken: string;
 
-  /**
-   * The timestamp of when the job ran.
-   */
+  /** The timestamp of when the job ran. */
   runAt: Date | null = null;
 
-  /**
-   * The unique identifier of the job on the CI service.
-   */
+  /** The unique identifier of the job on the CI service. */
   serviceJobId: string;
 
-  /**
-   * The CI service or other environment in which the test suite was run.
-   */
+  /** The CI service or other environment in which the test suite was run. */
   serviceName: string;
 
-  /**
-   * The build number.
-   */
+  /** The build number. */
   serviceNumber: string = '';
 
-  /**
-   * The associated pull request identifier of the build.
-   */
+  /** The associated pull request identifier of the build. */
   servicePullRequest: string = '';
 
-  /**
-   * The list of source files.
-   */
+  /** The list of source files. */
   sourceFiles: SourceFile[];
 
   /**
@@ -114,28 +92,18 @@ export class Job {
   }
 }
 
-/**
- * Defines the options of a [[Job]] instance.
- */
+/** Defines the options of a [[Job]] instance. */
 export interface JobOptions {
 
-  /**
-   * The secret token for the repository.
-   */
+  /** The secret token for the repository. */
   repoToken: string;
 
-  /**
-   * The unique identifier of the job on the CI service.
-   */
+  /** The unique identifier of the job on the CI service. */
   serviceJobId: string;
 
-  /**
-   * The CI service or other environment in which the test suite was run.
-   */
+  /** The CI service or other environment in which the test suite was run. */
   serviceName: string;
 
-  /**
-   * The list of source files.
-   */
+  /** The list of source files. */
   sourceFiles: SourceFile[];
 }

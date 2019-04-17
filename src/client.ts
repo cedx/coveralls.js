@@ -7,14 +7,10 @@ import {Configuration} from './configuration';
 import {GitCommit, GitData} from './git';
 import {Job} from './job';
 
-/**
- * Uploads code coverage reports to the [Coveralls](https://coveralls.io) service.
- */
+/** Uploads code coverage reports to the [Coveralls](https://coveralls.io) service. */
 export class Client extends EventEmitter {
 
-  /**
-   * The URL of the default API end point.
-   */
+  /** The URL of the default API end point. */
   static readonly defaultEndPoint: URL = new URL('https://coveralls.io/api/v1/');
 
   /**
@@ -131,9 +127,7 @@ export class Client extends EventEmitter {
   }
 }
 
-/**
- * An exception caused by an error in a `Client` request.
- */
+/** An exception caused by an error in a `Client` request. */
 export class ClientError extends Error {
 
   /**

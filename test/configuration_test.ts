@@ -3,14 +3,10 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {Configuration} from '../src';
 
-/**
- * Tests the features of the [[Configuration]] class.
- */
+/** Tests the features of the [[Configuration]] class. */
 @suite class ConfigurationTest {
 
-  /**
-   * Tests the `Configuration.fromEnvironment()` method.
-   */
+  /** Tests the `Configuration.fromEnvironment()` method. */
   @test async testFromEnvironment(): Promise<void> {
     // It should return an empty configuration for an empty environment.
     expect(await Configuration.fromEnvironment({})).to.have.lengthOf(0);
@@ -33,9 +29,7 @@ import {Configuration} from '../src';
     expect(config.get('service_pull_request')).to.equal('123');
   }
 
-  /**
-   * Tests the `Configuration.fromYaml()` method.
-   */
+  /** Tests the `Configuration.fromYaml()` method. */
   @test testFromYaml(): void {
     // It should throw an exception with a non-object value.
     expect(() => Configuration.fromYaml('**123/456**')).to.throw(TypeError);
@@ -49,9 +43,7 @@ import {Configuration} from '../src';
     expect(config.get('service_name')).to.equal('travis-ci');
   }
 
-  /**
-   * Tests the `Configuration.loadDefaults()` method.
-   */
+  /** Tests the `Configuration.loadDefaults()` method. */
   @test async testLoadDefaults(): Promise<void> {
     // It should properly initialize from a `.coveralls.yml` file.
     let config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
@@ -67,9 +59,7 @@ import {Configuration} from '../src';
     expect(config.toJSON()).to.deep.equal(defaults.toJSON());
   }
 
-  /**
-   * Tests the `Configuration#keys` property.
-   */
+  /** Tests the `Configuration#keys` property. */
   @test testKeys(): void {
     // It should return an empty array for an empty configuration.
     expect((new Configuration).keys).to.be.empty;
@@ -81,9 +71,7 @@ import {Configuration} from '../src';
     expect(keys[1]).to.equal('bar');
   }
 
-  /**
-   * Tests the `Configuration#length` property.
-   */
+  /** Tests the `Configuration#length` property. */
   @test testLength(): void {
     // It should return zero for an empty configuration.
     expect(new Configuration).to.have.lengthOf(0);
@@ -92,9 +80,7 @@ import {Configuration} from '../src';
     expect(new Configuration({bar: 'baz', foo: 'bar'})).to.have.lengthOf(2);
   }
 
-  /**
-   * Tests the `Configuration#[Symbol.iterator]()` method.
-   */
+  /** Tests the `Configuration#[Symbol.iterator]()` method. */
   @test testSymbolIterator(): void {
     // It should return a done iterator if configuration is empty.
     let config = new Configuration;
@@ -132,9 +118,7 @@ import {Configuration} from '../src';
     }
   }
 
-  /**
-   * Tests the `Configuration#get()` method.
-   */
+  /** Tests the `Configuration#get()` method. */
   @test testGet(): void {
     // It should properly get the configuration entries.
     const config = new Configuration;
@@ -144,9 +128,7 @@ import {Configuration} from '../src';
     expect(config.get('foo')).to.equal('bar');
   }
 
-  /**
-   * Tests the `Configuration#has()` method.
-   */
+  /** Tests the `Configuration#has()` method. */
   @test testHas(): void {
     // It should return `false` if the specified key is not contained.
     expect((new Configuration).has('foo')).to.be.false;
@@ -155,9 +137,7 @@ import {Configuration} from '../src';
     expect(new Configuration({foo: 'bar'}).has('foo')).to.be.true;
   }
 
-  /**
-   * Tests the `Configuration#merge()` method.
-   */
+  /** Tests the `Configuration#merge()` method. */
   @test testMerge(): void {
     // It should have the same entries as the other configuration.
     const config = new Configuration;
@@ -169,9 +149,7 @@ import {Configuration} from '../src';
     expect(config.get('bar')).to.equal('baz');
   }
 
-  /**
-   * Tests the `Configuration#remove()` method.
-   */
+  /** Tests the `Configuration#remove()` method. */
   @test testRemove(): void {
     // It should properly remove the configuration entries.
     const config = new Configuration({bar: 'baz', foo: 'bar'});
@@ -183,9 +161,7 @@ import {Configuration} from '../src';
     expect(config).to.have.lengthOf(0);
   }
 
-  /**
-   * Tests the `Configuration#set()` method.
-   */
+  /** Tests the `Configuration#set()` method. */
   @test testSet(): void {
     // It should properly set the configuration entries.
     const config = new Configuration;
@@ -195,9 +171,7 @@ import {Configuration} from '../src';
     expect(config.get('foo')).to.equal('bar');
   }
 
-  /**
-   * Tests the `Configuration#toJSON()` method.
-   */
+  /** Tests the `Configuration#toJSON()` method. */
   @test testToJson(): void {
     // It should return an empty map for a newly created instance.
     let map = (new Configuration).toJSON();

@@ -2,34 +2,22 @@ import {exec} from 'child_process';
 import {promisify} from 'util';
 import {JsonMap} from './map';
 
-/**
- * Represents a Git remote repository.
- */
+/** Represents a Git remote repository. */
 export class GitCommit {
 
-  /**
-   * The author mail address.
-   */
+  /** The author mail address. */
   authorEmail: string;
 
-  /**
-   * The author name.
-   */
+  /** The author name. */
   authorName: string;
 
-  /**
-   * The committer mail address.
-   */
+  /** The committer mail address. */
   committerEmail: string;
 
-  /**
-   * The committer name.
-   */
+  /** The committer name. */
   committerName: string;
 
-  /**
-   * The commit message.
-   */
+  /** The commit message. */
   message: string;
 
   /**
@@ -76,50 +64,32 @@ export class GitCommit {
   }
 }
 
-/**
- * Defines the options of a [[GitCommit]] instance.
- */
+/** Defines the options of a [[GitCommit]] instance. */
 export interface GitCommitOptions {
 
-  /**
-   * The author mail address.
-   */
+  /** The author mail address. */
   authorEmail: string;
 
-  /**
-   * The author name.
-   */
+  /** The author name. */
   authorName: string;
 
-  /**
-   * The committer mail address.
-   */
+  /** The committer mail address. */
   committerEmail: string;
 
-  /**
-   * The committer name.
-   */
+  /** The committer name. */
   committerName: string;
 
-  /**
-   * The commit message.
-   */
+  /** The commit message. */
   message: string;
 }
 
-/**
- * Represents a Git remote repository.
- */
+/** Represents a Git remote repository. */
 export class GitData {
 
-  /**
-   * The branch name.
-   */
+  /** The branch name. */
   branch: string;
 
-  /**
-   * The remote repositories.
-   */
+  /** The remote repositories. */
   remotes: GitRemote[];
 
   /**
@@ -194,30 +164,20 @@ export class GitData {
   }
 }
 
-/**
- * Defines the options of a [[GitData]] instance.
- */
+/** Defines the options of a [[GitData]] instance. */
 export interface GitDataOptions {
 
-  /**
-   * The branch name.
-   */
+  /** The branch name. */
   branch: string;
 
-  /**
-   * The remote repositories.
-   */
+  /** The remote repositories. */
   remotes: GitRemote[];
 }
 
-/**
- * Represents a Git remote repository.
- */
+/** Represents a Git remote repository. */
 export class GitRemote {
 
-  /**
-   * The remote's URL.
-   */
+  /** The remote's URL. */
   url: URL | null;
 
   /**

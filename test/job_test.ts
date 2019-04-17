@@ -3,14 +3,10 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {GitData, Job, SourceFile} from '../src';
 
-/**
- * Tests the features of the [[Job]] class.
- */
+/** Tests the features of the [[Job]] class. */
 @suite class JobTest {
 
-  /**
-   * Tests the `Job.fromJson()` method.
-   */
+  /** Tests the `Job.fromJson()` method. */
   @test testFromJson(): void {
     // It should return an instance with default values for an empty map.
     let job = Job.fromJson({});
@@ -46,9 +42,7 @@ import {GitData, Job, SourceFile} from '../src';
     expect(job.sourceFiles[0].name).to.equal('/home/cedx/coveralls.js');
   }
 
-  /**
-   * Tests the `Job#toJSON()` method.
-   */
+  /** Tests the `Job#toJSON()` method. */
   @test testToJson(): void {
     // It should return a map with default values for a newly created instance.
     let map = (new Job).toJSON();
