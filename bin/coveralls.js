@@ -10,7 +10,7 @@ const {Client} = require('../lib');
  * The version number of the package.
  * @type {string}
  */
-const version = '8.6.0';
+const packageVersion = '8.6.0';
 
 /**
  * Application entry point.
@@ -23,7 +23,7 @@ async function main() {
   // Parse the command line arguments.
   program.name('coveralls')
     .description('Send a coverage report to the Coveralls service.')
-    .version(version, '-v, --version')
+    .version(packageVersion, '-v, --version')
     .arguments('<file>').action(file => program.file = file)
     .parse(process.argv);
 
