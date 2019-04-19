@@ -5,6 +5,31 @@ import {Configuration} from '../src';
 /** Tests the features of the [[Configuration]] class. */
 describe('Configuration', () => {
 
+  /** Tests the `Configuration#keys` property. */
+  describe('#keys', () => {
+    it('should return an empty array for an empty configuration', () => {
+      expect((new Configuration).keys).to.be.empty;
+    });
+
+    it('should return the list of keys for a non-empty configuration', () => {
+      const keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
+      expect(keys).to.have.lengthOf(2);
+      expect(keys[0]).to.equal('foo');
+      expect(keys[1]).to.equal('bar');
+    });
+  });
+
+  /** Tests the `Configuration#length` property. */
+  describe('#length', () => {
+    it('should return zero for an empty configuration', () => {
+      expect(new Configuration).to.have.lengthOf(0);
+    });
+
+    it('should return the number of entries for a non-empty configuration', () => {
+      expect(new Configuration({bar: 'baz', foo: 'bar'})).to.have.lengthOf(2);
+    });
+  });
+
   /** Tests the `Configuration.fromEnvironment()` method. */
   describe('.fromEnvironment()', () => {
     it('should return an empty configuration for an empty environment', async () => {
@@ -61,31 +86,6 @@ describe('Configuration', () => {
       const defaults = await Configuration.fromEnvironment();
       expect(config).to.be.an.instanceof(Configuration);
       expect(config.toJSON()).to.deep.equal(defaults.toJSON());
-    });
-  });
-
-  /** Tests the `Configuration#keys` property. */
-  describe('#keys', () => {
-    it('should return an empty array for an empty configuration', () => {
-      expect((new Configuration).keys).to.be.empty;
-    });
-
-    it('should return the list of keys for a non-empty configuration', () => {
-      const keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
-      expect(keys).to.have.lengthOf(2);
-      expect(keys[0]).to.equal('foo');
-      expect(keys[1]).to.equal('bar');
-    });
-  });
-
-  /** Tests the `Configuration#length` property. */
-  describe('#length', () => {
-    it('should return zero for an empty configuration', () => {
-      expect(new Configuration).to.have.lengthOf(0);
-    });
-
-    it('should return the number of entries for a non-empty configuration', () => {
-      expect(new Configuration({bar: 'baz', foo: 'bar'})).to.have.lengthOf(2);
     });
   });
 
