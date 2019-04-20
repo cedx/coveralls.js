@@ -31,7 +31,7 @@ describe('Client', () => {
   });
 
   /** Tests the `Client#uploadJob()` method. */
-  describe('#uploadJob()', async () => {
+  describe('#uploadJob()', () => {
     it('should throw an error with an empty test job', async () => {
       try {
         await (new Client).uploadJob(new Job);
