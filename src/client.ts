@@ -139,14 +139,4 @@ export class ClientError extends Error {
     super(message);
     this.name = 'ClientError';
   }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    let values = `"${this.message}"`;
-    if (this.uri) values = `${values}, uri: "${this.uri.href}"`;
-    return `${this.name}(${values})`;
-  }
 }
