@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [9.0.0](https://github.com/cedx/coveralls.js/compare/v8.6.0...v9.0.0)
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+
 ## Version [8.6.0](https://github.com/cedx/coveralls.js/compare/v8.5.0...v8.6.0)
 - Modified the package layout.
 - Updated the package dependencies.

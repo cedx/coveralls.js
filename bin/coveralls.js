@@ -10,11 +10,11 @@ const {Client} = require('../lib');
  * The version number of the package.
  * @type {string}
  */
-const packageVersion = '8.6.0';
+const packageVersion = '9.0.0';
 
 /**
  * Application entry point.
- * @return {Promise} Completes when the program is terminated.
+ * @return {Promise<void>} Completes when the program is terminated.
  */
 async function main() {
   // Initialize the application.
