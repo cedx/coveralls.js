@@ -1,10 +1,7 @@
 #!/usr/bin/env node
-'use strict';
-
-/* tslint:disable: no-console */
-const program = require('commander');
-const {promises} = require('fs');
-const {Client} = require('../lib');
+import program from 'commander';
+import {promises} from 'fs';
+import {Client} from '../lib/index.js';
 
 /**
  * The version number of the package.
