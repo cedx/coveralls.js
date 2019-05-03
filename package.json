@@ -26,8 +26,8 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/form-data": "^2.2.1",
+    "@babel/core": "^7.4.4",
+    "babel-eslint": "^10.0.1",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.6",
     "@types/node": "^11.13.7",
@@ -35,6 +35,10 @@
     "@types/xml2js": "^0.4.4",
     "chai": "^4.2.0",
     "del": "^4.1.0",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "eslint": "^5.16.0",
     "gulp": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
@@ -42,8 +46,6 @@
     "nyc": "^14.1.0",
     "source-map-support": "^0.5.12",
     "ts-node": "^8.1.0",
-    "tslint": "^5.16.0",
-    "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   },
   "engines": {
