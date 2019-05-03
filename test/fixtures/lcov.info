@@ -1,6 +1,6 @@
 TN:Example
 
-SF:src/client.ts
+SF:lib/client.js
 FN:4,Client#upload
 FNDA:2,Client#upload
 FNF:1
@@ -13,7 +13,7 @@ LF:4
 LH:4
 end_of_record
 
-SF:src/configuration.ts
+SF:lib/configuration.js
 FN:5,Configuration.fromEnvironment
 FNDA:4,Configuration.fromEnvironment
 FNF:1
@@ -37,7 +37,7 @@ LF:9
 LH:9
 end_of_record
 
-SF:src/git.ts
+SF:lib/git.js
 FN:5,GitCommit#toJSON
 FNDA:2,GitCommit#toJSON
 FNF:1

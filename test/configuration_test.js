@@ -1,25 +1,21 @@
-/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {Configuration} from '../src';
+import {Configuration} from '../lib/index.js';
 
-/** Tests the features of the [[Configuration]] class. */
+/** Tests the features of the `Configuration` class. */
 describe('Configuration', () => {
-
-  /** Tests the `Configuration#keys` property. */
   describe('#keys', () => {
     it('should return an empty array for an empty configuration', () => {
       expect((new Configuration).keys).to.be.empty;
     });
 
     it('should return the list of keys for a non-empty configuration', () => {
-      const keys = new Configuration({foo: 'bar', bar: 'baz'}).keys;
+      const {keys} = new Configuration({foo: 'bar', bar: 'baz'});
       expect(keys).to.have.lengthOf(2);
       expect(keys[0]).to.equal('foo');
       expect(keys[1]).to.equal('bar');
     });
   });
 
-  /** Tests the `Configuration#length` property. */
   describe('#length', () => {
     it('should return zero for an empty configuration', () => {
       expect(new Configuration).to.have.lengthOf(0);
@@ -30,7 +26,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration.fromEnvironment()` method. */
   describe('.fromEnvironment()', () => {
     it('should return an empty configuration for an empty environment', async () => {
       expect(await Configuration.fromEnvironment({})).to.have.lengthOf(0);
@@ -55,7 +50,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration.fromYaml()` method. */
   describe('.fromYaml()', () => {
     it('should throw an exception with a non-object value', () => {
       expect(() => Configuration.fromYaml('**123/456**')).to.throw(TypeError);
@@ -71,7 +65,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration.loadDefaults()` method. */
   describe('.loadDefaults()', () => {
     it('should properly initialize from a `.coveralls.yml` file', async () => {
       const config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
@@ -89,7 +82,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#[Symbol.iterator]()` method. */
   describe('#[SymbolIterator]()', () => {
     it('should return a done iterator if configuration is empty', () => {
       const config = new Configuration;
@@ -131,7 +123,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#get()` method. */
   describe('#get()', () => {
     it('should properly get the configuration entries', () => {
       const config = new Configuration;
@@ -142,7 +133,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#has()` method. */
   describe('#has()', () => {
     it('should return `false` if the specified key is not contained', () => {
       expect((new Configuration).has('foo')).to.be.false;
@@ -153,7 +143,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#merge()` method. */
   describe('#merge()', () => {
     it('should have the same entries as the other configuration', () => {
       const config = new Configuration;
@@ -166,7 +155,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#remove()` method. */
   describe('#remove()', () => {
     it('should properly remove the configuration entries', () => {
       const config = new Configuration({bar: 'baz', foo: 'bar'});
@@ -179,7 +167,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#set()` method. */
   describe('#set()', () => {
     it('should properly set the configuration entries', () => {
       const config = new Configuration;
@@ -190,7 +177,6 @@ describe('Configuration', () => {
     });
   });
 
-  /** Tests the `Configuration#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return an empty map for a newly created instance', () => {
       const map = (new Configuration).toJSON();

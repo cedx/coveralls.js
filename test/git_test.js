@@ -1,16 +1,12 @@
-/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {GitCommit, GitData, GitRemote} from '../src';
+import {GitCommit, GitData, GitRemote} from '../lib/index.js';
 
-/** Tests the features of the [[GitCommit]] class. */
+/** Tests the features of the `GitCommit` class. */
 describe('GitCommit', () => {
-
-  /** Tests the `GitCommit.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const remote = GitCommit.fromJson({});
       expect(remote).to.be.an.instanceof(GitCommit);
-
       expect(remote.authorEmail).to.be.empty;
       expect(remote.authorName).to.be.empty;
       expect(remote.id).to.be.empty;
@@ -33,7 +29,6 @@ describe('GitCommit', () => {
     });
   });
 
-  /** Tests the `GitCommit#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new GitCommit('').toJSON();
@@ -58,10 +53,8 @@ describe('GitCommit', () => {
   });
 });
 
-/** Tests the features of the [[GitData]] class. */
+/** Tests the features of the `GitData` class. */
 describe('GitData', () => {
-
-  /** Tests the `GitData.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const data = GitData.fromJson({});
@@ -82,7 +75,7 @@ describe('GitData', () => {
       expect(data.branch).to.equal('develop');
 
       expect(data.commit).to.be.an.instanceof(GitCommit);
-      expect(data.commit!.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
+      expect(data.commit.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
 
       expect(data.remotes).to.be.an('array').and.have.lengthOf(1);
       expect(data.remotes[0]).to.be.an.instanceof(GitRemote);
@@ -90,28 +83,26 @@ describe('GitData', () => {
     });
   });
 
-  /** Tests the `GitData.fromRepository()` method. */
   describe('.fromRepository()', () => {
     it('should retrieve the Git data from the executable output', async () => {
       const data = await GitData.fromRepository();
       expect(data.branch).to.not.be.empty;
 
       expect(data.commit).to.be.an.instanceof(GitCommit);
-      expect(data.commit!.id).to.match(/^[a-f\d]{40}$/);
+      expect(data.commit.id).to.match(/^[a-f\d]{40}$/);
 
       expect(data.remotes).to.not.be.empty;
       expect(data.remotes[0]).to.be.an.instanceof(GitRemote);
 
       const origin = data.remotes.filter(remote => remote.name == 'origin');
       expect(origin).to.have.lengthOf(1);
-      expect(origin[0].url!.href).to.be.oneOf([
+      expect(origin[0].url.href).to.be.oneOf([
         'https://github.com/cedx/coveralls.js.git',
         'ssh://git@github.com/cedx/coveralls.js.git'
       ]);
     });
   });
 
-  /** Tests the `GitData#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new GitData(null).toJSON();
@@ -140,10 +131,8 @@ describe('GitData', () => {
   });
 });
 
-/** Tests the features of the [[GitRemote]] class. */
+/** Tests the features of the `GitRemote` class. */
 describe('GitRemote', () => {
-
-  /** Tests the `GitRemote.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const remote = GitRemote.fromJson({});
@@ -163,7 +152,6 @@ describe('GitRemote', () => {
     });
   });
 
-  /** Tests the `GitRemote#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new GitRemote('').toJSON();

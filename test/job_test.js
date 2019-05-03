@@ -1,16 +1,12 @@
-/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {GitData, Job, SourceFile} from '../src';
+import {GitData, Job, SourceFile} from '../lib/index.js';
 
-/** Tests the features of the [[Job]] class. */
+/** Tests the features of the `Job` class. */
 describe('Job', () => {
-
-  /** Tests the `Job.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const job = Job.fromJson({});
       expect(job).to.be.an.instanceof(Job);
-
       expect(job.git).to.be.null;
       expect(job.isParallel).to.be.false;
       expect(job.repoToken).to.be.empty;
@@ -32,10 +28,10 @@ describe('Job', () => {
       expect(job.repoToken).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
 
       expect(job.git).to.be.an.instanceof(GitData);
-      expect(job.git!.branch).to.equal('develop');
+      expect(job.git.branch).to.equal('develop');
 
       expect(job.runAt).to.be.an.instanceof(Date);
-      expect(job.runAt!.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
+      expect(job.runAt.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
 
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(1);
       expect(job.sourceFiles[0]).to.be.an.instanceof(SourceFile);
@@ -43,7 +39,6 @@ describe('Job', () => {
     });
   });
 
-  /** Tests the `Job#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = (new Job).toJSON();

@@ -1,11 +1,8 @@
-/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {Client, Job} from '../src';
+import {Client, Job} from '../lib/index.js';
 
-/** Tests the features of the [[Client]] class. */
+/** Tests the features of the `Client` class. */
 describe('Client', () => {
-
-  /** Tests the `Client#upload()` method. */
   describe('#upload()', () => {
     it('should throw an error with an empty coverage report', async () => {
       try {
@@ -30,7 +27,6 @@ describe('Client', () => {
     });
   });
 
-  /** Tests the `Client#uploadJob()` method. */
   describe('#uploadJob()', () => {
     it('should throw an error with an empty test job', async () => {
       try {

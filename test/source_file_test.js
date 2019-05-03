@@ -1,16 +1,12 @@
-/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {SourceFile} from '../src';
+import {SourceFile} from '../lib/index.js';
 
-/** Tests the features of the [[SourceFile]] class. */
+/** Tests the features of the `SourceFile` class. */
 describe('SourceFile', () => {
-
-  /** Tests the `SourceFile.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const file = SourceFile.fromJson({});
       expect(file).to.be.an.instanceof(SourceFile);
-
       expect(file.coverage).to.be.an('array').and.be.empty;
       expect(file.name).to.be.empty;
       expect(file.source).to.be.empty;
@@ -31,7 +27,6 @@ describe('SourceFile', () => {
     });
   });
 
-  /** Tests the `SourceFile#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new SourceFile('', '').toJSON();
