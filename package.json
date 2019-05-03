@@ -22,21 +22,20 @@
     "commander": "^2.20.0",
     "form-data": "^2.3.3",
     "js-yaml": "^3.13.1",
-    "node-fetch": "^2.4.0",
+    "node-fetch": "^2.5.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
-    "del": "^4.1.0",
+    "del": "^4.1.1",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.16.0",
     "esm": "^3.2.22",
     "gulp": "^4.0.1",
-    "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.0"
