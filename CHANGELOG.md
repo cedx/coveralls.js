@@ -1,7 +1,12 @@
 # Changelog
 
 ## Version [9.0.0](https://github.com/cedx/coveralls.js/compare/v8.6.0...v9.0.0)
+- Breaking change: dropped support for [CommonJS modules](https://nodejs.org/api/modules.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: reverted the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+- Replaced [TypeDoc](https://typedoc.org) documentation generator by [ESDoc](https://esdoc.org).
+- Replaced [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
+- Updated the package dependencies.
 
 ## Version [8.6.0](https://github.com/cedx/coveralls.js/compare/v8.5.0...v8.6.0)
 - Modified the package layout.

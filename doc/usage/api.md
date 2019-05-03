@@ -1,14 +1,14 @@
 path: blob/master
-source: src/client.ts
+source: lib/client.js
 
 # Application programming interface
 The hard way. Use the `Client` class to upload your coverage reports:
 
-```ts
+```js
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
-async function main(): Promise<void> {
+async function main() {
   try {
     const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
     await new Client().upload(coverage);
@@ -33,7 +33,7 @@ The `Client` class is an [`EventEmitter`](https://nodejs.org/api/events.html) th
 ### The `Client.eventRequest` event
 Emitted every time a request is made to the remote service:
 
-```ts
+```js
 client.on(Client.eventRequest, (request) =>
   console.log(`Client request: ${request.url}`)
 );
@@ -42,7 +42,7 @@ client.on(Client.eventRequest, (request) =>
 ### The `Client.eventResponse` event
 Emitted every time a response is received from the remote service:
 
-```ts
+```js
 client.on(Client.eventResponse, (request, response) =>
   console.log(`Server response: ${response.status}`)
 );

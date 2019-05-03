@@ -1,0 +1,17 @@
+{
+  "source": "lib",
+  "destination": "doc/api",
+  "excludes": ["index\\.js$"],
+  "plugins": [
+    {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}},
+    {"name": "esdoc-standard-plugin", "option": {
+      "accessor": {"access": ["public", "protected"]},
+      "brand": {
+        "description": "Send LCOV and Clover coverage reports to the Coveralls service, in JavaScript.",
+        "logo": "doc/img/favicon.ico",
+        "repository": "https://github.com/cedx/coveralls.js",
+        "title": "Coveralls for JS"
+      }
+    }}
+  ]
+}

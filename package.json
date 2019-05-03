@@ -3,10 +3,10 @@
   "description": "Send LCOV and Clover coverage reports to the Coveralls service.",
   "homepage": "https://dev.belin.io/coveralls.js",
   "license": "MIT",
-  "main": "lib/index",
+  "main": "lib/index.js",
   "name": "@cedx/coveralls",
   "repository": "github:cedx/coveralls.js",
-  "types": "lib/index.d.ts",
+  "type": "commonjs",
   "version": "9.0.0",
   "author": {
     "email": "cedric@belin.io",
@@ -47,7 +47,7 @@
     "typescript": "^3.4.5"
   },
   "engines": {
-    "node": ">=12.0.0",
+    "node": ">=12.1.0",
     "npm": ">=6.9.0"
   },
   "keywords": [
@@ -55,11 +55,11 @@
     "code",
     "coverage",
     "coveralls",
+    "esm",
     "lcov"
   ],
   "scripts": {
     "coverage": "gulp coverage",
-    "prepare": "gulp build",
     "start": "gulp watch",
     "test": "gulp test"
   }
