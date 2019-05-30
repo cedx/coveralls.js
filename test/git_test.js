@@ -1,8 +1,10 @@
-import {expect} from 'chai';
+import chai from 'chai';
 import {GitCommit, GitData, GitRemote} from '../lib/index.js';
 
-/** Tests the features of the `GitCommit` class. */
+/** Tests the features of the {@link GitCommit} class. */
 describe('GitCommit', () => {
+  const {expect} = chai;
+
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const remote = GitCommit.fromJson({});
@@ -53,8 +55,10 @@ describe('GitCommit', () => {
   });
 });
 
-/** Tests the features of the `GitData` class. */
+/** Tests the features of the {@link GitData} class. */
 describe('GitData', () => {
+  const {expect} = chai;
+
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const data = GitData.fromJson({});
@@ -131,8 +135,10 @@ describe('GitData', () => {
   });
 });
 
-/** Tests the features of the `GitRemote` class. */
+/** Tests the features of the {@link GitRemote} class. */
 describe('GitRemote', () => {
+  const {expect} = chai;
+
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const remote = GitRemote.fromJson({});

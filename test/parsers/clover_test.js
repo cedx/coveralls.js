@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import chai from 'chai';
 import {promises} from 'fs';
 import {join} from 'path';
 
@@ -7,6 +7,8 @@ import {parseReport} from '../../lib/parsers/clover.js';
 
 /** Tests the features of the Clover parser. */
 describe('Clover', () => {
+  const {expect} = chai;
+
   describe('parseReport()', () => {
     it('should properly parse Clover reports', async () => {
       const job = await parseReport(await promises.readFile('test/fixtures/clover.xml', 'utf8'));

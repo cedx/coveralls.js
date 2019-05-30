@@ -1,8 +1,10 @@
-import {expect} from 'chai';
+import chai from 'chai';
 import {Client, Job} from '../lib/index.js';
 
-/** Tests the features of the `Client` class. */
+/** Tests the features of the {@link Client} class. */
 describe('Client', () => {
+  const {expect} = chai;
+
   describe('#upload()', () => {
     it('should throw an error with an empty coverage report', async () => {
       try {

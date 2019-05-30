@@ -36,7 +36,7 @@ task('coverage', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
 /** Builds the documentation. */
 task('doc', async () => {
   for (const path of ['CHANGELOG.md', 'LICENSE.md']) await copyFile(path, `doc/about/${path.toLowerCase()}`);
-  await _exec('esdoc', ['-c', 'etc/esdoc.json']);
+  await _exec('jsdoc', ['--configure', 'etc/jsdoc.json']);
   await _exec('mkdocs', ['build', '--config-file=etc/mkdocs.yaml']);
   return del(['doc/about/changelog.md', 'doc/about/license.md']);
 });

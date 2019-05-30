@@ -1,8 +1,10 @@
-import {expect} from 'chai';
+import chai from 'chai';
 import {SourceFile} from '../lib/index.js';
 
-/** Tests the features of the `SourceFile` class. */
+/** Tests the features of the {@link SourceFile} class. */
 describe('SourceFile', () => {
+  const {expect} = chai;
+
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const file = SourceFile.fromJson({});
