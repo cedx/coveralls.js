@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "name": "@cedx/coveralls",
   "repository": "github:cedx/coveralls.js",
-  "type": "commonjs",
+  "type": "module",
   "version": "9.0.0",
   "author": {
     "email": "cedric@belin.io",
@@ -17,30 +17,30 @@
     "coveralls": "bin/coveralls.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^5.2.0",
-    "@cedx/which": "^5.4.0",
+    "@cedx/lcov": "^6.0.0",
+    "@cedx/which": "^6.0.0",
     "commander": "^2.20.0",
     "form-data": "^2.3.3",
     "js-yaml": "^3.13.1",
-    "node-fetch": "^2.5.0",
+    "node-fetch": "^2.6.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.4.5",
     "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
     "del": "^4.1.1",
     "eslint": "^5.16.0",
-    "esm": "^3.2.22",
-    "gulp": "^4.0.1",
+    "esm": "^3.2.25",
+    "gulp": "^4.0.2",
     "gulp-replace": "^1.0.0",
     "jsdoc": "^3.6.2",
     "mocha": "^6.1.4",
-    "nyc": "^14.1.0"
+    "nyc": "^14.1.1",
     "tidy-jsdoc": "^0.3.1"
   },
   "engines": {
-    "node": ">=12.1.0",
+    "node": ">=12.3.0",
     "npm": ">=6.9.0"
   },
   "keywords": [
