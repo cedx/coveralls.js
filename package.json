@@ -30,15 +30,14 @@
     "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
     "del": "^4.1.1",
-    "esdoc": "^1.1.0",
-    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
-    "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.16.0",
     "esm": "^3.2.22",
     "gulp": "^4.0.1",
     "gulp-replace": "^1.0.0",
+    "jsdoc": "^3.6.2",
     "mocha": "^6.1.4",
     "nyc": "^14.1.0"
+    "tidy-jsdoc": "^0.3.1"
   },
   "engines": {
     "node": ">=12.1.0",
