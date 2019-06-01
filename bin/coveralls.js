@@ -2,12 +2,7 @@
 import program from 'commander';
 import {promises} from 'fs';
 import {Client} from '../lib/index.js';
-
-/**
- * The version number of the package.
- * @type {string}
- */
-const packageVersion = '9.0.0';
+import {packageVersion} from '../lib/version.js';
 
 /**
  * Application entry point.

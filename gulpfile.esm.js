@@ -2,7 +2,7 @@ import {spawn} from 'child_process';
 import del from 'del';
 import {promises} from 'fs';
 import gulp from 'gulp';
-import replace from 'gulp-replace';
+import {EOL} from 'os';
 import {delimiter, normalize, resolve} from 'path';
 import pkg from './package.json';
 
@@ -13,8 +13,8 @@ import pkg from './package.json';
 const sources = ['*.js', 'bin/*.js', 'example/*.js', 'lib/**/*.js', 'test/**/*.js'];
 
 // Shortcuts.
-const {dest, src, task, watch} = gulp;
-const {copyFile} = promises;
+const {task, watch} = gulp;
+const {copyFile, writeFile} = promises;
 
 // Initialize the build system.
 const _path = 'PATH' in process.env ? process.env.PATH : '';
@@ -22,10 +22,10 @@ const _vendor = resolve('node_modules/.bin');
 if (!_path.includes(_vendor)) process.env.PATH = `${_vendor}${delimiter}${_path}`;
 
 /** Builds the project. */
-task('build', () => src('bin/coveralls.js')
-  .pipe(replace(/const packageVersion = '\d+(\.\d+){2}'/g, `const packageVersion = '${pkg.version}'`))
-  .pipe(dest('bin'))
-);
+task('build', () => writeFile('lib/version.js', [
+  '/**', ' * The version number of the package.', ' * @type {string}', ' */',
+  `export const packageVersion = '${pkg.version}';`, ''
+].join(EOL)));
 
 /** Deletes all generated files and reset any saved state. */
 task('clean', () => del(['.nyc_output', 'doc/api', 'var/**/*', 'web']));
@@ -60,7 +60,10 @@ task('upgrade', async () => {
 });
 
 /** Watches for file changes. */
-task('watch', () => watch('test/**/*.js', task('test')));
+task('watch', () => {
+  watch('lib/**/*.js', {ignoreInitial: false}, task('build'));
+  watch('test/**/*.js', task('test'));
+});
 
 /** Runs the default tasks. */
 task('default', task('build'));
