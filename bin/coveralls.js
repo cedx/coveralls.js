@@ -6,7 +6,7 @@ import {packageVersion} from '../lib/version.js';
 
 /**
  * Application entry point.
- * @return {Promise<void>} Completes when the program is terminated.
+ * @return {Promise} Completes when the program is terminated.
  */
 async function main() {
   // Initialize the application.

@@ -3,7 +3,7 @@ import {promises} from 'fs';
 
 /**
  * Uploads a coverage report.
- * @return {Promise<void>} Completes when the program is terminated.
+ * @return {Promise} Completes when the program is terminated.
  */
 async function main() { // eslint-disable-line no-unused-vars
   try {
