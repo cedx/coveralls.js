@@ -1,7 +1,10 @@
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
-/** Uploads a coverage report. */
+/**
+ * Uploads a coverage report.
+ * @return {Promise<void>} Completes when the program is terminated.
+ */
 async function main() { // eslint-disable-line no-unused-vars
   try {
     const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
