@@ -22,7 +22,7 @@ const _vendor = resolve('node_modules/.bin');
 if (!_path.includes(_vendor)) process.env.PATH = `${_vendor}${delimiter}${_path}`;
 
 /** Builds the project. */
-task('build', () => writeFile('lib/version.js', [
+task('build', () => writeFile('lib/version.g.js', [
   '/**', ' * The version number of the package.', ' * @type {string}', ' */',
   `export const packageVersion = '${pkg.version}';`, ''
 ].join(EOL)));

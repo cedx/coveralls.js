@@ -2,7 +2,7 @@
 import program from 'commander';
 import {promises} from 'fs';
 import {Client} from '../lib/index.js';
-import {packageVersion} from '../lib/version.js';
+import {packageVersion} from '../lib/version.g.js';
 
 /**
  * Application entry point.
