@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
@@ -5,7 +6,7 @@ import {promises} from 'fs';
  * Uploads a coverage report.
  * @return {Promise} Completes when the program is terminated.
  */
-async function main() { // eslint-disable-line no-unused-vars
+async function main() {
   try {
     const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
     await new Client().upload(coverage);
