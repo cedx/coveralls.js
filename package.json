@@ -20,14 +20,14 @@
     "@cedx/lcov": "^6.0.0",
     "@cedx/which": "^6.0.0",
     "commander": "^2.20.0",
-    "form-data": "^2.3.3",
+    "form-data": "^2.4.0",
     "js-yaml": "^3.13.1",
     "node-fetch": "^2.6.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
     "del": "^4.1.1",
     "eslint": "^5.16.0",
