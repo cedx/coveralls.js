@@ -26,14 +26,14 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.4",
     "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
     "del": "^5.0.0",
     "eslint": "^6.0.1",
     "esm": "^3.2.25",
     "gulp": "^4.0.2",
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.3",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1"
   },
