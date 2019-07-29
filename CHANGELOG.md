@@ -3,9 +3,9 @@
 ## Version [9.0.0](https://github.com/cedx/coveralls.js/compare/v8.6.0...v9.0.0)
 - Breaking change: dropped support for [CommonJS modules](https://nodejs.org/api/modules.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
-- Breaking change: reverted the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
-- Replaced [TypeDoc](https://typedoc.org) documentation generator by [JSDoc](https://jsdoc.app).
-- Replaced [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
+- Breaking change: reverted the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [TypeScript](https://www.typescriptlang.org).
+- Replaced the [TypeDoc](https://typedoc.org) documentation generator by [JSDoc](https://jsdoc.app).
+- Replaced the [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
 - Updated the package dependencies.
 
 ## Version [8.6.0](https://github.com/cedx/coveralls.js/compare/v8.5.0...v8.6.0)
@@ -25,7 +25,7 @@
 - Updated the URL of the Git repository.
 
 ## Version [8.2.1](https://github.com/cedx/coveralls.js/compare/v8.2.0...v8.2.1)
-- Fixed the [GitHub issue #4](https://github.com/cedx/coveralls.js/issues/4): an invalid output URL was generated when using a well-formed input URL.
+- Fixed the [issue #4](https://github.com/cedx/coveralls.js/issues/4): an invalid output URL was generated when using a well-formed input URL.
 
 ## Version [8.2.0](https://github.com/cedx/coveralls.js/compare/v8.1.0...v8.2.0)
 - Improved the handling of SSH-based [Git](https://git-scm.com) remotes.
@@ -49,8 +49,8 @@
 - Breaking change: removed the `defaultValue` argument from the `Configuration.get()` method.
 - Breaking change: the `Configuration.fromEnvironment()` method is now asynchronous.
 - Added the `eventRequest` and `eventResponse` static properties to the `Client` class.
-- Replaced [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
-- Replaced [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
+- Replaced the [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
+- Replaced the [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
 - Updated the package dependencies.
 
 ## Version [6.0.0](https://github.com/cedx/coveralls.js/compare/v5.1.0...v6.0.0)

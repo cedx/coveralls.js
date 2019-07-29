@@ -1,5 +1,5 @@
 path: blob/master
-source: bin/coveralls.js
+source: src/cli/main.ts
 
 # Command line interface
 The easy way. From a command prompt with administrator privileges, install the `coveralls` executable:
