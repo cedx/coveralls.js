@@ -1,4 +1,4 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import {promises} from 'fs';
 import {join} from 'path';
 

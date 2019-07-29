@@ -1,7 +1,7 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import {GitCommit, GitData, GitRemote} from '../lib/index.js';
 
-/** Tests the features of the {@link GitCommit} class. */
+/** Tests the features of the [[GitCommit]] class. */
 describe('GitCommit', () => {
   const {expect} = chai;
 
@@ -55,7 +55,7 @@ describe('GitCommit', () => {
   });
 });
 
-/** Tests the features of the {@link GitData} class. */
+/** Tests the features of the [[GitData]] class. */
 describe('GitData', () => {
   const {expect} = chai;
 
@@ -135,7 +135,7 @@ describe('GitData', () => {
   });
 });
 
-/** Tests the features of the {@link GitRemote} class. */
+/** Tests the features of the [[GitRemote]] class. */
 describe('GitRemote', () => {
   const {expect} = chai;
 

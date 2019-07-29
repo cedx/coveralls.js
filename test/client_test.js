@@ -1,7 +1,7 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import {Client, Job} from '../lib/index.js';
 
-/** Tests the features of the {@link Client} class. */
+/** Tests the features of the [[Client]] class. */
 describe('Client', () => {
   const {expect} = chai;
 

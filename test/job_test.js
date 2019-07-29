@@ -1,7 +1,7 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import {GitData, Job, SourceFile} from '../lib/index.js';
 
-/** Tests the features of the {@link Job} class. */
+/** Tests the features of the [[Job]] class. */
 describe('Job', () => {
   const {expect} = chai;
 
