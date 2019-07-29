@@ -18,8 +18,8 @@
     "coveralls": "bin/coveralls.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^6.0.0",
-    "@cedx/which": "^6.0.0",
+    "@cedx/lcov": "^6.1.0",
+    "@cedx/which": "^6.1.0",
     "commander": "^2.20.0",
     "form-data": "^2.5.0",
     "js-yaml": "^3.13.1",
@@ -28,6 +28,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@types/gulp": "^4.0.6",
+    "@types/node": "^12.6.8",
     "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
     "del": "^5.0.0",
@@ -52,7 +54,7 @@
   ],
   "scripts": {
     "coverage": "gulp coverage",
-    "prepack": "gulp build",
+    "prepack": "gulp",
     "start": "gulp watch",
     "test": "gulp test"
   }
