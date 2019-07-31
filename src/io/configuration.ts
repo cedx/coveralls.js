@@ -1,33 +1,31 @@
 import {promises} from 'fs';
 import yaml from 'js-yaml';
+import {JsonMap, StringMap} from './map';
 
 /** Provides access to the coverage settings. */
 export class Configuration {
 
+  /** The configuration parameters. */
+  private _params: Map<string, string|undefined>;
+
   /**
    * Creates a new configuration.
-   * @param {Object<string, string>} [params] The configuration parameters.
+   * @param params The configuration parameters.
    */
-  constructor(params = {}) {
-
-    /**
-     * The configuration parameters.
-     * @type {Map<string, string|undefined>}
-     * @private
-     */
-    this._params = new Map(Object.entries(params));
+  constructor(params: StringMap = {}) {
+    this._params = new Map<string, string|undefined>(Object.entries(params));
   }
 
   /**
    * Creates a new configuration from the variables of the specified environment.
-   * @param {Object<string, string>} [env] A map providing environment variables.
-   * @return {Promise<Configuration>} The newly created configuration.
+   * @param env A map providing environment variables.
+   * @return The newly created configuration.
    */
-  static async fromEnvironment(env = process.env) {
+  static async fromEnvironment(env: StringMap = process.env): Promise<Configuration> {
     const config = new Configuration;
 
     // Standard.
-    const serviceName = 'CI_NAME' in env ? env.CI_NAME : '';
+    const serviceName = 'CI_NAME' in env ? env.CI_NAME! : '';
     if (serviceName.length) config.set('service_name', serviceName);
 
     if ('CI_BRANCH' in env) config.set('service_branch', env.CI_BRANCH);
@@ -37,7 +35,7 @@ export class Configuration {
     if ('CI_JOB_ID' in env) config.set('service_job_id', env.CI_JOB_ID);
 
     if ('CI_PULL_REQUEST' in env) {
-      const matches = /(\d+)$/.exec(env.CI_PULL_REQUEST);
+      const matches = /(\d+)$/.exec(env.CI_PULL_REQUEST!);
       if (matches && matches.length >= 2) config.set('service_pull_request', matches[1]);
     }
 
@@ -62,7 +60,7 @@ export class Configuration {
     if ('GIT_MESSAGE' in env) config.set('git_message', env.GIT_MESSAGE);
 
     // CI services.
-    const merge = async service => {
+    const merge = async (service: string) => {
       const {getConfiguration} = await import(`./services/${service}.js`);
       config.merge(getConfiguration(env));
     };
@@ -86,11 +84,11 @@ export class Configuration {
 
   /**
    * Creates a new source file from the specified YAML document.
-   * @param {string} document A YAML document providing configuration parameters.
-   * @return {Configuration} The instance corresponding to the specified YAML document.
-   * @throws {TypeError} The specified document is invalid.
+   * @param document A YAML document providing configuration parameters.
+   * @return The instance corresponding to the specified YAML document.
+   * @throws [[TypeError]] The specified document is empty or invalid.
    */
-  static fromYaml(document) {
+  static fromYaml(document: string): Configuration {
     if (!document.trim().length) throw new TypeError('The specified YAML document is empty.');
 
     try {
@@ -108,10 +106,10 @@ export class Configuration {
   /**
    * Loads the default configuration.
    * The default values are read from the environment variables and an optional `.coveralls.yml` file.
-   * @param {string} [coverallsFile] The path to the `.coveralls.yml` file.
-   * @return {Promise<Configuration>} The default configuration.
+   * @param coverallsFile The path to the `.coveralls.yml` file.
+   * @return The default configuration.
    */
-  static async loadDefaults(coverallsFile = '.coveralls.yml') {
+  static async loadDefaults(coverallsFile: string = '.coveralls.yml'): Promise<Configuration> {
     const defaults = await Configuration.fromEnvironment();
 
     try {
@@ -124,62 +122,56 @@ export class Configuration {
     }
   }
 
-  /**
-   * The keys of this configuration.
-   * @type {string[]}
-   */
-  get keys() {
+  /** The keys of this configuration. */
+  get keys(): string[] {
     return [...this._params.keys()];
   }
 
-  /**
-   * The number of entries in this configuration.
-   * @type {number}
-   */
-  get length() {
+  /** The number of entries in this configuration. */
+  get length(): number {
     return this._params.size;
   }
 
   /**
    * Returns a new iterator that allows iterating the entries of this configuration.
-   * @return {IterableIterator<Array>} An iterator for the entries of this configuration.
+   * @return An iterator for the entries of this configuration.
    */
-  [Symbol.iterator]() {
+  [Symbol.iterator](): IterableIterator<[string, string|undefined]> {
     return this._params.entries();
   }
 
   /**
    * Gets the value associated to the specified key.
-   * @param {string} key The key to seek for.
-   * @return {string|undefined} The value of the configuration parameter, or `undefined` if the parameter is not found.
+   * @param key The key to seek for.
+   * @return The value of the configuration parameter, or `undefined` if the parameter is not found.
    */
-  get(key) {
+  get(key: string): string|undefined {
     return this._params.get(key);
   }
 
   /**
    * Gets a value indicating whether this configuration contains the specified key.
-   * @param {string} key The key to seek for.
-   * @return {boolean} `true` if this configuration contains the specified key, otherwise `false`.
+   * @param key The key to seek for.
+   * @return `true` if this configuration contains the specified key, otherwise `false`.
    */
-  has(key) {
+  has(key: string): boolean {
     return this._params.has(key);
   }
 
   /**
    * Adds all entries of the specified configuration to this one.
-   * @param {Configuration} config The configuration to be merged.
+   * @param config The configuration to be merged.
    */
-  merge(config) {
+  merge(config: Configuration): void {
     for (const [key, value] of config) this.set(key, value);
   }
 
   /**
    * Removes the value associated to the specified key.
-   * @param {string} key The key to seek for.
-   * @return {string|undefined}  The value associated with the specified key before it was removed.
+   * @param key The key to seek for.
+   * @return The value associated with the specified key before it was removed.
    */
-  remove(key) {
+  remove(key: string): string|undefined {
     const previousValue = this.get(key);
     this._params.delete(key);
     return previousValue;
@@ -187,21 +179,21 @@ export class Configuration {
 
   /**
    * Associates a given value to the specified key.
-   * @param {string} key The key to seek for.
-   * @param {string|undefined} value The parameter value.
-   * @return {this} This instance.
+   * @param key The key to seek for.
+   * @param value The parameter value.
+   * @return This instance.
    */
-  set(key, value) {
+  set(key: string, value?: string): this {
     this._params.set(key, value);
     return this;
   }
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object<string, *>} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
-    const map = {};
+  toJSON(): JsonMap {
+    const map: JsonMap = {};
     for (const [key, value] of this) map[key] = value;
     return map;
   }

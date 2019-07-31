@@ -1,59 +1,47 @@
 import {which} from '@cedx/which';
 import EventEmitter from 'events';
 import FormData from 'form-data';
-import fetch from 'node-fetch';
-import {Configuration} from './configuration.js';
-import {RequestEvent, ResponseEvent} from './event.js';
-import {GitCommit, GitData} from './git.js';
+import {default as fetch, Request} from 'node-fetch';
+
+import {Configuration} from './configuration';
+import {RequestEvent, ResponseEvent} from './event';
+import {GitCommit, GitData} from './git';
+import {Job} from './job';
 
 /** Uploads code coverage reports to the [Coveralls](https://coveralls.io) service. */
 export class Client extends EventEmitter {
 
-  /**
-   * The URL of the default API end point.
-   * @type {URL}
-   */
-  static get defaultEndPoint() {
-    return new URL('https://coveralls.io/api/v1/');
-  }
+  /** The URL of the default API end point. */
+  static readonly defaultEndPoint: URL = new URL('https://coveralls.io/api/v1/');
 
   /**
    * An event that is triggered when a request is made to the remote service.
-   * @type {string}
+   * @event request
    */
-  static get eventRequest() {
-    return 'request';
-  }
+  static readonly eventRequest: string = 'request';
 
   /**
    * An event that is triggered when a response is received from the remote service.
-   * @type {string}
+   * @event response
    */
-  static get eventResponse() {
-    return 'response';
-  }
+  static readonly eventResponse: string = 'response';
 
   /**
    * Creates a new client.
-   * @param {URL} [endPoint] The URL of the API end point.
+   * @param endPoint The URL of the API end point.
    */
-  constructor(endPoint = Client.defaultEndPoint) {
+  constructor(public endPoint: URL = Client.defaultEndPoint) {
     super();
-
-    /**
-     * The URL of the API end point.
-     * @type {URL}
-     */
-    this.endPoint = endPoint;
   }
 
   /**
    * Uploads the specified code coverage report to the Coveralls service.
-   * @param {string} coverage A coverage report.
-   * @param {Configuration} [configuration] The environment settings.
-   * @return {Promise} Completes when the operation is done.
+   * Rejects with a [[TypeError]] if the specified coverage report is empty or invalid.
+   * @param coverage A coverage report.
+   * @param configuration The environment settings.
+   * @return Completes when the operation is done.
    */
-  async upload(coverage, configuration) {
+  async upload(coverage: string, configuration?: Configuration): Promise<void> {
     const report = coverage.trim();
     if (!report.length) throw new TypeError('The specified coverage report is empty.');
 
@@ -88,17 +76,21 @@ export class Client extends EventEmitter {
 
   /**
    * Uploads the specified job to the Coveralls service.
-   * @param {Job} job The job to be uploaded.
-   * @return {Promise} Completes when the operation is done.
+   *
+   * Rejects with a [[ClientError]] if an error occurred while uploading the report.
+   * Rejects with a [[TypeError]] if the specified job does not meet the requirements.
+   *
+   * @param job The job to be uploaded.
+   * @return Completes when the operation is done.
    */
-  async uploadJob(job) {
+  async uploadJob(job: Job): Promise<void> {
     if (!job.repoToken.length && !job.serviceName.length) throw new TypeError('The job does not meet the requirements.');
 
     const body = new FormData;
     body.append('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
     const url = new URL('jobs', this.endPoint);
-    const request = new fetch.Request(url.href, {method: 'POST', body});
+    const request = new Request(url.href, {method: 'POST', body});
     this.emit(Client.eventRequest, new RequestEvent(request));
 
     let response;
@@ -111,25 +103,24 @@ export class Client extends EventEmitter {
 
   /**
    * Updates the properties of the specified job using the given configuration parameters.
-   * @param {Job} job The job to update.
-   * @param {Configuration} config The parameters to define.
-   * @private
+   * @param job The job to update.
+   * @param config The parameters to define.
    */
-  _updateJob(job, config) {
-    if (config.has('repo_token')) job.repoToken = config.get('repo_token');
-    else if (config.has('repo_secret_token')) job.repoToken = config.get('repo_secret_token');
+  private _updateJob(job: Job, config: Configuration): void {
+    if (config.has('repo_token')) job.repoToken = config.get('repo_token')!;
+    else if (config.has('repo_secret_token')) job.repoToken = config.get('repo_secret_token')!;
 
     if (config.has('parallel')) job.isParallel = config.get('parallel') == 'true';
-    if (config.has('run_at')) job.runAt = new Date(config.get('run_at'));
-    if (config.has('service_job_id')) job.serviceJobId = config.get('service_job_id');
-    if (config.has('service_name')) job.serviceName = config.get('service_name');
-    if (config.has('service_number')) job.serviceNumber = config.get('service_number');
-    if (config.has('service_pull_request')) job.servicePullRequest = config.get('service_pull_request');
+    if (config.has('run_at')) job.runAt = new Date(config.get('run_at')!);
+    if (config.has('service_job_id')) job.serviceJobId = config.get('service_job_id')!;
+    if (config.has('service_name')) job.serviceName = config.get('service_name')!;
+    if (config.has('service_number')) job.serviceNumber = config.get('service_number')!;
+    if (config.has('service_pull_request')) job.servicePullRequest = config.get('service_pull_request')!;
 
     const hasGitData = config.keys.some(key => key == 'service_branch' || key.substring(0, 4) == 'git_');
-    if (!hasGitData) job.commitSha = config.has('commit_sha') ? config.get('commit_sha') : '';
+    if (!hasGitData) job.commitSha = config.has('commit_sha') ? config.get('commit_sha')! : '';
     else {
-      const commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha') : '', {
+      const commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha')! : '', {
         authorEmail: config.has('git_author_email') ? config.get('git_author_email') : '',
         authorName: config.has('git_author_name') ? config.get('git_author_name') : '',
         committerEmail: config.has('git_committer_email') ? config.get('git_committer_email') : '',
@@ -147,22 +138,11 @@ export class ClientError extends Error {
 
   /**
    * Creates a new client error.
-   * @param {string} [message] A message describing the error.
-   * @param {?URL} [uri] The URL of the HTTP request or response that failed.
+   * @param message A message describing the error.
+   * @param uri The URL of the HTTP request or response that failed.
    */
-  constructor(message, uri = null) {
+  constructor(message: string = '', readonly uri: URL|null = null) {
     super(message);
-
-    /**
-     * A name for the type of error.
-     * @type {string}
-     */
     this.name = 'ClientError';
-
-    /**
-     * The URL of the HTTP request or response that failed.
-     * @type {?URL}
-     */
-    this.uri = uri;
   }
 }
