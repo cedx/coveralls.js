@@ -1,11 +1,12 @@
-import {Configuration} from '../configuration.js';
+import {Configuration} from '../configuration';
+import {StringMap} from '../map';
 
 /**
  * Gets the [Travis CI](https://travis-ci.com) configuration parameters from the environment.
- * @param {Object<string, string>} env A map providing environment variables.
- * @return {Configuration} The configuration parameters.
+ * @param env A map providing environment variables.
+ * @return The configuration parameters.
  */
-export function getConfiguration(env) {
+export function getConfiguration(env: StringMap): Configuration {
   const config = new Configuration({
     commit_sha: 'HEAD',
     service_branch: env.TRAVIS_BRANCH,

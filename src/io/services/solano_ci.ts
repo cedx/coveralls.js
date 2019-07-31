@@ -1,11 +1,12 @@
-import {Configuration} from '../configuration.js';
+import {Configuration} from '../configuration';
+import {StringMap} from '../map';
 
 /**
  * Gets the [Solano CI](https://ci.solanolabs.com) configuration parameters from the environment.
- * @param {Object<string, string>} env A map providing environment variables.
- * @return {Configuration} The configuration parameters.
+ * @param env A map providing environment variables.
+ * @return The configuration parameters.
  */
-export function getConfiguration(env) {
+export function getConfiguration(env: StringMap): Configuration {
   const serviceNumber = env.TDDIUM_SESSION_ID;
   return new Configuration({
     service_branch: env.TDDIUM_CURRENT_BRANCH,
