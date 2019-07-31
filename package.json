@@ -8,7 +8,7 @@
   "repository": "github:cedx/coveralls.js",
   "type": "module",
   "types": "lib/index.d.ts",
-  "version": "9.0.0",
+  "version": "9.1.0",
   "author": {
     "email": "cedric@belin.io",
     "name": "Cédric Belin",
@@ -27,18 +27,25 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@types/chai": "^4.1.7",
     "@types/gulp": "^4.0.6",
+    "@types/gulp-replace": "^0.0.31",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.8",
-    "babel-eslint": "^10.0.2",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "chai": "^4.2.0",
     "del": "^5.0.0",
     "eslint": "^6.1.0",
     "esm": "^3.2.25",
     "gulp": "^4.0.2",
-    "jsdoc": "^3.6.3",
+    "gulp-replace": "^1.0.0",
     "mocha": "^6.2.0",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "source-map-support": "^0.5.13",
+    "ts-node": "^8.3.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.5.3"
   },
   "engines": {
     "node": ">=12.7.0",
