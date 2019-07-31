@@ -3,7 +3,10 @@ import {promises} from 'fs';
 import {Client} from '../io/client';
 import {packageVersion} from './version.g';
 
-/** Application entry point. */
+/**
+ * Application entry point.
+ * @return Completes when the program is terminated.
+ */
 export async function main(): Promise<void> {
   // Initialize the application.
   process.title = 'Coveralls.js';

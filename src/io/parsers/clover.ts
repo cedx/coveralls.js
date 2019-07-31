@@ -1,45 +1,47 @@
-import crypto from 'crypto';
+import {createHash} from 'crypto';
 import {promises} from 'fs';
 import {relative} from 'path';
 import {promisify} from 'util';
 import xml from 'xml2js';
 
-import {Job} from '../job.js';
-import {SourceFile} from '../source_file.js';
+import {Job} from '../job';
+import {StringMap} from '../map';
+import {SourceFile} from '../source_file';
 
-/**
- * Defines the shape of a node in an XML document.
- * @typedef {object} XmlNode
- */
+/** Defines the shape of a node in an XML document. */
+type XmlNode = StringMap<any>;
 
 /**
  * Returns direct child elements of the specified node.
- * @param {XmlNode} node The node to process.
- * @param {string} name The tag name of the child elements to find.
- * @return {XmlNode[]} The direct child elements with the given tag name.
+ * @param node The node to process.
+ * @param name The tag name of the child elements to find.
+ * @return The direct child elements with the given tag name.
  */
-function findElements(node, name) {
+function findElements(node: XmlNode, name: string): XmlNode[] {
   return name in node && Array.isArray(node[name]) ? node[name] : [];
 }
 
 /**
  * Return an attribute value of the specified node.
- * @param {XmlNode} node The node to process.
- * @param {string} name The name of the attribute value to get.
- * @return {string} The attribute value with the given name.
+ * @param node The node to process.
+ * @param name The name of the attribute value to get.
+ * @return The attribute value with the given name.
  */
-function getAttribute(node, name) {
+function getAttribute(node: XmlNode, name: string): string {
   return '$' in node && typeof node.$[name] == 'string' ? node.$[name] : '';
 }
 
 /**
  * Parses the specified [Clover](https://www.atlassian.com/software/clover) coverage report.
- * @param {string} report A coverage report in Clover format.
- * @return {Promise<Job>} The job corresponding to the specified coverage report.
+ * Rejects with a [[TypeError]] if the specified report is empty or invalid.
+ * @param report A coverage report in Clover format.
+ * @return The job corresponding to the specified coverage report.
  */
-export async function parseReport(report) {
+export async function parseReport(report: string): Promise<Job> {
   const parseXml = promisify(xml.parseString);
-  const xmlDoc = await parseXml(report);
+
+  // @ts-ignore: `parseXml()` has a wrong function signature.
+  const xmlDoc: XmlNode = await parseXml(report);
   if (!xmlDoc.coverage || typeof xmlDoc.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
 
   const projects = findElements(xmlDoc.coverage, 'project');
@@ -67,7 +69,7 @@ export async function parseReport(report) {
       }
 
       const filename = relative(workingDir, sourceFile);
-      const digest = crypto.createHash('md5').update(source).digest('hex');
+      const digest = createHash('md5').update(source).digest('hex');
       sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
     }
 

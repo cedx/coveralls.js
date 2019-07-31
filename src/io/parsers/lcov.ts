@@ -1,17 +1,17 @@
 import {Report} from '@cedx/lcov';
-import crypto from 'crypto';
+import {createHash} from 'crypto';
 import {promises} from 'fs';
 import {relative} from 'path';
 
-import {Job} from '../job.js';
-import {SourceFile} from '../source_file.js';
+import {Job} from '../job';
+import {SourceFile} from '../source_file';
 
 /**
  * Parses the specified [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage report.
- * @param {string} report A coverage report in LCOV format.
- * @return {Promise<Job>} The job corresponding to the specified coverage report.
+ * @param report A coverage report in LCOV format.
+ * @return The job corresponding to the specified coverage report.
  */
-export async function parseReport(report) {
+export async function parseReport(report: string): Promise<Job> {
   const sourceFiles = [];
   const workingDir = process.cwd();
 
@@ -21,7 +21,7 @@ export async function parseReport(report) {
     if (record.lines) for (const lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
 
     const filename = relative(workingDir, record.sourceFile);
-    const digest = crypto.createHash('md5').update(source).digest('hex');
+    const digest = createHash('md5').update(source).digest('hex');
     sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
   }
 
