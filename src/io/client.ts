@@ -1,7 +1,7 @@
 import {which} from '@cedx/which';
 import EventEmitter from 'events';
 import FormData from 'form-data';
-import {default as fetch, Request} from 'node-fetch';
+import fetch from 'node-fetch';
 
 import {Configuration} from './configuration';
 import {RequestEvent, ResponseEvent} from './event';
@@ -86,11 +86,12 @@ export class Client extends EventEmitter {
   async uploadJob(job: Job): Promise<void> {
     if (!job.repoToken.length && !job.serviceName.length) throw new TypeError('The job does not meet the requirements.');
 
+    const url = new URL('jobs', this.endPoint);
     const body = new FormData;
     body.append('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    const url = new URL('jobs', this.endPoint);
-    const request = new Request(url.href, {method: 'POST', body});
+    // @ts-ignore: `fetch` has the wrong typings.
+    const request = new fetch.Request(url.href, {method: 'POST', body});
     this.emit(Client.eventRequest, new RequestEvent(request));
 
     let response;

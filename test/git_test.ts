@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import {GitCommit, GitData, GitRemote} from '../lib/index.js';
+import {GitCommit, GitData, GitRemote} from '../lib/index';
 
 /** Tests the features of the [[GitCommit]] class. */
 describe('GitCommit', () => {

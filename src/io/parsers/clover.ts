@@ -40,7 +40,7 @@ function getAttribute(node: XmlNode, name: string): string {
 export async function parseReport(report: string): Promise<Job> {
   const parseXml = promisify(xml.parseString);
 
-  // @ts-ignore: `parseXml()` has a wrong function signature.
+  // @ts-ignore: `parseXml` has a wrong type inference.
   const xmlDoc: XmlNode = await parseXml(report);
   if (!xmlDoc.coverage || typeof xmlDoc.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
 

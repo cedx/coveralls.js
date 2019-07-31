@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import {SourceFile} from '../lib/index.js';
+import {SourceFile} from '../lib/index';
 
 /** Tests the features of the [[SourceFile]] class. */
 describe('SourceFile', () => {

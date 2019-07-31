@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import {GitData, Job, SourceFile} from '../lib/index.js';
+import {GitData, Job, SourceFile} from '../lib/index';
 
 /** Tests the features of the [[Job]] class. */
 describe('Job', () => {
