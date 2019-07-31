@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
+// @ts-ignore
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
 /**
  * Uploads a coverage report.
- * @return {Promise} Completes when the program is terminated.
+ * @return Completes when the program is terminated.
  */
 async function main(): Promise<void> {
   try {
