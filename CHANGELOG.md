@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [9.1.0](https://github.com/cedx/coveralls.js/compare/v9.0.0...v9.1.0)
+- Due to strong user demand, restored the [TypeScript](https://www.typescriptlang.org) source code.
+- Raised the [Node.js](https://nodejs.org) constraint.
+- Replaced the [JSDoc](https://jsdoc.app) documentation generator by [TypeDoc](https://typedoc.org).
+
 ## Version [9.0.0](https://github.com/cedx/coveralls.js/compare/v8.6.0...v9.0.0)
 - Breaking change: dropped support for [CommonJS modules](https://nodejs.org/api/modules.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
