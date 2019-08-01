@@ -35,12 +35,12 @@ describe('Configuration', () => {
 
     it('should return an initialized instance for a non-empty environment', async () => {
       const config = await Configuration.fromEnvironment({
-        CI_COMMIT: 'HEAD',
         CI_NAME: 'travis-pro',
         CI_PULL_REQUEST: 'PR #123',
         COVERALLS_REPO_TOKEN: '0123456789abcdef',
-        GIT_BRANCH: 'develop',
-        GIT_MESSAGE: 'Hello World!'
+        GIT_MESSAGE: 'Hello World!',
+        TRAVIS: 'true',
+        TRAVIS_BRANCH: 'develop'
       });
 
       expect(config.get('commit_sha')).to.equal('HEAD');
@@ -68,9 +68,7 @@ describe('Configuration', () => {
   });
 
   describe('.loadDefaults()', () => {
-    const test = process.env.TRAVIS == 'true' ? it.skip : it;
-
-    test('should properly initialize from a `.coveralls.yml` file', async () => {
+    it('should properly initialize from a `.coveralls.yml` file', async () => {
       const config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
       expect(config).to.be.an.instanceof(Configuration);
       expect(config).to.have.length.of.at.least(2);
@@ -78,7 +76,7 @@ describe('Configuration', () => {
       expect(config.get('service_name')).to.equal('travis-pro');
     });
 
-    test('should use the environment defaults if the `.coveralls.yml` file is not found', async () => {
+    it('should use the environment defaults if the `.coveralls.yml` file is not found', async () => {
       const config = await Configuration.loadDefaults('.dummy/config.yml');
       const defaults = await Configuration.fromEnvironment();
       expect(config).to.be.an.instanceof(Configuration);
