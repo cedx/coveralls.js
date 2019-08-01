@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import {Configuration} from '../lib/index';
+import {Configuration} from '../src/index';
 
 /** Tests the features of the [[Configuration]] class. */
 describe('Configuration', () => {

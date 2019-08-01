@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import * as chai from 'chai';
-import {GitCommit, GitData, GitRemote} from '../lib/index';
+import {GitCommit, GitData, GitRemote} from '../src/index';
 
 /** Tests the features of the [[GitCommit]] class. */
 describe('GitCommit', () => {
@@ -79,7 +80,7 @@ describe('GitData', () => {
       expect(data.branch).to.equal('develop');
 
       expect(data.commit).to.be.an.instanceof(GitCommit);
-      expect(data.commit.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
+      expect(data.commit!.id).to.equal('2ef7bde608ce5404e97d5f042f95f89f1c232871');
 
       expect(data.remotes).to.be.an('array').and.have.lengthOf(1);
       expect(data.remotes[0]).to.be.an.instanceof(GitRemote);
@@ -93,14 +94,14 @@ describe('GitData', () => {
       expect(data.branch).to.not.be.empty;
 
       expect(data.commit).to.be.an.instanceof(GitCommit);
-      expect(data.commit.id).to.match(/^[a-f\d]{40}$/);
+      expect(data.commit!.id).to.match(/^[a-f\d]{40}$/);
 
       expect(data.remotes).to.not.be.empty;
       expect(data.remotes[0]).to.be.an.instanceof(GitRemote);
 
       const origin = data.remotes.filter(remote => remote.name == 'origin');
       expect(origin).to.have.lengthOf(1);
-      expect(origin[0].url.href).to.be.oneOf([
+      expect(origin[0].url!.href).to.be.oneOf([
         'https://github.com/cedx/coveralls.js.git',
         'ssh://git@github.com/cedx/coveralls.js.git'
       ]);

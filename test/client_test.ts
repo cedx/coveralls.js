@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import {Client, Job} from '../lib/index';
+import {Client, Job} from '../src/index';
 
 /** Tests the features of the [[Client]] class. */
 describe('Client', () => {

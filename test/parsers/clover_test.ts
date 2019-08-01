@@ -2,8 +2,8 @@ import * as chai from 'chai';
 import {promises} from 'fs';
 import {join} from 'path';
 
-import {SourceFile} from '../../lib/index';
-import {parseReport} from '../../lib/parsers/clover';
+import {SourceFile} from '../../src/index';
+import {parseReport} from '../../src/io/parsers/clover';
 
 /** Tests the features of the Clover parser. */
 describe('Clover', () => {

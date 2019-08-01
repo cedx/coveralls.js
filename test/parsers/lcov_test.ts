@@ -2,8 +2,8 @@ import * as chai from 'chai';
 import {promises} from 'fs';
 import {join} from 'path';
 
-import {SourceFile} from '../../lib/index';
-import {parseReport} from '../../lib/parsers/lcov';
+import {SourceFile} from '../../src/index';
+import {parseReport} from '../../src/io/parsers/lcov';
 
 /** Tests the features of the LCOV parser. */
 describe('Lcov', () => {
