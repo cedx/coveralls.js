@@ -61,7 +61,7 @@ export class Configuration {
 
     // CI services.
     const merge = async (service: string) => {
-      const {getConfiguration} = await import(`./services/${service}.js`);
+      const {getConfiguration} = await import(`./services/${service}`);
       config.merge(getConfiguration(env));
     };
 
