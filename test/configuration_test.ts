@@ -35,18 +35,18 @@ describe('Configuration', () => {
 
     it('should return an initialized instance for a non-empty environment', async () => {
       const config = await Configuration.fromEnvironment({
+        CI_COMMIT: 'HEAD',
         CI_NAME: 'travis-pro',
         CI_PULL_REQUEST: 'PR #123',
         COVERALLS_REPO_TOKEN: '0123456789abcdef',
-        GIT_MESSAGE: 'Hello World!',
-        //TRAVIS: 'true',
-        //TRAVIS_BRANCH: 'develop'
+        GIT_BRANCH: 'develop',
+        GIT_MESSAGE: 'Hello World!'
       });
 
-      //expect(config.get('commit_sha')).to.equal('HEAD');
+      expect(config.get('commit_sha')).to.equal('HEAD');
       expect(config.get('git_message')).to.equal('Hello World!');
       expect(config.get('repo_token')).to.equal('0123456789abcdef');
-      //expect(config.get('service_branch')).to.equal('develop');
+      expect(config.get('service_branch')).to.equal('develop');
       expect(config.get('service_name')).to.equal('travis-pro');
       expect(config.get('service_pull_request')).to.equal('123');
     });
@@ -68,7 +68,9 @@ describe('Configuration', () => {
   });
 
   describe('.loadDefaults()', () => {
-    it('should properly initialize from a `.coveralls.yml` file', async () => {
+    const test = process.env.TRAVIS == 'true' ? it.skip : it;
+
+    test('should properly initialize from a `.coveralls.yml` file', async () => {
       const config = await Configuration.loadDefaults('test/fixtures/.coveralls.yml');
       expect(config).to.be.an.instanceof(Configuration);
       expect(config).to.have.length.of.at.least(2);
@@ -76,7 +78,7 @@ describe('Configuration', () => {
       expect(config.get('service_name')).to.equal('travis-pro');
     });
 
-    it('should use the environment defaults if the `.coveralls.yml` file is not found', async () => {
+    test('should use the environment defaults if the `.coveralls.yml` file is not found', async () => {
       const config = await Configuration.loadDefaults('.dummy/config.yml');
       const defaults = await Configuration.fromEnvironment();
       expect(config).to.be.an.instanceof(Configuration);
