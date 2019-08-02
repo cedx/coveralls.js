@@ -65,7 +65,7 @@ describe('GitData', () => {
       const data = GitData.fromJson({});
       expect(data).to.be.an.instanceof(GitData);
       expect(data.branch).to.be.empty;
-      expect(data.commit).to.be.null;
+      expect(data.commit).to.be.undefined;
       expect(data.remotes).to.be.an('array').and.be.empty;
     });
 
@@ -110,7 +110,7 @@ describe('GitData', () => {
 
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      const map = new GitData(null).toJSON();
+      const map = new GitData().toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
       expect(map.branch).to.be.empty;
       expect(map.head).to.be.null;
@@ -145,7 +145,7 @@ describe('GitRemote', () => {
       const remote = GitRemote.fromJson({});
       expect(remote).to.be.an.instanceof(GitRemote);
       expect(remote.name).to.be.empty;
-      expect(remote.url).to.be.null;
+      expect(remote.url).to.be.undefined;
     });
 
     it('should return an initialized instance for a non-empty map', () => {

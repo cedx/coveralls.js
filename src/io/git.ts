@@ -6,15 +6,15 @@ import {JsonMap, StringMap} from './map';
 export class GitRemote {
 
   /** The remote's URL. */
-  url: URL|null;
+  url?: URL;
 
   /**
    * Creates a new Git remote repository.
    * @param name The remote's name.
    * @param url The remote's URL.
    */
-  constructor(public name: string, url: URL|string|null = null) {
-    this.url = typeof url != 'string' ? url : new URL(/^\w+:\/\//.test(url) ? url : url.replace(/^([^@]+@)?([^:]+):(.+)$/, 'ssh://$1$2/$3'));
+  constructor(public name: string, url: URL|string|undefined = undefined) {
+    this.url = typeof url == 'string' ? new URL(/^\w+:\/\//.test(url) ? url : url.replace(/^([^@]+@)?([^:]+):(.+)$/, 'ssh://$1$2/$3')) : url;
   }
 
   /**
@@ -25,7 +25,7 @@ export class GitRemote {
   static fromJson(map: JsonMap): GitRemote {
     return new GitRemote(
       typeof map.name == 'string' ? map.name : '',
-      typeof map.url == 'string' ? map.url : null
+      typeof map.url == 'string' ? map.url : undefined
     );
   }
 
@@ -138,7 +138,7 @@ export class GitData {
    * @param commit The Git commit.
    * @param options An object specifying values used to initialize this instance.
    */
-  constructor(public commit: GitCommit|null, options: Partial<GitDataOptions> = {}) {
+  constructor(public commit?: GitCommit, options: Partial<GitDataOptions> = {}) {
     const {branch = '', remotes = []} = options;
     this.branch = branch;
     this.remotes = remotes;
@@ -150,7 +150,7 @@ export class GitData {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonMap): GitData {
-    return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : null, {
+    return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : undefined, {
       branch: typeof map.branch == 'string' ? map.branch : '',
       remotes: Array.isArray(map.remotes) ? map.remotes.map(GitRemote.fromJson) : []
     });
@@ -185,7 +185,7 @@ export class GitData {
     const remotes = new Map;
     for (const remote of commands.remotes.split(/\r?\n/g)) {
       const parts = remote.replace(/\s+/g, ' ').split(' ');
-      if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? parts[1] : null));
+      if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? parts[1] : undefined));
     }
 
     return new GitData(GitCommit.fromJson(commands), {

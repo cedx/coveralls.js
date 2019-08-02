@@ -9,7 +9,7 @@ export class Job {
   commitSha: string = '';
 
   /** The Git data that can be used to display more information to users. */
-  git: GitData|null = null;
+  git?: GitData;
 
   /** Value indicating whether the build will not be considered done until a webhook has been sent to Coveralls. */
   isParallel: boolean = false;
@@ -18,7 +18,7 @@ export class Job {
   repoToken: string;
 
   /** The timestamp of when the job ran. */
-  runAt: Date|null = null;
+  runAt?: Date;
 
   /** The unique identifier of the job on the CI service. */
   serviceJobId: string;
@@ -61,9 +61,9 @@ export class Job {
     });
 
     job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
-    job.git = typeof map.git == 'object' && map.git ? GitData.fromJson(map.git) : null;
+    job.git = typeof map.git == 'object' && map.git ? GitData.fromJson(map.git) : undefined;
     job.isParallel = typeof map.parallel == 'boolean' ? map.parallel : false;
-    job.runAt = typeof map.run_at == 'string' ? new Date(map.run_at) : null;
+    job.runAt = typeof map.run_at == 'string' ? new Date(map.run_at) : undefined;
     job.serviceNumber = typeof map.service_number == 'string' ? map.service_number : '';
     job.servicePullRequest = typeof map.service_pull_request == 'string' ? map.service_pull_request : '';
 

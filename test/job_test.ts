@@ -10,10 +10,10 @@ describe('Job', () => {
     it('should return an instance with default values for an empty map', () => {
       const job = Job.fromJson({});
       expect(job).to.be.an.instanceof(Job);
-      expect(job.git).to.be.null;
+      expect(job.git).to.be.undefined;
       expect(job.isParallel).to.be.false;
       expect(job.repoToken).to.be.empty;
-      expect(job.runAt).to.be.null;
+      expect(job.runAt).to.be.undefined;
       expect(job.sourceFiles).to.be.an('array').and.be.empty;
     });
 
@@ -51,7 +51,7 @@ describe('Job', () => {
 
     it('should return a non-empty map for an initialized instance', () => {
       const job = new Job({repoToken: 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt'});
-      job.git = new GitData(null, {branch: 'develop'});
+      job.git = new GitData(undefined, {branch: 'develop'});
       job.isParallel = true;
       job.runAt = new Date('2017-01-29T02:43:30.000Z');
       job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
