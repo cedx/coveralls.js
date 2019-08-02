@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration';
 import {StringMap} from '../map';
 
@@ -14,8 +15,6 @@ export function getConfiguration(env: StringMap): Configuration {
     service_name: 'travis-ci'
   });
 
-  if ('TRAVIS_PULL_REQUEST' in env && env.TRAVIS_PULL_REQUEST != 'false')
-    config.set('service_pull_request', env.TRAVIS_PULL_REQUEST);
-
+  if ('TRAVIS_PULL_REQUEST' in env && env.TRAVIS_PULL_REQUEST != 'false') config.set('service_pull_request', env.TRAVIS_PULL_REQUEST);
   return config;
 }

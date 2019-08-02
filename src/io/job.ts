@@ -75,6 +75,7 @@ export class Job {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonMap {
+    /* eslint-disable @typescript-eslint/camelcase */
     const map: JsonMap = {};
     if (this.repoToken.length) map.repo_token = this.repoToken;
     if (this.serviceName.length) map.service_name = this.serviceName;
@@ -89,6 +90,7 @@ export class Job {
     if (this.runAt) map.run_at = this.runAt.toISOString();
 
     return map;
+    /* eslint-enable @typescript-eslint/camelcase */
   }
 }
 

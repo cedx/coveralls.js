@@ -60,7 +60,7 @@ export class Configuration {
     if ('GIT_MESSAGE' in env) config.set('git_message', env.GIT_MESSAGE);
 
     // CI services.
-    const merge = async (service: string) => {
+    const merge = async (service: string): Promise<void> => {
       const {getConfiguration} = await import(`./services/${service}`);
       config.merge(getConfiguration(env));
     };

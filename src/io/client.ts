@@ -8,6 +8,20 @@ import {RequestEvent, ResponseEvent} from './event';
 import {GitCommit, GitData} from './git';
 import {Job} from './job';
 
+/** An exception caused by an error in a {@link Client} request. */
+export class ClientError extends Error {
+
+  /**
+   * Creates a new client error.
+   * @param message A message describing the error.
+   * @param uri The URL of the HTTP request or response that failed.
+   */
+  constructor(message: string = '', readonly uri: URL|null = null) {
+    super(message);
+    this.name = 'ClientError';
+  }
+}
+
 /** Uploads code coverage reports to the [Coveralls](https://coveralls.io) service. */
 export class Client extends EventEmitter {
 
@@ -46,16 +60,13 @@ export class Client extends EventEmitter {
     if (!report.length) throw new TypeError('The specified coverage report is empty.');
 
     let job;
-    if (report.substring(0, 5) == '<?xml' || report.substring(0, 10) == '<coverage') {
+    if (report.startsWith('<?xml') || report.startsWith('<coverage')) {
       const {parseReport} = await import('./parsers/clover');
       job = await parseReport(report);
     }
-    else {
-      const token = report.substring(0, 3);
-      if (token == 'TN:' || token == 'SF:') {
-        const {parseReport} = await import('./parsers/lcov');
-        job = await parseReport(report);
-      }
+    else if (report.startsWith('TN:') || report.startsWith('SF:')) {
+      const {parseReport} = await import('./parsers/lcov');
+      job = await parseReport(report);
     }
 
     if (!job) throw new TypeError('The specified coverage format is not supported.');
@@ -118,7 +129,7 @@ export class Client extends EventEmitter {
     if (config.has('service_number')) job.serviceNumber = config.get('service_number')!;
     if (config.has('service_pull_request')) job.servicePullRequest = config.get('service_pull_request')!;
 
-    const hasGitData = config.keys.some(key => key == 'service_branch' || key.substring(0, 4) == 'git_');
+    const hasGitData = config.keys.some(key => key == 'service_branch' || key.startsWith('git_'));
     if (!hasGitData) job.commitSha = config.has('commit_sha') ? config.get('commit_sha')! : '';
     else {
       const commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha')! : '', {
@@ -131,19 +142,5 @@ export class Client extends EventEmitter {
 
       job.git = new GitData(commit, {branch: config.has('service_branch') ? config.get('service_branch') : ''});
     }
-  }
-}
-
-/** An exception caused by an error in a {@link Client} request. */
-export class ClientError extends Error {
-
-  /**
-   * Creates a new client error.
-   * @param message A message describing the error.
-   * @param uri The URL of the HTTP request or response that failed.
-   */
-  constructor(message: string = '', readonly uri: URL|null = null) {
-    super(message);
-    this.name = 'ClientError';
   }
 }

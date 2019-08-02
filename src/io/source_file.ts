@@ -47,7 +47,7 @@ export class SourceFile {
     const map: JsonMap = {
       coverage: this.coverage,
       name: this.name,
-      source_digest: this.sourceDigest
+      source_digest: this.sourceDigest // eslint-disable-line @typescript-eslint/camelcase
     };
 
     if (this.source.length) map.source = this.source;

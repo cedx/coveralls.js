@@ -3,6 +3,45 @@ import {promisify} from 'util';
 import {JsonMap, StringMap} from './map';
 
 /** Represents a Git remote repository. */
+export class GitRemote {
+
+  /** The remote's URL. */
+  url: URL|null;
+
+  /**
+   * Creates a new Git remote repository.
+   * @param name The remote's name.
+   * @param url The remote's URL.
+   */
+  constructor(public name: string, url: URL|string|null = null) {
+    this.url = typeof url != 'string' ? url : new URL(/^\w+:\/\//.test(url) ? url : url.replace(/^([^@]+@)?([^:]+):(.+)$/, 'ssh://$1$2/$3'));
+  }
+
+  /**
+   * Creates a new remote repository from the specified JSON map.
+   * @param map A JSON map representing a remote repository.
+   * @return The instance corresponding to the specified JSON map.
+   */
+  static fromJson(map: JsonMap): GitRemote {
+    return new GitRemote(
+      typeof map.name == 'string' ? map.name : '',
+      typeof map.url == 'string' ? map.url : null
+    );
+  }
+
+  /**
+   * Converts this object to a map in JSON format.
+   * @return The map in JSON format corresponding to this object.
+   */
+  toJSON(): JsonMap {
+    return {
+      name: this.name,
+      url: this.url ? this.url.href : null
+    };
+  }
+}
+
+/** Represents a Git remote repository. */
 export class GitCommit {
 
   /** The author mail address. */
@@ -54,6 +93,7 @@ export class GitCommit {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonMap {
+    /* eslint-disable @typescript-eslint/camelcase */
     const map: JsonMap = {id: this.id};
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
@@ -61,6 +101,7 @@ export class GitCommit {
     if (this.committerName.length) map.committer_name = this.committerName;
     if (this.message.length) map.message = this.message;
     return map;
+    /* eslint-enable @typescript-eslint/camelcase */
   }
 }
 
@@ -122,6 +163,7 @@ export class GitData {
    * @return The newly created data.
    */
   static async fromRepository(path: string = process.cwd()): Promise<GitData> {
+    /* eslint-disable @typescript-eslint/camelcase */
     const commands: StringMap<string> = {
       author_email: 'log -1 --pretty=format:%ae',
       author_name: 'log -1 --pretty=format:%aN',
@@ -132,6 +174,7 @@ export class GitData {
       message: 'log -1 --pretty=format:%s',
       remotes: 'remote -v'
     };
+    /* eslint-enable @typescript-eslint/camelcase */
 
     const execCommand = promisify(exec);
     for (const [key, value] of Object.entries(commands)) {
@@ -172,43 +215,4 @@ export interface GitDataOptions {
 
   /** The remote repositories. */
   remotes: GitRemote[];
-}
-
-/** Represents a Git remote repository. */
-export class GitRemote {
-
-  /** The remote's URL. */
-  url: URL|null;
-
-  /**
-   * Creates a new Git remote repository.
-   * @param name The remote's name.
-   * @param url The remote's URL.
-   */
-  constructor(public name: string, url: URL|string|null = null) {
-    this.url = typeof url != 'string' ? url : new URL(/^\w+:\/\//.test(url) ? url : url.replace(/^([^@]+@)?([^:]+):(.+)$/, 'ssh://$1$2/$3'));
-  }
-
-  /**
-   * Creates a new remote repository from the specified JSON map.
-   * @param map A JSON map representing a remote repository.
-   * @return The instance corresponding to the specified JSON map.
-   */
-  static fromJson(map: JsonMap): GitRemote {
-    return new GitRemote(
-      typeof map.name == 'string' ? map.name : '',
-      typeof map.url == 'string' ? map.url : null
-    );
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return The map in JSON format corresponding to this object.
-   */
-  toJSON(): JsonMap {
-    return {
-      name: this.name,
-      url: this.url ? this.url.href : null
-    };
-  }
 }

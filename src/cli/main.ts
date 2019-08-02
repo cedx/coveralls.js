@@ -15,13 +15,13 @@ export async function main(): Promise<void> {
   program.name('coveralls')
     .description('Send a coverage report to the Coveralls service.')
     .version(packageVersion, '-v, --version')
-    .arguments('<file>').action(file => program.file = file)
+    .arguments('<file>').action((file: string) => program.file = file)
     .parse(process.argv);
 
   if (!program.file) {
     program.outputHelp();
     process.exitCode = 64;
-    return;
+    return undefined;
   }
 
   // Run the program.
