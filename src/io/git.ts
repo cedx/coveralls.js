@@ -1,6 +1,6 @@
 import {exec} from 'child_process';
 import {promisify} from 'util';
-import {JsonMap, StringMap} from './map';
+import {JsonMap} from './map';
 
 /** Represents a Git remote repository. */
 export class GitRemote {
@@ -164,7 +164,7 @@ export class GitData {
    */
   static async fromRepository(path: string = process.cwd()): Promise<GitData> {
     /* eslint-disable @typescript-eslint/camelcase */
-    const commands: StringMap<string> = {
+    const commands: Record<string, string> = {
       author_email: 'log -1 --pretty=format:%ae',
       author_name: 'log -1 --pretty=format:%aN',
       branch: 'rev-parse --abbrev-ref HEAD',
@@ -182,7 +182,7 @@ export class GitData {
       commands[key] = stdout.trim();
     }
 
-    const remotes = new Map;
+    const remotes = new Map<string, GitRemote>();
     for (const remote of commands.remotes.split(/\r?\n/g)) {
       const parts = remote.replace(/\s+/g, ' ').split(' ');
       if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? parts[1] : undefined));
