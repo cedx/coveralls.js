@@ -177,7 +177,7 @@ export class GitData {
     /* eslint-enable @typescript-eslint/camelcase */
 
     const execCommand = promisify(exec);
-    for (const [key, value] of Object.entries<string>(commands)) {
+    for (const [key, value] of Object.entries(commands)) {
       const {stdout} = await execCommand(`git ${value}`, {cwd: path});
       commands[key] = stdout.trim();
     }

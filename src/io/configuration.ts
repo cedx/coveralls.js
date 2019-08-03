@@ -13,7 +13,7 @@ export class Configuration {
    * @param params The configuration parameters.
    */
   constructor(params: StringMap = {}) {
-    this._params = new Map<string, string|undefined>(Object.entries<string|undefined>(params));
+    this._params = new Map<string, string|undefined>(Object.entries(params));
   }
 
   /**
