@@ -5,11 +5,10 @@ import {promisify} from 'util';
 import xml from 'xml2js';
 
 import {Job} from '../job';
-import {StringMap} from '../map';
 import {SourceFile} from '../source_file';
 
 /** Defines the shape of a node in an XML document. */
-type XmlNode = StringMap<any>;
+type XmlNode = Record<string, any>;
 
 /**
  * Returns direct child elements of the specified node.
