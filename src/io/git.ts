@@ -13,7 +13,7 @@ export class GitRemote {
    * @param name The remote's name.
    * @param url The remote's URL.
    */
-  constructor(public name: string, url: URL|string|undefined = undefined) {
+  constructor(public name: string, url?: URL|string) {
     this.url = typeof url == 'string' ? new URL(/^\w+:\/\//.test(url) ? url : url.replace(/^([^@]+@)?([^:]+):(.+)$/, 'ssh://$1$2/$3')) : url;
   }
 
