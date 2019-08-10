@@ -8,7 +8,7 @@ import {RequestEvent, ResponseEvent} from './event';
 import {GitCommit, GitData} from './git';
 import {Job} from './job';
 
-/** An exception caused by an error in a {@link Client} request. */
+/** An exception caused by an error in a [[Client]] request. */
 export class ClientError extends Error {
 
   /**
