@@ -7,7 +7,7 @@ describe('Configuration', () => {
 
   describe('#keys', () => {
     it('should return an empty array for an empty configuration', () => {
-      expect((new Configuration).keys).to.be.empty;
+      expect(new Configuration().keys).to.be.empty;
     });
 
     it('should return the list of keys for a non-empty configuration', () => {
@@ -137,7 +137,7 @@ describe('Configuration', () => {
 
   describe('#has()', () => {
     it('should return `false` if the specified key is not contained', () => {
-      expect((new Configuration).has('foo')).to.be.false;
+      expect(new Configuration().has('foo')).to.be.false;
     });
 
     it('should return `true` if the specified key is contained', () => {

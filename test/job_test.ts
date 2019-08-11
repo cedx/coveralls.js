@@ -44,7 +44,7 @@ describe('Job', () => {
 
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      const map = (new Job).toJSON();
+      const map = new Job().toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
       expect(map.source_files).to.be.an('array').and.be.empty;
     });
