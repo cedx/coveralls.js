@@ -1,5 +1,3 @@
-import {Request, Response} from 'node-fetch';
-
 /** Represents the event parameter used for request events. */
 export class RequestEvent {
 
