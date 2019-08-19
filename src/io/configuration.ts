@@ -3,7 +3,7 @@ import yaml from 'js-yaml';
 import {JsonMap, StringMap} from './map';
 
 /** Provides access to the coverage settings. */
-export class Configuration {
+export class Configuration implements Iterable<[string, string|undefined]> {
 
   /** The configuration parameters. */
   private _params: Map<string, string|undefined>;
