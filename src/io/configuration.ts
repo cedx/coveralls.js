@@ -1,6 +1,6 @@
 import {promises} from 'fs';
 import yaml from 'js-yaml';
-import {JsonMap, StringMap} from './map';
+import {JsonObject, StringMap} from './records';
 
 /** Provides access to the coverage settings. */
 export class Configuration implements Iterable<[string, string|undefined]> {
@@ -192,8 +192,8 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
-    const map: JsonMap = {};
+  toJSON(): JsonObject {
+    const map: JsonObject = {};
     for (const [key, value] of this) map[key] = value;
     return map;
   }

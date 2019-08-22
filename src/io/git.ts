@@ -1,6 +1,6 @@
 import {exec} from 'child_process';
 import {promisify} from 'util';
-import {JsonMap} from './map';
+import {JsonObject} from './records';
 
 /** Represents a Git remote repository. */
 export class GitRemote {
@@ -22,7 +22,7 @@ export class GitRemote {
    * @param map A JSON map representing a remote repository.
    * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map: JsonMap): GitRemote {
+  static fromJson(map: JsonObject): GitRemote {
     return new GitRemote(
       typeof map.name == 'string' ? map.name : '',
       typeof map.url == 'string' ? map.url : undefined
@@ -33,7 +33,7 @@ export class GitRemote {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
+  toJSON(): JsonObject {
     return {
       name: this.name,
       url: this.url ? this.url.href : null
@@ -78,7 +78,7 @@ export class GitCommit {
    * @param map A JSON map representing a Git commit.
    * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map: JsonMap): GitCommit {
+  static fromJson(map: JsonObject): GitCommit {
     return new GitCommit(typeof map.id == 'string' ? map.id : '', {
       authorEmail: typeof map.author_email == 'string' ? map.author_email : '',
       authorName: typeof map.author_name == 'string' ? map.author_name : '',
@@ -92,9 +92,9 @@ export class GitCommit {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
+  toJSON(): JsonObject {
     /* eslint-disable @typescript-eslint/camelcase */
-    const map: JsonMap = {id: this.id};
+    const map: JsonObject = {id: this.id};
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
     if (this.committerEmail.length) map.committer_email = this.committerEmail;
@@ -149,7 +149,7 @@ export class GitData {
    * @param map A JSON map representing a Git data.
    * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map: JsonMap): GitData {
+  static fromJson(map: JsonObject): GitData {
     return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : undefined, {
       branch: typeof map.branch == 'string' ? map.branch : '',
       remotes: Array.isArray(map.remotes) ? map.remotes.map(GitRemote.fromJson) : []
@@ -198,7 +198,7 @@ export class GitData {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
+  toJSON(): JsonObject {
     return {
       branch: this.branch,
       head: this.commit ? this.commit.toJSON() : null,

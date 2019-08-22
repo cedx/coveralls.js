@@ -1,4 +1,4 @@
-import {JsonMap} from './map';
+import {JsonObject} from './records';
 
 /** Represents a source code file and its coverage data for a single job. */
 export class SourceFile {
@@ -26,7 +26,7 @@ export class SourceFile {
    * @param map A JSON map representing a source file.
    * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map: JsonMap): SourceFile {
+  static fromJson(map: JsonObject): SourceFile {
     const options = {
       coverage: Array.isArray(map.coverage) ? map.coverage : [],
       source: typeof map.source == 'string' ? map.source : ''
@@ -43,8 +43,8 @@ export class SourceFile {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
-    const map: JsonMap = {
+  toJSON(): JsonObject {
+    const map: JsonObject = {
       coverage: this.coverage,
       name: this.name,
       source_digest: this.sourceDigest // eslint-disable-line @typescript-eslint/camelcase

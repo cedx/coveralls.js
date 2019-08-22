@@ -1,5 +1,5 @@
 import {GitData} from './git';
-import {JsonMap} from './map';
+import {JsonObject} from './records';
 import {SourceFile} from './source_file';
 
 /** Represents the coverage data from a single run of a test suite. */
@@ -52,7 +52,7 @@ export class Job {
    * @param map A JSON map representing a job.
    * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map: JsonMap): Job {
+  static fromJson(map: JsonObject): Job {
     const job = new Job({
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
@@ -74,9 +74,9 @@ export class Job {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
+  toJSON(): JsonObject {
     /* eslint-disable @typescript-eslint/camelcase */
-    const map: JsonMap = {};
+    const map: JsonObject = {};
     if (this.repoToken.length) map.repo_token = this.repoToken;
     if (this.serviceName.length) map.service_name = this.serviceName;
     if (this.serviceNumber.length) map.service_number = this.serviceNumber;

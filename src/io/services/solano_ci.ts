@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration';
-import {StringMap} from '../map';
+import {StringMap} from '../records';
 
 /**
  * Gets the [Solano CI](https://ci.solanolabs.com) configuration parameters from the environment.

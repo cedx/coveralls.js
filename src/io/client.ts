@@ -4,7 +4,7 @@ import FormData from 'form-data';
 import fetch from 'node-fetch';
 
 import {Configuration} from './configuration';
-import {RequestEvent, ResponseEvent} from './event';
+import {RequestEvent, ResponseEvent} from './events';
 import {GitCommit, GitData} from './git';
 import {Job} from './job';
 

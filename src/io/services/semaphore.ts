@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration';
-import {StringMap} from '../map';
+import {StringMap} from '../records';
 
 /**
  * Gets the [Semaphore](https://semaphoreci.com) configuration parameters from the environment.

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration';
-import {StringMap} from '../map';
+import {StringMap} from '../records';
 
 /**
  * Gets the [Surf](https://github.com/surf-build/surf) configuration parameters from the environment.
