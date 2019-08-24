@@ -14,7 +14,8 @@ export async function main(): Promise<void> {
   // Parse the command line arguments.
   program.name('coveralls')
     .description('Send a coverage report to the Coveralls service.')
-    .version(packageVersion, '-v, --version')
+    .helpOption('-h, --help', 'Output usage information.')
+    .version(packageVersion, '-v, --version', 'Output the version number.')
     .arguments('<file>').action((file: string) => program.file = file)
     .parse(process.argv);
 
