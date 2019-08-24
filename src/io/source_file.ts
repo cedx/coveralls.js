@@ -22,8 +22,8 @@ export class SourceFile {
   }
 
   /**
-   * Creates a new source file from the specified JSON map.
-   * @param map A JSON map representing a source file.
+   * Creates a new source file from the specified JSON object.
+   * @param map A JSON object representing a source file.
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonObject): SourceFile {
