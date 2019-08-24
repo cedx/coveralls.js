@@ -37,11 +37,8 @@ function getAttribute(node: XmlNode, name: string): string {
  * @return The job corresponding to the specified coverage report.
  */
 export async function parseReport(report: string): Promise<Job> {
-  const parseXml = promisify(xml.parseString);
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore: `parseXml` has a wrong type inference.
-  const xmlDoc: XmlNode = await parseXml(report);
+  const parseXml = promisify<string, XmlNode>(xml.parseString);
+  const xmlDoc = await parseXml(report);
   if (!xmlDoc.coverage || typeof xmlDoc.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
 
   const projects = findElements(xmlDoc.coverage, 'project');
