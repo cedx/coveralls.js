@@ -50,7 +50,7 @@ export class Job {
   /**
    * Creates a new job from the specified JSON object.
    * @param map A JSON object representing a job.
-   * @return The instance corresponding to the specified JSON map.
+   * @return The instance corresponding to the specified JSON object.
    */
   static fromJson(map: JsonObject): Job {
     const job = new Job({

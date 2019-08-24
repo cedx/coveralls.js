@@ -20,7 +20,7 @@ export class GitRemote {
   /**
    * Creates a new remote repository from the specified JSON object.
    * @param map A JSON object representing a remote repository.
-   * @return The instance corresponding to the specified JSON map.
+   * @return The instance corresponding to the specified JSON object.
    */
   static fromJson(map: JsonObject): GitRemote {
     return new GitRemote(
@@ -76,7 +76,7 @@ export class GitCommit {
   /**
    * Creates a new Git commit from the specified JSON object.
    * @param map A JSON object representing a Git commit.
-   * @return The instance corresponding to the specified JSON map.
+   * @return The instance corresponding to the specified JSON object.
    */
   static fromJson(map: JsonObject): GitCommit {
     return new GitCommit(typeof map.id == 'string' ? map.id : '', {
@@ -147,7 +147,7 @@ export class GitData {
   /**
    * Creates a new Git data from the specified JSON object.
    * @param map A JSON object representing a Git data.
-   * @return The instance corresponding to the specified JSON map.
+   * @return The instance corresponding to the specified JSON object.
    */
   static fromJson(map: JsonObject): GitData {
     return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : undefined, {
