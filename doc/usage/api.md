@@ -4,7 +4,7 @@ source: src/io/client.ts
 # Application programming interface
 The hard way. Use the `Client` class to upload your coverage reports:
 
-```ts
+```typescript
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
@@ -33,7 +33,7 @@ The `Client` class is an [`EventEmitter`](https://nodejs.org/api/events.html) th
 ### The `Client.eventRequest` event
 Emitted every time a request is made to the remote service:
 
-```ts
+```typescript
 client.on(Client.eventRequest, event =>
   console.log(`Client request: ${event.request.url}`)
 );
@@ -42,7 +42,7 @@ client.on(Client.eventRequest, event =>
 ### The `Client.eventResponse` event
 Emitted every time a response is received from the remote service:
 
-```ts
+```typescript
 client.on(Client.eventResponse, event =>
   console.log(`Server response: ${event.response.status}`)
 );
