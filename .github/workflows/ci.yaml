@@ -35,5 +35,6 @@ jobs:
           echo "${GITHUB_REF}"
           echo "${GITHUB_SHA}"
           echo "${{secrets.COVERALLS_TOKEN}}"
+          git remote -v
           npm run-script prepack
           npm run-script coverage

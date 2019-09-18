@@ -185,7 +185,8 @@ export class GitData {
     const remotes = new Map<string, GitRemote>();
     for (const remote of commands.remotes.split(/\r?\n/g)) {
       const parts = remote.replace(/\s+/g, ' ').split(' ');
-      if (!remotes.has(parts[0])) remotes.set(parts[0], new GitRemote(parts[0], parts.length > 1 ? parts[1] : undefined));
+      const name = parts[0].endsWith('.git') ? parts[0] : `${parts[0]}.git`;
+      if (!remotes.has(name)) remotes.set(name, new GitRemote(name, parts.length > 1 ? parts[1] : undefined));
     }
 
     return new GitData(GitCommit.fromJson(commands), {
