@@ -8,7 +8,7 @@
   "repository": "github:cedx/coveralls.js",
   "type": "module",
   "types": "lib/index.d.ts",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "author": {
     "email": "cedric@belin.io",
     "name": "Cédric Belin",
@@ -33,7 +33,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.5",
-    "@types/node-fetch": "^2.5.0",
+    "@types/node-fetch": "^2.5.1",
     "@types/xml2js": "^0.4.5",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
