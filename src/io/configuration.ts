@@ -72,6 +72,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
     else if ('APPVEYOR' in env) await merge('appveyor');
     else if ('CIRCLECI' in env) await merge('circleci');
     else if (serviceName == 'codeship') await merge('codeship');
+    else if ('GITHUB_WORKFLOW' in env) await merge('github');
     else if ('GITLAB_CI' in env) await merge('gitlab_ci');
     else if ('JENKINS_URL' in env) await merge('jenkins');
     else if ('SEMAPHORE' in env) await merge('semaphore');
