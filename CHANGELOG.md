@@ -1,6 +1,8 @@
 # Changelog
 
 ## Version [9.2.0](https://github.com/cedx/coveralls.js/compare/v9.1.0...v9.2.0)
+- Added partial support for [GitHub Actions](https://github.com/features/actions).
+- Updated the package dependencies.
 
 ## Version [9.1.0](https://github.com/cedx/coveralls.js/compare/v9.0.0...v9.1.0)
 - Due to strong user demand, restored the [TypeScript](https://www.typescriptlang.org) source code.

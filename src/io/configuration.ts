@@ -67,7 +67,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
 
     if ('TRAVIS' in env) {
       await merge('travis_ci');
-      if (serviceName.length && serviceName != 'travis-ci') config.set('service_name', serviceName);
+      if (serviceName.length) config.set('service_name', serviceName);
     }
     else if ('APPVEYOR' in env) await merge('appveyor');
     else if ('CIRCLECI' in env) await merge('circleci');
