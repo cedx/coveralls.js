@@ -1,0 +1,39 @@
+name: Continuous integration
+on:
+  push:
+  schedule:
+    - cron: '0 0 1 * *'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runtime: [12.x]
+    steps:
+      - name: Fetch the sources
+        uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{matrix.runtime}}
+      - name: Run the tests
+        env:
+          NODE_OPTIONS: '--experimental-modules --no-warnings'
+        run: |
+          npm install --ignore-scripts
+          npm test
+      - name: Collect the code coverage
+        env:
+          CI: true
+          CI_BRANCH: '${GITHUB_REF}'
+          CI_COMMIT: '${GITHUB_SHA}'
+          CI_NAME: github
+          COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_TOKEN}}
+          NODE_OPTIONS: '--experimental-modules --no-warnings'
+        if: success()
+        run: |
+          echo "${GITHUB_REF}"
+          echo "${GITHUB_SHA}"
+          echo "${{secrets.COVERALLS_TOKEN}}"
+          npm run-script prepack
+          npm run-script coverage
