@@ -111,7 +111,8 @@ export class Client extends EventEmitter {
     catch (err) { throw new ClientError(err.message, url); }
 
     this.emit(Client.eventResponse, new ResponseEvent(response, request));
-    if (!response.ok) throw new ClientError('An error occurred while uploading the report.', url);
+    if (!response.ok) throw new ClientError(`${response.status} {$response.statusText} ${await response.text()}`, url);
+      // TODO throw new ClientError('An error occurred while uploading the report.', url);
   }
 
   /**
