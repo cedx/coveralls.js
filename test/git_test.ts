@@ -102,8 +102,8 @@ describe('GitData', () => {
       const origin = data.remotes.filter(remote => remote.name == 'origin');
       expect(origin).to.have.lengthOf(1);
       expect(origin[0].url!.href).to.be.oneOf([
-        'https://github.com/cedx/coveralls.js.git',
-        'ssh://git@github.com/cedx/coveralls.js.git'
+        'https://github.com/cedx/coveralls.js',
+        'https://github.com/cedx/coveralls.js.git'
       ]);
     });
   });
