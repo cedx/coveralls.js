@@ -13,7 +13,7 @@ export function getConfiguration(env: StringMap): Configuration {
 
   return new Configuration({
     commit_sha: commitSha.length ? commitSha : undefined,
-    service_branch: gitRef.startsWith('refs/heads/') ? gitRef.substring('refs/heads/'.length) : undefined,
+    service_branch: gitRef.startsWith('refs/heads/') ? gitRef.substring(11) : undefined,
     service_build_url: commitSha.length ? `https://github.com/cedx/coveralls.js/commit/${commitSha}/checks` : undefined,
     service_name: 'github'
   });
