@@ -78,6 +78,9 @@ export class Client extends EventEmitter {
       const git = await GitData.fromRepository();
       const branch = job.git ? job.git.branch : '';
       if (git.branch == 'HEAD' && branch.length) git.branch = branch;
+      if (job.serviceName == 'github') for (const remote of git.remotes)
+        if (remote.url && !remote.url.href.endsWith('.git')) remote.url = new URL(`${remote.url.href}.git`);
+
       job.git = git;
     }
 
@@ -111,7 +114,7 @@ export class Client extends EventEmitter {
     catch (err) { throw new ClientError(err.message, url); }
 
     this.emit(Client.eventResponse, new ResponseEvent(response, request));
-    if (!response.ok) throw new ClientError(`${response.status} {$response.statusText} ${await response.text()}`, url);
+    if (!response.ok) throw new ClientError(`${response.status} ${response.statusText} ${await response.text()}`, url);
       // TODO throw new ClientError('An error occurred while uploading the report.', url);
   }
 
