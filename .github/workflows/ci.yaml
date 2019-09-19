@@ -10,12 +10,6 @@ jobs:
       matrix:
         runtime: [12.x]
     steps:
-      - name: Debug
-        run: |
-          echo "${GITHUB_REF}"
-          echo "${GITHUB_SHA}"
-          echo "${{secrets.COVERALLS_TOKEN}}"
-          git remote -v
       - name: Fetch the sources
         uses: actions/checkout@v1
       - name: Use Node.js 12.x
@@ -28,6 +22,12 @@ jobs:
         run: |
           npm install --ignore-scripts
           npm test
+      - name: Debug
+        run: |
+          echo "${GITHUB_REF}"
+          echo "${GITHUB_SHA}"
+          echo "${{secrets.COVERALLS_TOKEN}}"
+          git remote -v
       - name: Collect the code coverage
         env:
           CI: true
