@@ -65,7 +65,11 @@ export class Configuration implements Iterable<[string, string|undefined]> {
       config.merge(getConfiguration(env));
     };
 
-    if ('APPVEYOR' in env) await merge('appveyor');
+    if ('TRAVIS' in env) {
+      await merge('travis_ci');
+      if (serviceName.length && serviceName != 'travis-ci') config.set('service_name', serviceName);
+    }
+    else if ('APPVEYOR' in env) await merge('appveyor');
     else if ('CIRCLECI' in env) await merge('circleci');
     else if (serviceName == 'codeship') await merge('codeship');
     else if ('GITHUB_WORKFLOW' in env) await merge('github');
@@ -74,7 +78,6 @@ export class Configuration implements Iterable<[string, string|undefined]> {
     else if ('SEMAPHORE' in env) await merge('semaphore');
     else if ('SURF_SHA1' in env) await merge('surf');
     else if ('TDDIUM' in env) await merge('solano_ci');
-    else if ('TRAVIS' in env) await merge('travis_ci');
     else if ('WERCKER' in env) await merge('wercker');
 
     return config;
