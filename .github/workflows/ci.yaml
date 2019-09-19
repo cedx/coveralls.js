@@ -16,18 +16,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.runtime}}
-      - name: Run the tests
-        env:
-          NODE_OPTIONS: '--experimental-modules --no-warnings'
-        run: |
-          npm install --ignore-scripts
-          npm test
       - name: Debug
         run: |
           echo "${GITHUB_REF}"
           echo "${GITHUB_SHA}"
           echo "${{secrets.COVERALLS_TOKEN}}"
           git remote -v
+      - name: Run the tests
+        env:
+          NODE_OPTIONS: '--experimental-modules --no-warnings'
+        run: |
+          npm install --ignore-scripts
+          npm test
       - name: Collect the code coverage
         env:
           CI: true
