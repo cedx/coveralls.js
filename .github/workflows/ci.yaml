@@ -22,18 +22,15 @@ jobs:
           echo "${GITHUB_SHA}"
           echo "${{secrets.COVERALLS_TOKEN}}"
           git remote -v
+      - name: Install the dependencies
+        run: npm install --ignore-scripts
       - name: Run the tests
         env:
           NODE_OPTIONS: '--experimental-modules --no-warnings'
-        run: |
-          npm install --ignore-scripts
-          npm test
+        run: npm test
       - name: Collect the code coverage
         env:
           CI: true
-          CI_BRANCH: '${GITHUB_REF}'
-          CI_COMMIT: '${GITHUB_SHA}'
-          CI_NAME: github
           COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_TOKEN}}
           NODE_OPTIONS: '--experimental-modules --no-warnings'
         if: success()
