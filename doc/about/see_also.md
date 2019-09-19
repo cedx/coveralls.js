@@ -2,11 +2,12 @@
 
 ## Development
 - [API reference](https://dev.belin.io/coveralls.js/api)
+- [GitHub package](https://github.com/cedx/coveralls.js/packages)
 - [npm package](https://www.npmjs.com/package/@cedx/coveralls)
 - [Submit an issue](https://github.com/cedx/coveralls.js/issues)
 
 ## Testing
-- [Continuous integration](https://travis-ci.com/cedx/coveralls.js)
+- [Continuous integration](https://github.com/cedx/coveralls.js/actions)
 - [Code coverage](https://coveralls.io/github/cedx/coveralls.js)
 
 ## Other implementations
