@@ -8,6 +8,9 @@ export class Job {
   /** The current SHA of the commit being built to override the `git` parameter. */
   commitSha: string = '';
 
+  /** The job name. */
+  flagName: string = '';
+
   /** The Git data that can be used to display more information to users. */
   git?: GitData;
 
@@ -61,6 +64,7 @@ export class Job {
     });
 
     job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
+    job.flagName = typeof map.flag_name == 'string' ? map.flag_name : '';
     job.git = typeof map.git == 'object' && map.git ? GitData.fromJson(map.git) : undefined;
     job.isParallel = typeof map.parallel == 'boolean' ? map.parallel : false;
     job.runAt = typeof map.run_at == 'string' ? new Date(map.run_at) : undefined;
@@ -75,22 +79,23 @@ export class Job {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonObject {
-    /* eslint-disable @typescript-eslint/camelcase */
     const map: JsonObject = {};
+
+    /* eslint-disable @typescript-eslint/camelcase */
+    if (this.commitSha.length) map.commit_sha = this.commitSha;
+    if (this.flagName.length) map.flag_name = this.flagName;
+    if (this.git) map.git = this.git.toJSON();
+    if (this.isParallel) map.parallel = true;
     if (this.repoToken.length) map.repo_token = this.repoToken;
+    if (this.runAt) map.run_at = this.runAt.toISOString();
     if (this.serviceName.length) map.service_name = this.serviceName;
     if (this.serviceNumber.length) map.service_number = this.serviceNumber;
     if (this.serviceJobId.length) map.service_job_id = this.serviceJobId;
     if (this.servicePullRequest.length) map.service_pull_request = this.servicePullRequest;
-
     map.source_files = this.sourceFiles.map(item => item.toJSON());
-    if (this.isParallel) map.parallel = true;
-    if (this.git) map.git = this.git.toJSON();
-    if (this.commitSha.length) map.commit_sha = this.commitSha;
-    if (this.runAt) map.run_at = this.runAt.toISOString();
+    /* eslint-enable @typescript-eslint/camelcase */
 
     return map;
-    /* eslint-enable @typescript-eslint/camelcase */
   }
 }
 
