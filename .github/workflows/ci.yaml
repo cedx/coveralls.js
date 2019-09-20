@@ -6,16 +6,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        runtime: [12.x]
     steps:
       - name: Fetch the sources
         uses: actions/checkout@v1
-      - name: Use Node.js 12.x
+      - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: ${{matrix.runtime}}
+          node-version: 12
       - name: Install the dependencies
         run: npm install --ignore-scripts
       - name: Run the tests
