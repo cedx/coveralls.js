@@ -71,14 +71,21 @@ export class Client extends EventEmitter {
 
     if (!job) throw new TypeError('The specified coverage format is not supported.');
     let json = job.toJSON();
+    console.log('git');
+    console.log(json.git);
+    console.log('remotes');
     console.log(json.git.remotes);
     this._updateJob(job, configuration ? configuration : await Configuration.loadDefaults());
     if (!job.runAt) job.runAt = new Date;
 
     try {
+      console.log('await which git');
       await which('git');
+      console.log('await GitData.fromRepository');
       const git = await GitData.fromRepository();
+      console.log('git fromRepository');
       const branch = job.git ? job.git.branch : '';
+      console.log(git.toJSON());
       if (git.branch == 'HEAD' && branch.length) git.branch = branch;
       if (job.serviceName == 'github') for (const remote of git.remotes)
         if (remote.url && !remote.url.href.endsWith('.git')) remote.url = new URL(`${remote.url.href}.git`);
@@ -88,6 +95,9 @@ export class Client extends EventEmitter {
 
     catch { /* Noop */ }
     json = job.toJSON();
+    console.log('git');
+    console.log(json.git);
+    console.log('remotes');
     console.log(json.git.remotes);
     return this.uploadJob(job);
   }
