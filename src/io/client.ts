@@ -74,23 +74,14 @@ export class Client extends EventEmitter {
     if (!job.runAt) job.runAt = new Date;
 
     try {
-      console.log('await which git');
       await which('git');
-      console.log('await GitData.fromRepository');
       const git = await GitData.fromRepository();
-      console.log('git fromRepository');
       const branch = job.git ? job.git.branch : '';
-      console.log(git.toJSON());
       if (git.branch == 'HEAD' && branch.length) git.branch = branch;
       job.git = git;
     }
 
-    catch { /* Noop */ console.log('GIT ERROR'); }
-    const json = job.toJSON();
-    console.log('git');
-    console.log(json.git);
-    console.log('remotes');
-    console.log(json.git.remotes);
+    catch { /* Noop */ }
     return this.uploadJob(job);
   }
 
@@ -120,8 +111,7 @@ export class Client extends EventEmitter {
     catch (err) { throw new ClientError(err.message, url); }
 
     this.emit(Client.eventResponse, new ResponseEvent(response, request));
-    if (!response.ok) throw new ClientError(`${response.status} ${response.statusText} ${await response.text()}`, url);
-      // TODO throw new ClientError('An error occurred while uploading the report.', url);
+    if (!response.ok) throw new ClientError('An error occurred while uploading the report.', url);
   }
 
   /**

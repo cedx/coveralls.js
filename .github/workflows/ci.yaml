@@ -16,12 +16,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.runtime}}
-      - name: Debug
-        run: |
-          echo "${GITHUB_REF}"
-          echo "${GITHUB_SHA}"
-          echo "${{secrets.COVERALLS_TOKEN}}"
-          git remote -v
       - name: Install the dependencies
         run: npm install --ignore-scripts
       - name: Run the tests
