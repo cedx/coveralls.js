@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Fetch the sources
         uses: actions/checkout@v1
-      - name: Use Node.js 12
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
