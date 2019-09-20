@@ -70,6 +70,7 @@ export class Client extends EventEmitter {
     }
 
     if (!job) throw new TypeError('The specified coverage format is not supported.');
+    console.log(job.toJSON());
     this._updateJob(job, configuration ? configuration : await Configuration.loadDefaults());
     if (!job.runAt) job.runAt = new Date;
 
@@ -85,6 +86,7 @@ export class Client extends EventEmitter {
     }
 
     catch { /* Noop */ }
+    console.log(job.toJSON());
     return this.uploadJob(job);
   }
 
