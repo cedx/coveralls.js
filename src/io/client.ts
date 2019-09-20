@@ -82,9 +82,6 @@ export class Client extends EventEmitter {
       const branch = job.git ? job.git.branch : '';
       console.log(git.toJSON());
       if (git.branch == 'HEAD' && branch.length) git.branch = branch;
-      if (job.serviceName == 'github') for (const remote of git.remotes)
-        if (remote.url && !remote.url.href.endsWith('.git')) remote.url = new URL(`${remote.url.href}.git`);
-
       job.git = git;
     }
 
