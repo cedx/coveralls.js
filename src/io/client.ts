@@ -70,11 +70,6 @@ export class Client extends EventEmitter {
     }
 
     if (!job) throw new TypeError('The specified coverage format is not supported.');
-    let json = job.toJSON();
-    console.log('git');
-    console.log(json.git);
-    console.log('remotes');
-    console.log(json.git.remotes);
     this._updateJob(job, configuration ? configuration : await Configuration.loadDefaults());
     if (!job.runAt) job.runAt = new Date;
 
@@ -93,8 +88,8 @@ export class Client extends EventEmitter {
       job.git = git;
     }
 
-    catch { /* Noop */ }
-    json = job.toJSON();
+    catch { /* Noop */ console.log('GIT ERROR'); }
+    const json = job.toJSON();
     console.log('git');
     console.log(json.git);
     console.log('remotes');
