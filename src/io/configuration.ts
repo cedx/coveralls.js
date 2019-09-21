@@ -44,6 +44,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
       config.set('repo_token', env.COVERALLS_REPO_TOKEN ? env.COVERALLS_REPO_TOKEN : env.COVERALLS_TOKEN);
 
     if ('COVERALLS_COMMIT_SHA' in env) config.set('commit_sha', env.COVERALLS_COMMIT_SHA);
+    if ('COVERALLS_FLAG_NAME' in env) config.set('flag_name', env.COVERALLS_FLAG_NAME);
     if ('COVERALLS_PARALLEL' in env) config.set('parallel', env.COVERALLS_PARALLEL);
     if ('COVERALLS_RUN_AT' in env) config.set('run_at', env.COVERALLS_RUN_AT);
     if ('COVERALLS_SERVICE_BRANCH' in env) config.set('service_branch', env.COVERALLS_SERVICE_BRANCH);
@@ -160,11 +161,12 @@ export class Configuration implements Iterable<[string, string|undefined]> {
   }
 
   /**
-   * Adds all entries of the specified configuration to this one.
+   * Adds all entries of the specified configuration to this one, ignoring `undefined` values.
    * @param config The configuration to be merged.
    */
   merge(config: Configuration): void {
-    for (const [key, value] of config) this.set(key, value);
+    for (const [key, value] of config)
+      if (value !== undefined) this.set(key, value);
   }
 
   /**
