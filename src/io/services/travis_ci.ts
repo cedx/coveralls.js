@@ -9,8 +9,10 @@ import {StringMap} from '../records';
  */
 export function getConfiguration(env: StringMap): Configuration {
   const config = new Configuration({
-    commit_sha: 'HEAD',
+    commit_sha: env.TRAVIS_COMMIT,
+    flag_name: env.TRAVIS_JOB_NAME,
     service_branch: env.TRAVIS_BRANCH,
+    service_build_url: env.TRAVIS_BUILD_WEB_URL,
     service_job_id: env.TRAVIS_JOB_ID,
     service_name: 'travis-ci'
   });
