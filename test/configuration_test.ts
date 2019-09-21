@@ -43,7 +43,7 @@ describe('Configuration', () => {
         TRAVIS_BRANCH: 'develop'
       });
 
-      expect(config.get('commit_sha')).to.be.null;
+      expect(config.get('commit_sha')).to.be.undefined;
       expect(config.get('git_message')).to.equal('Hello World!');
       expect(config.get('repo_token')).to.equal('0123456789abcdef');
       expect(config.get('service_branch')).to.equal('develop');
