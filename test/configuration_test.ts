@@ -181,15 +181,15 @@ describe('Configuration', () => {
 
   describe('#toJSON()', () => {
     it('should return an empty map for a newly created instance', () => {
-      const map = (new Configuration).toJSON();
-      expect(Object.keys(map)).to.be.empty;
+      expect(new Configuration().toJSON()).to.be.an('object').that.is.empty;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      const map = new Configuration({bar: 'baz', foo: 'bar'}).toJSON();
-      expect(Object.keys(map)).to.have.lengthOf(2);
-      expect(map.foo).to.equal('bar');
-      expect(map.bar).to.equal('baz');
+      const config = new Configuration({baz: 'qux', foo: 'bar'});
+      expect(config.toJSON()).to.be.an('object').that.deep.equal({
+        baz: 'qux',
+        foo: 'bar'
+      });
     });
   });
 });
