@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [9.3.0](https://github.com/cedx/coveralls.js/compare/v9.2.0...v9.3.0)
+- Added support for branch coverage when using [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) reports.
+
 ## Version [9.2.0](https://github.com/cedx/coveralls.js/compare/v9.1.0...v9.2.0)
 - Added support for [GitHub Actions](https://github.com/features/actions).
 - Added the `Job#flagName` property.
