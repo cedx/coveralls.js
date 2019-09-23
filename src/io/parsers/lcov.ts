@@ -17,12 +17,20 @@ export async function parseReport(report: string): Promise<Job> {
 
   for (const record of Report.fromCoverage(report).records) {
     const source = await promises.readFile(record.sourceFile, 'utf8');
-    const coverage = new Array(source.split(/\r?\n/).length).fill(null);
-    if (record.lines) for (const lineData of record.lines.data) coverage[lineData.lineNumber - 1] = lineData.executionCount;
+    const lineCoverage = new Array(source.split(/\r?\n/).length).fill(null);
+    if (record.lines) for (const lineData of record.lines.data) lineCoverage[lineData.lineNumber - 1] = lineData.executionCount;
+
+    const branchCoverage = [];
+    if (record.branches) for (const branchData of record.branches.data) branchCoverage.push(
+      branchData.lineNumber,
+      branchData.blockNumber,
+      branchData.branchNumber,
+      branchData.taken
+    );
 
     const filename = relative(workingDir, record.sourceFile);
     const digest = createHash('md5').update(source).digest('hex');
-    sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
+    sourceFiles.push(new SourceFile(filename, digest, {branches: branchCoverage, coverage: lineCoverage, source}));
   }
 
   return new Job({sourceFiles});

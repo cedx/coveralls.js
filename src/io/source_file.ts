@@ -3,6 +3,9 @@ import {JsonObject} from './records';
 /** Represents a source code file and its coverage data for a single job. */
 export class SourceFile {
 
+  /** The branch data for this file's job. */
+  branches: number[];
+
   /** The coverage data for this file's job. */
   coverage: Array<number|null>;
 
@@ -16,7 +19,8 @@ export class SourceFile {
    * @param options An object specifying values used to initialize this instance.
    */
   constructor(public name: string, public sourceDigest: string, options: Partial<SourceFileOptions> = {}) {
-    const {coverage = [], source = ''} = options;
+    const {branches = [], coverage = [], source = ''} = options;
+    this.branches = branches;
     this.coverage = coverage;
     this.source = source;
   }
@@ -28,6 +32,7 @@ export class SourceFile {
    */
   static fromJson(map: JsonObject): SourceFile {
     const options = {
+      branches: Array.isArray(map.branches) ? map.branches : [],
       coverage: Array.isArray(map.coverage) ? map.coverage : [],
       source: typeof map.source == 'string' ? map.source : ''
     };
@@ -50,6 +55,7 @@ export class SourceFile {
       source_digest: this.sourceDigest // eslint-disable-line @typescript-eslint/camelcase
     };
 
+    if (this.branches.length) map.branches = this.branches;
     if (this.source.length) map.source = this.source;
     return map;
   }
@@ -57,6 +63,9 @@ export class SourceFile {
 
 /** Defines the options of a [[SourceFile]] instance. */
 export interface SourceFileOptions {
+
+  /** The branch data for this file's job. */
+  branches: number[];
 
   /** The coverage data for this file's job. */
   coverage: Array<number|null>;
