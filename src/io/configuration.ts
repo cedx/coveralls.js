@@ -95,7 +95,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
 
     try {
       const map = yaml.safeLoad(document);
-      if (typeof map != 'object' || !map) throw new TypeError('The specified YAML document is invalid.');
+      if (!map || typeof map != 'object') throw new TypeError('The specified YAML document is invalid.');
       return new Configuration(map);
     }
 
@@ -166,7 +166,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    */
   merge(config: Configuration): void {
     for (const [key, value] of config)
-      if (value !== undefined) this.set(key, value);
+      if (value != undefined) this.set(key, value);
   }
 
   /**
