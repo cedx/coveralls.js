@@ -25,7 +25,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
     const config = new Configuration;
 
     // Standard.
-    const serviceName = 'CI_NAME' in env ? env.CI_NAME! : '';
+    const serviceName = env.CI_NAME ?? '';
     if (serviceName.length) config.set('service_name', serviceName);
 
     if ('CI_BRANCH' in env) config.set('service_branch', env.CI_BRANCH);
@@ -197,7 +197,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    */
   toJSON(): JsonObject {
     const map: JsonObject = {};
-    for (const [key, value] of this) map[key] = value;
+    for (const [key, value] of this) map[key] = value ?? null;
     return map;
   }
 }
