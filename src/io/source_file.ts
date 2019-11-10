@@ -1,4 +1,4 @@
-import {JsonObject} from './records';
+import {JsonObject} from './json';
 
 /** Represents a source code file and its coverage data for a single job. */
 export class SourceFile {
@@ -32,8 +32,8 @@ export class SourceFile {
    */
   static fromJson(map: JsonObject): SourceFile {
     const options = {
-      branches: Array.isArray(map.branches) ? map.branches : [],
-      coverage: Array.isArray(map.coverage) ? map.coverage : [],
+      branches: Array.isArray(map.branches) ? map.branches as number[] : [],
+      coverage: Array.isArray(map.coverage) ? map.coverage as number[] : [],
       source: typeof map.source == 'string' ? map.source : ''
     };
 

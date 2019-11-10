@@ -1,6 +1,6 @@
 import {exec} from 'child_process';
 import {promisify} from 'util';
-import {JsonObject} from './records';
+import {JsonObject} from './json';
 
 /** Represents a Git remote repository. */
 export class GitRemote {
@@ -150,9 +150,9 @@ export class GitData {
    * @return The instance corresponding to the specified JSON object.
    */
   static fromJson(map: JsonObject): GitData {
-    return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head) : undefined, {
+    return new GitData(typeof map.head == 'object' && map.head ? GitCommit.fromJson(map.head as JsonObject) : undefined, {
       branch: typeof map.branch == 'string' ? map.branch : '',
-      remotes: Array.isArray(map.remotes) ? map.remotes.map(GitRemote.fromJson) : []
+      remotes: Array.isArray(map.remotes) ? map.remotes.map(item => GitRemote.fromJson(item as JsonObject)) : []
     });
   }
 

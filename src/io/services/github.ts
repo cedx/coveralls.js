@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration';
-import {StringMap} from '../records';
+import {StringMap} from '../json';
 
 /**
  * Gets the [GitHub](https://github.com) configuration parameters from the environment.
@@ -11,11 +11,11 @@ export function getConfiguration(env: StringMap): Configuration {
   const commitSha = env.GITHUB_SHA;
   const repository = env.GITHUB_REPOSITORY;
 
-  const gitRef = 'GITHUB_REF' in env ? env.GITHUB_REF! : '';
+  const gitRef = env.GITHUB_REF ?? '';
   const gitRegex = /^refs\/\w+\//;
 
   return new Configuration({
-    commit_sha: commitSha ? commitSha : undefined,
+    commit_sha: commitSha ?? undefined,
     service_branch: gitRegex.test(gitRef) ? gitRef.replace(gitRegex, '') : undefined,
     service_build_url: commitSha && repository ? `https://github.com/${repository}/commit/${commitSha}/checks` : undefined,
     service_name: 'github'

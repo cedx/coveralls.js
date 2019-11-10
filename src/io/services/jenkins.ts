@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration';
-import {StringMap} from '../records';
+import {StringMap} from '../json';
 
 /**
  * Gets the [Jenkins](https://jenkins.io) configuration parameters from the environment.

@@ -1,6 +1,6 @@
 import {promises} from 'fs';
 import yaml from 'js-yaml';
-import {JsonObject, StringMap} from './records';
+import {JsonObject, StringMap} from './json';
 
 /** Provides access to the coverage settings. */
 export class Configuration implements Iterable<[string, string|undefined]> {

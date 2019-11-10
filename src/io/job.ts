@@ -1,5 +1,5 @@
 import {GitData} from './git';
-import {JsonObject} from './records';
+import {JsonObject} from './json';
 import {SourceFile} from './source_file';
 
 /** Represents the coverage data from a single run of a test suite. */
@@ -60,12 +60,12 @@ export class Job {
       repoToken: typeof map.repo_token == 'string' ? map.repo_token : '',
       serviceJobId: typeof map.service_job_id == 'string' ? map.service_job_id : '',
       serviceName: typeof map.service_name == 'string' ? map.service_name : '',
-      sourceFiles: Array.isArray(map.source_files) ? map.source_files.map(SourceFile.fromJson) : []
+      sourceFiles: Array.isArray(map.source_files) ? map.source_files.map(item => SourceFile.fromJson(item as JsonObject)) : []
     });
 
     job.commitSha = typeof map.commit_sha == 'string' ? map.commit_sha : '';
     job.flagName = typeof map.flag_name == 'string' ? map.flag_name : '';
-    job.git = typeof map.git == 'object' && map.git ? GitData.fromJson(map.git) : undefined;
+    job.git = typeof map.git == 'object' && map.git ? GitData.fromJson(map.git as JsonObject) : undefined;
     job.isParallel = typeof map.parallel == 'boolean' ? map.parallel : false;
     job.runAt = typeof map.run_at == 'string' ? new Date(map.run_at) : undefined;
     job.serviceNumber = typeof map.service_number == 'string' ? map.service_number : '';
