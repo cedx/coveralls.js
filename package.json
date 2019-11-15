@@ -20,14 +20,14 @@
   "dependencies": {
     "@cedx/lcov": "^6.1.0",
     "@cedx/which": "^6.1.0",
-    "commander": "^4.0.0",
+    "commander": "^4.0.1",
     "form-data": "^2.5.1",
     "js-yaml": "^3.13.1",
     "node-fetch": "^2.6.0",
     "xml2js": "^0.4.22"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.4",
+    "@types/chai": "^4.2.5",
     "@types/gulp": "^4.0.6",
     "@types/gulp-replace": "^0.0.31",
     "@types/js-yaml": "^3.12.1",
@@ -46,8 +46,8 @@
     "mocha": "^6.2.2",
     "nyc": "^15.0.0-beta.0",
     "source-map-support": "^0.5.16",
-    "ts-node": "^8.5.0",
-    "typedoc": "^0.15.0",
+    "ts-node": "^8.5.2",
+    "typedoc": "^0.15.2",
     "typescript": "^3.7.2"
   },
   "engines": {
