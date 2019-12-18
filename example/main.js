@@ -1,12 +1,11 @@
-/* eslint-disable no-console, @typescript-eslint/no-unused-vars */
 import {Client, ClientError} from '@cedx/coveralls';
 import {promises} from 'fs';
 
 /**
  * Uploads a coverage report.
- * @return Completes when the program is terminated.
+ * @return {Promise<void>} Completes when the program is terminated.
  */
-async function main(): Promise<void> {
+async function main() {
   try {
     const coverage = await promises.readFile('/path/to/coverage.report', 'utf8');
     await new Client().upload(coverage);
