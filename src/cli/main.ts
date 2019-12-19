@@ -21,7 +21,7 @@ export async function main(): Promise<void> {
   if (!program.file) {
     program.outputHelp();
     process.exitCode = 64;
-    return undefined;
+    return;
   }
 
   // Run the program.
