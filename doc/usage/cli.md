@@ -16,14 +16,14 @@ Then use it to upload your coverage reports:
 ```shell
 $ coveralls --help
 
-  Usage: coveralls [options] <file>
+Usage: coveralls [options] <file>
 
-  Send a coverage report to the Coveralls service.
+Send a coverage report to the Coveralls service.
 
-  Options:
+Options:
 
-    -h, --help         output usage information
-    -v, --version      output the version number
+  -h, --help         output usage information
+  -v, --version      output the version number
 ```
 
 For example:
