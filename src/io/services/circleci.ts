@@ -4,17 +4,17 @@ import {StringMap} from '../json';
 
 /**
  * Gets the [CircleCI](https://circleci.com) configuration parameters from the environment.
- * @param env A map providing environment variables.
+ * @param environment A map providing environment variables.
  * @return The configuration parameters.
  */
-export function getConfiguration(env: StringMap): Configuration {
+export function getConfiguration(environment: StringMap): Configuration {
   return new Configuration({
-    commit_sha: env.CIRCLE_SHA1,
-    parallel: 'CIRCLE_NODE_TOTAL' in env ? (Number.parseInt(env.CIRCLE_NODE_TOTAL!, 10) > 1 ? 'true' : 'false') : 'false',
-    service_branch: env.CIRCLE_BRANCH,
-    service_build_url: env.CIRCLE_BUILD_URL,
-    service_job_number: env.CIRCLE_NODE_INDEX,
+    commit_sha: environment.CIRCLE_SHA1,
+    parallel: 'CIRCLE_NODE_TOTAL' in environment ? (Number.parseInt(environment.CIRCLE_NODE_TOTAL!, 10) > 1 ? 'true' : 'false') : 'false',
+    service_branch: environment.CIRCLE_BRANCH,
+    service_build_url: environment.CIRCLE_BUILD_URL,
+    service_job_number: environment.CIRCLE_NODE_INDEX,
     service_name: 'circleci',
-    service_number: env.CIRCLE_BUILD_NUM
+    service_number: environment.CIRCLE_BUILD_NUM
   });
 }

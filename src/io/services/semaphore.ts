@@ -4,15 +4,15 @@ import {StringMap} from '../json';
 
 /**
  * Gets the [Semaphore](https://semaphoreci.com) configuration parameters from the environment.
- * @param env A map providing environment variables.
+ * @param environment A map providing environment variables.
  * @return The configuration parameters.
  */
-export function getConfiguration(env: StringMap): Configuration {
+export function getConfiguration(environment: StringMap): Configuration {
   return new Configuration({
-    commit_sha: env.REVISION,
-    service_branch: env.BRANCH_NAME,
+    commit_sha: environment.REVISION,
+    service_branch: environment.BRANCH_NAME,
     service_name: 'semaphore',
-    service_number: env.SEMAPHORE_BUILD_NUMBER,
-    service_pull_request: env.PULL_REQUEST_NUMBER
+    service_number: environment.SEMAPHORE_BUILD_NUMBER,
+    service_pull_request: environment.PULL_REQUEST_NUMBER
   });
 }

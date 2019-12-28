@@ -117,31 +117,31 @@ export class Client extends EventEmitter {
   /**
    * Updates the properties of the specified job using the given configuration parameters.
    * @param job The job to update.
-   * @param config The parameters to define.
+   * @param configuration The parameters to define.
    */
-  private _updateJob(job: Job, config: Configuration): void {
-    if (config.has('repo_token')) job.repoToken = config.get('repo_token')!;
-    else if (config.has('repo_secret_token')) job.repoToken = config.get('repo_secret_token')!;
+  private _updateJob(job: Job, configuration: Configuration): void {
+    if (configuration.has('repo_token')) job.repoToken = configuration.get('repo_token')!;
+    else if (configuration.has('repo_secret_token')) job.repoToken = configuration.get('repo_secret_token')!;
 
-    if (config.has('parallel')) job.isParallel = config.get('parallel') == 'true';
-    if (config.has('run_at')) job.runAt = new Date(config.get('run_at')!);
-    if (config.has('service_job_id')) job.serviceJobId = config.get('service_job_id')!;
-    if (config.has('service_name')) job.serviceName = config.get('service_name')!;
-    if (config.has('service_number')) job.serviceNumber = config.get('service_number')!;
-    if (config.has('service_pull_request')) job.servicePullRequest = config.get('service_pull_request')!;
+    if (configuration.has('parallel')) job.isParallel = configuration.get('parallel') == 'true';
+    if (configuration.has('run_at')) job.runAt = new Date(configuration.get('run_at')!);
+    if (configuration.has('service_job_id')) job.serviceJobId = configuration.get('service_job_id')!;
+    if (configuration.has('service_name')) job.serviceName = configuration.get('service_name')!;
+    if (configuration.has('service_number')) job.serviceNumber = configuration.get('service_number')!;
+    if (configuration.has('service_pull_request')) job.servicePullRequest = configuration.get('service_pull_request')!;
 
-    const hasGitData = config.keys.some(key => key == 'service_branch' || key.startsWith('git_'));
-    if (!hasGitData) job.commitSha = config.has('commit_sha') ? config.get('commit_sha')! : '';
+    const hasGitData = configuration.keys.some(key => key == 'service_branch' || key.startsWith('git_'));
+    if (!hasGitData) job.commitSha = configuration.has('commit_sha') ? configuration.get('commit_sha')! : '';
     else {
-      const commit = new GitCommit(config.has('commit_sha') ? config.get('commit_sha')! : '', {
-        authorEmail: config.has('git_author_email') ? config.get('git_author_email') : '',
-        authorName: config.has('git_author_name') ? config.get('git_author_name') : '',
-        committerEmail: config.has('git_committer_email') ? config.get('git_committer_email') : '',
-        committerName: config.has('git_committer_email') ? config.get('git_committer_email') : '',
-        message: config.has('git_message') ? config.get('git_message') : ''
+      const commit = new GitCommit(configuration.has('commit_sha') ? configuration.get('commit_sha')! : '', {
+        authorEmail: configuration.has('git_author_email') ? configuration.get('git_author_email') : '',
+        authorName: configuration.has('git_author_name') ? configuration.get('git_author_name') : '',
+        committerEmail: configuration.has('git_committer_email') ? configuration.get('git_committer_email') : '',
+        committerName: configuration.has('git_committer_email') ? configuration.get('git_committer_email') : '',
+        message: configuration.has('git_message') ? configuration.get('git_message') : ''
       });
 
-      job.git = new GitData(commit, {branch: config.has('service_branch') ? config.get('service_branch') : ''});
+      job.git = new GitData(commit, {branch: configuration.has('service_branch') ? configuration.get('service_branch') : ''});
     }
   }
 }

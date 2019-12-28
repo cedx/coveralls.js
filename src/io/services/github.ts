@@ -4,14 +4,14 @@ import {StringMap} from '../json';
 
 /**
  * Gets the [GitHub](https://github.com) configuration parameters from the environment.
- * @param env A map providing environment variables.
+ * @param environment A map providing environment variables.
  * @return The configuration parameters.
  */
-export function getConfiguration(env: StringMap): Configuration {
-  const commitSha = env.GITHUB_SHA;
-  const repository = env.GITHUB_REPOSITORY;
+export function getConfiguration(environment: StringMap): Configuration {
+  const commitSha = environment.GITHUB_SHA;
+  const repository = environment.GITHUB_REPOSITORY;
 
-  const gitRef = env.GITHUB_REF ?? '';
+  const gitRef = environment.GITHUB_REF ?? '';
   const gitRegex = /^refs\/\w+\//;
 
   return new Configuration({
