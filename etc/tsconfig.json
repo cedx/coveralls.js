@@ -4,7 +4,6 @@
     "allowJs": true
   },
   "include": [
-    "../*.ts",
     "../bin/*.js",
     "../src/**/*.ts",
     "../test/**/*.ts"
