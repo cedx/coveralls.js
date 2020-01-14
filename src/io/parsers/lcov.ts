@@ -1,7 +1,7 @@
 import {Report} from '@cedx/lcov';
 import {createHash} from 'crypto';
 import {promises} from 'fs';
-import {relative} from 'path';
+import {isAbsolute, relative} from 'path';
 
 import {Job} from '../job';
 import {SourceFile} from '../source_file';
@@ -28,7 +28,7 @@ export async function parseReport(report: string): Promise<Job> {
       branchData.taken
     );
 
-    const filename = relative(workingDir, record.sourceFile);
+    const filename = isAbsolute(record.sourceFile) ? relative(workingDir, record.sourceFile) : record.sourceFile;
     const digest = createHash('md5').update(source).digest('hex');
     sourceFiles.push(new SourceFile(filename, digest, {branches: branchCoverage, coverage: lineCoverage, source}));
   }

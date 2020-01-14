@@ -1,6 +1,6 @@
 import {createHash} from 'crypto';
 import {promises} from 'fs';
-import {relative} from 'path';
+import {isAbsolute, relative} from 'path';
 import {promisify} from 'util';
 import xml from 'xml2js';
 
@@ -65,7 +65,7 @@ export async function parseReport(report: string): Promise<Job> {
         coverage[Math.max(1, lineNumber) - 1] = Math.max(0, executionCount);
       }
 
-      const filename = relative(workingDir, sourceFile);
+      const filename = isAbsolute(sourceFile) ? relative(workingDir, sourceFile) : sourceFile;
       const digest = createHash('md5').update(source).digest('hex');
       sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
     }
