@@ -61,11 +61,11 @@ export class Client extends EventEmitter {
 
     let job;
     if (report.startsWith('<?xml') || report.startsWith('<coverage')) {
-      const {parseReport} = await import('./parsers/clover');
+      const {parseReport} = await import('./parsers/clover.js');
       job = await parseReport(report);
     }
     else if (report.startsWith('TN:') || report.startsWith('SF:')) {
-      const {parseReport} = await import('./parsers/lcov');
+      const {parseReport} = await import('./parsers/lcov.js');
       job = await parseReport(report);
     }
 

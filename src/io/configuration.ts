@@ -62,7 +62,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
 
     // CI services.
     const merge = async (service: string): Promise<void> => {
-      const {getConfiguration} = await import(`./services/${service}`);
+      const {getConfiguration} = await import(`./services/${service}.js`);
       configuration.merge(getConfiguration(environment));
     };
 
