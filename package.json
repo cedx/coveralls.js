@@ -18,8 +18,8 @@
     "coveralls": "bin/coveralls.js"
   },
   "dependencies": {
-    "@cedx/lcov": "^6.1.0",
-    "@cedx/which": "^6.1.0",
+    "@cedx/lcov": "^6.3.0",
+    "@cedx/which": "^6.3.0",
     "commander": "^4.1.0",
     "form-data": "^3.0.0",
     "js-yaml": "^3.13.1",
