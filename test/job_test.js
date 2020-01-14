@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import * as chai from 'chai';
-import {GitData, Job, SourceFile} from '../src/index';
+import chai from 'chai';
+import {GitData, Job, SourceFile} from '../lib/index.js';
 
 /** Tests the features of the [[Job]] class. */
 describe('Job', () => {
@@ -31,10 +30,10 @@ describe('Job', () => {
       expect(job.repoToken).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
 
       expect(job.git).to.be.an.instanceof(GitData);
-      expect(job.git!.branch).to.equal('develop');
+      expect(job.git.branch).to.equal('develop');
 
       expect(job.runAt).to.be.an.instanceof(Date);
-      expect(job.runAt!.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
+      expect(job.runAt.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
 
       expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(1);
       expect(job.sourceFiles[0]).to.be.an.instanceof(SourceFile);

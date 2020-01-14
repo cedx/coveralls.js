@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import * as chai from 'chai';
-import {SourceFile} from '../src/index';
+import chai from 'chai';
+import {SourceFile} from '../lib/index.js';
 
 /** Tests the features of the [[SourceFile]] class. */
 describe('SourceFile', () => {
