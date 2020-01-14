@@ -1,7 +1,7 @@
 import chai from 'chai';
 import {SourceFile} from '../lib/index.js';
 
-/** Tests the features of the [[SourceFile]] class. */
+/** Tests the features of the {@link SourceFile} class. */
 describe('SourceFile', () => {
   const {expect} = chai;
 

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import {Configuration} from '../lib/index.js';
 
-/** Tests the features of the [[Configuration]] class. */
+/** Tests the features of the {@link Configuration} class. */
 describe('Configuration', () => {
   const {expect} = chai;
 
