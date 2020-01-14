@@ -8,7 +8,7 @@
   "repository": "github:cedx/coveralls.js",
   "type": "module",
   "types": "lib/index.d.ts",
-  "version": "9.3.0",
+  "version": "9.4.0",
   "author": {
     "email": "cedric@belin.io",
     "name": "Cédric Belin",
