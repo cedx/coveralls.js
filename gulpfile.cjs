@@ -69,7 +69,7 @@ task('version', async () => {
 /** Watches for file changes. */
 task('watch', () => {
   watch('src/**/*.ts', {ignoreInitial: false}, task('build'));
-  watch('test/**/*.ts', task('test'));
+  watch('test/**/*.js', task('test'));
 });
 
 /** Runs the default tasks. */
