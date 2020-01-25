@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 import { Configuration } from './configuration';
 import { Job } from './job';
 /** An exception caused by an error in a [[Client]] request. */
