@@ -5,7 +5,7 @@ Before installing **Coveralls for JS**, you need to make sure you have [Node.js]
 and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 !!! warning
-    Coveralls for JS requires Node.js >= **12.15.0**.
+    Coveralls for JS requires Node.js >= **12.16.0**.
 
 You can verify if you're already good to go with the following commands:
 
