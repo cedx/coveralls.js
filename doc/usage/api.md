@@ -22,7 +22,7 @@ async function main() {
 }
 ```
 
-The `Client#upload()` method returns a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves when the coverage report has been uploaded.
+The `Client.upload()` method returns a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves when the coverage report has been uploaded.
 
 The promise rejects with a [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError)
 if the input report is invalid. It rejects with a `ClientError` if any error occurred while uploading the report.

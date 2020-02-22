@@ -8,7 +8,7 @@
 
 ## Version [9.2.0](https://github.com/cedx/coveralls.js/compare/v9.1.0...v9.2.0)
 - Added support for [GitHub Actions](https://github.com/features/actions).
-- Added the `Job#flagName` property.
+- Added the `Job.flagName` property.
 - Updated the package dependencies.
 
 ## Version [9.1.0](https://github.com/cedx/coveralls.js/compare/v9.0.0...v9.1.0)
@@ -48,8 +48,8 @@
 - Updated the package dependencies.
 
 ## Version [8.1.0](https://github.com/cedx/coveralls.js/compare/v8.0.0...v8.1.0)
-- The `Configuration#remove()` method now returns the removed value.
-- The `Configuration#set()` method now uses a fluent interface.
+- The `Configuration.remove()` method now returns the removed value.
+- The `Configuration.set()` method now uses a fluent interface.
 - Updated the package dependencies.
 
 ## Version [8.0.0](https://github.com/cedx/coveralls.js/compare/v7.1.0...v8.0.0)
@@ -91,7 +91,7 @@
 ## Version [4.0.0](https://github.com/cedx/coveralls.js/compare/v3.1.0...v4.0.0)
 - Breaking change: converted the [`Observable`](http://reactivex.io/intro.html)-based API to an `async/await`-based one.
 - Breaking change: converted the `Subject` event API to the [`EventEmitter`](https://nodejs.org/api/events.html) one.
-- Added the [`#[Symbol.toStringTag]`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) property to all classes.
+- Added the [`[Symbol.toStringTag]`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) property to all classes.
 - Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Version [3.1.0](https://github.com/cedx/coveralls.js/compare/v3.0.0...v3.1.0)
@@ -139,8 +139,8 @@
 - Updated the package dependencies.
 
 ## Version [0.6.0](https://github.com/cedx/coveralls.js/compare/v0.5.0...v0.6.0)
-- Breaking change: renamed the `Configuration#containsKey` method to `has`.
-- Breaking change: the `Configuration#remove` does not return anymore the removed value.
+- Breaking change: renamed the `Configuration.containsKey()` method to `has`.
+- Breaking change: the `Configuration.remove()` method does not return anymore the removed value.
 - Replaced the internal `Configuration` parameters object by a `Map`.
 - Updated the package dependencies.
 
