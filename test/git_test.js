@@ -31,7 +31,7 @@ describe('GitCommit', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new GitCommit('').toJSON();
       expect(Object.keys(map)).to.have.lengthOf(1);
@@ -107,7 +107,7 @@ describe('GitData', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new GitData().toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);
@@ -158,7 +158,7 @@ describe('GitRemote', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new GitRemote('').toJSON();
       expect(Object.keys(map)).to.have.lengthOf(2);

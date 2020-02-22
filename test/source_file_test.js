@@ -33,7 +33,7 @@ describe('SourceFile', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new SourceFile('', '').toJSON();
       expect(Object.keys(map)).to.have.lengthOf(3);

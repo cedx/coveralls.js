@@ -5,7 +5,7 @@ import {Configuration} from '../lib/index.js';
 describe('Configuration', () => {
   const {expect} = chai;
 
-  describe('#keys', () => {
+  describe('.keys', () => {
     it('should return an empty array for an empty configuration', () => {
       expect(new Configuration().keys).to.be.empty;
     });
@@ -18,7 +18,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#length', () => {
+  describe('.length', () => {
     it('should return zero for an empty configuration', () => {
       expect(new Configuration).to.have.lengthOf(0);
     });
@@ -84,7 +84,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#[SymbolIterator]()', () => {
+  describe('.[SymbolIterator]()', () => {
     it('should return a done iterator if configuration is empty', () => {
       const configuration = new Configuration;
       const iterator = configuration[Symbol.iterator]();
@@ -125,7 +125,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#get()', () => {
+  describe('.get()', () => {
     it('should properly get the configuration entries', () => {
       const configuration = new Configuration;
       expect(configuration.get('foo')).to.be.undefined;
@@ -135,7 +135,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#has()', () => {
+  describe('.has()', () => {
     it('should return `false` if the specified key is not contained', () => {
       expect(new Configuration().has('foo')).to.be.false;
     });
@@ -145,7 +145,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#merge()', () => {
+  describe('.merge()', () => {
     it('should have the same entries as the other configuration', () => {
       const configuration = new Configuration;
       expect(configuration).to.have.lengthOf(0);
@@ -157,7 +157,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#remove()', () => {
+  describe('.remove()', () => {
     it('should properly remove the configuration entries', () => {
       const configuration = new Configuration({bar: 'baz', foo: 'bar'});
       expect(configuration).to.have.lengthOf(2);
@@ -169,7 +169,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#set()', () => {
+  describe('.set()', () => {
     it('should properly set the configuration entries', () => {
       const configuration = new Configuration;
       expect(configuration.get('foo')).to.be.undefined;
@@ -179,7 +179,7 @@ describe('Configuration', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return an empty map for a newly created instance', () => {
       expect(new Configuration().toJSON()).to.be.an('object').that.is.empty;
     });

@@ -5,7 +5,7 @@ import {Client, Job} from '../lib/index.js';
 describe('Client', () => {
   const {expect} = chai;
 
-  describe('#upload()', () => {
+  describe('.upload()', () => {
     it('should throw an error with an empty coverage report', async () => {
       try {
         await (new Client).upload('');
@@ -29,7 +29,7 @@ describe('Client', () => {
     });
   });
 
-  describe('#uploadJob()', () => {
+  describe('.uploadJob()', () => {
     it('should throw an error with an empty test job', async () => {
       try {
         await (new Client).uploadJob(new Job);
