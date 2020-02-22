@@ -3,7 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "outDir": "../lib",
     "strict": true,

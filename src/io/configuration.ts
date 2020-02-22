@@ -6,14 +6,14 @@ import {JsonObject, StringMap} from './json';
 export class Configuration implements Iterable<[string, string|undefined]> {
 
   /** The configuration parameters. */
-  private _params: Map<string, string|undefined>;
+  readonly #params: Map<string, string|undefined>;
 
   /**
    * Creates a new configuration.
    * @param params The configuration parameters.
    */
   constructor(params: StringMap = {}) {
-    this._params = new Map<string, string|undefined>(Object.entries(params));
+    this.#params = new Map<string, string|undefined>(Object.entries(params));
   }
 
   /**
@@ -126,12 +126,12 @@ export class Configuration implements Iterable<[string, string|undefined]> {
 
   /** The keys of this configuration. */
   get keys(): string[] {
-    return [...this._params.keys()];
+    return [...this.#params.keys()];
   }
 
   /** The number of entries in this configuration. */
   get length(): number {
-    return this._params.size;
+    return this.#params.size;
   }
 
   /**
@@ -139,7 +139,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    * @return An iterator for the entries of this configuration.
    */
   [Symbol.iterator](): IterableIterator<[string, string|undefined]> {
-    return this._params.entries();
+    return this.#params.entries();
   }
 
   /**
@@ -148,7 +148,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    * @return The value of the configuration parameter, or `undefined` if the parameter is not found.
    */
   get(key: string): string|undefined {
-    return this._params.get(key);
+    return this.#params.get(key);
   }
 
   /**
@@ -157,7 +157,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    * @return `true` if this configuration contains the specified key, otherwise `false`.
    */
   has(key: string): boolean {
-    return this._params.has(key);
+    return this.#params.has(key);
   }
 
   /**
@@ -176,7 +176,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    */
   remove(key: string): string|undefined {
     const previousValue = this.get(key);
-    this._params.delete(key);
+    this.#params.delete(key);
     return previousValue;
   }
 
@@ -187,7 +187,7 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    * @return This instance.
    */
   set(key: string, value?: string): this {
-    this._params.set(key, value);
+    this.#params.set(key, value);
     return this;
   }
 

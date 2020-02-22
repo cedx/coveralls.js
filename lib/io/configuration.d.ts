@@ -1,8 +1,7 @@
 import { JsonObject, StringMap } from './json';
 /** Provides access to the coverage settings. */
 export declare class Configuration implements Iterable<[string, string | undefined]> {
-    /** The configuration parameters. */
-    private _params;
+    #private;
     /**
      * Creates a new configuration.
      * @param params The configuration parameters.
