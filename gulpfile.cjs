@@ -21,8 +21,7 @@ task('build', series('build:js', 'build:fix'));
 task('clean', () => del(['doc/api', 'lib', 'var/**/*', 'web']));
 
 /** Uploads the results of the code coverage. */
-task('coverage:run', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
-task('coverage', series('build', 'coverage:run'));
+task('coverage', () => _exec('node', ['bin/coveralls.js', 'var/lcov.info']));
 
 /** Builds the documentation. */
 task('doc', async () => {
