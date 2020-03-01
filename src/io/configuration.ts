@@ -18,70 +18,70 @@ export class Configuration implements Iterable<[string, string|undefined]> {
 
   /**
    * Creates a new configuration from the variables of the specified environment.
-   * @param environment A map providing environment variables.
+   * @param env A map providing environment variables.
    * @return The newly created configuration.
    */
-  static async fromEnvironment(environment: StringMap = process.env): Promise<Configuration> {
-    const configuration = new Configuration;
+  static async fromEnvironment(env: StringMap = process.env): Promise<Configuration> {
+    const config = new Configuration;
 
     // Standard.
-    const serviceName = environment.CI_NAME ?? '';
-    if (serviceName.length) configuration.set('service_name', serviceName);
+    const serviceName = env.CI_NAME ?? '';
+    if (serviceName.length) config.set('service_name', serviceName);
 
-    if ('CI_BRANCH' in environment) configuration.set('service_branch', environment.CI_BRANCH);
-    if ('CI_BUILD_NUMBER' in environment) configuration.set('service_number', environment.CI_BUILD_NUMBER);
-    if ('CI_BUILD_URL' in environment) configuration.set('service_build_url', environment.CI_BUILD_URL);
-    if ('CI_COMMIT' in environment) configuration.set('commit_sha', environment.CI_COMMIT);
-    if ('CI_JOB_ID' in environment) configuration.set('service_job_id', environment.CI_JOB_ID);
+    if ('CI_BRANCH' in env) config.set('service_branch', env.CI_BRANCH);
+    if ('CI_BUILD_NUMBER' in env) config.set('service_number', env.CI_BUILD_NUMBER);
+    if ('CI_BUILD_URL' in env) config.set('service_build_url', env.CI_BUILD_URL);
+    if ('CI_COMMIT' in env) config.set('commit_sha', env.CI_COMMIT);
+    if ('CI_JOB_ID' in env) config.set('service_job_id', env.CI_JOB_ID);
 
-    if ('CI_PULL_REQUEST' in environment) {
-      const matches = /(\d+)$/.exec(environment.CI_PULL_REQUEST!);
-      if (matches && matches.length >= 2) configuration.set('service_pull_request', matches[1]);
+    if ('CI_PULL_REQUEST' in env) {
+      const matches = /(\d+)$/.exec(env.CI_PULL_REQUEST!);
+      if (matches && matches.length >= 2) config.set('service_pull_request', matches[1]);
     }
 
     // Coveralls.
-    if ('COVERALLS_REPO_TOKEN' in environment || 'COVERALLS_TOKEN' in environment)
-      configuration.set('repo_token', environment.COVERALLS_REPO_TOKEN ? environment.COVERALLS_REPO_TOKEN : environment.COVERALLS_TOKEN);
+    if ('COVERALLS_REPO_TOKEN' in env || 'COVERALLS_TOKEN' in env)
+      config.set('repo_token', env.COVERALLS_REPO_TOKEN ? env.COVERALLS_REPO_TOKEN : env.COVERALLS_TOKEN);
 
-    if ('COVERALLS_COMMIT_SHA' in environment) configuration.set('commit_sha', environment.COVERALLS_COMMIT_SHA);
-    if ('COVERALLS_FLAG_NAME' in environment) configuration.set('flag_name', environment.COVERALLS_FLAG_NAME);
-    if ('COVERALLS_PARALLEL' in environment) configuration.set('parallel', environment.COVERALLS_PARALLEL);
-    if ('COVERALLS_RUN_AT' in environment) configuration.set('run_at', environment.COVERALLS_RUN_AT);
-    if ('COVERALLS_SERVICE_BRANCH' in environment) configuration.set('service_branch', environment.COVERALLS_SERVICE_BRANCH);
-    if ('COVERALLS_SERVICE_JOB_ID' in environment) configuration.set('service_job_id', environment.COVERALLS_SERVICE_JOB_ID);
-    if ('COVERALLS_SERVICE_NAME' in environment) configuration.set('service_name', environment.COVERALLS_SERVICE_NAME);
+    if ('COVERALLS_COMMIT_SHA' in env) config.set('commit_sha', env.COVERALLS_COMMIT_SHA);
+    if ('COVERALLS_FLAG_NAME' in env) config.set('flag_name', env.COVERALLS_FLAG_NAME);
+    if ('COVERALLS_PARALLEL' in env) config.set('parallel', env.COVERALLS_PARALLEL);
+    if ('COVERALLS_RUN_AT' in env) config.set('run_at', env.COVERALLS_RUN_AT);
+    if ('COVERALLS_SERVICE_BRANCH' in env) config.set('service_branch', env.COVERALLS_SERVICE_BRANCH);
+    if ('COVERALLS_SERVICE_JOB_ID' in env) config.set('service_job_id', env.COVERALLS_SERVICE_JOB_ID);
+    if ('COVERALLS_SERVICE_NAME' in env) config.set('service_name', env.COVERALLS_SERVICE_NAME);
 
     // Git.
-    if ('GIT_AUTHOR_EMAIL' in environment) configuration.set('git_author_email', environment.GIT_AUTHOR_EMAIL);
-    if ('GIT_AUTHOR_NAME' in environment) configuration.set('git_author_name', environment.GIT_AUTHOR_NAME);
-    if ('GIT_BRANCH' in environment) configuration.set('service_branch', environment.GIT_BRANCH);
-    if ('GIT_COMMITTER_EMAIL' in environment) configuration.set('git_committer_email', environment.GIT_COMMITTER_EMAIL);
-    if ('GIT_COMMITTER_NAME' in environment) configuration.set('git_committer_name', environment.GIT_COMMITTER_NAME);
-    if ('GIT_ID' in environment) configuration.set('commit_sha', environment.GIT_ID);
-    if ('GIT_MESSAGE' in environment) configuration.set('git_message', environment.GIT_MESSAGE);
+    if ('GIT_AUTHOR_EMAIL' in env) config.set('git_author_email', env.GIT_AUTHOR_EMAIL);
+    if ('GIT_AUTHOR_NAME' in env) config.set('git_author_name', env.GIT_AUTHOR_NAME);
+    if ('GIT_BRANCH' in env) config.set('service_branch', env.GIT_BRANCH);
+    if ('GIT_COMMITTER_EMAIL' in env) config.set('git_committer_email', env.GIT_COMMITTER_EMAIL);
+    if ('GIT_COMMITTER_NAME' in env) config.set('git_committer_name', env.GIT_COMMITTER_NAME);
+    if ('GIT_ID' in env) config.set('commit_sha', env.GIT_ID);
+    if ('GIT_MESSAGE' in env) config.set('git_message', env.GIT_MESSAGE);
 
     // CI services.
     const merge = async (service: string): Promise<void> => {
       const {getConfiguration} = await import(`./services/${service}.js`);
-      configuration.merge(getConfiguration(environment));
+      config.merge(getConfiguration(env));
     };
 
-    if ('TRAVIS' in environment) {
+    if ('TRAVIS' in env) {
       await merge('travis_ci');
-      if (serviceName.length && serviceName != 'travis-ci') configuration.set('service_name', serviceName);
+      if (serviceName.length && serviceName != 'travis-ci') config.set('service_name', serviceName);
     }
-    else if ('APPVEYOR' in environment) await merge('appveyor');
-    else if ('CIRCLECI' in environment) await merge('circleci');
+    else if ('APPVEYOR' in env) await merge('appveyor');
+    else if ('CIRCLECI' in env) await merge('circleci');
     else if (serviceName == 'codeship') await merge('codeship');
-    else if ('GITHUB_WORKFLOW' in environment) await merge('github');
-    else if ('GITLAB_CI' in environment) await merge('gitlab_ci');
-    else if ('JENKINS_URL' in environment) await merge('jenkins');
-    else if ('SEMAPHORE' in environment) await merge('semaphore');
-    else if ('SURF_SHA1' in environment) await merge('surf');
-    else if ('TDDIUM' in environment) await merge('solano_ci');
-    else if ('WERCKER' in environment) await merge('wercker');
+    else if ('GITHUB_WORKFLOW' in env) await merge('github');
+    else if ('GITLAB_CI' in env) await merge('gitlab_ci');
+    else if ('JENKINS_URL' in env) await merge('jenkins');
+    else if ('SEMAPHORE' in env) await merge('semaphore');
+    else if ('SURF_SHA1' in env) await merge('surf');
+    else if ('TDDIUM' in env) await merge('solano_ci');
+    else if ('WERCKER' in env) await merge('wercker');
 
-    return configuration;
+    return config;
   }
 
   /**
@@ -162,10 +162,10 @@ export class Configuration implements Iterable<[string, string|undefined]> {
 
   /**
    * Adds all entries of the specified configuration to this one, ignoring `undefined` values.
-   * @param configuration The configuration to be merged.
+   * @param config The configuration to be merged.
    */
-  merge(configuration: Configuration): void {
-    for (const [key, value] of configuration)
+  merge(config: Configuration): void {
+    for (const [key, value] of config)
       if (value != undefined) this.set(key, value);
   }
 

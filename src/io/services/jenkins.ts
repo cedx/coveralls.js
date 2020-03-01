@@ -4,17 +4,17 @@ import {StringMap} from '../json';
 
 /**
  * Gets the [Jenkins](https://jenkins.io) configuration parameters from the environment.
- * @param environment A map providing environment variables.
+ * @param env A map providing environment variables.
  * @return The configuration parameters.
  */
-export function getConfiguration(environment: StringMap): Configuration {
+export function getConfiguration(env: StringMap): Configuration {
   return new Configuration({
-    commit_sha: environment.GIT_COMMIT,
-    service_branch: environment.GIT_BRANCH,
-    service_build_url: environment.BUILD_URL,
-    service_job_id: environment.BUILD_ID,
+    commit_sha: env.GIT_COMMIT,
+    service_branch: env.GIT_BRANCH,
+    service_build_url: env.BUILD_URL,
+    service_job_id: env.BUILD_ID,
     service_name: 'jenkins',
-    service_number: environment.BUILD_NUMBER,
-    service_pull_request: environment.ghprbPullId
+    service_number: env.BUILD_NUMBER,
+    service_pull_request: env.ghprbPullId
   });
 }
