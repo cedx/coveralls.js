@@ -87,7 +87,7 @@ export class Job {
     if (this.git) map.git = this.git.toJSON();
     if (this.isParallel) map.parallel = true;
     if (this.repoToken.length) map.repo_token = this.repoToken;
-    if (this.runAt) map.run_at = this.runAt.toISOString();
+    if (this.runAt) map.run_at = this.runAt.toJSON();
     if (this.serviceName.length) map.service_name = this.serviceName;
     if (this.serviceNumber.length) map.service_number = this.serviceNumber;
     if (this.serviceJobId.length) map.service_job_id = this.serviceJobId;
