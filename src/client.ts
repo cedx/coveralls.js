@@ -3,10 +3,10 @@ import {EventEmitter} from 'events';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
 
-import {Configuration} from '../configuration';
+import {Configuration} from './configuration';
 import {RequestEvent, ResponseEvent} from './events';
-import {GitCommit, GitData} from '../git';
-import {Job} from '../job';
+import {GitCommit, GitData} from './git';
+import {Job} from './job';
 
 /** An exception caused by an error in a [[Client]] request. */
 export class ClientError extends Error {
@@ -61,11 +61,11 @@ export class Client extends EventEmitter {
 
     let job;
     if (report.startsWith('<?xml') || report.startsWith('<coverage')) {
-      const {parseReport} = await import('../parsers/clover.js');
+      const {parseReport} = await import('./parsers/clover.js');
       job = await parseReport(report);
     }
     else if (report.startsWith('TN:') || report.startsWith('SF:')) {
-      const {parseReport} = await import('../parsers/lcov.js');
+      const {parseReport} = await import('./parsers/lcov.js');
       job = await parseReport(report);
     }
 

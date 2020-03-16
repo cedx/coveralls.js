@@ -1,5 +1,5 @@
 path: blob/master
-source: src/http/client.ts
+source: src/client.ts
 
 # Application programming interface
 The hard way. Use the `Client` class to upload your coverage reports:

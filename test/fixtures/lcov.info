@@ -1,6 +1,6 @@
 TN:Example
 
-SF:src/http/client.ts
+SF:src/client.ts
 FN:4,Client#upload
 FNDA:2,Client#upload
 FNF:1

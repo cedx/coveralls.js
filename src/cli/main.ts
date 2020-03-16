@@ -1,6 +1,6 @@
 import program from 'commander';
 import {promises} from 'fs';
-import {Client} from '../http/client';
+import {Client} from '../client';
 import {packageVersion} from './version.g';
 
 /**
