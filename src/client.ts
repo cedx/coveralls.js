@@ -4,7 +4,6 @@ import FormData from 'form-data';
 import fetch from 'node-fetch';
 
 import {Configuration} from './configuration';
-import {RequestEvent, ResponseEvent} from './events';
 import {GitCommit, GitData} from './git';
 import {Job} from './job';
 
@@ -104,13 +103,13 @@ export class Client extends EventEmitter {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore: `fetch` has wrong typings.
     const request = new fetch.Request(url.href, {method: 'POST', body});
-    this.emit(Client.eventRequest, new RequestEvent(request));
+    this.emit(Client.eventRequest, request);
 
     let response;
     try { response = await fetch(request); }
     catch (err) { throw new ClientError(err.message, url); }
 
-    this.emit(Client.eventResponse, new ResponseEvent(response, request));
+    this.emit(Client.eventResponse, response, request);
     if (!response.ok) throw new ClientError(await response.text(), url);
   }
 
