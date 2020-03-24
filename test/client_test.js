@@ -1,44 +1,21 @@
-import chai from 'chai';
+import {strict as assert} from 'assert';
 import {Client, Job} from '../lib/index.js';
 
 /** Tests the features of the {@link Client} class. */
 describe('Client', () => {
-  const {expect} = chai;
-
   describe('.upload()', () => {
-    it('should throw an error with an empty coverage report', async () => {
-      try {
-        await (new Client).upload('');
-        expect.fail('Error not thrown');
-      }
-
-      catch (err) {
-        expect(err).to.be.an.instanceof(TypeError);
-      }
+    it('should reject with an empty coverage report', () => {
+      assert.rejects(new Client().upload(''), TypeError);
     });
 
-    it('should throw an error with an invalid coverage report', async () => {
-      try {
-        await (new Client).upload('end_of_record');
-        expect.fail('Error not thrown');
-      }
-
-      catch (err) {
-        expect(err).to.be.an.instanceof(TypeError);
-      }
+    it('should reject with an invalid coverage report', () => {
+      assert.rejects(new Client().upload('end_of_record'), TypeError);
     });
   });
 
   describe('.uploadJob()', () => {
-    it('should throw an error with an empty test job', async () => {
-      try {
-        await (new Client).uploadJob(new Job);
-        expect.fail('Error not thrown');
-      }
-
-      catch (err) {
-        expect(err).to.be.an.instanceof(TypeError);
-      }
+    it('should reject with an empty test job', () => {
+      assert.rejects(new Client().uploadJob(new Job), TypeError);
     });
   });
 });

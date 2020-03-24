@@ -1,18 +1,15 @@
-import chai from 'chai';
+import {strict as assert} from 'assert';
 import {SourceFile} from '../lib/index.js';
 
 /** Tests the features of the {@link SourceFile} class. */
 describe('SourceFile', () => {
-  const {expect} = chai;
-
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const file = SourceFile.fromJson({});
-      expect(file).to.be.an.instanceof(SourceFile);
-      expect(file.coverage).to.be.an('array').and.be.empty;
-      expect(file.name).to.be.empty;
-      expect(file.source).to.be.empty;
-      expect(file.sourceDigest).to.be.empty;
+      assert.equal(file.coverage.length, 0);
+      assert.equal(file.name.length, 0);
+      assert.equal(file.source.length, 0);
+      assert.equal(file.sourceDigest.length, 0);
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -23,24 +20,24 @@ describe('SourceFile', () => {
         source_digest: 'e23fb141da9a7b438479a48eac7b7249'
       });
 
-      expect(file).to.be.an.instanceof(SourceFile);
-      expect(file.coverage).to.be.an('array').and.have.lengthOf(7);
-      expect(file.coverage[0]).to.be.null;
-      expect(file.coverage[1]).to.equal(2);
-      expect(file.name).to.equal('coveralls.js');
-      expect(file.source).to.equal('function main() {}');
-      expect(file.sourceDigest).to.equal('e23fb141da9a7b438479a48eac7b7249');
+      assert.equal(file.coverage.length, 7);
+      assert.equal(file.coverage[0], null);
+      assert.equal(file.coverage[1], 2);
+      assert.equal(file.name, 'coveralls.js');
+      assert.equal(file.source, 'function main() {}');
+      assert.equal(file.sourceDigest, 'e23fb141da9a7b438479a48eac7b7249');
     });
   });
 
   describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new SourceFile('', '').toJSON();
-      expect(Object.keys(map)).to.have.lengthOf(3);
+      assert.equal(Object.keys(map).length, 3);
 
-      expect(map.coverage).to.be.an('array').and.be.empty;
-      expect(map.name).to.be.empty;
-      expect(map.source_digest).to.be.empty;
+      assert(Array.isArray(map.coverage));
+      assert.equal(map.coverage.length, 0);
+      assert.equal(map.name.length, 0);
+      assert.equal(map.source_digest.length, 0);
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -49,15 +46,16 @@ describe('SourceFile', () => {
         source: 'function main() {}'}
       ).toJSON();
 
-      expect(Object.keys(map)).to.have.lengthOf(4);
+      assert.equal(Object.keys(map).length, 4);
 
-      expect(map.coverage).to.be.an('array').and.have.lengthOf(7);
-      expect(map.coverage[0]).to.be.null;
-      expect(map.coverage[1]).to.equal(2);
+      assert(Array.isArray(map.coverage));
+      assert.equal(map.coverage.length, 7);
+      assert.equal(map.coverage[0], null);
+      assert.equal(map.coverage[1], 2);
 
-      expect(map.name).to.equal('coveralls.js');
-      expect(map.source).to.equal('function main() {}');
-      expect(map.source_digest).to.equal('e23fb141da9a7b438479a48eac7b7249');
+      assert.equal(map.name, 'coveralls.js');
+      assert.equal(map.source, 'function main() {}');
+      assert.equal(map.source_digest, 'e23fb141da9a7b438479a48eac7b7249');
     });
   });
 });

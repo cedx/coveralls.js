@@ -88,19 +88,20 @@ export class Configuration implements Iterable<[string, string|undefined]> {
    * Creates a new source file from the specified YAML document.
    * @param document A YAML document providing configuration parameters.
    * @return The instance corresponding to the specified YAML document.
-   * @throws [[TypeError]] The specified document is empty or invalid.
+   * @throws [[SyntaxError]] The specified document has an invalid format.
+   * @throws [[TypeError]] The specified document is empty.
    */
   static fromYaml(document: string): Configuration {
     if (!document.trim().length) throw new TypeError('The specified YAML document is empty.');
 
     try {
       const map = yaml.safeLoad(document);
-      if (!map || typeof map != 'object') throw new TypeError('The specified YAML document is invalid.');
+      if (!map || typeof map != 'object') throw new SyntaxError('The specified YAML document is invalid.');
       return new Configuration(map);
     }
 
     catch (err) {
-      if (err instanceof yaml.YAMLException) throw new TypeError('The specified YAML document is invalid.');
+      if (err instanceof yaml.YAMLException) throw new SyntaxError('The specified YAML document is invalid.');
       throw err;
     }
   }

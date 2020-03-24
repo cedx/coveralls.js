@@ -1,19 +1,16 @@
-import chai from 'chai';
+import {strict as assert} from 'assert';
 import {GitData, Job, SourceFile} from '../lib/index.js';
 
 /** Tests the features of the {@link Job} class. */
 describe('Job', () => {
-  const {expect} = chai;
-
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const job = Job.fromJson({});
-      expect(job).to.be.an.instanceof(Job);
-      expect(job.git).to.be.undefined;
-      expect(job.isParallel).to.be.false;
-      expect(job.repoToken).to.be.empty;
-      expect(job.runAt).to.be.undefined;
-      expect(job.sourceFiles).to.be.an('array').and.be.empty;
+      assert.equal(job.git, undefined);
+      assert.equal(job.isParallel, false);
+      assert.equal(job.repoToken.length, 0);
+      assert.equal(job.runAt, undefined);
+      assert.equal(job.sourceFiles.length, 0);
     });
 
     it('should return an initialized instance for a non-empty map', () => {
@@ -25,27 +22,27 @@ describe('Job', () => {
         source_files: [{name: '/home/cedx/coveralls.js'}]
       });
 
-      expect(job).to.be.an.instanceof(Job);
-      expect(job.isParallel).to.be.true;
-      expect(job.repoToken).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+      assert(job.isParallel);
+      assert.equal(job.repoToken, 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
 
-      expect(job.git).to.be.an.instanceof(GitData);
-      expect(job.git.branch).to.equal('develop');
+      assert(job.git instanceof GitData);
+      assert.equal(job.git.branch, 'develop');
 
-      expect(job.runAt).to.be.an.instanceof(Date);
-      expect(job.runAt.toISOString()).to.equal('2017-01-29T02:43:30.000Z');
+      assert(job.runAt instanceof Date);
+      assert.equal(job.runAt.toISOString(), '2017-01-29T02:43:30.000Z');
 
-      expect(job.sourceFiles).to.be.an('array').and.have.lengthOf(1);
-      expect(job.sourceFiles[0]).to.be.an.instanceof(SourceFile);
-      expect(job.sourceFiles[0].name).to.equal('/home/cedx/coveralls.js');
+      assert.equal(job.sourceFiles.length, 1);
+      assert(job.sourceFiles[0] instanceof SourceFile);
+      assert.equal(job.sourceFiles[0].name, '/home/cedx/coveralls.js');
     });
   });
 
   describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       const map = new Job().toJSON();
-      expect(Object.keys(map)).to.have.lengthOf(1);
-      expect(map.source_files).to.be.an('array').and.be.empty;
+      assert.equal(Object.keys(map).length, 1);
+      assert(Array.isArray(map.source_files));
+      assert.equal(map.source_files.length, 0);
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -56,17 +53,20 @@ describe('Job', () => {
       job.sourceFiles.push(new SourceFile('/home/cedx/coveralls.js', ''));
 
       const map = job.toJSON();
-      expect(Object.keys(map)).to.have.lengthOf(5);
-      expect(map.parallel).to.be.true;
-      expect(map.repo_token).to.equal('yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
-      expect(map.run_at).to.equal('2017-01-29T02:43:30.000Z');
+      assert.equal(Object.keys(map).length, 5);
+      assert(map.parallel);
+      assert.equal(map.repo_token, 'yYPv4mMlfjKgUK0rJPgN0AwNXhfzXpVwt');
+      assert.equal(map.run_at, '2017-01-29T02:43:30.000Z');
 
-      expect(map).to.be.an('object');
-      expect(map.git.branch).to.equal('develop');
+      assert.ok(map);
+      assert.equal(typeof map, 'object');
+      assert.equal(map.git.branch, 'develop');
 
-      expect(map.source_files).to.be.an('array').and.have.lengthOf(1);
-      expect(map.source_files[0]).to.be.an('object');
-      expect(map.source_files[0].name).to.equal('/home/cedx/coveralls.js');
+      assert(Array.isArray(map.source_files));
+      assert.equal(map.source_files.length, 1);
+      assert.ok(map.source_files[0]);
+      assert.equal(typeof map.source_files[0], 'object');
+      assert.equal(map.source_files[0].name, '/home/cedx/coveralls.js');
     });
   });
 });
