@@ -1,5 +1,7 @@
-path: blob/master
+---
+path: src/branch/master
 source: src/cli/main.ts
+---
 
 # Command line interface
 The easy way. From a command prompt with administrator privileges, install the `coveralls` executable:

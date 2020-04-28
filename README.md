@@ -7,14 +7,13 @@ in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [Ty
 > This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
 
 ## Documentation
-- [User guide](https://dev.belin.io/coveralls.js)
-- [API reference](https://dev.belin.io/coveralls.js/api)
+- [User guide](https://docs.belin.io/coveralls.js)
+- [API reference](https://api.belin.io/coveralls.js)
 
 ## Development
-- [Git repository](https://github.com/cedx/coveralls.js)
-- [GitHub package](https://github.com/cedx/coveralls.js/packages)
+- [Git repository](https://git.belin.io/cedx/coveralls.js)
 - [npm package](https://www.npmjs.com/package/@cedx/coveralls)
-- [Submit an issue](https://github.com/cedx/coveralls.js/issues)
+- [Submit an issue](https://git.belin.io/cedx/coveralls.js/issues)
 
 ## License
-[Coveralls for JS](https://dev.belin.io/coveralls.js) is distributed under the MIT License.
+[Coveralls for JS](https://docs.belin.io/coveralls.js) is distributed under the MIT License.

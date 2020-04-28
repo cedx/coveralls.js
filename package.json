@@ -1,11 +1,10 @@
 {
-  "bugs": "https://github.com/cedx/coveralls.js/issues",
+  "bugs": "https://git.belin.io/cedx/coveralls.js/issues",
   "description": "Send LCOV and Clover coverage reports to the Coveralls service.",
-  "homepage": "https://dev.belin.io/coveralls.js",
+  "homepage": "https://docs.belin.io/coveralls.js",
   "license": "MIT",
   "main": "lib/index.js",
   "name": "@cedx/coveralls",
-  "repository": "github:cedx/coveralls.js",
   "type": "module",
   "types": "lib/index.d.ts",
   "version": "9.4.0",
@@ -60,6 +59,10 @@
     "esm",
     "lcov"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.belin.io/cedx/coveralls.js.git"
+  },
   "scripts": {
     "coverage": "gulp coverage",
     "prepack": "gulp",
