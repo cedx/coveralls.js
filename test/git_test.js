@@ -93,7 +93,12 @@ describe('GitData', () => {
       assert.equal(origins.length, 1);
 
       const {href} = origins[0].url;
-      assert(href == 'https://github.com/cedx/coveralls.js' || href == 'https://github.com/cedx/coveralls.js.git');
+      assert([
+        'https://git.belin.io/cedx/coveralls.js', 
+        'https://git.belin.io/cedx/coveralls.js.git', 
+        'https://github.com/cedx/coveralls.js', 
+        'https://github.com/cedx/coveralls.js.git'
+      ].includes(href));
     });
   });
 
@@ -139,12 +144,12 @@ describe('GitRemote', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      let remote = GitRemote.fromJson({name: 'origin', url: 'git@github.com:cedx/coveralls.js.git'});
+      let remote = GitRemote.fromJson({name: 'origin', url: 'git@git.belin.io:cedx/coveralls.js.git'});
       assert.equal(remote.name, 'origin');
-      assert.equal(remote.url.href, 'ssh://git@github.com/cedx/coveralls.js.git');
+      assert.equal(remote.url.href, 'ssh://git@git.belin.io/cedx/coveralls.js.git');
 
-      remote = GitRemote.fromJson({name: 'origin', url: 'https://github.com/cedx/coveralls.js.git'});
-      assert.equal(remote.url.href, 'https://github.com/cedx/coveralls.js.git');
+      remote = GitRemote.fromJson({name: 'origin', url: 'https://git.belin.io/cedx/coveralls.js.git'});
+      assert.equal(remote.url.href, 'https://git.belin.io/cedx/coveralls.js.git');
     });
   });
 
@@ -157,13 +162,13 @@ describe('GitRemote', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      let map = new GitRemote('origin', 'git@github.com:cedx/coveralls.js.git').toJSON();
+      let map = new GitRemote('origin', 'git@git.belin.io:cedx/coveralls.js.git').toJSON();
       assert.equal(Object.keys(map).length, 2);
       assert.equal(map.name, 'origin');
-      assert.equal(map.url, 'ssh://git@github.com/cedx/coveralls.js.git');
+      assert.equal(map.url, 'ssh://git@git.belin.io/cedx/coveralls.js.git');
 
-      map = new GitRemote('origin', new URL('https://github.com/cedx/coveralls.js.git')).toJSON();
-      assert.equal(map.url, 'https://github.com/cedx/coveralls.js.git');
+      map = new GitRemote('origin', new URL('https://git.belin.io/cedx/coveralls.js.git')).toJSON();
+      assert.equal(map.url, 'https://git.belin.io/cedx/coveralls.js.git');
     });
   });
 });
