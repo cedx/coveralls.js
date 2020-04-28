@@ -1,6 +1,6 @@
 import {exec} from 'child_process';
 import {promisify} from 'util';
-import {JsonObject} from './json';
+import {JsonObject} from './json.js';
 
 /** Represents a Git remote repository. */
 export class GitRemote {

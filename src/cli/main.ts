@@ -1,7 +1,7 @@
 import program from 'commander';
 import {promises} from 'fs';
-import {Client} from '../client';
-import {packageVersion} from './version.g';
+import {Client} from '../client.js';
+import {packageVersion} from './version.g.js';
 
 /**
  * Application entry point.

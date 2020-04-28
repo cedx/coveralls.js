@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Configuration} from '../configuration';
-import {StringMap} from '../json';
+import {Configuration} from '../configuration.js';
+import {StringMap} from '../json.js';
 
 /**
  * Gets the [Travis CI](https://travis-ci.com) configuration parameters from the environment.

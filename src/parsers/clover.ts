@@ -3,9 +3,8 @@ import {promises} from 'fs';
 import {isAbsolute, normalize, relative} from 'path';
 import {promisify} from 'util';
 import xml from 'xml2js';
-
-import {Job} from '../job';
-import {SourceFile} from '../source_file';
+import {Job} from '../job.js';
+import {SourceFile} from '../source_file.js';
 
 /** Defines the shape of a node in an XML document. */
 type XmlNode = Record<string, any>;

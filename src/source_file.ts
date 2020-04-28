@@ -1,4 +1,4 @@
-import {JsonObject} from './json';
+import {JsonObject} from './json.js';
 
 /** Represents a source code file and its coverage data for a single job. */
 export class SourceFile {

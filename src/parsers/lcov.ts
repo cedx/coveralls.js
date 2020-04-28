@@ -2,9 +2,8 @@ import {Report} from '@cedx/lcov';
 import {createHash} from 'crypto';
 import {promises} from 'fs';
 import {isAbsolute, normalize, relative} from 'path';
-
-import {Job} from '../job';
-import {SourceFile} from '../source_file';
+import {Job} from '../job.js';
+import {SourceFile} from '../source_file.js';
 
 /**
  * Parses the specified [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) coverage report.

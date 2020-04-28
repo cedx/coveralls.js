@@ -2,10 +2,9 @@ import {which} from '@cedx/which';
 import {EventEmitter} from 'events';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
-
-import {Configuration} from './configuration';
-import {GitCommit, GitData} from './git';
-import {Job} from './job';
+import {Configuration} from './configuration.js';
+import {GitCommit, GitData} from './git.js';
+import {Job} from './job.js';
 
 /** An exception caused by an error in a [[Client]] request. */
 export class ClientError extends Error {

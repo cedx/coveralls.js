@@ -1,6 +1,6 @@
-import {GitData} from './git';
-import {JsonObject} from './json';
-import {SourceFile} from './source_file';
+import {GitData} from './git.js';
+import {JsonObject} from './json.js';
+import {SourceFile} from './source_file.js';
 
 /** Represents the coverage data from a single run of a test suite. */
 export class Job {
