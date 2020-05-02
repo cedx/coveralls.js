@@ -34,7 +34,7 @@ export declare class Client extends EventEmitter {
     constructor(endPoint?: URL);
     /**
      * Uploads the specified code coverage report to the Coveralls service.
-     * Rejects with a [[TypeError]] if the specified coverage report is empty or invalid.
+     * Rejects with a `TypeError` if the specified coverage report is empty or invalid.
      * @param coverage A coverage report.
      * @param config The environment settings.
      * @return Completes when the operation is done.
@@ -44,7 +44,7 @@ export declare class Client extends EventEmitter {
      * Uploads the specified job to the Coveralls service.
      *
      * Rejects with a [[ClientError]] if an error occurred while uploading the report.
-     * Rejects with a [[TypeError]] if the specified job does not meet the requirements.
+     * Rejects with a `TypeError` if the specified job does not meet the requirements.
      *
      * @param job The job to be uploaded.
      * @return Completes when the operation is done.

@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 import {GitCommit, GitData, GitRemote} from '../lib/index.js';
 
-/** Tests the features of the {@link GitCommit} class. */
+/** Tests the features of the `GitCommit` class. */
 describe('GitCommit', () => {
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
@@ -51,7 +51,7 @@ describe('GitCommit', () => {
   });
 });
 
-/** Tests the features of the {@link GitData} class. */
+/** Tests the features of the `GitData` class. */
 describe('GitData', () => {
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
@@ -134,7 +134,7 @@ describe('GitData', () => {
   });
 });
 
-/** Tests the features of the {@link GitRemote} class. */
+/** Tests the features of the `GitRemote` class. */
 describe('GitRemote', () => {
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {

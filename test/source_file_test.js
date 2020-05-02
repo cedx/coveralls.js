@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 import {SourceFile} from '../lib/index.js';
 
-/** Tests the features of the {@link SourceFile} class. */
+/** Tests the features of the `SourceFile` class. */
 describe('SourceFile', () => {
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {

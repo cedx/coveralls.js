@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 import {Configuration} from '../lib/index.js';
 
-/** Tests the features of the {@link Configuration} class. */
+/** Tests the features of the `Configuration` class. */
 describe('Configuration', () => {
   describe('.keys', () => {
     it('should return an empty array for an empty configuration', () => {

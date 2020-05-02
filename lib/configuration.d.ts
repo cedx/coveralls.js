@@ -17,8 +17,8 @@ export declare class Configuration implements Iterable<[string, string | undefin
      * Creates a new source file from the specified YAML document.
      * @param document A YAML document providing configuration parameters.
      * @return The instance corresponding to the specified YAML document.
-     * @throws [[SyntaxError]] The specified document has an invalid format.
-     * @throws [[TypeError]] The specified document is empty.
+     * @throws `SyntaxError` The specified document has an invalid format.
+     * @throws `TypeError` The specified document is empty.
      */
     static fromYaml(document: string): Configuration;
     /**

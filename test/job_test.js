@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 import {GitData, Job, SourceFile} from '../lib/index.js';
 
-/** Tests the features of the {@link Job} class. */
+/** Tests the features of the `Job` class. */
 describe('Job', () => {
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {

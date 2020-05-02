@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 import {Client, Job} from '../lib/index.js';
 
-/** Tests the features of the {@link Client} class. */
+/** Tests the features of the `Client` class. */
 describe('Client', () => {
   describe('.upload()', () => {
     it('should reject with an empty coverage report', () => {
