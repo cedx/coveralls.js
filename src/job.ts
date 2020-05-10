@@ -81,7 +81,6 @@ export class Job {
   toJSON(): JsonObject {
     const map: JsonObject = {};
 
-    /* eslint-disable @typescript-eslint/camelcase */
     if (this.commitSha.length) map.commit_sha = this.commitSha;
     if (this.flagName.length) map.flag_name = this.flagName;
     if (this.git) map.git = this.git.toJSON();
@@ -93,7 +92,6 @@ export class Job {
     if (this.serviceJobId.length) map.service_job_id = this.serviceJobId;
     if (this.servicePullRequest.length) map.service_pull_request = this.servicePullRequest;
     map.source_files = this.sourceFiles.map(item => item.toJSON());
-    /* eslint-enable @typescript-eslint/camelcase */
 
     return map;
   }

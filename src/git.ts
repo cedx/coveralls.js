@@ -93,7 +93,6 @@ export class GitCommit {
    * @return The map in JSON format corresponding to this object.
    */
   toJSON(): JsonObject {
-    /* eslint-disable @typescript-eslint/camelcase */
     const map: JsonObject = {id: this.id};
     if (this.authorEmail.length) map.author_email = this.authorEmail;
     if (this.authorName.length) map.author_name = this.authorName;
@@ -101,7 +100,6 @@ export class GitCommit {
     if (this.committerName.length) map.committer_name = this.committerName;
     if (this.message.length) map.message = this.message;
     return map;
-    /* eslint-enable @typescript-eslint/camelcase */
   }
 }
 
@@ -163,7 +161,6 @@ export class GitData {
    * @return The newly created data.
    */
   static async fromRepository(path: string = process.cwd()): Promise<GitData> {
-    /* eslint-disable @typescript-eslint/camelcase */
     const commands: Record<string, string> = {
       author_email: 'log -1 --pretty=format:%ae',
       author_name: 'log -1 --pretty=format:%aN',
@@ -174,7 +171,6 @@ export class GitData {
       message: 'log -1 --pretty=format:%s',
       remotes: 'remote -v'
     };
-    /* eslint-enable @typescript-eslint/camelcase */
 
     const execCommand = promisify(exec);
     for (const [key, value] of Object.entries(commands)) {

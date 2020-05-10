@@ -52,7 +52,7 @@ export class SourceFile {
     const map: JsonObject = {
       coverage: this.coverage,
       name: this.name,
-      source_digest: this.sourceDigest // eslint-disable-line @typescript-eslint/camelcase
+      source_digest: this.sourceDigest
     };
 
     if (this.branches.length) map.branches = this.branches;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import {Configuration} from '../configuration.js';
 import {StringMap} from '../json.js';
 
