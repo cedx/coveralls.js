@@ -99,8 +99,7 @@ export class Client extends EventEmitter {
     const body = new FormData;
     body.append('json_file', Buffer.from(JSON.stringify(job)), 'coveralls.json');
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore: `fetch` has wrong typings.
+    // @ts-expect-error: `fetch` has wrong typings.
     const request = new fetch.Request(url.href, {method: 'POST', body});
     this.emit(Client.eventRequest, request);
 
