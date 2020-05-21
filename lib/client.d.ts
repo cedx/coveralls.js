@@ -1,7 +1,7 @@
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import { Configuration } from './configuration.js';
-import { Job } from './job.js';
+import { EventEmitter } from "events";
+import { Configuration } from "./configuration.js";
+import { Job } from "./job.js";
 /** An exception caused by an error in a [[Client]] request. */
 export declare class ClientError extends Error {
     readonly uri?: URL | undefined;

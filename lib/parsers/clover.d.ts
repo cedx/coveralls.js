@@ -1,4 +1,4 @@
-import { Job } from '../job.js';
+import { Job } from "../job.js";
 /**
  * Parses the specified [Clover](https://www.atlassian.com/software/clover) coverage report.
  * Rejects with a `TypeError` if the specified report is empty or invalid.

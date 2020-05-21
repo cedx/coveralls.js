@@ -1,5 +1,5 @@
-import { Configuration } from '../configuration.js';
-import { StringMap } from '../json.js';
+import { Configuration } from "../configuration.js";
+import { StringMap } from "../json.js";
 /**
  * Gets the [GitLab CI](https://gitlab.com) configuration parameters from the environment.
  * @param env A map providing environment variables.

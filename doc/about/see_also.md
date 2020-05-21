@@ -8,7 +8,3 @@
 ## Testing
 - [Continuous integration](https://github.com/cedx/coveralls.js/actions)
 - [Code coverage](https://coveralls.io/github/cedx/coveralls.js)
-
-## Other implementations
-- Dart: [Coveralls for Dart](https://docs.belin.io/coveralls.dart)
-- PHP: [Coveralls for PHP](https://docs.belin.io/coveralls.php)

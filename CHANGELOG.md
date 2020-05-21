@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [10.1.0](https://git.belin.io/cedx/coveralls.js/compare/v10.0.0...v10.1.0)
+- Replaced the build system based on [Gulp](https://gulpjs.com) by [PowerShell](https://docs.microsoft.com/en-us/powershell) scripts.
+- Updated the package dependencies.
+
 ## Version [10.0.0](https://git.belin.io/cedx/coveralls.js/compare/v9.4.0...v10.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Dropped support for [GitHub Packages](https://github.com/features/packages).

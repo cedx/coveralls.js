@@ -9,11 +9,11 @@ in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 ## Quick start
 Install the latest version of **Coveralls for JS** with [npm](https://www.npmjs.com):
 
-```shell
+``` shell
 npm install @cedx/coveralls
 ```
 
 !!! info
-    This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
+	This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
 
 For detailed instructions, see the [installation guide](installation.md).

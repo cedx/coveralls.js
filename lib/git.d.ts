@@ -1,4 +1,4 @@
-import { JsonObject } from './json.js';
+import { JsonObject } from "./json.js";
 /** Represents a Git remote repository. */
 export declare class GitRemote {
     name: string;

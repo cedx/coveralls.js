@@ -1,10 +1,10 @@
-import {createHash} from 'crypto';
-import {promises} from 'fs';
-import {isAbsolute, normalize, relative} from 'path';
-import {promisify} from 'util';
-import xml from 'xml2js';
-import {Job} from '../job.js';
-import {SourceFile} from '../source_file.js';
+import {createHash} from "crypto";
+import {readFile} from "fs/promises";
+import {isAbsolute, normalize, relative} from "path";
+import {promisify} from "util";
+import xml from "xml2js";
+import {Job} from "../job.js";
+import {SourceFile} from "../source_file.js";
 
 /** Defines the shape of a node in an XML document. */
 type XmlNode = Record<string, any>;
@@ -16,7 +16,7 @@ type XmlNode = Record<string, any>;
  * @return The direct child elements with the given tag name.
  */
 function findElements(node: XmlNode, name: string): XmlNode[] {
-  return name in node && Array.isArray(node[name]) ? node[name] : [];
+	return name in node && Array.isArray(node[name]) ? node[name] : [];
 }
 
 /**
@@ -26,7 +26,7 @@ function findElements(node: XmlNode, name: string): XmlNode[] {
  * @return The attribute value with the given name.
  */
 function getAttribute(node: XmlNode, name: string): string {
-  return '$' in node && typeof node.$[name] == 'string' ? node.$[name] : '';
+	return "$" in node && typeof node.$[name] == "string" ? node.$[name] : "";
 }
 
 /**
@@ -36,38 +36,38 @@ function getAttribute(node: XmlNode, name: string): string {
  * @return The job corresponding to the specified coverage report.
  */
 export async function parseReport(report: string): Promise<Job> {
-  const parseXml = promisify<string, XmlNode>(xml.parseString);
-  const xmlDoc = await parseXml(report);
-  if (!xmlDoc.coverage || typeof xmlDoc.coverage != 'object') throw new TypeError('The specified Clover report is invalid.');
+	const parseXml = promisify<string, XmlNode>(xml.parseString);
+	const xmlDoc = await parseXml(report);
+	if (!xmlDoc.coverage || typeof xmlDoc.coverage != "object") throw new TypeError("The specified Clover report is invalid.");
 
-  const projects = findElements(xmlDoc.coverage, 'project');
-  if (!projects.length) throw new TypeError('The specified Clover report is empty.');
+	const projects = findElements(xmlDoc.coverage, "project");
+	if (!projects.length) throw new TypeError("The specified Clover report is empty.");
 
-  const workingDir = process.cwd();
-  const sourceFiles = [];
+	const workingDir = process.cwd();
+	const sourceFiles = [];
 
-  for (const pkg of findElements(projects[0], 'package'))
-    for (const file of findElements(pkg, 'file')) {
-      const sourceFile = getAttribute(file, 'name');
-      if (!sourceFile.length) throw new TypeError(`Invalid file data: ${JSON.stringify(file)}`);
+	for (const pkg of findElements(projects[0], "package"))
+		for (const file of findElements(pkg, "file")) {
+			const sourceFile = getAttribute(file, "name");
+			if (!sourceFile.length) throw new TypeError(`Invalid file data: ${JSON.stringify(file)}`);
 
-      const source = await promises.readFile(sourceFile, 'utf8');
-      const coverage = new Array(source.split(/\r?\n/).length).fill(null);
+			const source = await readFile(sourceFile, "utf8");
+			const coverage = new Array(source.split(/\r?\n/).length).fill(null);
 
-      for (const line of findElements(file, 'line')) {
-        if (getAttribute(line, 'type') != 'stmt') continue;
+			for (const line of findElements(file, "line")) {
+				if (getAttribute(line, "type") != "stmt") continue;
 
-        const lineNumber = Number.parseInt(getAttribute(line, 'num'), 10);
-        const executionCount = Number.parseInt(getAttribute(line, 'count'), 10);
-        if (Number.isNaN(lineNumber) || Number.isNaN(executionCount)) throw new TypeError(`Invalid line data: ${JSON.stringify(line)}`);
+				const lineNumber = Number.parseInt(getAttribute(line, "num"), 10);
+				const executionCount = Number.parseInt(getAttribute(line, "count"), 10);
+				if (Number.isNaN(lineNumber) || Number.isNaN(executionCount)) throw new TypeError(`Invalid line data: ${JSON.stringify(line)}`);
 
-        coverage[Math.max(1, lineNumber) - 1] = Math.max(0, executionCount);
-      }
+				coverage[Math.max(1, lineNumber) - 1] = Math.max(0, executionCount);
+			}
 
-      const filename = isAbsolute(sourceFile) ? relative(workingDir, sourceFile) : normalize(sourceFile);
-      const digest = createHash('md5').update(source).digest('hex');
-      sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
-    }
+			const filename = isAbsolute(sourceFile) ? relative(workingDir, sourceFile) : normalize(sourceFile);
+			const digest = createHash("md5").update(source).digest("hex");
+			sourceFiles.push(new SourceFile(filename, digest, {coverage, source}));
+		}
 
-  return new Job({sourceFiles});
+	return new Job({sourceFiles});
 }

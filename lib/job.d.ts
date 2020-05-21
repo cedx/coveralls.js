@@ -1,6 +1,6 @@
-import { GitData } from './git.js';
-import { JsonObject } from './json.js';
-import { SourceFile } from './source_file.js';
+import { GitData } from "./git.js";
+import { JsonObject } from "./json.js";
+import { SourceFile } from "./source_file.js";
 /** Represents the coverage data from a single run of a test suite. */
 export declare class Job {
     /** The current SHA of the commit being built to override the `git` parameter. */

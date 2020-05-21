@@ -1,4 +1,4 @@
-import { JsonObject, StringMap } from './json.js';
+import { JsonObject, StringMap } from "./json.js";
 /** Provides access to the coverage settings. */
 export declare class Configuration implements Iterable<[string, string | undefined]> {
     #private;

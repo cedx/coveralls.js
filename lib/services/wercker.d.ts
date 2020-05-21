@@ -1,5 +1,5 @@
-import { Configuration } from '../configuration.js';
-import { StringMap } from '../json.js';
+import { Configuration } from "../configuration.js";
+import { StringMap } from "../json.js";
 /**
  * Gets the [Wercker](https://app.wercker.com) configuration parameters from the environment.
  * @param env A map providing environment variables.
