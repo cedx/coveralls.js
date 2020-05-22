@@ -20,12 +20,8 @@ export async function parseReport(report: string): Promise<Job> {
 		if (record.lines) for (const lineData of record.lines.data) lineCoverage[lineData.lineNumber - 1] = lineData.executionCount;
 
 		const branchCoverage = [];
-		if (record.branches) for (const branchData of record.branches.data) branchCoverage.push(
-			branchData.lineNumber,
-			branchData.blockNumber,
-			branchData.branchNumber,
-			branchData.taken
-		);
+		if (record.branches) for (const branchData of record.branches.data)
+			branchCoverage.push(branchData.lineNumber, branchData.blockNumber, branchData.branchNumber, branchData.taken);
 
 		const filename = isAbsolute(record.sourceFile) ? relative(workingDir, record.sourceFile) : normalize(record.sourceFile);
 		const digest = createHash("md5").update(source).digest("hex");
