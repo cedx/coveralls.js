@@ -27,6 +27,6 @@ export async function main(): Promise<void> {
 	// Run the program.
 	const client = new Client("COVERALLS_ENDPOINT" in process.env ? new URL(process.env.COVERALLS_ENDPOINT!) : Client.defaultEndPoint);
 	const coverage = await readFile(program.file, "utf8");
-	console.log(`[Coveralls] Submitting to ${client.endPoint}`); // eslint-disable-line no-console
+	console.log(`[Coveralls] Submitting to ${client.endPoint.href}`); // eslint-disable-line no-console
 	return client.upload(coverage);
 }
