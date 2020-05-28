@@ -17,11 +17,11 @@
 		"coveralls": "./bin/coveralls.js"
 	},
 	"dependencies": {
-		"@cedx/lcov.hx": "^1.0.2",
-		"@cedx/which.hx": "^1.0.0",
+		"@cedx/lcov.hx": "^1.0.3",
+		"@cedx/which": "^7.0.1",
 		"commander": "^5.1.0",
 		"form-data": "^3.0.0",
-		"js-yaml": "^3.13.1",
+		"js-yaml": "^3.14.0",
 		"node-fetch": "^2.6.0",
 		"xml2js": "^0.4.23"
 	},
