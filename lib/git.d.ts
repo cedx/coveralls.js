@@ -74,19 +74,19 @@ export declare class GitData {
     /** The remote repositories. */
     remotes: GitRemote[];
     /**
-     * Creates a new Git data.
+     * Creates new Git data.
      * @param commit The Git commit.
      * @param options An object specifying values used to initialize this instance.
      */
     constructor(commit?: GitCommit | undefined, options?: Partial<GitDataOptions>);
     /**
-     * Creates a new Git data from the specified JSON object.
+     * Creates new Git data from the specified JSON object.
      * @param map A JSON object representing a Git data.
      * @return The instance corresponding to the specified JSON object.
      */
     static fromJson(map: JsonObject): GitData;
     /**
-     * Creates a new Git data from a local repository.
+     * Creates new Git data from a local repository.
      * This method relies on the availability of the Git executable in the system path.
      * @param path The path to the repository folder.
      * @return The newly created data.

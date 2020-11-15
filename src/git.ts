@@ -132,7 +132,7 @@ export class GitData {
 	remotes: GitRemote[];
 
 	/**
-	 * Creates a new Git data.
+	 * Creates new Git data.
 	 * @param commit The Git commit.
 	 * @param options An object specifying values used to initialize this instance.
 	 */
@@ -143,7 +143,7 @@ export class GitData {
 	}
 
 	/**
-	 * Creates a new Git data from the specified JSON object.
+	 * Creates new Git data from the specified JSON object.
 	 * @param map A JSON object representing a Git data.
 	 * @return The instance corresponding to the specified JSON object.
 	 */
@@ -155,7 +155,7 @@ export class GitData {
 	}
 
 	/**
-	 * Creates a new Git data from a local repository.
+	 * Creates new Git data from a local repository.
 	 * This method relies on the availability of the Git executable in the system path.
 	 * @param path The path to the repository folder.
 	 * @return The newly created data.
